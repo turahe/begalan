@@ -1,5 +1,5 @@
 /****************************************************************************
- * Teachify LMS v1.0.0
+ * WebAcademy v1.0.0
  * Learning Management System solution by Themeqx
  * Copyright 2020 | Themeqx | https://themeqx.com
  * @package Edugator Theme

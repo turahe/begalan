@@ -54,7 +54,7 @@
 
                 <div class="installations-logo">
                     <h4 class="mt-3 d-flex justify-content-center">
-                        <img src="{{asset('assets/images/teachify-lms-logo.svg')}}" />
+                        <img src="{{asset('assets/images/logo.png')}}" />
                         <span class="ml-3">Installations Wizard</span>
                     </h4>
                 </div>

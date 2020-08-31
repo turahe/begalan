@@ -27,7 +27,7 @@ if (file_exists(custom_base_path().'/.env')){
 
     <link rel="shortcut icon" href="./favicon.png"/>
 
-    <title> Teachify LMS - Installation Wizard</title>
+    <title> WebAcademy - Installation Wizard</title>
 
     <!-- all css here -->
 
@@ -91,7 +91,7 @@ if (file_exists(custom_base_path().'/.env')){
                         <span class="ml-3">Installations Wizard</span>
                     </h4>
                 </div>
-                <h5 class="text-info my-3">Server Requirements for the Teachify LMS</h5>
+                <h5 class="text-info my-3">Server Requirements for the WebAcademy</h5>
             </div>
 
             <div class="installations-requirements-check">

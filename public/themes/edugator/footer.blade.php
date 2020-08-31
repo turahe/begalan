@@ -10,7 +10,7 @@
                     <div class="footer-widget-wrap">
                         <h4>About US</h4>
                         <p class="footer-about-us-desc">
-                            Teachify is a LMS platform that connect Teachers with Students globally. Teachers crate high quality course and present them in super easy way. Teachify LMS created by <a href="https://themeqx.com" target="_blank">Themeqx</a>
+                            WebAcademy is a LMS platform that connect Teachers with Students globally. Teachers crate high quality course and present them in super easy way. Teachify LMS created by <a href="https://themeqx.com" target="_blank">Themeqx</a>
                         </p>
                         <p class="footer-social-icon-wrap">
                             <a href="#"><i class="la la-facebook"></i> </a>
@@ -25,12 +25,14 @@
                     <div class="footer-widget-wrap contact-us-widget-wrap">
                         <h4>Contact</h4>
                         <p class="footer-address">
-                            USA, New York 144, Next Avenue, New York
+                            Jalan Cibaduyut Raya No.142 Komplek Komersial Mekarwangi Square
+                            Bojongloa Kidul, Bandung 40236
+                            Jawa Barat - Indonesia
                         </p>
 
-                        <p class="mb-0"> Tel.: +1 234 452 341 55 </p>
-                        <p class="mb-0"> Fax: +1 979 132 225 675 </p>
-                        <p class="mb-0"> info@demo.com </p>
+                        <p class="mb-0"> Tel.:  (+62)-22-54480371 </p>
+                        <p class="mb-0"> Fax:  (+62)-22-54480371 </p>
+                        <p class="mb-0"> hello@circlecreative.id </p>
                     </div>
                 </div>
 
@@ -68,8 +70,8 @@
                     <div class="footer-bottom-contents-wrap d-flex">
 
                         <div class="footer-bottom-left d-flex">
-                            <h5 class="text-warning">teachify LMS</h5>
-                            <span class="ml-4">Copyright © 2020 teachify. All rights reserved.</span>
+                            <h5 class="text-warning">WebAcademy</h5>
+                            <span class="ml-4">Copyright &copy;; {{ date('Y') }} WebAcademy. All rights reserved.</span>
                         </div>
 
                         <div class="footer-bottom-right flex-grow-1 text-right">

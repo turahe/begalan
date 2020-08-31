@@ -227,7 +227,7 @@
         <div class="home-partners-logo-section pb-5 mb-5 text-center">
             <div class="container">
 
-                <h5 class="home-partners-title mb-5">Companies use Teachify to enrich their brand & business.</h5>
+                <h5 class="home-partners-title mb-5">Companies use WebAcademy to enrich their brand & business.</h5>
 
                 <div class="home-partners-logo-wrap">
                     <div class="logo-item">
@@ -267,7 +267,7 @@
 
                     <div class="home-cta-text-wrapper px-5 text-center">
                         <h4>Become an instructor</h4>
-                        <p>Spread your knowledge to millions of students around the world through teachify teaching platform. You can teach any tech you love from heart.
+                        <p>Spread your knowledge to millions of students around the world through WebAcademy teaching platform. You can teach any tech you love from heart.
                         </p>
                         <a href="{{route('create_course')}}" class="btn btn-theme-primary">Start Teaching Today</a>
 

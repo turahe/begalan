@@ -1,7 +1,7 @@
 <?php
 return [
-    'name'          => 'Edugator - Teachify LMS theme',
-    'description'   => 'Beautiful LMS theme that covers your needs, Powered By Teachify LMS',
+    'name'          => 'Edugator - WebAcademy theme',
+    'description'   => 'Beautiful LMS theme that covers your needs, Powered By WebAcademy',
     'url'           => 'https://themeqx.com',
     'author'        => 'Themeqx',
     'author_url'    => 'https://themeqx.com',

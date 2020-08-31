@@ -53,7 +53,7 @@
                 @if($logoUrl)
                     <img src="{{media_file_uri(get_option('site_logo'))}}" alt="{{get_option('site_title')}}" />
                 @else
-                    <img src="{{asset('assets/images/teachify-lms-logo.svg')}}" alt="{{get_option('site_title')}}" />
+                    <img src="{{asset('assets/images/logo.png')}}" alt="{{get_option('site_title')}}" />
                 @endif
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbarContent" aria-controls="mainNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
