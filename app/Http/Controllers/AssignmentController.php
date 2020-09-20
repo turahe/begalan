@@ -9,6 +9,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class AssignmentController
+ * @package App\Http\Controllers
+ */
 class AssignmentController extends Controller{
 
     /**
@@ -38,6 +42,10 @@ class AssignmentController extends Controller{
         return view(theme('dashboard.assignments.assignments'), compact('title', 'course', 'assignments'));
     }
 
+    /**
+     * @param $assignment_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function submissions($assignment_id){
         $title = __('assignment_submissions');
         $assignment = Content::find($assignment_id);

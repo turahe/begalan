@@ -6,9 +6,16 @@ use App\Option;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ * Class InstallationController
+ * @package App\Http\Controllers
+ */
 class InstallationController extends Controller
 {
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function installations(){
         if ( file_exists(base_path('.env')) ) {
             return redirect(route('home'));
@@ -19,6 +26,9 @@ class InstallationController extends Controller
         return view('installations.index',  compact('title'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function installationsTwo(){
         if ( file_exists(base_path('.env')) ) {
             return redirect(route('home'));
@@ -29,6 +39,11 @@ class InstallationController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function installationPost(Request $request){
         define('STDIN',fopen("php://stdin","r"));
 
@@ -106,6 +121,9 @@ class InstallationController extends Controller
                 Artisan::call('db:seed');*/
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function installationFinal(){
         if ( file_exists(base_path('.env')) ) {
             try {
@@ -125,6 +143,9 @@ class InstallationController extends Controller
         return view('installations.successful', compact('title'));
     }
 
+    /**
+     * @return string[]
+     */
     public function env_default_value(){
 
         $envValue = [

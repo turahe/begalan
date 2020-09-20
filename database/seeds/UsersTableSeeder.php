@@ -14,8 +14,8 @@ class UsersTableSeeder extends Seeder
         \Illuminate\Support\Facades\DB::table('users')->insert(
             [
                 0 => [
-                    'name'      => 'Margaret B. Davis',
-                    'email'     => 'admin@demo.com',
+                    'name'      => 'Circle Creative',
+                    'email'     => 'developer@circlecreative.id',
                     'password'  => bcrypt('123456'),
                     'user_type' => 'admin',
                     'active_status' => 1,
@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
                 ],
                 1 => [
                     'name'      => 'Bessie M. Artz',
-                    'email'     => 'instructor@demo.com',
+                    'email'     => 'instructor@circlecreative.id',
                     'password'  => bcrypt('123456'),
                     'user_type' => 'instructor',
                     'active_status' => 1,
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
                 ],
                 2 => [
                     'name'      => 'Sean J. McAlister',
-                    'email'     => 'student@demo.com',
+                    'email'     => 'student@circlecreative.id',
                     'password'  => bcrypt('123456'),
                     'user_type' => 'student',
                     'active_status' => 1,

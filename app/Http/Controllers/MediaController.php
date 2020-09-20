@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
+/**
+ * Class MediaController
+ * @package App\Http\Controllers
+ */
 class MediaController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function loadFileManager(Request $request){
         if ( ! $request->ajax()){
             abort(404);
@@ -107,6 +115,10 @@ class MediaController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function delete(Request $request){
         if(config('app.is_demo')) return ['success' => false, 'msg' => __a('demo_restriction')];
 
@@ -161,6 +173,10 @@ class MediaController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function mediaManager(Request $request){
         $title = __a('media_manager');
 
@@ -177,6 +193,10 @@ class MediaController extends Controller
         return view('admin.media_manager', compact('title', 'medias'));
     }
 
+    /**
+     * @param Request $request
+     * @return bool[]
+     */
     public function mediaManagerUpdate(Request $request){
         if ($request->media_id){
             Media::whereId($request->media_id)->update(['title' => $request->title, 'alt_text' => $request->alt_text]);

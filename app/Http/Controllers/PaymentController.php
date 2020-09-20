@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 
+/**
+ * Class PaymentController
+ * @package App\Http\Controllers
+ */
 class PaymentController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function index(Request $request){
         $ids = $request->bulk_ids;
 
@@ -47,6 +55,10 @@ class PaymentController extends Controller
         return view('admin.payments.payments', compact('title', 'payments'));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function view($id){
         $title = __a('payment_details');
         $payment = Payment::find($id);
@@ -87,16 +99,25 @@ class PaymentController extends Controller
         return back()->with('success', __a('success'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function PaymentGateways(){
         $title = __a('payment_settings');
         return view('admin.payments.gateways.payment_gateways', compact('title'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function PaymentSettings(){
         $title = __a('payment_settings');
         return view('admin.payments.gateways.payment_settings', compact('title'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function thankYou(){
         $title = __t('payment_thank_you');
         return view(theme('payment-thank-you'), compact('title'));

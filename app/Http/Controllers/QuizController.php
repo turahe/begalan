@@ -15,9 +15,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class QuizController
+ * @package App\Http\Controllers
+ */
 class QuizController extends Controller
 {
 
+    /**
+     * @param $slug
+     * @param $quiz_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function quizView($slug, $quiz_id){
         $quiz = Content::find($quiz_id);
         $course = $quiz->course;
@@ -32,6 +41,10 @@ class QuizController extends Controller
         return view(theme('quiz'), compact('course', 'title', 'isEnrolled', 'quiz'));
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function start(Request $request){
         $user = Auth::user();
 
@@ -58,6 +71,10 @@ class QuizController extends Controller
         return ['success' => 1, 'quiz_url' => route('quiz_attempt_url', $quiz_id)];
     }
 
+    /**
+     * @param $quiz_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function quizAttempting($quiz_id){
         $quiz = Quiz::find($quiz_id);
         if ( ! $quiz){
@@ -120,6 +137,11 @@ class QuizController extends Controller
         return view(theme('quiz_attempt'), compact( 'title', 'quiz', 'attempt', 'question', 'answered', 'q_number'));
     }
 
+    /**
+     * @param Request $request
+     * @param $quiz_id
+     * @return array
+     */
     public function answerSubmit(Request $request, $quiz_id){
         $user = Auth::user();
 
@@ -216,6 +238,12 @@ class QuizController extends Controller
         return ['success' => true, 'item_id' => $lecture->id];
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @param $item_id
+     * @return array|bool[]
+     */
     public function updateQuiz(Request $request, $course_id, $item_id){
         $rules = [
             'title' => 'required'
@@ -249,6 +277,12 @@ class QuizController extends Controller
         return ['success' => true];
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @param $quiz_id
+     * @return array
+     */
     public function createQuestion(Request $request, $course_id, $quiz_id){
         $validation = Validator::make($request->input(), ['question_title' => 'required']);
 
@@ -300,18 +334,30 @@ class QuizController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function loadQuestions(Request $request){
         $quiz = Content::find($request->quiz_id);
         $html = view_template_part( 'dashboard.courses.quiz.questions', compact('quiz'));
         return ['success' => 1, 'html' => $html];
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function editQuestion(Request $request){
         $question = Question::find($request->question_id);
         $html = view_template_part( 'dashboard.courses.quiz.edit_question', compact('question'));
         return ['success' => 1, 'html' => $html];
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function updateQuestion(Request $request){
         $validation = Validator::make($request->input(), ['question_title' => 'required']);
 
@@ -377,20 +423,35 @@ class QuizController extends Controller
         }
     }
 
+    /**
+     * @param $quiz_id
+     * @return int
+     */
     public function next_question_sort_id($quiz_id){
         $sort = (int) DB::table('questions')->where('quiz_id', $quiz_id)->max('sort_order');
         return $sort +1;
     }
+
+    /**
+     * @param $question_id
+     * @return int
+     */
     public function next_question_option_sort_id($question_id){
         $sort = (int) DB::table('question_options')->where('question_id', $question_id)->max('sort_order');
         return $sort +1;
     }
 
+    /**
+     * @param Request $request
+     */
     public function deleteQuestion(Request $request){
         $question = Question::find($request->question_id);
         $question->delete_sync();
     }
 
+    /**
+     * @param Request $request
+     */
     public function deleteOption(Request $request){
         QuestionOption::whereId($request->option_id)->delete();
     }
@@ -408,24 +469,41 @@ class QuizController extends Controller
         return view(theme('dashboard.quizzes.index'), compact('title', 'courses'));
     }
 
+    /**
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function quizzes($course_id){
         $title = __t('quizzes');
         $course = Course::find($course_id);
         return view(theme('dashboard.quizzes.quizzes'), compact('title', 'course'));
     }
 
+    /**
+     * @param $quiz_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function attempts($quiz_id){
         $title = __t('quiz_attempts');
         $quiz = Quiz::find($quiz_id);
         return view(theme('dashboard.quizzes.attempts'), compact('title', 'quiz'));
     }
 
+    /**
+     * @param $attempt_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function attemptDetail($attempt_id){
         $title = __t('review_attempt');
         $attempt = Attempt::find($attempt_id);
         return view(theme('dashboard.quizzes.attempt'), compact('title', 'attempt'));
     }
 
+    /**
+     * @param Request $request
+     * @param $attempt_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function attemptReview(Request $request, $attempt_id){
         if ($request->review_btn === 'delete'){
             //Delete this attempt
@@ -456,6 +534,9 @@ class QuizController extends Controller
         return back()->with('success', 'reviewed');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function myQuizAttempts(){
         $title = __t('my_quiz_attempts');
 

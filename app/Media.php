@@ -4,6 +4,43 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Media
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property string|null $name
+ * @property string|null $title
+ * @property string|null $alt_text
+ * @property string|null $slug
+ * @property string|null $slug_ext
+ * @property string|null $file_size
+ * @property string|null $mime_type
+ * @property string|null $metadata
+ * @property int|null $sort_order
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $media_info
+ * @property-read mixed $readable_size
+ * @property-read mixed $thumbnail
+ * @method static \Illuminate\Database\Eloquent\Builder|Media newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Media newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Media query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereAltText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereFileSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereMetadata($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereMimeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereSlugExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Media whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Media extends Model
 {
     protected $guarded = [];

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 
+/**
+ * Class IPNController
+ * @package App\Http\Controllers
+ */
 class IPNController extends Controller
 {
 
@@ -35,6 +39,9 @@ class IPNController extends Controller
         header("HTTP/1.1 200 OK");
     }
 
+    /**
+     * @return bool
+     */
     public function paypal_ipn_verify(){
         $paypal_action_url = "https://www.paypal.com/cgi-bin/webscr";
         if (get_option('enable_paypal_sandbox'))

@@ -7,9 +7,17 @@ use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class CartController
+ * @package App\Http\Controllers
+ */
 class CartController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function addToCart(Request $request){
         if ( ! Auth::check()){
             if ($request->ajax()){
@@ -59,6 +67,9 @@ class CartController extends Controller
         return ['success' => 1, 'cart_html' => view_template_part('template-part.minicart') ];
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function checkout(){
         $title = __('checkout');
         return view(theme('checkout'), compact('title'));

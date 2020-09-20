@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class CourseController
+ * @package App\Http\Controllers
+ */
 class CourseController extends Controller
 {
 
@@ -26,7 +30,9 @@ class CourseController extends Controller
      */
 
     public function view($slug){
-        $course = Course::whereSlug($slug)->with('sections', 'sections.items', 'sections.items.attachments')->first();
+        $course = Course::whereSlug($slug)
+            ->with('sections', 'sections.items', 'sections.items.attachments')
+            ->first();
 
         if ( ! $course){
             abort(404);
@@ -98,6 +104,11 @@ class CourseController extends Controller
         return view(theme('lecture'), compact('course', 'title', 'isEnrolled', 'lecture', 'isOpen'));
     }
 
+    /**
+     * @param $slug
+     * @param $assignment_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function assignmentView($slug, $assignment_id){
         $assignment = Content::find($assignment_id);
         $course = $assignment->course;
@@ -113,6 +124,12 @@ class CourseController extends Controller
         return view(theme('assignment'), compact('course', 'title', 'isEnrolled', 'assignment', 'has_submission'));
     }
 
+    /**
+     * @param Request $request
+     * @param $slug
+     * @param $assignment_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function assignmentSubmitting(Request $request, $slug, $assignment_id){
         $user = Auth::user();
         $user_id = $user->id;
@@ -156,6 +173,9 @@ class CourseController extends Controller
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(){
         $title = __t('create_new_course');
         $categories = Category::parent()->get();
@@ -163,6 +183,11 @@ class CourseController extends Controller
         return view(theme('dashboard.courses.create_course'), compact('title', 'categories'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request){
         $rules = [
             'title' => 'required',
@@ -211,6 +236,10 @@ class CourseController extends Controller
         return redirect(route('edit_course_information', $course->id));
     }
 
+    /**
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function information($course_id){
         $title = __t('information');
         $course = Course::find($course_id);
@@ -222,7 +251,13 @@ class CourseController extends Controller
         return view(theme('dashboard.courses.information'), compact('title', 'course', 'categories', 'topics'));
     }
 
-    public function informationPost( Request $request, $course_id){
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function informationPost(Request $request, $course_id){
         $rules = [
             'title'             => 'required|max:120',
             'short_description' => 'max:220',
@@ -266,6 +301,10 @@ class CourseController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function curriculum($course_id){
         $title = __t('curriculum');
         $course = Course::find($course_id);
@@ -277,12 +316,22 @@ class CourseController extends Controller
     }
 
 
+    /**
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function newSection($course_id){
         $title = __t('curriculum');
         $course = Course::find($course_id);
         return view(theme('dashboard.courses.new_section'), compact('title', 'course'));
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function newSectionPost(Request $request, $course_id){
         $rules = [
             'section_name' => 'required',
@@ -313,6 +362,10 @@ class CourseController extends Controller
         Section::whereId($id)->update(['section_name' => clean_html($request->section_name)]);
     }
 
+    /**
+     * @param Request $request
+     * @return array|bool[]
+     */
     public function deleteSection(Request $request){
         if(config('app.is_demo')) return ['success' => false, 'msg' => __t('demo_restriction')];
 
@@ -326,6 +379,11 @@ class CourseController extends Controller
         return ['success' => true];
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @return array
+     */
     public function newLecture(Request $request, $course_id){
         $rules = [
             'title' => 'required'
@@ -369,6 +427,10 @@ class CourseController extends Controller
         return ['success' => true, 'item_id' => $lecture->id];
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function loadContents(Request $request){
         $section = Section::find($request->section_id);
 
@@ -377,6 +439,12 @@ class CourseController extends Controller
         return ['success' => true, 'html' => $html];
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @param $item_id
+     * @return array|bool[]
+     */
     public function updateLecture(Request $request, $course_id, $item_id){
         $rules = [
             'title' => 'required'
@@ -431,6 +499,10 @@ class CourseController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function editItem(Request $request){
         $item_id = $request->item_id;
         $item = Content::find($item_id);
@@ -448,12 +520,20 @@ class CourseController extends Controller
         return ['success' => true, 'form_html' => $form_html];
     }
 
+    /**
+     * @param Request $request
+     * @return bool[]
+     */
     public function deleteItem(Request $request){
         $item_id = $request->item_id;
         Content::destroy($item_id);
         return ['success' => true];
     }
 
+    /**
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function pricing($course_id){
         $title = __t('course_pricing');
         $course = Course::find($course_id);
@@ -464,7 +544,13 @@ class CourseController extends Controller
         return view(theme('dashboard.courses.pricing'), compact('title', 'course'));
     }
 
-    public function pricingSet(Request $request,  $course_id){
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function pricingSet(Request $request, $course_id){
 
         if ($request->price_plan == 'paid'){
             $rules = [
@@ -494,6 +580,10 @@ class CourseController extends Controller
         return back();
     }
 
+    /**
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function drip($course_id){
         $title = __t('drip_content');
         $course = Course::find($course_id);
@@ -503,6 +593,12 @@ class CourseController extends Controller
 
         return view(theme('dashboard.courses.drip'), compact('title', 'course'));
     }
+
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function dripPost(Request $request, $course_id){
 
         $sections = $request->section;
@@ -519,7 +615,10 @@ class CourseController extends Controller
     }
 
 
-
+    /**
+     * @param $course_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function publish($course_id){
         $title = __t('publish_course');
         $course = Course::find($course_id);
@@ -530,6 +629,11 @@ class CourseController extends Controller
         return view(theme('dashboard.courses.publish'), compact('title', 'course'));
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function publishPost(Request $request, $course_id){
         $course = Course::find($course_id);
         if ( ! $course || ! $course->i_am_instructor){
@@ -595,6 +699,11 @@ class CourseController extends Controller
         return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id ] ));
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function complete(Request $request, $course_id){
         $user = Auth::user();
         $user->complete_course($course_id);
@@ -602,6 +711,10 @@ class CourseController extends Controller
         return back();
     }
 
+    /**
+     * @param $hash
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function attachmentDownload($hash){
         $attachment = Attachment::whereHashId($hash)->first();
         if ( ! $attachment ||  ! $attachment->media){
@@ -638,6 +751,10 @@ class CourseController extends Controller
         return $this->forceDownload($attachment->media);
     }
 
+    /**
+     * @param $media
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function forceDownload($media){
         $source = get_option('default_storage');
         $slug_ext = $media->slug_ext;
@@ -656,6 +773,11 @@ class CourseController extends Controller
         return response()->download($path);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function writeReview(Request $request, $id){
         if ($request->rating_value < 1){
             return back();
@@ -692,6 +814,9 @@ class CourseController extends Controller
         return view(theme('dashboard.my_courses'), compact('title'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function myCoursesReviews(){
         $title = __t('my_courses_reviews');
         return view(theme('dashboard.my_courses_reviews'), compact('title'));

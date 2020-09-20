@@ -7,9 +7,16 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Finder\Finder;
 
+/**
+ * Class ExtendController
+ * @package App\Http\Controllers
+ */
 class ExtendController extends Controller
 {
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function plugins(){
         $title = __a('plugins');
         $plugins = app('TeachifyPlugins')->getPlugins();
@@ -44,6 +51,9 @@ class ExtendController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function findPlugins(){
         $title = __a('find_plugins');
         $extended_products = (array) $this->extended_products();
@@ -52,6 +62,9 @@ class ExtendController extends Controller
         return view('extend.find_plugins', compact('title', 'extended_plugins'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function themes(){
         $title = __a('themes');
 
@@ -79,12 +92,19 @@ class ExtendController extends Controller
         return view('extend.themes', compact('title', 'installed_themes'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function activateTheme(Request $request){
         $theme = $request->theme_slug;
         update_option('current_theme', $theme);
         return back()->with('success', __a('theme_activated'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function findThemes(){
         $title = __a('find_themes');
         $extended_products = (array) $this->extended_products();
@@ -93,6 +113,9 @@ class ExtendController extends Controller
         return view('extend.find_themes', compact('title', 'themes'));
     }
 
+    /**
+     * @return mixed
+     */
     public function extended_products(){
         $products = Cache::remember('child_products', now()->addDays(1), function () {
             try {

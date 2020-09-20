@@ -9,6 +9,10 @@ use Stripe\Charge;
 use Stripe\Exception\CardException;
 use Stripe\Stripe;
 
+/**
+ * Class GatewayController
+ * @package App\Http\Controllers
+ */
 class GatewayController extends Controller
 {
 
@@ -76,6 +80,9 @@ class GatewayController extends Controller
         }
     }
 
+    /**
+     * @return string
+     */
     public function payment_success_html(){
         $html = ' <div class="payment-received text-center">
                             <h1> <i class="fa fa-check-circle-o"></i> '.__t('payment_thank_you').'</h1>
@@ -86,7 +93,10 @@ class GatewayController extends Controller
     }
 
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function bankPost(Request $request){
         $cart = cart();
         $amount = $cart->total_amount;
@@ -196,6 +206,10 @@ class GatewayController extends Controller
         return redirect($URL);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function payOffline(Request $request){
         $cart = cart();
         $amount = $cart->total_amount;

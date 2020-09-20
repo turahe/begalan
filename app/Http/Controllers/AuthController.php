@@ -11,14 +11,26 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers
+ */
 class AuthController extends Controller
 {
 
+    /**
+     * @return string
+     */
     public function login(){
         $title = __t('login');
         return view_template('login', compact('title'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function loginPost(Request $request){
         $rules = [
             'email' => 'required|email',
@@ -50,11 +62,19 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @return string
+     */
     public function register(){
         $title = __t('signup');
         return view_template('register', compact('title'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function registerPost(Request $request){
         $rules = [
             'name' => 'required|max:255',
@@ -78,16 +98,27 @@ class AuthController extends Controller
         return back()->with('error', __t('failed_try_again'))->withInput($request->input());
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logoutPost(){
         Auth::logout();
         return redirect('login');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function forgotPassword(){
         $title = __t('forgot_password');
         return view(theme('auth.forgot_password'), compact('title'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function sendResetToken(Request $request){
         $this->validate($request, ['email' => 'required']);
 
@@ -108,11 +139,20 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function passwordResetForm(){
         $title = __t('reset_your_password');
         return view(theme('auth.reset_form'), compact('title'));
     }
 
+    /**
+     * @param Request $request
+     * @param $token
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function passwordReset(Request $request, $token){
         if(config('app.is_demo')){
             return redirect()->back()->with('error', 'This feature has been disable for demo');
@@ -141,16 +181,31 @@ class AuthController extends Controller
     public function redirectFacebook(){
         return Socialite::driver('facebook')->redirect();
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirectGoogle(){
         return Socialite::driver('google')->redirect();
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirectTwitter(){
         return Socialite::driver('twitter')->redirect();
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirectLinkedIn(){
         return Socialite::driver('linkedin')->redirect();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function callbackFacebook(){
         try {
             $socialUser = Socialite::driver('facebook')->user();
@@ -162,6 +217,9 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function callbackGoogle(){
         try {
             $socialUser = Socialite::driver('google')->user();
@@ -172,6 +230,10 @@ class AuthController extends Controller
             return redirect(route('login'))->with('error', $e->getMessage());
         }
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function callbackTwitter(){
         try {
             $socialUser = Socialite::driver('twitter')->user();
@@ -182,6 +244,10 @@ class AuthController extends Controller
             return redirect(route('login'))->with('error', $e->getMessage());
         }
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function callbackLinkedIn(){
         try {
             $socialUser = Socialite::driver('linkedin')->user();
@@ -193,6 +259,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * @param $providerUser
+     * @param string $provider
+     * @return mixed
+     */
     public function getSocialUser($providerUser, $provider = ''){
         $user = User::whereProvider($provider)->whereProviderUserId($providerUser->getId())->first();
 

@@ -8,8 +8,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Class DashboardController
+ * @package App\Http\Controllers
+ */
 class DashboardController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
     public function index(){
         $title = __t('dashboard');
 
@@ -64,11 +72,19 @@ class DashboardController extends Controller
         return view(theme('dashboard.dashboard'), compact('title', 'chartData'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function profileSettings(){
         $title = __t('profile_settings');
         return view(theme('dashboard.settings.profile'), compact('title'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function profileSettingsPost(Request $request){
         $rules = [
             'name'      => 'required',
@@ -84,11 +100,19 @@ class DashboardController extends Controller
         return back()->with('success', __t('success'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function resetPassword(){
         $title = __t('reset_password');
         return view(theme('dashboard.settings.reset_password'), compact('title'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function resetPasswordPost(Request $request){
         if(config('app.is_demo')){
             return redirect()->back()->with('error', 'This feature has been disable for demo');
@@ -115,26 +139,42 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function enrolledCourses(){
         $title = __t('enrolled_courses');
         return view(theme('dashboard.enrolled_courses'), compact('title'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function myReviews(){
         $title = __t('my_reviews');
         return view(theme('dashboard.my_reviews'), compact('title'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function wishlist(){
         $title = __t('wishlist');
         return view(theme('dashboard.wishlist'), compact('title'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function purchaseHistory(){
         $title = __t('purchase_history');
         return view(theme('dashboard.purchase_history'), compact('title'));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function purchaseView($id){
         $title = __a('purchase_view');
         $payment = Payment::find($id);

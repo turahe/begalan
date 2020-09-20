@@ -6,6 +6,10 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class PostController
+ * @package App\Http\Controllers
+ */
 class PostController extends Controller
 {
     /**
@@ -28,6 +32,10 @@ class PostController extends Controller
         return view('admin.cms.pages', compact('title', 'posts'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function posts(Request $request){
         if ($request->bulk_action_btn === 'update_status'){
             Post::query()->whereIn('id', $request->bulk_ids)->update(['status' => $request->status]);
@@ -46,6 +54,9 @@ class PostController extends Controller
         return view('admin.cms.posts', compact('title', 'posts'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function createPost(){
         $title = __a('create_new_post');
 
@@ -84,6 +95,10 @@ class PostController extends Controller
     }
 
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editPost($id){
         $title = __a('edit_post');
         $post = Post::find($id);
@@ -91,6 +106,12 @@ class PostController extends Controller
         return view('admin.cms.edit_post', compact('title', 'post'));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function updatePost(Request $request, $id){
         if(config('app.is_demo')) return back()->with('error', __a('app.feature_disable_demo'));
 
@@ -159,6 +180,12 @@ class PostController extends Controller
         return view('admin.cms.edit_page', compact('title', 'post'));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function updatePage(Request $request, $id){
         if(config('app.is_demo')) return back()->with('error', __a('app.feature_disable_demo'));
 
@@ -178,6 +205,10 @@ class PostController extends Controller
         return redirect()->back()->with('success', __a('page_has_been_updated'));
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showPage($slug){
         $page = Post::whereSlug($slug)->first();
 
@@ -188,12 +219,19 @@ class PostController extends Controller
         return view('theme.single_page', compact('title', 'page'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function blog(){
         $title = __t('blog');
         $posts = Post::post()->publish()->paginate(20);
         return view(theme('blog'), compact('title', 'posts'));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function authorPosts($id){
         $posts = Post::whereType('post')->whereUserId($id)->paginate(20);
         $user = User::find($id);
@@ -201,6 +239,10 @@ class PostController extends Controller
         return view('theme.blog', compact('title', 'posts'));
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function postSingle($slug){
         $post = Post::whereSlug($slug)->first();
         if ( ! $post){
@@ -214,6 +256,10 @@ class PostController extends Controller
         return view(theme('single_page'), compact('title', 'post'));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postProxy($id){
         $post = Post::where('id', $id)->orWhere('slug', $id)->first();
         if ( ! $post){

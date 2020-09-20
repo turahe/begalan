@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class EarningController
+ * @package App\Http\Controllers
+ */
 class EarningController extends Controller
 {
 
@@ -64,6 +68,11 @@ class EarningController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
     public function earningReport(Request $request){
         $title = __t('report_statements');
         $page_title = $title;
@@ -210,6 +219,12 @@ class EarningController extends Controller
         $user = Auth::user();
         return view(theme('dashboard.earning.withdraw'), compact('title', 'user'));
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function withdrawPost(Request $request){
         $rules = [
             'amount' => 'required|numeric',
@@ -241,12 +256,19 @@ class EarningController extends Controller
 
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function withdrawPreference(){
         $title = __t('withdraw_preference');
         $user = Auth::user();
         return view(theme('dashboard.earning.withdraw_preference'), compact('title', 'user'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function withdrawPreferencePost(Request $request){
         $user = Auth::user();
         $user->update_option('withdraw_preference', $request->withdraw_preference);

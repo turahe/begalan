@@ -7,10 +7,19 @@ use App\Course;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\View\View;
 
+/**
+ * Class HomeController
+ * @package App\Http\Controllers
+ */
 class HomeController extends Controller
 {
-    public function index(){
+    /**
+     * @return View
+     */
+    public function index(): View
+    {
         $title = __t('home_page_title');
         $new_courses = Course::publish()->orderBy('created_at', 'desc')->take(12)->get();
         $featured_courses = Course::publish()->whereIsFeatured(1)->orderBy('featured_at', 'desc')->take(6)->get();
@@ -20,6 +29,10 @@ class HomeController extends Controller
         return view(theme('index'), compact('title', 'new_courses', 'featured_courses', 'popular_courses', 'posts'));
     }
 
+    /**
+     * @param Request $r
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function courses(Request $r){
         $title = __t('courses');
         $categories = Category::parent()->with('sub_categories')->get();
@@ -113,6 +126,9 @@ class HomeController extends Controller
         return view(theme('courses'), compact('title', 'courses', 'categories', 'topics'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function clearCache(){
         Artisan::call('debugbar:clear');
         Artisan::call('view:clear');
@@ -128,6 +144,9 @@ class HomeController extends Controller
         return redirect(route('home'));
     }
 
+    /**
+     * @param $dir
+     */
     public function rrmdir($dir) {
         if (is_dir($dir)) {
             $objects = scandir($dir);

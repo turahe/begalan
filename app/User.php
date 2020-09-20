@@ -9,7 +9,105 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class User extends Authenticatable
+/**
+ * App\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $gender
+ * @property string|null $company_name
+ * @property int|null $country_id
+ * @property string|null $address
+ * @property string|null $address_2
+ * @property string|null $city
+ * @property string|null $zip_code
+ * @property string|null $postcode
+ * @property string|null $website
+ * @property string|null $phone
+ * @property string|null $about_me
+ * @property string|null $date_of_birth
+ * @property int|null $photo
+ * @property string|null $job_title
+ * @property string|null $options
+ * @property string|null $user_type
+ * @property int|null $active_status
+ * @property string|null $provider_user_id
+ * @property string|null $provider
+ * @property string|null $reset_token
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Country|null $country
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
+ * @property-read int|null $courses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Earning[] $earnings
+ * @property-read int|null $earnings_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $enrolls
+ * @property-read int|null $enrolls_count
+ * @property-read mixed $earning
+ * @property-read mixed $get_photo
+ * @property-read mixed $get_rating
+ * @property-read mixed $is_admin
+ * @property-read mixed $is_instructor
+ * @property-read mixed $withdraw_method
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Discussion[] $instructor_discussions
+ * @property-read int|null $instructor_discussions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Media[] $medias
+ * @property-read int|null $medias_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attempt[] $my_quiz_attempts
+ * @property-read int|null $my_quiz_attempts_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \App\Media|null $photo_query
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Payment[] $purchases
+ * @property-read int|null $purchases_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Review[] $reviews
+ * @property-read int|null $reviews_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Enroll[] $student_enrolls
+ * @property-read int|null $student_enrolls_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $wishlist
+ * @property-read int|null $wishlist_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Withdraw[] $withdraws
+ * @property-read int|null $withdraws_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User active()
+ * @method static \Illuminate\Database\Eloquent\Builder|User instructor()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAboutMe($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereActiveStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCompanyName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCountryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDateOfBirth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereJobTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePostcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProviderUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereResetToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUserType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereWebsite($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereZipCode($value)
+ * @mixin \Eloquent
+ */
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 

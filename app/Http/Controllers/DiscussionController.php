@@ -7,15 +7,26 @@ use App\Discussion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class DiscussionController
+ * @package App\Http\Controllers
+ */
 class DiscussionController extends Controller
 {
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
         $title = __t('discussions');
 
         return view(theme('dashboard.discussions.index'), compact('title'));
     }
 
+    /**
+     * @param $discussion_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function reply($discussion_id){
         $title = __t('discussions');
         $discussion = Discussion::find($discussion_id);
@@ -23,6 +34,12 @@ class DiscussionController extends Controller
         return view(theme('dashboard.discussions.reply'), compact('title', 'discussion'));
     }
 
+    /**
+     * @param Request $request
+     * @param $discussion_id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function replyPost(Request $request, $discussion_id){
         $this->validate($request, ['message' => 'required']);
 
@@ -47,6 +64,11 @@ class DiscussionController extends Controller
         return back()->with('success', 'Discussion replied');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function askQuestion(Request $request){
         $rules = [
             'title'     => 'required|max:220',

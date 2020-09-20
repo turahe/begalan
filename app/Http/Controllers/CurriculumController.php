@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class CurriculumController
+ * @package App\Http\Controllers
+ */
 class CurriculumController extends Controller
 {
 
+    /**
+     * @param Request $request
+     */
     public function sort(Request $request){
         //sections
 
@@ -98,6 +105,12 @@ class CurriculumController extends Controller
         return ['success' => true, 'item_id' => $assignment->id];
     }
 
+    /**
+     * @param Request $request
+     * @param $course_id
+     * @param $assignment_id
+     * @return array|bool[]
+     */
     public function updateAssignment(Request $request, $course_id, $assignment_id){
 
         $rules = [

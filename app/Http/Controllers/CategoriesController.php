@@ -6,6 +6,10 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class CategoriesController
+ * @package App\Http\Controllers
+ */
 class CategoriesController extends Controller
 {
     /**
@@ -15,7 +19,10 @@ class CategoriesController extends Controller
     public function index()
     {
         $data['title'] = __a('category');
-        $data['categories'] = Category::whereStep(0)->with('sub_categories', 'sub_categories.sub_categories')->orderBy('category_name', 'asc')->paginate(2);
+        $data['categories'] = Category::whereStep(0)
+            ->with('sub_categories', 'sub_categories.sub_categories')
+            ->orderBy('category_name', 'asc')
+            ->paginate(2);
 
         return view('admin.categories.categories', $data);
     }
@@ -148,6 +155,10 @@ class CategoriesController extends Controller
         return ['success' => false];
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function getTopicOptions(Request $request){
         $topics = Category::whereCategoryId($request->category_id)->get();
 
@@ -177,6 +188,9 @@ class CategoriesController extends Controller
         return view(theme('single-category'), compact('title', 'category'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function home(){
         $title = __t('topics');
 
