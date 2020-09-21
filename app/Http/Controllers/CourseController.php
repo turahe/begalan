@@ -6,6 +6,7 @@ use App\AssignmentSubmission;
 use App\Attachment;
 use App\Category;
 use App\Course;
+use App\Http\Requests\Courses\CourseStoreRequest;
 use App\Review;
 use App\Section;
 use App\Content;
@@ -184,15 +185,15 @@ class CourseController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param CourseStoreRequest $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $rules = [
             'title' => 'required',
             'category_id' => 'required',
-            'topic_id' => 'required',
+//            'topic_id' => 'required',
         ];
 
         $this->validate($request, $rules);
@@ -203,7 +204,7 @@ class CourseController extends Controller
 
         $category = Category::find($request->category_id);
         $data = [
-            'user_id'           => $user_id,
+            'user_id' => $user_id,
             'title'             => clean_html($request->title),
             'slug'              => $slug,
             'short_description' => clean_html($request->short_description),
@@ -262,7 +263,7 @@ class CourseController extends Controller
             'title'             => 'required|max:120',
             'short_description' => 'max:220',
             'category_id'       => 'required',
-            'topic_id'       => 'required',
+//            'topic_id'       => 'required',
         ];
         $this->validate($request, $rules);
 

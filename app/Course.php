@@ -159,14 +159,16 @@ class Course extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function author(){
+    public function author()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function instructors(){
+    public function instructors()
+    {
         return $this->belongsToMany(User::class)->withPivot('added_at');
     }
 

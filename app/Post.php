@@ -42,34 +42,74 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    public function scopePublish($query){
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopePublish($query)
+    {
         return $query->where('status', 1)->orderBy('created_at', 'desc');
     }
-    public function scopePost($query){
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopePost($query)
+    {
         return $query->where('type', 'post')->with('media', 'author');
     }
 
-    public function getPublishedTimeAttribute(){
+    /**
+     * @return string
+     */
+    public function getPublishedTimeAttribute()
+    {
         return $this->created_at->format(date_time_format());
     }
-    public function getUrlAttribute(){
+
+    /**
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
         return route('post', $this->slug);
     }
 
-    public function author(){
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function media(){
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function media()
+    {
         return $this->belongsTo(Media::class, 'feature_image');
     }
-    public function getThumbnailUrlAttribute(){
+
+    /**
+     * @return object
+     */
+    public function getThumbnailUrlAttribute()
+    {
         return media_image_uri($this->media);
     }
 
-    public function getStatusContextAttribute(){
+    /**
+     * @return string
+     */
+    public function getStatusContextAttribute()
+    {
         $statusClass = "";
         $iclass = "";
         $status = __a('pending');

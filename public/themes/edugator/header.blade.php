@@ -63,7 +63,10 @@
             <div class="collapse navbar-collapse" id="mainNavbarContent">
                 <ul class="navbar-nav categories-nav-item-wrapper mt-2 mt-lg-0">
                     <li class="nav-item nav-categories-item">
-                        <a class="nav-link browse-categories-nav-link" href="{{route('categories')}}"> <i class="la la-th-large"></i> {{__t('categories')}}</a>
+                        <a class="nav-link browse-categories-nav-link" href="{{route('categories')}}">
+                            <i class="la la-th-large"></i>
+                            {{__t('categories') }}
+                        </a>
 
                         <div class="categories-menu">
                             <ul class="categories-ul-first">
@@ -112,10 +115,16 @@
 
                     @if (Auth::guest())
                         <li class="nav-item mr-2 ml-2">
-                            <a class="nav-link btn btn-login-outline" href="{{route('login')}}"> <i class="la la-sign-in"></i> {{__t('login')}}</a>
+                            <a class="nav-link btn btn-login-outline" href="{{route('login')}}">
+                                <i class="la la-sign-in"></i>
+                                {{__t('login')}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-theme-primary" href="{{route('register')}}"> <i class="la la-user-plus"></i> {{__t('signup')}}</a>
+                            <a class="nav-link btn btn-theme-primary" href="{{route('register')}}">
+                                <i class="la la-user-plus"></i>
+                                {{__t('signup')}}
+                            </a>
                         </li>
                     @else
                         <li class="nav-item main-nav-right-menu nav-item-user-profile">

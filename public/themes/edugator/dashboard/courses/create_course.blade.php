@@ -42,8 +42,8 @@
                     <div class="col">
 
                         <div class="form-group">
-                            <p for="level" class="mr-4">{{__t('course_level')}}</p>
-                            <select name="level" class="form-control">
+                            <label for="course_level" class="mr-4">{{__t('course_level')}}</label>
+                            <select id="course_level" name="level" class="form-control">
                                 @foreach(course_levels() as $key => $level)
                                     <option value="{{$key}}" {{selected(1, $key)}}>{{$level}}</option>
                                 @endforeach
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group {{ $errors->has('category_id') ? ' has-error' : '' }}">
-                            <label class="mb-3">{{__t('category')}}</label>
+                            <label for="course_category" class="mb-3">{{__t('category')}}</label>
 
                             @if($categories->count())
                                 <select name="category_id" id="course_category" class="form-control select2">
@@ -76,7 +76,7 @@
 
 
                         <div class="form-group {{ $errors->has('topic_id') ? ' has-error' : '' }}">
-                            <label class="mb-3">{{__t('topic')}}</label>
+                            <label for="course_topic" class="mb-3">{{__t('topic')}}</label>
 
                             @if($categories->count())
                                 <select name="topic_id" id="course_topic" class="form-control select2">
@@ -99,9 +99,9 @@
                         $videoSrc = old('video_source')
                     @endphp
 
-                    <label>{{__t('intro_video')}}</label>
+                    <label for="video_source">{{__t('intro_video')}}</label>
 
-                    <select name="video[source]" class="lecture_video_source form-control mb-2">
+                    <select id="video_source" name="video[source]" class="lecture_video_source form-control mb-2">
                         <option value="-1">Select Video Source</option>
                         <option value="html5" {{selected($videoSrc, 'html5')}} >HTML5 (mp4)</option>
                         <option value="external_url" {{selected($videoSrc, 'external_url')}}>External URL</option>

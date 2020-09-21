@@ -4,8 +4,10 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 /**
  * App\Content
@@ -80,30 +82,34 @@ class Content extends Model
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function course(){
+    public function course(): BelongsTo
+    {
         return $this->belongsTo(Course::class)->with('sections', 'sections.items');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function section(){
+    public function section(): BelongsTo
+    {
         return $this->belongsTo(Section::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function questions(){
+    public function questions(): HasMany
+    {
         return $this->hasMany(Question::class, 'quiz_id')->with('media')->orderBy('sort_order', 'asc');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function attempts(){
+    public function attempts(): HasMany
+    {
         return $this->hasMany(Attempt::class, 'quiz_id');
     }
 
@@ -114,7 +120,8 @@ class Content extends Model
      * Get Attached Video Info
      */
 
-    public function video_info($key = null){
+    public function video_info($key = null)
+    {
         $video_info = null;
         if ($this->video_src){
             $video_info = json_decode($this->video_src, true);
@@ -129,7 +136,8 @@ class Content extends Model
     /**
      * @return string|null
      */
-    public function getUrlAttribute(){
+    public function getUrlAttribute()
+    {
         if ($this->item_type === 'lecture'){
             return route('single_lecture', [$this->course_id, $this->id]);
         }elseif ($this->item_type === 'assignment'){
@@ -143,7 +151,8 @@ class Content extends Model
     /**
      * @return float|int
      */
-    public function getRuntimeSecondsAttribute(){
+    public function getRuntimeSecondsAttribute(): int
+    {
         $hours = (int) $this->video_info('runtime.hours') * 3600;
         $mins = (int) $this->video_info('runtime.mins') * 60;
         $secs = (int) $this->video_info('runtime.secs');
@@ -154,7 +163,8 @@ class Content extends Model
     /**
      * @return false|string
      */
-    public function getRuntimeAttribute(){
+    public function getRuntimeAttribute()
+    {
         $seconds = $this->runtime_seconds;
         if ($seconds){
             return seconds_to_time_format($this->runtime_seconds);
@@ -167,7 +177,8 @@ class Content extends Model
      * @param null $default
      * @return mixed|null
      */
-    public function option($key = null, $default = null){
+    public function option($key = null, $default = null)
+    {
         $options = null;
         if ($this->options){
             $options = json_decode($this->options, true);
@@ -184,9 +195,10 @@ class Content extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function attachments(){
+    public function attachments(): HasMany
+    {
         return $this->hasMany(Attachment::class);
     }
 
@@ -211,7 +223,7 @@ class Content extends Model
 
     /**
      * @param int $user_id
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function has_submission($user_id = 0){
         if ( ! $user_id && Auth::check()){
@@ -221,33 +233,42 @@ class Content extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function submissions(){
+    public function submissions(): HasMany
+    {
         return $this->hasMany(AssignmentSubmission::class, 'assignment_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function previous(){
-        return $this->hasOne(Content::class, 'course_id', 'course_id')->where('sort_order', $this->sort_order-1)->orderBy('sort_order', 'desc');
+    public function previous(): HasOne
+    {
+        return $this->hasOne(Content::class, 'course_id', 'course_id')
+            ->where('sort_order', $this->sort_order-1)
+            ->orderBy('sort_order', 'desc');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function next(){
-        return $this->hasOne(Content::class, 'course_id', 'course_id')->where('sort_order', $this->sort_order+1)->orderBy('sort_order', 'asc');
+    public function next()
+    {
+        return $this->hasOne(Content::class, 'course_id', 'course_id')
+            ->where('sort_order', $this->sort_order+1)
+            ->orderBy('sort_order', 'asc');
     }
 
     /**
      * @return false
      */
-    public function is_completed(){
+    public function is_completed()
+    {
         if (Auth::user()){
             $user_id = Auth::user()->id;
-            return $this->hasOne(Complete::class)->whereUserId($user_id);
+            return $this->hasOne(Complete::class)
+                ->whereUserId($user_id);
         }
         return false;
     }
@@ -277,15 +298,15 @@ class Content extends Model
     /**
      * Content Drip
      */
-
-
     public function enrolled_course(){
         if ( ! Auth::check()){
             return null;
         }
 
         $user_id = Auth::check();
-        return $this->hasOne(Enroll::class, 'course_id', 'course_id')->where('user_id', $user_id)->where('status', 'success');
+        return $this->hasOne(Enroll::class, 'course_id', 'course_id')
+            ->where('user_id', $user_id)
+            ->where('status', 'success');
     }
 
     /**
@@ -347,10 +368,13 @@ class Content extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function discussions(){
-        return $this->hasMany(Discussion::class)->with('user', 'replies', 'user.photo_query')->where('discussion_id', 0);
+    public function discussions(): HasMany
+    {
+        return $this->hasMany(Discussion::class)
+            ->with('user', 'replies', 'user.photo_query')
+            ->where('discussion_id', 0);
     }
 
 }

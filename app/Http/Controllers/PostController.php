@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,12 @@ class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Exception
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if ($request->bulk_action_btn === 'update_status'){
             Post::query()->whereIn('id', $request->bulk_ids)->update(['status' => $request->status]);
             return back()->with('success', __a('bulk_action_success'));
@@ -35,8 +40,10 @@ class PostController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Exception
      */
-    public function posts(Request $request){
+    public function posts(Request $request)
+    {
         if ($request->bulk_action_btn === 'update_status'){
             Post::query()->whereIn('id', $request->bulk_ids)->update(['status' => $request->status]);
             return back()->with('success', __a('bulk_action_success'));

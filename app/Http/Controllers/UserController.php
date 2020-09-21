@@ -19,7 +19,8 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function profile($id){
+    public function profile($id)
+    {
         $user =  User::find($id);
         if ( ! $user){
             abort(404);

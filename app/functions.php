@@ -102,6 +102,7 @@ if ( ! function_exists('current_disk')){
 
 /**
  * @param string $key
+ * @param null $default
  * @return string
  */
 function get_option($key = '', $default = null){
