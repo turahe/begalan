@@ -2,7 +2,6 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
 use Faker\Generator as Faker;
 
 $factory->define(\App\Course::class, function (Faker $faker) {
@@ -11,15 +10,15 @@ $factory->define(\App\Course::class, function (Faker $faker) {
         'parent_category_id'  => 1,
         'second_category_id'  => 1,
         'category_id'  => 1,
-        'title'  => 1,
-        'slug'  => 1,
-        'short_description'  => 1,
-        'description'  => 1,
+        'title'  => $faker->sentence,
+        'slug'  => str_slug($faker->sentence),
+        'short_description'  => $faker->paragraph,
+        'description'  => $faker->paragraph(3),
         'benefits'  => 1,
         'requirements'  => 1,
         'price_plan'  => 1,
-        'price'  => 1,
-        'sale_price'  => 1,
+        'price'  => mt_rand(60,100) * 1000,
+        'sale_price'  => mt_rand(60,100) * 1000,
         'level'  => 1,
         'status'  => 1,
         'is_presale'  => 1,
