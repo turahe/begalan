@@ -272,7 +272,7 @@ return [
     'completed'                     => 'Lengkap',
     'go_to_course'                  => 'Ke kursus',
     'complete_course'               => 'Kursus lengkap',
-    'created_by'                    => 'Dibuat pada',
+    'created_by'                    => 'Dibuat oleh',
     'lectures'                      => 'Pembelajaran',
     'last_updated'                  => 'Pembaharuan terahir',
     'off'                           => 'Mati',

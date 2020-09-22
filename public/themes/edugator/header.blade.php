@@ -31,11 +31,11 @@
     <script src="{{asset('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 
 
-    {{--<script type="text/javascript">
+    <script type="text/javascript">
         /* <![CDATA[ */
         window.pageData = @json(pageJsonData());
         /* ]]> */
-    </script>--}}
+    </script>
 </head>
 <body class="{{get_option('enable_rtl')? 'rtl' : ''}}">
 
