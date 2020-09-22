@@ -63,7 +63,7 @@ class UsersTableSeeder extends Seeder
             'gender' => 'female',
         ],
         [
-            'name'      => 'Sean J. McAlister',
+            'name'      => 'Clever Student',
             'email'     => 'student@circlecreative.id',
             'user_type' => 'student',
             'gender' => 'male',
