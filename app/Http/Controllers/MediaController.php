@@ -18,14 +18,15 @@ class MediaController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function loadFileManager(Request $request){
-        if ( ! $request->ajax()){
+    public function loadFileManager(Request $request)
+    {
+        if (! $request->ajax()) {
             abort(404);
         }
         $user = Auth::user();
         $media_query = $user->medias();
 
-        if ( ! empty($request->filter_name)){
+        if (! empty($request->filter_name)) {
             $media_query = $media_query->where("name", 'like', "%{$request->filter_name}%");
         }
 
@@ -40,13 +41,16 @@ class MediaController extends Controller
      * @return array
      */
 
-    public function store(Request $request){
-        if(config('app.is_demo')) return ['success' => false, 'msg' => __a('demo_restriction')];
+    public function store(Request $request)
+    {
+        if (config('app.is_demo')) {
+            return ['success' => false, 'msg' => __a('demo_restriction')];
+        }
 
         $user_id = Auth::user()->id;
         $allowed_file_types = (array) get_option('allowed_file_types_arr');
 
-        if ($request->hasFile('files')){
+        if ($request->hasFile('files')) {
             $files = $request->file('files');
 
             try {
@@ -54,7 +58,7 @@ class MediaController extends Controller
                     $getFilename = $file->getClientOriginalName();
                     $clientExt = $file->getClientOriginalExtension();
 
-                    if ( ! in_array($clientExt, $allowed_file_types)){
+                    if (! in_array($clientExt, $allowed_file_types)) {
                         return ['success' => false, 'msg' => $clientExt.' - '.__('admin.file_types_not_allowed') ];
                     }
 
@@ -74,7 +78,7 @@ class MediaController extends Controller
                         $image_sizes = config('media.size');
                         $upload_dir = 'uploads/images/';
 
-                        foreach ($image_sizes as $ikey => $ivalue){
+                        foreach ($image_sizes as $ikey => $ivalue) {
                             $img_thumb_name = $upload_dir.$ikey.'/'.$slug_ext;
 
                             $resized = Image::make($image)->fit($ivalue[0], $ivalue[1], function ($constraint) {
@@ -84,7 +88,7 @@ class MediaController extends Controller
                             current_disk()->put($img_thumb_name, $resized->__toString(), 'public');
                         }
                         current_disk()->putFileAs('uploads/images/', $file, $slug_ext, 'public');
-                    }else{
+                    } else {
                         current_disk()->putFileAs('uploads/', $file, $slug_ext, 'public');
                     }
 
@@ -104,8 +108,7 @@ class MediaController extends Controller
 
                     $is_uploaded = Media::create($uploaded_data);
                 }
-
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 $errorMsg = $e->getMessage();
                 return ['success' => false, 'msg' => $errorMsg];
             }
@@ -119,17 +122,20 @@ class MediaController extends Controller
      * @param Request $request
      * @return array
      */
-    public function delete(Request $request){
-        if(config('app.is_demo')) return ['success' => false, 'msg' => __a('demo_restriction')];
+    public function delete(Request $request)
+    {
+        if (config('app.is_demo')) {
+            return ['success' => false, 'msg' => __a('demo_restriction')];
+        }
 
         $media_ids = $request->media_ids;
-        if ( ! empty($media_ids)){
+        if (! empty($media_ids)) {
             $media_ids = array_filter(explode(',', $media_ids));
-            if ( is_array($media_ids)){
-                try{
-                    foreach ($media_ids as $media_id){
+            if (is_array($media_ids)) {
+                try {
+                    foreach ($media_ids as $media_id) {
                         $media = Media::find($media_id);
-                        if ($media){
+                        if ($media) {
                             $media_name = $media->slug_ext;
 
                             //Deleting from database
@@ -141,35 +147,34 @@ class MediaController extends Controller
                                 $image_sizes = config('media.size');
 
                                 //Get all image size and delete form them
-                                foreach ($image_sizes as $ikey => $ivalue){
+                                foreach ($image_sizes as $ikey => $ivalue) {
                                     $media_path = "uploads/images/{$ikey}/{$media_name}";
 
-                                    if ($storage->has($media_path)){
+                                    if ($storage->has($media_path)) {
                                         $storage->delete($media_path);
                                     }
                                 }
 
                                 //Delete original file
                                 $media_path = "uploads/images/{$media_name}";
-                                if ($storage->has($media_path)){
+                                if ($storage->has($media_path)) {
                                     $storage->delete($media_path);
                                 }
                             }
 
                             //deleting any other file
                             $media_path = "uploads/{$media_name}";
-                            if ($storage->has($media_path)){
+                            if ($storage->has($media_path)) {
                                 $storage->delete($media_path);
                             }
                         }
-
                     }
-                }catch (\Exception $e){
-                    return array('success' => false, 'msg' => $e->getMessage());
+                } catch (\Exception $e) {
+                    return ['success' => false, 'msg' => $e->getMessage()];
                 }
             }
         }
-        return array('success' => true, 'msg' => __a('media_deleted'));
+        return ['success' => true, 'msg' => __a('media_deleted')];
     }
 
 
@@ -177,16 +182,17 @@ class MediaController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function mediaManager(Request $request){
+    public function mediaManager(Request $request)
+    {
         $title = __a('media_manager');
 
         $user = Auth::user();
-        if ( $user->isAdmin()){
+        if ($user->isAdmin()) {
             $media_query = Media::query();
-        }else{
+        } else {
             $media_query = $user->medias();
         }
-        if ( ! empty($request->q)){
+        if (! empty($request->q)) {
             $media_query = $media_query->where("name", 'like', "%{$request->q}%");
         }
         $medias = $media_query->orderBy('id', 'desc')->paginate(30);
@@ -197,12 +203,11 @@ class MediaController extends Controller
      * @param Request $request
      * @return bool[]
      */
-    public function mediaManagerUpdate(Request $request){
-        if ($request->media_id){
+    public function mediaManagerUpdate(Request $request)
+    {
+        if ($request->media_id) {
             Media::whereId($request->media_id)->update(['title' => $request->title, 'alt_text' => $request->alt_text]);
         }
         return ['success' => true];
     }
-
-
 }

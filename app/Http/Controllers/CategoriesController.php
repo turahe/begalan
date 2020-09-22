@@ -31,7 +31,8 @@ class CategoriesController extends Controller
      * Show the form for creating a new resource.
      *
      */
-    public function create(){
+    public function create()
+    {
         $data['title'] = __a('category');
         $data['sub_title'] = __a('category_create');
         $data['categories'] = Category::whereStep(0)->with('sub_categories')->orderBy('category_name', 'asc')->get();
@@ -47,7 +48,9 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        if(config('app.is_demo')) return back()->with('error', __a('demo_restriction'));
+        if (config('app.is_demo')) {
+            return back()->with('error', __a('demo_restriction'));
+        }
 
         $user_id = Auth::user()->id;
         $rules = [
@@ -68,10 +71,10 @@ class CategoriesController extends Controller
             'step'                  => 0,
         ];
 
-        if ($request->parent){
+        if ($request->parent) {
             $data['step'] = 1;
             $parent = Category::find($request->parent);
-            if ($parent && $parent->category_id){
+            if ($parent && $parent->category_id) {
                 $data['step'] = 2;
             }
         }
@@ -85,14 +88,15 @@ class CategoriesController extends Controller
      *
      * @param  int  $id
      */
-    public function edit($id){
+    public function edit($id)
+    {
         $category = Category::find($id);
 
         $data['title'] = __a('category_edit');
         $data['category'] = $category;
         $data['categories'] = Category::whereStep(0)->with('sub_categories')->orderBy('category_name', 'asc')->where('id', '!=', $id)->get();
 
-        if ( ! $category){
+        if (! $category) {
             abort(404);
         }
 
@@ -105,11 +109,14 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update(Request $request, $id){
-        if(config('app.is_demo')) return back()->with('error', __a('demo_restriction'));
+    public function update(Request $request, $id)
+    {
+        if (config('app.is_demo')) {
+            return back()->with('error', __a('demo_restriction'));
+        }
 
         $category = Category::find($id);
-        if ( ! $category){
+        if (! $category) {
             return back()->with('error', trans('admin.category_not_found'));
         }
 
@@ -127,10 +134,10 @@ class CategoriesController extends Controller
             'status'                => $request->status,
         ];
 
-        if ($request->parent){
+        if ($request->parent) {
             $data['step'] = 1;
             $parent = Category::find($request->parent);
-            if ($parent && $parent->category_id){
+            if ($parent && $parent->category_id) {
                 $data['step'] = 2;
             }
         }
@@ -146,9 +153,11 @@ class CategoriesController extends Controller
      */
     public function destroy(Request $request)
     {
-        if(config('app.is_demo')) return back()->with('error', __a('demo_restriction'));
+        if (config('app.is_demo')) {
+            return back()->with('error', __a('demo_restriction'));
+        }
 
-        if (count($request->categories)){
+        if (count($request->categories)) {
             Category::whereIn('id', $request->categories)->delete();
             return ['success' => true];
         }
@@ -159,11 +168,12 @@ class CategoriesController extends Controller
      * @param Request $request
      * @return array
      */
-    public function getTopicOptions(Request $request){
+    public function getTopicOptions(Request $request)
+    {
         $topics = Category::whereCategoryId($request->category_id)->get();
 
         $options_html = "<option value=''>".__t('select_topic')."</option>";
-        foreach ($topics as $topic){
+        foreach ($topics as $topic) {
             $options_html .= "<option value='{$topic->id}'>{$topic->category_name}</option>";
         }
         return ['success' => 1, 'options_html' => $options_html];
@@ -178,9 +188,10 @@ class CategoriesController extends Controller
      *
      */
 
-    public function show($slug){
+    public function show($slug)
+    {
         $category = Category::whereSlug($slug)->orWhere('id', $slug)->first();
-        if ( ! $category){
+        if (! $category) {
             abort(404);
         }
 
@@ -191,10 +202,10 @@ class CategoriesController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home(){
+    public function home()
+    {
         $title = __t('topics');
 
         return view(theme('categories'), compact('title'));
     }
-
 }

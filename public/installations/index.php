@@ -3,15 +3,16 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function custom_base_path(){
+function custom_base_path()
+{
     $_dir = __DIR__;
-    while( ! file_exists($_dir.'/server.php')){
+    while (! file_exists($_dir.'/server.php')) {
         $_dir = dirname($_dir);
     }
     return $_dir;
 }
 
-if (file_exists(custom_base_path().'/.env')){
+if (file_exists(custom_base_path().'/.env')) {
     header("Location: ../");
     exit();
 }
@@ -96,7 +97,7 @@ if (file_exists(custom_base_path().'/.env')){
 
             <div class="installations-requirements-check">
                 <?php
-                $reqList = array(
+                $reqList = [
                     'php' => '7.2.5',
                     'mcrypt' => false,
                     'openssl' => true,
@@ -108,14 +109,14 @@ if (file_exists(custom_base_path().'/.env')){
                     'json' => true,
                     'bcmath' => true,
                     'fileinfo' => true,
-                );
+                ];
 
 
                 $strOk = '<i class="icon-ok la la-check-circle"></i>';
                 $strFail = '<i class="icon-remove la la-times-circle-o"></i>';
                 $strUnknown = '<i class="la la-question"></i>';
 
-                $requirements = array();
+                $requirements = [];
 
 
                 // PHP Version
@@ -163,12 +164,12 @@ if (file_exists(custom_base_path().'/.env')){
                 <p>
                     PHP <?php
                     if (is_array($reqList['php'])) {
-                        $phpVersions = array();
+                        $phpVersions = [];
                         foreach ($reqList['php'] as $operator => $version) {
                             $phpVersions[] = "{$operator} {$version}";
                         }
                         echo implode(" && ", $phpVersions);
-                    }else{
+                    } else {
                         echo ">= " . $reqList['php'];
                     }
 

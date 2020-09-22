@@ -21,7 +21,7 @@ class CreateQuestionsTable extends Migration
             $table->string('title')->nullable();
             $table->integer('image_id')->nullable();
             $table->string('type', 20)->nullable();
-            $table->decimal('score',5,1)->nullable();
+            $table->decimal('score', 5, 1)->nullable();
             $table->integer('sort_order')->nullable();
         });
     }

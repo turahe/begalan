@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -28,7 +27,8 @@ class SendPasswordResetLink extends Mailable
      *
      * @return $this
      */
-    public function build(){
+    public function build()
+    {
         $email = get_option('email_address');
 
         return $this->from($email)->markdown('emails.send_password_reset_link');

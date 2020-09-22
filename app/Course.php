@@ -11,58 +11,58 @@ use Illuminate\Support\Facades\DB;
  * App\Course
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $parent_category_id
- * @property int|null $second_category_id
- * @property int|null $category_id
- * @property string|null $title
- * @property string|null $slug
- * @property string|null $short_description
- * @property string|null $description
- * @property string|null $benefits
- * @property string|null $requirements
- * @property string|null $price_plan
- * @property string|null $price
- * @property string|null $sale_price
- * @property int|null $level
- * @property int|null $status
- * @property int|null $is_presale
- * @property string|null $launch_at
- * @property int|null $thumbnail_id
- * @property string|null $video_src
- * @property int|null $total_video_time
- * @property int|null $require_enroll
- * @property int|null $require_login
- * @property int|null $total_lectures
- * @property int|null $total_assignments
- * @property int|null $total_quiz
- * @property string|null $rating_value
- * @property int|null $rating_count
- * @property int|null $five_star_count
- * @property int|null $four_star_count
- * @property int|null $three_star_count
- * @property int|null $two_star_count
- * @property int|null $one_star_count
- * @property int|null $is_featured
- * @property string|null $featured_at
- * @property int|null $is_popular
- * @property string|null $popular_added_at
- * @property \Illuminate\Support\Carbon|null $last_updated_at
- * @property string|null $published_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AssignmentSubmission[] $assignment_submissions
- * @property-read int|null $assignment_submissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AssignmentSubmission[] $assignment_submissions_waiting
- * @property-read int|null $assignment_submissions_waiting_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Content[] $assignments
- * @property-read int|null $assignments_count
- * @property-read \App\User|null $author
- * @property-read \App\Category|null $category
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Content[] $contents
- * @property-read int|null $contents_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attachment[] $contents_attachments
- * @property-read int|null $contents_attachments_count
+ * @property null|int $user_id
+ * @property null|int $parent_category_id
+ * @property null|int $second_category_id
+ * @property null|int $category_id
+ * @property null|string $title
+ * @property null|string $slug
+ * @property null|string $short_description
+ * @property null|string $description
+ * @property null|string $benefits
+ * @property null|string $requirements
+ * @property null|string $price_plan
+ * @property null|string $price
+ * @property null|string $sale_price
+ * @property null|int $level
+ * @property null|int $status
+ * @property null|int $is_presale
+ * @property null|string $launch_at
+ * @property null|int $thumbnail_id
+ * @property null|string $video_src
+ * @property null|int $total_video_time
+ * @property null|int $require_enroll
+ * @property null|int $require_login
+ * @property null|int $total_lectures
+ * @property null|int $total_assignments
+ * @property null|int $total_quiz
+ * @property null|string $rating_value
+ * @property null|int $rating_count
+ * @property null|int $five_star_count
+ * @property null|int $four_star_count
+ * @property null|int $three_star_count
+ * @property null|int $two_star_count
+ * @property null|int $one_star_count
+ * @property null|int $is_featured
+ * @property null|string $featured_at
+ * @property null|int $is_popular
+ * @property null|string $popular_added_at
+ * @property null|\Illuminate\Support\Carbon $last_updated_at
+ * @property null|string $published_at
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read \App\AssignmentSubmission[]|\Illuminate\Database\Eloquent\Collection $assignment_submissions
+ * @property-read null|int $assignment_submissions_count
+ * @property-read \App\AssignmentSubmission[]|\Illuminate\Database\Eloquent\Collection $assignment_submissions_waiting
+ * @property-read null|int $assignment_submissions_waiting_count
+ * @property-read \App\Content[]|\Illuminate\Database\Eloquent\Collection $assignments
+ * @property-read null|int $assignments_count
+ * @property-read null|\App\User $author
+ * @property-read null|\App\Category $category
+ * @property-read \App\Content[]|\Illuminate\Database\Eloquent\Collection $contents
+ * @property-read null|int $contents_count
+ * @property-read \App\Attachment[]|\Illuminate\Database\Eloquent\Collection $contents_attachments
+ * @property-read null|int $contents_attachments_count
  * @property-read mixed $benefits_arr
  * @property-read mixed $continue_url
  * @property-read mixed $drip_items
@@ -73,21 +73,21 @@ use Illuminate\Support\Facades\DB;
  * @property-read mixed $requirements_arr
  * @property-read mixed $thumbnail_url
  * @property-read mixed $url
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $instructors
- * @property-read int|null $instructors_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Content[] $lectures
- * @property-read int|null $lectures_count
- * @property-read \App\Media|null $media
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attempt[] $quiz_attempts
- * @property-read int|null $quiz_attempts_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Content[] $quizzes
- * @property-read int|null $quizzes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Review[] $reviews
- * @property-read int|null $reviews_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Section[] $sections
- * @property-read int|null $sections_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $students
- * @property-read int|null $students_count
+ * @property-read \App\User[]|\Illuminate\Database\Eloquent\Collection $instructors
+ * @property-read null|int $instructors_count
+ * @property-read \App\Content[]|\Illuminate\Database\Eloquent\Collection $lectures
+ * @property-read null|int $lectures_count
+ * @property-read null|\App\Media $media
+ * @property-read \App\Attempt[]|\Illuminate\Database\Eloquent\Collection $quiz_attempts
+ * @property-read null|int $quiz_attempts_count
+ * @property-read \App\Content[]|\Illuminate\Database\Eloquent\Collection $quizzes
+ * @property-read null|int $quizzes_count
+ * @property-read \App\Review[]|\Illuminate\Database\Eloquent\Collection $reviews
+ * @property-read null|int $reviews_count
+ * @property-read \App\Section[]|\Illuminate\Database\Eloquent\Collection $sections
+ * @property-read null|int $sections_count
+ * @property-read \App\User[]|\Illuminate\Database\Eloquent\Collection $students
+ * @property-read null|int $students_count
  * @method static \Illuminate\Database\Eloquent\Builder|Course newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Course newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Course publish()
@@ -152,7 +152,8 @@ class Course extends Model
      * @param $query
      * @return mixed
      */
-    public function scopePublish($query){
+    public function scopePublish($query)
+    {
         return $query->where('status', 1)->with('media', 'author', 'category');
     }
 
@@ -175,83 +176,95 @@ class Course extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function students(){
+    public function students()
+    {
         return $this->belongsToMany(User::class, 'enrolls')->where('status', 'success')->withPivot('enrolled_at');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sections(){
+    public function sections()
+    {
         return $this->hasMany(Section::class)->orderBy('sort_order', 'asc');
     }
 
     /**
      * @return mixed
      */
-    public function lectures(){
+    public function lectures()
+    {
         return $this->hasMany(Content::class)->whereItemType('lecture');
     }
 
     /**
      * @return mixed
      */
-    public function assignments(){
+    public function assignments()
+    {
         return $this->hasMany(Content::class)->whereItemType('assignment');
     }
 
     /**
      * @return mixed
      */
-    public function quizzes(){
+    public function quizzes()
+    {
         return $this->hasMany(Content::class)->whereItemType('quiz');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function quiz_attempts(){
+    public function quiz_attempts()
+    {
         return $this->hasMany(Attempt::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assignment_submissions(){
+    public function assignment_submissions()
+    {
         return $this->hasMany(AssignmentSubmission::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function assignment_submissions_waiting(){
+    public function assignment_submissions_waiting()
+    {
         return $this->hasMany(AssignmentSubmission::class)->where('is_evaluated', '<', 1);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contents(){
+    public function contents()
+    {
         return $this->hasMany(Content::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contents_attachments(){
+    public function contents_attachments()
+    {
         return $this->hasMany(Attachment::class, 'belongs_course_id', 'id');
     }
     /**
      * Delete Event
      */
-    public function delete_and_sync(){
+    public function delete_and_sync()
+    {
         DB::table('course_user')->where('course_id', $this->id)->delete();
         $this->sections()->delete();
         $this->contents()->delete(); //Delete lecture, assignments, quiz
@@ -266,7 +279,8 @@ class Course extends Model
     /**
      * Sync anytime With Contents
      */
-    public function sync_everything(){
+    public function sync_everything()
+    {
         $now = Carbon::now()->toDateTimeString();
 
         $course = $this;
@@ -286,29 +300,33 @@ class Course extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function media(){
+    public function media()
+    {
         return $this->belongsTo(Media::class, 'thumbnail_id');
     }
 
     /**
      * @return string
      */
-    public function getUrlAttribute(){
+    public function getUrlAttribute()
+    {
         return route('course', $this->slug);
     }
 
     /**
      * @return mixed
      */
-    public function getThumbnailUrlAttribute(){
+    public function getThumbnailUrlAttribute()
+    {
         return media_image_uri($this->media)->image_sm;
     }
 
     /**
      * @return bool
      */
-    public function getIAmInstructorAttribute(){
-        if ( ! Auth::check()){
+    public function getIAmInstructorAttribute()
+    {
+        if (! Auth::check()) {
             return false;
         }
         $user_id = Auth::user()->id;
@@ -319,7 +337,8 @@ class Course extends Model
      * @param $value
      * @return int
      */
-    public function getLevelAttribute($value){
+    public function getLevelAttribute($value)
+    {
         return (int) $value;
     }
 
@@ -327,7 +346,8 @@ class Course extends Model
      * @param $value
      * @return bool
      */
-    public function getPaidAttribute($value){
+    public function getPaidAttribute($value)
+    {
         return $this->price_plan === 'paid';
     }
 
@@ -335,7 +355,8 @@ class Course extends Model
      * @param $value
      * @return bool
      */
-    public function getFreeAttribute($value){
+    public function getFreeAttribute($value)
+    {
         return $this->price_plan === 'free';
     }
 
@@ -343,16 +364,17 @@ class Course extends Model
      * @param null $user
      * @return int
      */
-    public function completed_percent($user = null){
+    public function completed_percent($user = null)
+    {
         /**
          * If not passed user id, get user id from auth
          * if auth user is not available, return percent 0;
          */
 
-        if ( ! $user){
+        if (! $user) {
             $user = Auth::user();
         }
-        if ( ! $user instanceof User) {
+        if (! $user instanceof User) {
             $user = \App\User::find($user);
         }
 
@@ -373,14 +395,15 @@ class Course extends Model
     }
 
     /**
-     * @return array|null
+     * @return null|array
      */
-    public function getBenefitsArrAttribute(){
-        if ( ! $this->benefits){
+    public function getBenefitsArrAttribute()
+    {
+        if (! $this->benefits) {
             return null;
         }
-        $newArr = array();
-        if ($this->benefits){
+        $newArr = [];
+        if ($this->benefits) {
             $newArr = explode("\n", $this->benefits);
         }
         $Arr = array_filter(array_map('trim', $newArr));
@@ -388,14 +411,15 @@ class Course extends Model
     }
 
     /**
-     * @return array|null
+     * @return null|array
      */
-    public function getRequirementsArrAttribute(){
-        if ( ! $this->requirements){
+    public function getRequirementsArrAttribute()
+    {
+        if (! $this->requirements) {
             return null;
         }
-        $newArr = array();
-        if ($this->requirements){
+        $newArr = [];
+        if ($this->requirements) {
             $newArr = explode("\n", $this->requirements);
         }
         $Arr = array_filter(array_map('trim', $newArr));
@@ -403,10 +427,11 @@ class Course extends Model
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
-    public function getContinueUrlAttribute(){
-        if ( ! Auth::check()){
+    public function getContinueUrlAttribute()
+    {
+        if (! Auth::check()) {
             return null;
         }
 
@@ -415,20 +440,21 @@ class Course extends Model
 
         $content = Content::whereCourseId($this->id)->whereNotIn('id', $completed_ids)->orderBy('sort_order', 'asc')->first();
 
-        if ( ! $content){
+        if (! $content) {
             $content = Content::whereCourseId($this->id)->orderBy('sort_order', 'asc')->first();
         }
-        if ( ! $content){
+        if (! $content) {
             return null;
         }
-        return route('single_'.$content->item_type, [$this->slug, $content->id ] );
+        return route('single_'.$content->item_type, [$this->slug, $content->id ]);
     }
 
     /**
-     * @return int|string|null
+     * @return null|int|string
      */
-    public function getGetPriceAttribute(){
-        if ($this->price_plan && $this->price_plan !== 'free' && $this->price > 0){
+    public function getGetPriceAttribute()
+    {
+        if ($this->price_plan && $this->price_plan !== 'free' && $this->price > 0) {
             $current_price = $this->sale_price > 0 ?  $this->sale_price : $this->price;
 
             return $current_price;
@@ -441,39 +467,36 @@ class Course extends Model
      * @param false $showOff
      * @return string
      */
-    public function price_html($originalPriceOnRight = false, $showOff = false){
-
+    public function price_html($originalPriceOnRight = false, $showOff = false)
+    {
         $priceLocation = ' current-price-left ';
-        if ($originalPriceOnRight){
+        if ($originalPriceOnRight) {
             $priceLocation = ' current-price-right ';
         }
 
         $price_html = "<div class='price-html-wrap {$priceLocation}'>";
-        if ( $this->paid && $this->price > 0){
-
+        if ($this->paid && $this->price > 0) {
             $current_price = $this->sale_price > 0 ?  price_format($this->sale_price) : price_format($this->price);
 
-            if ( ! $originalPriceOnRight){
+            if (! $originalPriceOnRight) {
                 $price_html .= " <span class='current-price'>{$current_price}</span>";
             }
 
-            if ($this->sale_price > 0){
+            if ($this->sale_price > 0) {
                 $old_price = price_format($this->price);
                 $price_html .= " <span class='old-price'><s>{$old_price}</s></span>";
 
                 if ($showOff) {
-                    $discount = number_format( 100 - ($this->sale_price * 100   / $this->price)   , 2);
+                    $discount = number_format(100 - ($this->sale_price * 100   / $this->price), 2);
                     $offText = $discount . '% ' . __t('off');
                     $price_html .= " <span class='discount-text mr-2'>{$offText}</span>";
                 }
             }
 
-            if ($originalPriceOnRight){
+            if ($originalPriceOnRight) {
                 $price_html .= " <span class='current-price'>{$current_price}</span>";
             }
-
-
-        }else{
+        } else {
             $price_html .= '<span class="free-text mr-2">'.__t('free').'</span>';
         }
         $price_html .= '</div>';
@@ -485,14 +508,15 @@ class Course extends Model
      * @param bool $badge
      * @return string
      */
-    public function status_html($badge = true){
+    public function status_html($badge = true)
+    {
         $status = $this->status;
 
         $class = $badge ? 'badge badge' : 'status-text text';
 
         $html = "<span class='{$class}-dark'> <i class='la la-pencil-square-o'></i> ".__t('draft')."</span>";
 
-        switch ($status){
+        switch ($status) {
             case 1:
                 $html = "<span class='{$class}-success'> <i class='la la-check-circle'></i> ".__t('published')."</span>";
                 break;
@@ -508,10 +532,10 @@ class Course extends Model
                 break;
         }
 
-        if ($this->is_popular){
+        if ($this->is_popular) {
             $html .= "<span class='badge badge-primary mx-2' data-toggle='tooltip' title='Popular'> <i class='la la-bolt'></i></span>";
         }
-        if ($this->is_featured){
+        if ($this->is_featured) {
             $html .= "<span class='badge badge-info mx-2'  data-toggle='tooltip' title='Featured'> <i class='la la-bookmark'></i></span>";
         }
 
@@ -520,17 +544,18 @@ class Course extends Model
 
     /**
      * @param null $key
-     * @return mixed|null
+     * @return null|mixed
      *
      * Get Attached Video Info
      */
 
-    public function video_info($key = null){
+    public function video_info($key = null)
+    {
         $video_info = null;
-        if ($this->video_src){
+        if ($this->video_src) {
             $video_info = json_decode($this->video_src, true);
         }
-        if ($key && is_array($video_info)){
+        if ($key && is_array($video_info)) {
             return array_get($video_info, $key);
         }
 
@@ -540,7 +565,8 @@ class Course extends Model
     /**
      * @return mixed
      */
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(Review::class)->whereStatus(1)->with('user')->orderBy('id', 'desc');
     }
 
@@ -548,28 +574,28 @@ class Course extends Model
      * @param null $key
      * @return array|mixed
      */
-    public function get_ratings($key = null){
-
+    public function get_ratings($key = null)
+    {
         $ratingCount = $this->rating_count;
 
         $five_percent = 0;
-        if ($this->five_star_count > 0){
+        if ($this->five_star_count > 0) {
             $five_percent = ($this->five_star_count * 100) / $ratingCount;
         }
         $four_percent = 0;
-        if ($this->four_star_count > 0){
+        if ($this->four_star_count > 0) {
             $four_percent = ($this->four_star_count * 100) / $ratingCount;
         }
         $three_percent = 0;
-        if ($this->three_star_count > 0){
+        if ($this->three_star_count > 0) {
             $three_percent = ($this->three_star_count * 100) / $ratingCount;
         }
         $two_percent = 0;
-        if ($this->two_star_count > 0){
+        if ($this->two_star_count > 0) {
             $two_percent = ($this->two_star_count * 100) / $ratingCount;
         }
         $one_percent = 0;
-        if ($this->one_star_count > 0){
+        if ($this->one_star_count > 0) {
             $one_percent = ($this->one_star_count * 100) / $ratingCount;
         }
 
@@ -596,7 +622,7 @@ class Course extends Model
             ]
         ];
 
-        if ($key){
+        if ($key) {
             return array_get($ratings, $key);
         }
 
@@ -606,13 +632,14 @@ class Course extends Model
     /**
      * @return array[]
      */
-    public function getDripItemsAttribute(){
+    public function getDripItemsAttribute()
+    {
         $dripItems = [
             'sections' => [],
             'contents' => [],
         ];
 
-        if ( ! Auth::check()){
+        if (! Auth::check()) {
             return $dripItems;
         }
 
@@ -626,27 +653,27 @@ class Course extends Model
         $user = Auth::user();
         $isEnrol = $user->isEnrolled($this->id);
 
-        foreach ($dripSections as $dripSection){
-            if ($dripSection->unlock_date && strtotime($dripSection->unlock_date) > $time ){
+        foreach ($dripSections as $dripSection) {
+            if ($dripSection->unlock_date && strtotime($dripSection->unlock_date) > $time) {
                 $dripSectionIds[] = $dripSection->id;
-            }elseif ($dripSection->unlock_days && $dripSection->unlock_days > 0 ){
+            } elseif ($dripSection->unlock_days && $dripSection->unlock_days > 0) {
                 $unlock_date = Carbon::parse($isEnrol->enrolled_at)->addDays($dripSection->unlock_days);
                 $now = Carbon::now();
 
-                if ($unlock_date->gt($now)){
+                if ($unlock_date->gt($now)) {
                     $dripSectionIds[] = $dripSection->id;
                 }
             }
         }
 
-        foreach ($dripContents as $dripContent){
-            if ($dripContent->unlock_date && strtotime($dripContent->unlock_date) > $time ){
+        foreach ($dripContents as $dripContent) {
+            if ($dripContent->unlock_date && strtotime($dripContent->unlock_date) > $time) {
                 $dripContentIds[] = $dripContent->id;
-            }elseif ($dripContent->unlock_days && $dripContent->unlock_days > 0 ){
+            } elseif ($dripContent->unlock_days && $dripContent->unlock_days > 0) {
                 $unlock_date = Carbon::parse($isEnrol->enrolled_at)->addDays($dripContent->unlock_days);
                 $now = Carbon::now();
 
-                if ($unlock_date->gt($now)){
+                if ($unlock_date->gt($now)) {
                     $dripContentIds[] = $dripContent->id;
                 }
             }
@@ -657,5 +684,4 @@ class Course extends Model
 
         return $dripItems;
     }
-
 }

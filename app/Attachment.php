@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
  * App\Attachment
  *
  * @property int $id
- * @property int|null $course_id
- * @property int|null $belongs_course_id
- * @property int|null $content_id
- * @property int|null $user_id
- * @property int|null $media_id
- * @property string|null $hash_id
- * @property-read \App\Content|null $belongs_item
- * @property-read \App\Media|null $media
+ * @property null|int $course_id
+ * @property null|int $belongs_course_id
+ * @property null|int $content_id
+ * @property null|int $user_id
+ * @property null|int $media_id
+ * @property null|string $hash_id
+ * @property-read null|\App\Content $belongs_item
+ * @property-read null|\App\Media $media
  * @method static \Illuminate\Database\Eloquent\Builder|Attachment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Attachment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Attachment query()
@@ -42,27 +42,29 @@ class Attachment extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function media(){
+    public function media()
+    {
         return $this->belongsTo(Media::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function belongs_item(){
+    public function belongs_item()
+    {
         return $this->belongsTo(Content::class, 'content_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function course(){
-        if ($this->course_id){
+    public function course()
+    {
+        if ($this->course_id) {
             return $this->belongsTo(Course::class, 'course_id');
         }
-        if ($this->belongs_course_id){
+        if ($this->belongs_course_id) {
             return $this->belongsTo(Course::class, 'belongs_course_id');
         }
     }
-
 }

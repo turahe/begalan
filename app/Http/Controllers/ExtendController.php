@@ -17,7 +17,8 @@ class ExtendController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function plugins(){
+    public function plugins()
+    {
         $title = __a('plugins');
         $plugins = app('TeachifyPlugins')->getPlugins();
         $extended_products = (array) $this->extended_products();
@@ -32,11 +33,12 @@ class ExtendController extends Controller
      *
      * Activate or deactivate plugin
      */
-    public function pluginAction(Request $request){
+    public function pluginAction(Request $request)
+    {
         $action = $request->action;
         $plugin = $request->plugin;
 
-        if ($action === 'activate'){
+        if ($action === 'activate') {
             $active_plugins = (array) json_decode(get_option('active_plugins'), true);
             $active_plugins[] = $plugin;
 
@@ -44,7 +46,7 @@ class ExtendController extends Controller
             return back()->with('success', __a('plugin_activated'));
         }
 
-        if ($action === 'deactivate'){
+        if ($action === 'deactivate') {
             $active_plugins = (array) json_decode(get_option('active_plugins'), true);
             update_option('active_plugins', array_unique(array_diff($active_plugins, [$plugin])));
             return redirect(route('plugins'))->with('success', __a('plugin_deactivated'));
@@ -54,7 +56,8 @@ class ExtendController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function findPlugins(){
+    public function findPlugins()
+    {
         $title = __a('find_plugins');
         $extended_products = (array) $this->extended_products();
         $extended_plugins = array_get($extended_products, 'plugin');
@@ -65,7 +68,8 @@ class ExtendController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function themes(){
+    public function themes()
+    {
         $title = __a('themes');
 
         $current_theme = get_option('current_theme');
@@ -77,9 +81,9 @@ class ExtendController extends Controller
             $theme_info = include_once $themePath.'/ThemeInfo.php';
 
             $screenshot_url = asset('images/placeholder-image.png');
-            if (file_exists($themePath."/screenshot.png")){
+            if (file_exists($themePath."/screenshot.png")) {
                 $screenshot_url = asset("themes/{$directoryName}/screenshot.png");
-            }elseif(file_exists($themePath."/screenshot.jpg")){
+            } elseif (file_exists($themePath."/screenshot.jpg")) {
                 $screenshot_url = asset("themes/{$directoryName}/screenshot.jpg");
             }
 
@@ -87,7 +91,7 @@ class ExtendController extends Controller
 
             $installed_themes[$directoryName] = $theme_info;
         }
-        $installed_themes = array_merge([$current_theme => array_get($installed_themes, $current_theme)], $installed_themes );
+        $installed_themes = array_merge([$current_theme => array_get($installed_themes, $current_theme)], $installed_themes);
 
         return view('extend.themes', compact('title', 'installed_themes'));
     }
@@ -96,7 +100,8 @@ class ExtendController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function activateTheme(Request $request){
+    public function activateTheme(Request $request)
+    {
         $theme = $request->theme_slug;
         update_option('current_theme', $theme);
         return back()->with('success', __a('theme_activated'));
@@ -105,7 +110,8 @@ class ExtendController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function findThemes(){
+    public function findThemes()
+    {
         $title = __a('find_themes');
         $extended_products = (array) $this->extended_products();
         $themes = array_get($extended_products, 'theme');
@@ -116,23 +122,21 @@ class ExtendController extends Controller
     /**
      * @return mixed
      */
-    public function extended_products(){
+    public function extended_products()
+    {
         $products = Cache::remember('child_products', now()->addDays(1), function () {
             try {
                 $response = Http::get(config('app.products_api'), ['unique_slug' => 'teachify-lms']);
                 $request = json_decode($response->body(), true);
-                if (array_get($request, 'success') && array_get($request, 'total') > 0){
+                if (array_get($request, 'success') && array_get($request, 'total') > 0) {
                     return array_get($request, 'data');
-                }else{
-                    return [];
                 }
-            }catch (\Exception $exception){
+                return [];
+            } catch (\Exception $exception) {
                 return [];
             }
         });
 
         return $products;
     }
-
-
 }

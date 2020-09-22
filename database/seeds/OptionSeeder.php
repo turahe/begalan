@@ -11,7 +11,7 @@ class OptionSeeder extends Seeder
      */
     public function run()
     {
-        $options = array (
+        $options = [
             'default_storage' => 'public',
             'date_format' => 'd/m/Y',
             'time_format' => 'H:i',
@@ -26,8 +26,8 @@ class OptionSeeder extends Seeder
             'paypal_receiver_email' => 'admin@circle-creative.com',
             'stripe_test_secret_key' => 'sk_test_tJeAdA1KbhiYV8I8bfPmJcOL',
             'stripe_test_publishable_key' => 'pk_test_P3TFmKrvT7l29Zpyy1f4pwk8',
-            'stripe_live_secret_key' => NULL,
-            'stripe_live_publishable_key' => NULL,
+            'stripe_live_secret_key' => null,
+            'stripe_live_publishable_key' => null,
             'enable_paypal' => 0,
             'enable_paypal_sandbox' => '1',
             'current_theme' => 'edugator',
@@ -58,16 +58,16 @@ class OptionSeeder extends Seeder
             'withdraw_methods' => 'json_encode_value_{"bank_transfer":{"enable":"1","min_withdraw_amount":"100","notes":"Please note that it takes approximately 2 to 7 days to process your withdraw via bank transfer. Sometimes it may take longer. If you do not receive withdrawal after 7 days, please contact our customer support. Updated"},"echeck":{"enable":"1","min_withdraw_amount":"50"},"paypal":{"enable":"1","min_withdraw_amount":"50"}}',
             'lms_settings' => 'json_encode_value_{"enable_discussion":"1"}',
             'active_plugins' => '{"3":"MultiInstructor","4":"StudentsProgress"}',
-            'site_logo' => '32',
+            'site_logo' => null,
             'terms_of_use_page' => '7',
             'privacy_policy_page' => '8',
             'about_us_page' => '3',
             'cookie_alert' => 'json_encode_value_{"enable":"1","message":"By using WebAcademy you accept our cookies and agree to our privacy policy, including cookie policy. {privacy_policy_url}"}',
             'social_login' => 'json_encode_value_{"facebook":{"enable":"1","app_id":"292155035510814","app_secret":"de1a21d48afe669dda21626fdf638832"},"google":{"enable":"1","client_id":"586033023574-3m025n2jei2eldgdqf7ic2r7rh58oj86.apps.googleusercontent.com","client_secret":"Pd6fUp5FFmXUt-M0Prdc2fFy"},"twitter":{"enable":"1","consumer_key":"iXy8T2reBWP42aD60rXdtUf8R","consumer_secret":"SEYSr2AFVaVfH56xPZerEZxBW7gGgZOE2CT8jdoq32BbuL7Zv3"},"linkedin":{"enable":"1","client_id":"86iampeb7c62rw","client_secret":"Gyb9naxKvOR6wM8i"}}',
-        );
+        ];
 
         $newOptions = [];
-        foreach ($options as $key => $value){
+        foreach ($options as $key => $value) {
             $newOptions[] = ['option_key' => $key, 'option_value' => $value];
         }
 

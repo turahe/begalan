@@ -9,9 +9,10 @@ class CountrySeeder extends Seeder
      *
      * @return void
      */
-    public function run() {
-        $countries = array (
-            0 => array (
+    public function run()
+    {
+        $countries = [
+            0 => [
                 'id' => 1,
                 'country_code' => '004',
                 'currency_code' => 'AFN',
@@ -23,8 +24,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Afghanistan',
                 'calling_code' => '93',
                 'flag' => 'AF.png',
-            ),
-            1 => array (
+            ],
+            1 => [
                 'id' => 2,
                 'country_code' => '008',
                 'currency_code' => 'ALL',
@@ -36,8 +37,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Albania',
                 'calling_code' => '355',
                 'flag' => 'AL.png',
-            ),
-            2 => array (
+            ],
+            2 => [
                 'id' => 3,
                 'country_code' => '010',
                 'currency_code' => '',
@@ -49,8 +50,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Antarctica',
                 'calling_code' => '672',
                 'flag' => 'AQ.png',
-            ),
-            3 => array (
+            ],
+            3 => [
                 'id' => 4,
                 'country_code' => '012',
                 'currency_code' => 'DZD',
@@ -62,8 +63,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Algeria',
                 'calling_code' => '213',
                 'flag' => 'DZ.png',
-            ),
-            4 => array (
+            ],
+            4 => [
                 'id' => 5,
                 'country_code' => '016',
                 'currency_code' => 'USD',
@@ -75,8 +76,8 @@ class CountrySeeder extends Seeder
                 'name' => 'American Samoa',
                 'calling_code' => '1',
                 'flag' => 'AS.png',
-            ),
-            5 => array (
+            ],
+            5 => [
                 'id' => 6,
                 'country_code' => '020',
                 'currency_code' => 'EUR',
@@ -88,8 +89,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Andorra',
                 'calling_code' => '376',
                 'flag' => 'AD.png',
-            ),
-            6 => array (
+            ],
+            6 => [
                 'id' => 7,
                 'country_code' => '024',
                 'currency_code' => 'AOA',
@@ -101,8 +102,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Angola',
                 'calling_code' => '244',
                 'flag' => 'AO.png',
-            ),
-            7 => array (
+            ],
+            7 => [
                 'id' => 8,
                 'country_code' => '028',
                 'currency_code' => 'XCD',
@@ -114,8 +115,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Antigua and Barbuda',
                 'calling_code' => '1',
                 'flag' => 'AG.png',
-            ),
-            8 => array (
+            ],
+            8 => [
                 'id' => 9,
                 'country_code' => '031',
                 'currency_code' => 'AZN',
@@ -127,8 +128,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Azerbaijan',
                 'calling_code' => '994',
                 'flag' => 'AZ.png',
-            ),
-            9 => array (
+            ],
+            9 => [
                 'id' => 10,
                 'country_code' => '032',
                 'currency_code' => 'ARS',
@@ -140,8 +141,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Argentina',
                 'calling_code' => '54',
                 'flag' => 'AR.png',
-            ),
-            10 => array (
+            ],
+            10 => [
                 'id' => 11,
                 'country_code' => '036',
                 'currency_code' => 'AUD',
@@ -153,8 +154,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Australia',
                 'calling_code' => '61',
                 'flag' => 'AU.png',
-            ),
-            11 => array (
+            ],
+            11 => [
                 'id' => 12,
                 'country_code' => '040',
                 'currency_code' => 'EUR',
@@ -166,8 +167,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Austria',
                 'calling_code' => '43',
                 'flag' => 'AT.png',
-            ),
-            12 => array (
+            ],
+            12 => [
                 'id' => 13,
                 'country_code' => '044',
                 'currency_code' => 'BSD',
@@ -179,8 +180,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bahamas',
                 'calling_code' => '1',
                 'flag' => 'BS.png',
-            ),
-            13 => array (
+            ],
+            13 => [
                 'id' => 14,
                 'country_code' => '048',
                 'currency_code' => 'BHD',
@@ -192,8 +193,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bahrain',
                 'calling_code' => '973',
                 'flag' => 'BH.png',
-            ),
-            14 => array (
+            ],
+            14 => [
                 'id' => 15,
                 'country_code' => '050',
                 'currency_code' => 'BDT',
@@ -205,8 +206,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bangladesh',
                 'calling_code' => '880',
                 'flag' => 'BD.png',
-            ),
-            15 => array (
+            ],
+            15 => [
                 'id' => 16,
                 'country_code' => '051',
                 'currency_code' => 'AMD',
@@ -218,8 +219,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Armenia',
                 'calling_code' => '374',
                 'flag' => 'AM.png',
-            ),
-            16 => array (
+            ],
+            16 => [
                 'id' => 17,
                 'country_code' => '052',
                 'currency_code' => 'BBD',
@@ -231,8 +232,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Barbados',
                 'calling_code' => '1',
                 'flag' => 'BB.png',
-            ),
-            17 => array (
+            ],
+            17 => [
                 'id' => 18,
                 'country_code' => '056',
                 'currency_code' => 'EUR',
@@ -244,8 +245,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Belgium',
                 'calling_code' => '32',
                 'flag' => 'BE.png',
-            ),
-            18 => array (
+            ],
+            18 => [
                 'id' => 19,
                 'country_code' => '060',
                 'currency_code' => 'BMD',
@@ -257,8 +258,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bermuda',
                 'calling_code' => '1',
                 'flag' => 'BM.png',
-            ),
-            19 => array (
+            ],
+            19 => [
                 'id' => 20,
                 'country_code' => '064',
                 'currency_code' => 'BTN',
@@ -270,8 +271,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bhutan',
                 'calling_code' => '975',
                 'flag' => 'BT.png',
-            ),
-            20 => array (
+            ],
+            20 => [
                 'id' => 21,
                 'country_code' => '068',
                 'currency_code' => 'BOB',
@@ -283,8 +284,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bolivia, Plurinational State of',
                 'calling_code' => '591',
                 'flag' => 'BO.png',
-            ),
-            21 => array (
+            ],
+            21 => [
                 'id' => 22,
                 'country_code' => '070',
                 'currency_code' => 'BAM',
@@ -296,8 +297,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bosnia and Herzegovina',
                 'calling_code' => '387',
                 'flag' => 'BA.png',
-            ),
-            22 => array (
+            ],
+            22 => [
                 'id' => 23,
                 'country_code' => '072',
                 'currency_code' => 'BWP',
@@ -309,8 +310,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Botswana',
                 'calling_code' => '267',
                 'flag' => 'BW.png',
-            ),
-            23 => array (
+            ],
+            23 => [
                 'id' => 24,
                 'country_code' => '074',
                 'currency_code' => '',
@@ -322,8 +323,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bouvet Island',
                 'calling_code' => '47',
                 'flag' => 'BV.png',
-            ),
-            24 => array (
+            ],
+            24 => [
                 'id' => 25,
                 'country_code' => '076',
                 'currency_code' => 'BRL',
@@ -335,8 +336,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Brazil',
                 'calling_code' => '55',
                 'flag' => 'BR.png',
-            ),
-            25 => array (
+            ],
+            25 => [
                 'id' => 26,
                 'country_code' => '084',
                 'currency_code' => 'BZD',
@@ -348,8 +349,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Belize',
                 'calling_code' => '501',
                 'flag' => 'BZ.png',
-            ),
-            26 => array (
+            ],
+            26 => [
                 'id' => 27,
                 'country_code' => '086',
                 'currency_code' => 'USD',
@@ -361,8 +362,8 @@ class CountrySeeder extends Seeder
                 'name' => 'British Indian Ocean Territory',
                 'calling_code' => '246',
                 'flag' => 'IO.png',
-            ),
-            27 => array (
+            ],
+            27 => [
                 'id' => 28,
                 'country_code' => '090',
                 'currency_code' => 'SBD',
@@ -374,8 +375,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Solomon Islands',
                 'calling_code' => '677',
                 'flag' => 'SB.png',
-            ),
-            28 => array (
+            ],
+            28 => [
                 'id' => 29,
                 'country_code' => '092',
                 'currency_code' => 'USD',
@@ -387,8 +388,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Virgin Islands, British',
                 'calling_code' => '1',
                 'flag' => 'VG.png',
-            ),
-            29 => array (
+            ],
+            29 => [
                 'id' => 30,
                 'country_code' => '096',
                 'currency_code' => 'BND',
@@ -400,8 +401,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Brunei Darussalam',
                 'calling_code' => '673',
                 'flag' => 'BN.png',
-            ),
-            30 => array (
+            ],
+            30 => [
                 'id' => 31,
                 'country_code' => '100',
                 'currency_code' => 'BGN',
@@ -413,8 +414,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Bulgaria',
                 'calling_code' => '359',
                 'flag' => 'BG.png',
-            ),
-            31 => array (
+            ],
+            31 => [
                 'id' => 32,
                 'country_code' => '104',
                 'currency_code' => 'MMK',
@@ -426,8 +427,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Myanmar',
                 'calling_code' => '95',
                 'flag' => 'MM.png',
-            ),
-            32 => array (
+            ],
+            32 => [
                 'id' => 33,
                 'country_code' => '108',
                 'currency_code' => 'BIF',
@@ -439,8 +440,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Burundi',
                 'calling_code' => '257',
                 'flag' => 'BI.png',
-            ),
-            33 => array (
+            ],
+            33 => [
                 'id' => 34,
                 'country_code' => '112',
                 'currency_code' => 'BYR',
@@ -452,8 +453,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Belarus',
                 'calling_code' => '375',
                 'flag' => 'BY.png',
-            ),
-            34 => array (
+            ],
+            34 => [
                 'id' => 35,
                 'country_code' => '116',
                 'currency_code' => 'KHR',
@@ -465,8 +466,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cambodia',
                 'calling_code' => '855',
                 'flag' => 'KH.png',
-            ),
-            35 => array (
+            ],
+            35 => [
                 'id' => 36,
                 'country_code' => '120',
                 'currency_code' => 'XAF',
@@ -478,8 +479,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cameroon',
                 'calling_code' => '237',
                 'flag' => 'CM.png',
-            ),
-            36 => array (
+            ],
+            36 => [
                 'id' => 37,
                 'country_code' => '124',
                 'currency_code' => 'CAD',
@@ -491,8 +492,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Canada',
                 'calling_code' => '1',
                 'flag' => 'CA.png',
-            ),
-            37 => array (
+            ],
+            37 => [
                 'id' => 38,
                 'country_code' => '132',
                 'currency_code' => 'CVE',
@@ -504,8 +505,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cape Verde',
                 'calling_code' => '238',
                 'flag' => 'CV.png',
-            ),
-            38 => array (
+            ],
+            38 => [
                 'id' => 39,
                 'country_code' => '136',
                 'currency_code' => 'KYD',
@@ -517,8 +518,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cayman Islands',
                 'calling_code' => '1',
                 'flag' => 'KY.png',
-            ),
-            39 => array (
+            ],
+            39 => [
                 'id' => 40,
                 'country_code' => '140',
                 'currency_code' => 'XAF',
@@ -530,8 +531,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Central African Republic',
                 'calling_code' => '236',
                 'flag' => 'CF.png',
-            ),
-            40 => array (
+            ],
+            40 => [
                 'id' => 41,
                 'country_code' => '144',
                 'currency_code' => 'LKR',
@@ -543,8 +544,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Sri Lanka',
                 'calling_code' => '94',
                 'flag' => 'LK.png',
-            ),
-            41 => array (
+            ],
+            41 => [
                 'id' => 42,
                 'country_code' => '148',
                 'currency_code' => 'XAF',
@@ -556,8 +557,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Chad',
                 'calling_code' => '235',
                 'flag' => 'TD.png',
-            ),
-            42 => array (
+            ],
+            42 => [
                 'id' => 43,
                 'country_code' => '152',
                 'currency_code' => 'CLP',
@@ -569,8 +570,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Chile',
                 'calling_code' => '56',
                 'flag' => 'CL.png',
-            ),
-            43 => array (
+            ],
+            43 => [
                 'id' => 44,
                 'country_code' => '156',
                 'currency_code' => 'CNY',
@@ -582,8 +583,8 @@ class CountrySeeder extends Seeder
                 'name' => 'China',
                 'calling_code' => '86',
                 'flag' => 'CN.png',
-            ),
-            44 => array (
+            ],
+            44 => [
                 'id' => 45,
                 'country_code' => '158',
                 'currency_code' => 'TWD',
@@ -595,8 +596,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Taiwan, Province of China',
                 'calling_code' => '886',
                 'flag' => 'TW.png',
-            ),
-            45 => array (
+            ],
+            45 => [
                 'id' => 46,
                 'country_code' => '162',
                 'currency_code' => 'AUD',
@@ -608,8 +609,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Christmas Island',
                 'calling_code' => '61',
                 'flag' => 'CX.png',
-            ),
-            46 => array (
+            ],
+            46 => [
                 'id' => 47,
                 'country_code' => '166',
                 'currency_code' => 'AUD',
@@ -621,8 +622,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cocos (Keeling) Islands',
                 'calling_code' => '61',
                 'flag' => 'CC.png',
-            ),
-            47 => array (
+            ],
+            47 => [
                 'id' => 48,
                 'country_code' => '170',
                 'currency_code' => 'COP',
@@ -634,8 +635,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Colombia',
                 'calling_code' => '57',
                 'flag' => 'CO.png',
-            ),
-            48 => array (
+            ],
+            48 => [
                 'id' => 49,
                 'country_code' => '174',
                 'currency_code' => 'KMF',
@@ -647,8 +648,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Comoros',
                 'calling_code' => '269',
                 'flag' => 'KM.png',
-            ),
-            49 => array (
+            ],
+            49 => [
                 'id' => 50,
                 'country_code' => '175',
                 'currency_code' => 'EUR',
@@ -660,8 +661,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Mayotte',
                 'calling_code' => '262',
                 'flag' => 'YT.png',
-            ),
-            50 => array (
+            ],
+            50 => [
                 'id' => 51,
                 'country_code' => '178',
                 'currency_code' => 'XAF',
@@ -673,8 +674,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Congo',
                 'calling_code' => '242',
                 'flag' => 'CG.png',
-            ),
-            51 => array (
+            ],
+            51 => [
                 'id' => 52,
                 'country_code' => '180',
                 'currency_code' => 'CDF',
@@ -686,8 +687,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Congo, the Democratic Republic of the',
                 'calling_code' => '243',
                 'flag' => 'CD.png',
-            ),
-            52 => array (
+            ],
+            52 => [
                 'id' => 53,
                 'country_code' => '184',
                 'currency_code' => 'NZD',
@@ -699,8 +700,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cook Islands',
                 'calling_code' => '682',
                 'flag' => 'CK.png',
-            ),
-            53 => array (
+            ],
+            53 => [
                 'id' => 54,
                 'country_code' => '188',
                 'currency_code' => 'CRC',
@@ -712,8 +713,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Costa Rica',
                 'calling_code' => '506',
                 'flag' => 'CR.png',
-            ),
-            54 => array (
+            ],
+            54 => [
                 'id' => 55,
                 'country_code' => '191',
                 'currency_code' => 'HRK',
@@ -725,8 +726,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Croatia',
                 'calling_code' => '385',
                 'flag' => 'HR.png',
-            ),
-            55 => array (
+            ],
+            55 => [
                 'id' => 56,
                 'country_code' => '192',
                 'currency_code' => 'CUP',
@@ -738,8 +739,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cuba',
                 'calling_code' => '53',
                 'flag' => 'CU.png',
-            ),
-            56 => array (
+            ],
+            56 => [
                 'id' => 57,
                 'country_code' => '196',
                 'currency_code' => 'EUR',
@@ -751,8 +752,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Cyprus',
                 'calling_code' => '357',
                 'flag' => 'CY.png',
-            ),
-            57 => array (
+            ],
+            57 => [
                 'id' => 58,
                 'country_code' => '203',
                 'currency_code' => 'CZK',
@@ -764,8 +765,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Czech Republic',
                 'calling_code' => '420',
                 'flag' => 'CZ.png',
-            ),
-            58 => array (
+            ],
+            58 => [
                 'id' => 59,
                 'country_code' => '204',
                 'currency_code' => 'XOF',
@@ -777,8 +778,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Benin',
                 'calling_code' => '229',
                 'flag' => 'BJ.png',
-            ),
-            59 => array (
+            ],
+            59 => [
                 'id' => 60,
                 'country_code' => '208',
                 'currency_code' => 'DKK',
@@ -790,8 +791,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Denmark',
                 'calling_code' => '45',
                 'flag' => 'DK.png',
-            ),
-            60 => array (
+            ],
+            60 => [
                 'id' => 61,
                 'country_code' => '212',
                 'currency_code' => 'XCD',
@@ -803,8 +804,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Dominica',
                 'calling_code' => '1',
                 'flag' => 'DM.png',
-            ),
-            61 => array (
+            ],
+            61 => [
                 'id' => 62,
                 'country_code' => '214',
                 'currency_code' => 'DOP',
@@ -816,8 +817,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Dominican Republic',
                 'calling_code' => '1',
                 'flag' => 'DO.png',
-            ),
-            62 => array (
+            ],
+            62 => [
                 'id' => 63,
                 'country_code' => '218',
                 'currency_code' => 'USD',
@@ -829,8 +830,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Ecuador',
                 'calling_code' => '593',
                 'flag' => 'EC.png',
-            ),
-            63 => array (
+            ],
+            63 => [
                 'id' => 64,
                 'country_code' => '222',
                 'currency_code' => 'SVC',
@@ -842,8 +843,8 @@ class CountrySeeder extends Seeder
                 'name' => 'El Salvador',
                 'calling_code' => '503',
                 'flag' => 'SV.png',
-            ),
-            64 => array (
+            ],
+            64 => [
                 'id' => 65,
                 'country_code' => '226',
                 'currency_code' => 'XAF',
@@ -855,8 +856,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Equatorial Guinea',
                 'calling_code' => '240',
                 'flag' => 'GQ.png',
-            ),
-            65 => array (
+            ],
+            65 => [
                 'id' => 66,
                 'country_code' => '231',
                 'currency_code' => 'ETB',
@@ -868,8 +869,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Ethiopia',
                 'calling_code' => '251',
                 'flag' => 'ET.png',
-            ),
-            66 => array (
+            ],
+            66 => [
                 'id' => 67,
                 'country_code' => '232',
                 'currency_code' => 'ERN',
@@ -881,8 +882,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Eritrea',
                 'calling_code' => '291',
                 'flag' => 'ER.png',
-            ),
-            67 => array (
+            ],
+            67 => [
                 'id' => 68,
                 'country_code' => '233',
                 'currency_code' => 'EUR',
@@ -894,8 +895,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Estonia',
                 'calling_code' => '372',
                 'flag' => 'EE.png',
-            ),
-            68 => array (
+            ],
+            68 => [
                 'id' => 69,
                 'country_code' => '234',
                 'currency_code' => 'DKK',
@@ -907,8 +908,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Faroe Islands',
                 'calling_code' => '298',
                 'flag' => 'FO.png',
-            ),
-            69 => array (
+            ],
+            69 => [
                 'id' => 70,
                 'country_code' => '238',
                 'currency_code' => 'FKP',
@@ -920,8 +921,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Falkland Islands (Malvinas)',
                 'calling_code' => '500',
                 'flag' => 'FK.png',
-            ),
-            70 => array (
+            ],
+            70 => [
                 'id' => 71,
                 'country_code' => '239',
                 'currency_code' => '',
@@ -933,8 +934,8 @@ class CountrySeeder extends Seeder
                 'name' => 'South Georgia and the South Sandwich Islands',
                 'calling_code' => '44',
                 'flag' => 'GS.png',
-            ),
-            71 => array (
+            ],
+            71 => [
                 'id' => 72,
                 'country_code' => '242',
                 'currency_code' => 'FJD',
@@ -946,8 +947,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Fiji',
                 'calling_code' => '679',
                 'flag' => 'FJ.png',
-            ),
-            72 => array (
+            ],
+            72 => [
                 'id' => 73,
                 'country_code' => '246',
                 'currency_code' => 'EUR',
@@ -959,21 +960,21 @@ class CountrySeeder extends Seeder
                 'name' => 'Finland',
                 'calling_code' => '358',
                 'flag' => 'FI.png',
-            ),
-            73 => array (
+            ],
+            73 => [
                 'id' => 74,
                 'country_code' => '248',
                 'currency_code' => 'EUR',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'AX',
                 'iso3' => 'ALA',
                 'continent_code' => 'EU',
                 'name' => 'Åland Islands',
                 'calling_code' => '358',
-                'flag' => NULL,
-            ),
-            74 => array (
+                'flag' => null,
+            ],
+            74 => [
                 'id' => 75,
                 'country_code' => '250',
                 'currency_code' => 'EUR',
@@ -985,8 +986,8 @@ class CountrySeeder extends Seeder
                 'name' => 'France',
                 'calling_code' => '33',
                 'flag' => 'FR.png',
-            ),
-            75 => array (
+            ],
+            75 => [
                 'id' => 76,
                 'country_code' => '254',
                 'currency_code' => 'EUR',
@@ -998,8 +999,8 @@ class CountrySeeder extends Seeder
                 'name' => 'French Guiana',
                 'calling_code' => '594',
                 'flag' => 'GF.png',
-            ),
-            76 => array (
+            ],
+            76 => [
                 'id' => 77,
                 'country_code' => '258',
                 'currency_code' => 'XPF',
@@ -1011,8 +1012,8 @@ class CountrySeeder extends Seeder
                 'name' => 'French Polynesia',
                 'calling_code' => '689',
                 'flag' => 'PF.png',
-            ),
-            77 => array (
+            ],
+            77 => [
                 'id' => 78,
                 'country_code' => '260',
                 'currency_code' => 'EUR',
@@ -1024,8 +1025,8 @@ class CountrySeeder extends Seeder
                 'name' => 'French Southern Territories',
                 'calling_code' => '33',
                 'flag' => 'TF.png',
-            ),
-            78 => array (
+            ],
+            78 => [
                 'id' => 79,
                 'country_code' => '262',
                 'currency_code' => 'DJF',
@@ -1037,8 +1038,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Djibouti',
                 'calling_code' => '253',
                 'flag' => 'DJ.png',
-            ),
-            79 => array (
+            ],
+            79 => [
                 'id' => 80,
                 'country_code' => '266',
                 'currency_code' => 'XAF',
@@ -1050,8 +1051,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Gabon',
                 'calling_code' => '241',
                 'flag' => 'GA.png',
-            ),
-            80 => array (
+            ],
+            80 => [
                 'id' => 81,
                 'country_code' => '268',
                 'currency_code' => 'GEL',
@@ -1063,8 +1064,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Georgia',
                 'calling_code' => '995',
                 'flag' => 'GE.png',
-            ),
-            81 => array (
+            ],
+            81 => [
                 'id' => 82,
                 'country_code' => '270',
                 'currency_code' => 'GMD',
@@ -1076,11 +1077,11 @@ class CountrySeeder extends Seeder
                 'name' => 'Gambia',
                 'calling_code' => '220',
                 'flag' => 'GM.png',
-            ),
-            82 => array (
+            ],
+            82 => [
                 'id' => 83,
                 'country_code' => '275',
-                'currency_code' => NULL,
+                'currency_code' => null,
                 'currency_symbol' => '₪',
                 'currency_decimals' => 2,
                 'iso2' => 'PS',
@@ -1089,8 +1090,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Palestinian Territory, Occupied',
                 'calling_code' => '970',
                 'flag' => 'PS.png',
-            ),
-            83 => array (
+            ],
+            83 => [
                 'id' => 84,
                 'country_code' => '276',
                 'currency_code' => 'EUR',
@@ -1102,8 +1103,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Germany',
                 'calling_code' => '49',
                 'flag' => 'DE.png',
-            ),
-            84 => array (
+            ],
+            84 => [
                 'id' => 85,
                 'country_code' => '288',
                 'currency_code' => 'GHS',
@@ -1115,8 +1116,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Ghana',
                 'calling_code' => '233',
                 'flag' => 'GH.png',
-            ),
-            85 => array (
+            ],
+            85 => [
                 'id' => 86,
                 'country_code' => '292',
                 'currency_code' => 'GIP',
@@ -1128,8 +1129,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Gibraltar',
                 'calling_code' => '350',
                 'flag' => 'GI.png',
-            ),
-            86 => array (
+            ],
+            86 => [
                 'id' => 87,
                 'country_code' => '296',
                 'currency_code' => 'AUD',
@@ -1141,8 +1142,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Kiribati',
                 'calling_code' => '686',
                 'flag' => 'KI.png',
-            ),
-            87 => array (
+            ],
+            87 => [
                 'id' => 88,
                 'country_code' => '300',
                 'currency_code' => 'EUR',
@@ -1154,8 +1155,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Greece',
                 'calling_code' => '30',
                 'flag' => 'GR.png',
-            ),
-            88 => array (
+            ],
+            88 => [
                 'id' => 89,
                 'country_code' => '304',
                 'currency_code' => 'DKK',
@@ -1167,8 +1168,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Greenland',
                 'calling_code' => '299',
                 'flag' => 'GL.png',
-            ),
-            89 => array (
+            ],
+            89 => [
                 'id' => 90,
                 'country_code' => '308',
                 'currency_code' => 'XCD',
@@ -1180,8 +1181,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Grenada',
                 'calling_code' => '1',
                 'flag' => 'GD.png',
-            ),
-            90 => array (
+            ],
+            90 => [
                 'id' => 91,
                 'country_code' => '312',
                 'currency_code' => 'EUR ',
@@ -1193,8 +1194,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Guadeloupe',
                 'calling_code' => '590',
                 'flag' => 'GP.png',
-            ),
-            91 => array (
+            ],
+            91 => [
                 'id' => 92,
                 'country_code' => '316',
                 'currency_code' => 'USD',
@@ -1206,8 +1207,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Guam',
                 'calling_code' => '1',
                 'flag' => 'GU.png',
-            ),
-            92 => array (
+            ],
+            92 => [
                 'id' => 93,
                 'country_code' => '320',
                 'currency_code' => 'GTQ',
@@ -1219,8 +1220,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Guatemala',
                 'calling_code' => '502',
                 'flag' => 'GT.png',
-            ),
-            93 => array (
+            ],
+            93 => [
                 'id' => 94,
                 'country_code' => '324',
                 'currency_code' => 'GNF',
@@ -1232,8 +1233,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Guinea',
                 'calling_code' => '224',
                 'flag' => 'GN.png',
-            ),
-            94 => array (
+            ],
+            94 => [
                 'id' => 95,
                 'country_code' => '328',
                 'currency_code' => 'GYD',
@@ -1245,8 +1246,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Guyana',
                 'calling_code' => '592',
                 'flag' => 'GY.png',
-            ),
-            95 => array (
+            ],
+            95 => [
                 'id' => 96,
                 'country_code' => '332',
                 'currency_code' => 'HTG',
@@ -1258,8 +1259,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Haiti',
                 'calling_code' => '509',
                 'flag' => 'HT.png',
-            ),
-            96 => array (
+            ],
+            96 => [
                 'id' => 97,
                 'country_code' => '334',
                 'currency_code' => '',
@@ -1271,8 +1272,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Heard Island and McDonald Islands',
                 'calling_code' => '61',
                 'flag' => 'HM.png',
-            ),
-            97 => array (
+            ],
+            97 => [
                 'id' => 98,
                 'country_code' => '336',
                 'currency_code' => 'EUR',
@@ -1284,8 +1285,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Holy See (Vatican City State)',
                 'calling_code' => '39',
                 'flag' => 'VA.png',
-            ),
-            98 => array (
+            ],
+            98 => [
                 'id' => 99,
                 'country_code' => '340',
                 'currency_code' => 'HNL',
@@ -1297,8 +1298,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Honduras',
                 'calling_code' => '504',
                 'flag' => 'HN.png',
-            ),
-            99 => array (
+            ],
+            99 => [
                 'id' => 100,
                 'country_code' => '344',
                 'currency_code' => 'HKD',
@@ -1310,8 +1311,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Hong Kong',
                 'calling_code' => '852',
                 'flag' => 'HK.png',
-            ),
-            100 => array (
+            ],
+            100 => [
                 'id' => 101,
                 'country_code' => '348',
                 'currency_code' => 'HUF',
@@ -1323,8 +1324,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Hungary',
                 'calling_code' => '36',
                 'flag' => 'HU.png',
-            ),
-            101 => array (
+            ],
+            101 => [
                 'id' => 102,
                 'country_code' => '352',
                 'currency_code' => 'ISK',
@@ -1336,8 +1337,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Iceland',
                 'calling_code' => '354',
                 'flag' => 'IS.png',
-            ),
-            102 => array (
+            ],
+            102 => [
                 'id' => 103,
                 'country_code' => '356',
                 'currency_code' => 'INR',
@@ -1349,8 +1350,8 @@ class CountrySeeder extends Seeder
                 'name' => 'India',
                 'calling_code' => '91',
                 'flag' => 'IN.png',
-            ),
-            103 => array (
+            ],
+            103 => [
                 'id' => 104,
                 'country_code' => '360',
                 'currency_code' => 'IDR',
@@ -1362,8 +1363,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Indonesia',
                 'calling_code' => '62',
                 'flag' => 'ID.png',
-            ),
-            104 => array (
+            ],
+            104 => [
                 'id' => 105,
                 'country_code' => '364',
                 'currency_code' => 'IRR',
@@ -1375,8 +1376,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Iran, Islamic Republic of',
                 'calling_code' => '98',
                 'flag' => 'IR.png',
-            ),
-            105 => array (
+            ],
+            105 => [
                 'id' => 106,
                 'country_code' => '368',
                 'currency_code' => 'IQD',
@@ -1388,8 +1389,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Iraq',
                 'calling_code' => '964',
                 'flag' => 'IQ.png',
-            ),
-            106 => array (
+            ],
+            106 => [
                 'id' => 107,
                 'country_code' => '372',
                 'currency_code' => 'EUR',
@@ -1401,8 +1402,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Ireland',
                 'calling_code' => '353',
                 'flag' => 'IE.png',
-            ),
-            107 => array (
+            ],
+            107 => [
                 'id' => 108,
                 'country_code' => '376',
                 'currency_code' => 'ILS',
@@ -1414,8 +1415,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Israel',
                 'calling_code' => '972',
                 'flag' => 'IL.png',
-            ),
-            108 => array (
+            ],
+            108 => [
                 'id' => 109,
                 'country_code' => '380',
                 'currency_code' => 'EUR',
@@ -1427,8 +1428,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Italy',
                 'calling_code' => '39',
                 'flag' => 'IT.png',
-            ),
-            109 => array (
+            ],
+            109 => [
                 'id' => 110,
                 'country_code' => '384',
                 'currency_code' => 'XOF',
@@ -1440,8 +1441,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Côte d\'Ivoire',
                 'calling_code' => '225',
                 'flag' => 'CI.png',
-            ),
-            110 => array (
+            ],
+            110 => [
                 'id' => 111,
                 'country_code' => '388',
                 'currency_code' => 'JMD',
@@ -1453,8 +1454,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Jamaica',
                 'calling_code' => '1',
                 'flag' => 'JM.png',
-            ),
-            111 => array (
+            ],
+            111 => [
                 'id' => 112,
                 'country_code' => '392',
                 'currency_code' => 'JPY',
@@ -1466,8 +1467,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Japan',
                 'calling_code' => '81',
                 'flag' => 'JP.png',
-            ),
-            112 => array (
+            ],
+            112 => [
                 'id' => 113,
                 'country_code' => '398',
                 'currency_code' => 'KZT',
@@ -1479,8 +1480,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Kazakhstan',
                 'calling_code' => '7',
                 'flag' => 'KZ.png',
-            ),
-            113 => array (
+            ],
+            113 => [
                 'id' => 114,
                 'country_code' => '400',
                 'currency_code' => 'JOD',
@@ -1492,8 +1493,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Jordan',
                 'calling_code' => '962',
                 'flag' => 'JO.png',
-            ),
-            114 => array (
+            ],
+            114 => [
                 'id' => 115,
                 'country_code' => '404',
                 'currency_code' => 'KES',
@@ -1505,8 +1506,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Kenya',
                 'calling_code' => '254',
                 'flag' => 'KE.png',
-            ),
-            115 => array (
+            ],
+            115 => [
                 'id' => 116,
                 'country_code' => '408',
                 'currency_code' => 'KPW',
@@ -1518,8 +1519,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Korea, Democratic People\'s Republic of',
                 'calling_code' => '850',
                 'flag' => 'KP.png',
-            ),
-            116 => array (
+            ],
+            116 => [
                 'id' => 117,
                 'country_code' => '410',
                 'currency_code' => 'KRW',
@@ -1531,8 +1532,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Korea, Republic of',
                 'calling_code' => '82',
                 'flag' => 'KR.png',
-            ),
-            117 => array (
+            ],
+            117 => [
                 'id' => 118,
                 'country_code' => '414',
                 'currency_code' => 'KWD',
@@ -1544,8 +1545,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Kuwait',
                 'calling_code' => '965',
                 'flag' => 'KW.png',
-            ),
-            118 => array (
+            ],
+            118 => [
                 'id' => 119,
                 'country_code' => '417',
                 'currency_code' => 'KGS',
@@ -1557,8 +1558,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Kyrgyzstan',
                 'calling_code' => '996',
                 'flag' => 'KG.png',
-            ),
-            119 => array (
+            ],
+            119 => [
                 'id' => 120,
                 'country_code' => '418',
                 'currency_code' => 'LAK',
@@ -1570,8 +1571,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Lao People\'s Democratic Republic',
                 'calling_code' => '856',
                 'flag' => 'LA.png',
-            ),
-            120 => array (
+            ],
+            120 => [
                 'id' => 121,
                 'country_code' => '422',
                 'currency_code' => 'LBP',
@@ -1583,8 +1584,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Lebanon',
                 'calling_code' => '961',
                 'flag' => 'LB.png',
-            ),
-            121 => array (
+            ],
+            121 => [
                 'id' => 122,
                 'country_code' => '426',
                 'currency_code' => 'LSL',
@@ -1596,8 +1597,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Lesotho',
                 'calling_code' => '266',
                 'flag' => 'LS.png',
-            ),
-            122 => array (
+            ],
+            122 => [
                 'id' => 123,
                 'country_code' => '428',
                 'currency_code' => 'EUR',
@@ -1609,8 +1610,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Latvia',
                 'calling_code' => '371',
                 'flag' => 'LV.png',
-            ),
-            123 => array (
+            ],
+            123 => [
                 'id' => 124,
                 'country_code' => '430',
                 'currency_code' => 'LRD',
@@ -1622,8 +1623,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Liberia',
                 'calling_code' => '231',
                 'flag' => 'LR.png',
-            ),
-            124 => array (
+            ],
+            124 => [
                 'id' => 125,
                 'country_code' => '434',
                 'currency_code' => 'LYD',
@@ -1635,8 +1636,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Libya',
                 'calling_code' => '218',
                 'flag' => 'LY.png',
-            ),
-            125 => array (
+            ],
+            125 => [
                 'id' => 126,
                 'country_code' => '438',
                 'currency_code' => 'CHF',
@@ -1648,8 +1649,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Liechtenstein',
                 'calling_code' => '423',
                 'flag' => 'LI.png',
-            ),
-            126 => array (
+            ],
+            126 => [
                 'id' => 127,
                 'country_code' => '440',
                 'currency_code' => 'EUR',
@@ -1661,8 +1662,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Lithuania',
                 'calling_code' => '370',
                 'flag' => 'LT.png',
-            ),
-            127 => array (
+            ],
+            127 => [
                 'id' => 128,
                 'country_code' => '442',
                 'currency_code' => 'EUR',
@@ -1674,8 +1675,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Luxembourg',
                 'calling_code' => '352',
                 'flag' => 'LU.png',
-            ),
-            128 => array (
+            ],
+            128 => [
                 'id' => 129,
                 'country_code' => '446',
                 'currency_code' => 'MOP',
@@ -1687,8 +1688,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Macao',
                 'calling_code' => '853',
                 'flag' => 'MO.png',
-            ),
-            129 => array (
+            ],
+            129 => [
                 'id' => 130,
                 'country_code' => '450',
                 'currency_code' => 'MGA',
@@ -1700,8 +1701,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Madagascar',
                 'calling_code' => '261',
                 'flag' => 'MG.png',
-            ),
-            130 => array (
+            ],
+            130 => [
                 'id' => 131,
                 'country_code' => '454',
                 'currency_code' => 'MWK',
@@ -1713,8 +1714,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Malawi',
                 'calling_code' => '265',
                 'flag' => 'MW.png',
-            ),
-            131 => array (
+            ],
+            131 => [
                 'id' => 132,
                 'country_code' => '458',
                 'currency_code' => 'MYR',
@@ -1726,8 +1727,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Malaysia',
                 'calling_code' => '60',
                 'flag' => 'MY.png',
-            ),
-            132 => array (
+            ],
+            132 => [
                 'id' => 133,
                 'country_code' => '462',
                 'currency_code' => 'MVR',
@@ -1739,8 +1740,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Maldives',
                 'calling_code' => '960',
                 'flag' => 'MV.png',
-            ),
-            133 => array (
+            ],
+            133 => [
                 'id' => 134,
                 'country_code' => '466',
                 'currency_code' => 'XOF',
@@ -1752,8 +1753,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Mali',
                 'calling_code' => '223',
                 'flag' => 'ML.png',
-            ),
-            134 => array (
+            ],
+            134 => [
                 'id' => 135,
                 'country_code' => '470',
                 'currency_code' => 'EUR',
@@ -1765,8 +1766,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Malta',
                 'calling_code' => '356',
                 'flag' => 'MT.png',
-            ),
-            135 => array (
+            ],
+            135 => [
                 'id' => 136,
                 'country_code' => '474',
                 'currency_code' => 'EUR',
@@ -1778,8 +1779,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Martinique',
                 'calling_code' => '596',
                 'flag' => 'MQ.png',
-            ),
-            136 => array (
+            ],
+            136 => [
                 'id' => 137,
                 'country_code' => '478',
                 'currency_code' => 'MRO',
@@ -1791,8 +1792,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Mauritania',
                 'calling_code' => '222',
                 'flag' => 'MR.png',
-            ),
-            137 => array (
+            ],
+            137 => [
                 'id' => 138,
                 'country_code' => '480',
                 'currency_code' => 'MUR',
@@ -1804,8 +1805,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Mauritius',
                 'calling_code' => '230',
                 'flag' => 'MU.png',
-            ),
-            138 => array (
+            ],
+            138 => [
                 'id' => 139,
                 'country_code' => '484',
                 'currency_code' => 'MXN',
@@ -1817,8 +1818,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Mexico',
                 'calling_code' => '52',
                 'flag' => 'MX.png',
-            ),
-            139 => array (
+            ],
+            139 => [
                 'id' => 140,
                 'country_code' => '492',
                 'currency_code' => 'EUR',
@@ -1830,8 +1831,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Monaco',
                 'calling_code' => '377',
                 'flag' => 'MC.png',
-            ),
-            140 => array (
+            ],
+            140 => [
                 'id' => 141,
                 'country_code' => '496',
                 'currency_code' => 'MNT',
@@ -1843,8 +1844,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Mongolia',
                 'calling_code' => '976',
                 'flag' => 'MN.png',
-            ),
-            141 => array (
+            ],
+            141 => [
                 'id' => 142,
                 'country_code' => '498',
                 'currency_code' => 'MDL',
@@ -1856,8 +1857,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Moldova, Republic of',
                 'calling_code' => '373',
                 'flag' => 'MD.png',
-            ),
-            142 => array (
+            ],
+            142 => [
                 'id' => 143,
                 'country_code' => '499',
                 'currency_code' => 'EUR',
@@ -1869,8 +1870,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Montenegro',
                 'calling_code' => '382',
                 'flag' => 'ME.png',
-            ),
-            143 => array (
+            ],
+            143 => [
                 'id' => 144,
                 'country_code' => '500',
                 'currency_code' => 'XCD',
@@ -1882,8 +1883,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Montserrat',
                 'calling_code' => '1',
                 'flag' => 'MS.png',
-            ),
-            144 => array (
+            ],
+            144 => [
                 'id' => 145,
                 'country_code' => '504',
                 'currency_code' => 'MAD',
@@ -1895,8 +1896,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Morocco',
                 'calling_code' => '212',
                 'flag' => 'MA.png',
-            ),
-            145 => array (
+            ],
+            145 => [
                 'id' => 146,
                 'country_code' => '508',
                 'currency_code' => 'MZN',
@@ -1908,8 +1909,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Mozambique',
                 'calling_code' => '258',
                 'flag' => 'MZ.png',
-            ),
-            146 => array (
+            ],
+            146 => [
                 'id' => 147,
                 'country_code' => '512',
                 'currency_code' => 'OMR',
@@ -1921,8 +1922,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Oman',
                 'calling_code' => '968',
                 'flag' => 'OM.png',
-            ),
-            147 => array (
+            ],
+            147 => [
                 'id' => 148,
                 'country_code' => '516',
                 'currency_code' => 'NAD',
@@ -1934,8 +1935,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Namibia',
                 'calling_code' => '264',
                 'flag' => 'NA.png',
-            ),
-            148 => array (
+            ],
+            148 => [
                 'id' => 149,
                 'country_code' => '520',
                 'currency_code' => 'AUD',
@@ -1947,8 +1948,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Nauru',
                 'calling_code' => '674',
                 'flag' => 'NR.png',
-            ),
-            149 => array (
+            ],
+            149 => [
                 'id' => 150,
                 'country_code' => '524',
                 'currency_code' => 'NPR',
@@ -1960,8 +1961,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Nepal',
                 'calling_code' => '977',
                 'flag' => 'NP.png',
-            ),
-            150 => array (
+            ],
+            150 => [
                 'id' => 151,
                 'country_code' => '528',
                 'currency_code' => 'EUR',
@@ -1973,21 +1974,21 @@ class CountrySeeder extends Seeder
                 'name' => 'Netherlands',
                 'calling_code' => '31',
                 'flag' => 'NL.png',
-            ),
-            151 => array (
+            ],
+            151 => [
                 'id' => 152,
                 'country_code' => '531',
                 'currency_code' => 'ANG',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'CW',
                 'iso3' => 'CUW',
                 'continent_code' => 'NA',
                 'name' => 'Curaçao',
                 'calling_code' => '599',
-                'flag' => NULL,
-            ),
-            152 => array (
+                'flag' => null,
+            ],
+            152 => [
                 'id' => 153,
                 'country_code' => '533',
                 'currency_code' => 'AWG',
@@ -1999,34 +2000,34 @@ class CountrySeeder extends Seeder
                 'name' => 'Aruba',
                 'calling_code' => '297',
                 'flag' => 'AW.png',
-            ),
-            153 => array (
+            ],
+            153 => [
                 'id' => 154,
                 'country_code' => '534',
                 'currency_code' => 'ANG',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'SX',
                 'iso3' => 'SXM',
                 'continent_code' => 'NA',
                 'name' => 'Sint Maarten (Dutch part)',
                 'calling_code' => '721',
-                'flag' => NULL,
-            ),
-            154 => array (
+                'flag' => null,
+            ],
+            154 => [
                 'id' => 155,
                 'country_code' => '535',
                 'currency_code' => 'USD',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'BQ',
                 'iso3' => 'BES',
                 'continent_code' => 'NA',
                 'name' => 'Bonaire, Sint Eustatius and Saba',
                 'calling_code' => '599',
-                'flag' => NULL,
-            ),
-            155 => array (
+                'flag' => null,
+            ],
+            155 => [
                 'id' => 156,
                 'country_code' => '540',
                 'currency_code' => 'XPF',
@@ -2038,8 +2039,8 @@ class CountrySeeder extends Seeder
                 'name' => 'New Caledonia',
                 'calling_code' => '687',
                 'flag' => 'NC.png',
-            ),
-            156 => array (
+            ],
+            156 => [
                 'id' => 157,
                 'country_code' => '548',
                 'currency_code' => 'VUV',
@@ -2051,8 +2052,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Vanuatu',
                 'calling_code' => '678',
                 'flag' => 'VU.png',
-            ),
-            157 => array (
+            ],
+            157 => [
                 'id' => 158,
                 'country_code' => '554',
                 'currency_code' => 'NZD',
@@ -2064,8 +2065,8 @@ class CountrySeeder extends Seeder
                 'name' => 'New Zealand',
                 'calling_code' => '64',
                 'flag' => 'NZ.png',
-            ),
-            158 => array (
+            ],
+            158 => [
                 'id' => 159,
                 'country_code' => '558',
                 'currency_code' => 'NIO',
@@ -2077,8 +2078,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Nicaragua',
                 'calling_code' => '505',
                 'flag' => 'NI.png',
-            ),
-            159 => array (
+            ],
+            159 => [
                 'id' => 160,
                 'country_code' => '562',
                 'currency_code' => 'XOF',
@@ -2090,8 +2091,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Niger',
                 'calling_code' => '227',
                 'flag' => 'NE.png',
-            ),
-            160 => array (
+            ],
+            160 => [
                 'id' => 161,
                 'country_code' => '566',
                 'currency_code' => 'NGN',
@@ -2103,8 +2104,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Nigeria',
                 'calling_code' => '234',
                 'flag' => 'NG.png',
-            ),
-            161 => array (
+            ],
+            161 => [
                 'id' => 162,
                 'country_code' => '570',
                 'currency_code' => 'NZD',
@@ -2116,8 +2117,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Niue',
                 'calling_code' => '683',
                 'flag' => 'NU.png',
-            ),
-            162 => array (
+            ],
+            162 => [
                 'id' => 163,
                 'country_code' => '574',
                 'currency_code' => 'AUD',
@@ -2129,8 +2130,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Norfolk Island',
                 'calling_code' => '672',
                 'flag' => 'NF.png',
-            ),
-            163 => array (
+            ],
+            163 => [
                 'id' => 164,
                 'country_code' => '578',
                 'currency_code' => 'NOK',
@@ -2142,8 +2143,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Norway',
                 'calling_code' => '47',
                 'flag' => 'NO.png',
-            ),
-            164 => array (
+            ],
+            164 => [
                 'id' => 165,
                 'country_code' => '580',
                 'currency_code' => 'USD',
@@ -2155,8 +2156,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Northern Mariana Islands',
                 'calling_code' => '1',
                 'flag' => 'MP.png',
-            ),
-            165 => array (
+            ],
+            165 => [
                 'id' => 166,
                 'country_code' => '581',
                 'currency_code' => 'USD',
@@ -2168,8 +2169,8 @@ class CountrySeeder extends Seeder
                 'name' => 'United States Minor Outlying Islands',
                 'calling_code' => '1',
                 'flag' => 'UM.png',
-            ),
-            166 => array (
+            ],
+            166 => [
                 'id' => 167,
                 'country_code' => '583',
                 'currency_code' => 'USD',
@@ -2181,8 +2182,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Micronesia, Federated States of',
                 'calling_code' => '691',
                 'flag' => 'FM.png',
-            ),
-            167 => array (
+            ],
+            167 => [
                 'id' => 168,
                 'country_code' => '584',
                 'currency_code' => 'USD',
@@ -2194,8 +2195,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Marshall Islands',
                 'calling_code' => '692',
                 'flag' => 'MH.png',
-            ),
-            168 => array (
+            ],
+            168 => [
                 'id' => 169,
                 'country_code' => '585',
                 'currency_code' => 'USD',
@@ -2207,8 +2208,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Palau',
                 'calling_code' => '680',
                 'flag' => 'PW.png',
-            ),
-            169 => array (
+            ],
+            169 => [
                 'id' => 170,
                 'country_code' => '586',
                 'currency_code' => 'PKR',
@@ -2220,8 +2221,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Pakistan',
                 'calling_code' => '92',
                 'flag' => 'PK.png',
-            ),
-            170 => array (
+            ],
+            170 => [
                 'id' => 171,
                 'country_code' => '591',
                 'currency_code' => 'PAB',
@@ -2233,8 +2234,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Panama',
                 'calling_code' => '507',
                 'flag' => 'PA.png',
-            ),
-            171 => array (
+            ],
+            171 => [
                 'id' => 172,
                 'country_code' => '598',
                 'currency_code' => 'PGK',
@@ -2246,8 +2247,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Papua New Guinea',
                 'calling_code' => '675',
                 'flag' => 'PG.png',
-            ),
-            172 => array (
+            ],
+            172 => [
                 'id' => 173,
                 'country_code' => '600',
                 'currency_code' => 'PYG',
@@ -2259,8 +2260,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Paraguay',
                 'calling_code' => '595',
                 'flag' => 'PY.png',
-            ),
-            173 => array (
+            ],
+            173 => [
                 'id' => 174,
                 'country_code' => '604',
                 'currency_code' => 'PEN',
@@ -2272,8 +2273,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Peru',
                 'calling_code' => '51',
                 'flag' => 'PE.png',
-            ),
-            174 => array (
+            ],
+            174 => [
                 'id' => 175,
                 'country_code' => '608',
                 'currency_code' => 'PHP',
@@ -2285,8 +2286,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Philippines',
                 'calling_code' => '63',
                 'flag' => 'PH.png',
-            ),
-            175 => array (
+            ],
+            175 => [
                 'id' => 176,
                 'country_code' => '612',
                 'currency_code' => 'NZD',
@@ -2298,8 +2299,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Pitcairn',
                 'calling_code' => '649',
                 'flag' => 'PN.png',
-            ),
-            176 => array (
+            ],
+            176 => [
                 'id' => 177,
                 'country_code' => '616',
                 'currency_code' => 'PLN',
@@ -2311,8 +2312,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Poland',
                 'calling_code' => '48',
                 'flag' => 'PL.png',
-            ),
-            177 => array (
+            ],
+            177 => [
                 'id' => 178,
                 'country_code' => '620',
                 'currency_code' => 'EUR',
@@ -2324,8 +2325,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Portugal',
                 'calling_code' => '351',
                 'flag' => 'PT.png',
-            ),
-            178 => array (
+            ],
+            178 => [
                 'id' => 179,
                 'country_code' => '624',
                 'currency_code' => 'XOF',
@@ -2337,8 +2338,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Guinea-Bissau',
                 'calling_code' => '245',
                 'flag' => 'GW.png',
-            ),
-            179 => array (
+            ],
+            179 => [
                 'id' => 180,
                 'country_code' => '626',
                 'currency_code' => 'USD',
@@ -2350,8 +2351,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Timor-Leste',
                 'calling_code' => '670',
                 'flag' => 'TL.png',
-            ),
-            180 => array (
+            ],
+            180 => [
                 'id' => 181,
                 'country_code' => '630',
                 'currency_code' => 'USD',
@@ -2363,8 +2364,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Puerto Rico',
                 'calling_code' => '1',
                 'flag' => 'PR.png',
-            ),
-            181 => array (
+            ],
+            181 => [
                 'id' => 182,
                 'country_code' => '634',
                 'currency_code' => 'QAR',
@@ -2376,8 +2377,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Qatar',
                 'calling_code' => '974',
                 'flag' => 'QA.png',
-            ),
-            182 => array (
+            ],
+            182 => [
                 'id' => 183,
                 'country_code' => '638',
                 'currency_code' => 'EUR',
@@ -2389,8 +2390,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Réunion',
                 'calling_code' => '262',
                 'flag' => 'RE.png',
-            ),
-            183 => array (
+            ],
+            183 => [
                 'id' => 184,
                 'country_code' => '642',
                 'currency_code' => 'RON',
@@ -2402,8 +2403,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Romania',
                 'calling_code' => '40',
                 'flag' => 'RO.png',
-            ),
-            184 => array (
+            ],
+            184 => [
                 'id' => 185,
                 'country_code' => '643',
                 'currency_code' => 'RUB',
@@ -2415,8 +2416,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Russian Federation',
                 'calling_code' => '7',
                 'flag' => 'RU.png',
-            ),
-            185 => array (
+            ],
+            185 => [
                 'id' => 186,
                 'country_code' => '646',
                 'currency_code' => 'RWF',
@@ -2428,21 +2429,21 @@ class CountrySeeder extends Seeder
                 'name' => 'Rwanda',
                 'calling_code' => '250',
                 'flag' => 'RW.png',
-            ),
-            186 => array (
+            ],
+            186 => [
                 'id' => 187,
                 'country_code' => '652',
                 'currency_code' => 'EUR',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'BL',
                 'iso3' => 'BLM',
                 'continent_code' => 'NA',
                 'name' => 'Saint Barthélemy',
                 'calling_code' => '590',
-                'flag' => NULL,
-            ),
-            187 => array (
+                'flag' => null,
+            ],
+            187 => [
                 'id' => 188,
                 'country_code' => '654',
                 'currency_code' => 'SHP',
@@ -2454,8 +2455,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Saint Helena, Ascension and Tristan da Cunha',
                 'calling_code' => '290',
                 'flag' => 'SH.png',
-            ),
-            188 => array (
+            ],
+            188 => [
                 'id' => 189,
                 'country_code' => '659',
                 'currency_code' => 'XCD',
@@ -2467,8 +2468,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Saint Kitts and Nevis',
                 'calling_code' => '1',
                 'flag' => 'KN.png',
-            ),
-            189 => array (
+            ],
+            189 => [
                 'id' => 190,
                 'country_code' => '660',
                 'currency_code' => 'XCD',
@@ -2480,8 +2481,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Anguilla',
                 'calling_code' => '1',
                 'flag' => 'AI.png',
-            ),
-            190 => array (
+            ],
+            190 => [
                 'id' => 191,
                 'country_code' => '662',
                 'currency_code' => 'XCD',
@@ -2493,21 +2494,21 @@ class CountrySeeder extends Seeder
                 'name' => 'Saint Lucia',
                 'calling_code' => '1',
                 'flag' => 'LC.png',
-            ),
-            191 => array (
+            ],
+            191 => [
                 'id' => 192,
                 'country_code' => '663',
                 'currency_code' => 'EUR',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'MF',
                 'iso3' => 'MAF',
                 'continent_code' => 'NA',
                 'name' => 'Saint Martin (French part)',
                 'calling_code' => '590',
-                'flag' => NULL,
-            ),
-            192 => array (
+                'flag' => null,
+            ],
+            192 => [
                 'id' => 193,
                 'country_code' => '666',
                 'currency_code' => 'EUR',
@@ -2519,8 +2520,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Saint Pierre and Miquelon',
                 'calling_code' => '508',
                 'flag' => 'PM.png',
-            ),
-            193 => array (
+            ],
+            193 => [
                 'id' => 194,
                 'country_code' => '670',
                 'currency_code' => 'XCD',
@@ -2532,8 +2533,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Saint Vincent and the Grenadines',
                 'calling_code' => '1',
                 'flag' => 'VC.png',
-            ),
-            194 => array (
+            ],
+            194 => [
                 'id' => 195,
                 'country_code' => '674',
                 'currency_code' => 'EUR ',
@@ -2545,8 +2546,8 @@ class CountrySeeder extends Seeder
                 'name' => 'San Marino',
                 'calling_code' => '378',
                 'flag' => 'SM.png',
-            ),
-            195 => array (
+            ],
+            195 => [
                 'id' => 196,
                 'country_code' => '678',
                 'currency_code' => 'STD',
@@ -2558,8 +2559,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Sao Tome and Principe',
                 'calling_code' => '239',
                 'flag' => 'ST.png',
-            ),
-            196 => array (
+            ],
+            196 => [
                 'id' => 197,
                 'country_code' => '682',
                 'currency_code' => 'SAR',
@@ -2571,8 +2572,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Saudi Arabia',
                 'calling_code' => '966',
                 'flag' => 'SA.png',
-            ),
-            197 => array (
+            ],
+            197 => [
                 'id' => 198,
                 'country_code' => '686',
                 'currency_code' => 'XOF',
@@ -2584,21 +2585,21 @@ class CountrySeeder extends Seeder
                 'name' => 'Senegal',
                 'calling_code' => '221',
                 'flag' => 'SN.png',
-            ),
-            198 => array (
+            ],
+            198 => [
                 'id' => 199,
                 'country_code' => '688',
                 'currency_code' => 'RSD',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'RS',
                 'iso3' => 'SRB',
                 'continent_code' => 'EU',
                 'name' => 'Serbia',
                 'calling_code' => '381',
-                'flag' => NULL,
-            ),
-            199 => array (
+                'flag' => null,
+            ],
+            199 => [
                 'id' => 200,
                 'country_code' => '690',
                 'currency_code' => 'SCR',
@@ -2610,8 +2611,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Seychelles',
                 'calling_code' => '248',
                 'flag' => 'SC.png',
-            ),
-            200 => array (
+            ],
+            200 => [
                 'id' => 201,
                 'country_code' => '694',
                 'currency_code' => 'SLL',
@@ -2623,8 +2624,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Sierra Leone',
                 'calling_code' => '232',
                 'flag' => 'SL.png',
-            ),
-            201 => array (
+            ],
+            201 => [
                 'id' => 202,
                 'country_code' => '702',
                 'currency_code' => 'SGD',
@@ -2636,8 +2637,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Singapore',
                 'calling_code' => '65',
                 'flag' => 'SG.png',
-            ),
-            202 => array (
+            ],
+            202 => [
                 'id' => 203,
                 'country_code' => '703',
                 'currency_code' => 'EUR',
@@ -2649,8 +2650,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Slovakia',
                 'calling_code' => '421',
                 'flag' => 'SK.png',
-            ),
-            203 => array (
+            ],
+            203 => [
                 'id' => 204,
                 'country_code' => '704',
                 'currency_code' => 'VND',
@@ -2662,8 +2663,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Viet Nam',
                 'calling_code' => '84',
                 'flag' => 'VN.png',
-            ),
-            204 => array (
+            ],
+            204 => [
                 'id' => 205,
                 'country_code' => '705',
                 'currency_code' => 'EUR',
@@ -2675,8 +2676,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Slovenia',
                 'calling_code' => '386',
                 'flag' => 'SI.png',
-            ),
-            205 => array (
+            ],
+            205 => [
                 'id' => 206,
                 'country_code' => '706',
                 'currency_code' => 'SOS',
@@ -2688,8 +2689,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Somalia',
                 'calling_code' => '252',
                 'flag' => 'SO.png',
-            ),
-            206 => array (
+            ],
+            206 => [
                 'id' => 207,
                 'country_code' => '710',
                 'currency_code' => 'ZAR',
@@ -2701,8 +2702,8 @@ class CountrySeeder extends Seeder
                 'name' => 'South Africa',
                 'calling_code' => '27',
                 'flag' => 'ZA.png',
-            ),
-            207 => array (
+            ],
+            207 => [
                 'id' => 208,
                 'country_code' => '716',
                 'currency_code' => 'ZWL',
@@ -2714,8 +2715,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Zimbabwe',
                 'calling_code' => '263',
                 'flag' => 'ZW.png',
-            ),
-            208 => array (
+            ],
+            208 => [
                 'id' => 209,
                 'country_code' => '724',
                 'currency_code' => 'EUR',
@@ -2727,34 +2728,34 @@ class CountrySeeder extends Seeder
                 'name' => 'Spain',
                 'calling_code' => '34',
                 'flag' => 'ES.png',
-            ),
-            209 => array (
+            ],
+            209 => [
                 'id' => 210,
                 'country_code' => '728',
                 'currency_code' => 'SSP',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'SS',
                 'iso3' => 'SSD',
                 'continent_code' => 'AF',
                 'name' => 'South Sudan',
                 'calling_code' => '211',
-                'flag' => NULL,
-            ),
-            210 => array (
+                'flag' => null,
+            ],
+            210 => [
                 'id' => 211,
                 'country_code' => '729',
                 'currency_code' => 'SDG',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'SD',
                 'iso3' => 'SDN',
                 'continent_code' => 'AF',
                 'name' => 'Sudan',
                 'calling_code' => '249',
-                'flag' => NULL,
-            ),
-            211 => array (
+                'flag' => null,
+            ],
+            211 => [
                 'id' => 212,
                 'country_code' => '732',
                 'currency_code' => 'MAD',
@@ -2766,8 +2767,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Western Sahara',
                 'calling_code' => '212',
                 'flag' => 'EH.png',
-            ),
-            212 => array (
+            ],
+            212 => [
                 'id' => 213,
                 'country_code' => '740',
                 'currency_code' => 'SRD',
@@ -2779,8 +2780,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Suriname',
                 'calling_code' => '597',
                 'flag' => 'SR.png',
-            ),
-            213 => array (
+            ],
+            213 => [
                 'id' => 214,
                 'country_code' => '744',
                 'currency_code' => 'NOK',
@@ -2792,8 +2793,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Svalbard and Jan Mayen',
                 'calling_code' => '47',
                 'flag' => 'SJ.png',
-            ),
-            214 => array (
+            ],
+            214 => [
                 'id' => 215,
                 'country_code' => '748',
                 'currency_code' => 'SZL',
@@ -2805,8 +2806,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Swaziland',
                 'calling_code' => '268',
                 'flag' => 'SZ.png',
-            ),
-            215 => array (
+            ],
+            215 => [
                 'id' => 216,
                 'country_code' => '752',
                 'currency_code' => 'SEK',
@@ -2818,8 +2819,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Sweden',
                 'calling_code' => '46',
                 'flag' => 'SE.png',
-            ),
-            216 => array (
+            ],
+            216 => [
                 'id' => 217,
                 'country_code' => '756',
                 'currency_code' => 'CHF',
@@ -2831,8 +2832,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Switzerland',
                 'calling_code' => '41',
                 'flag' => 'CH.png',
-            ),
-            217 => array (
+            ],
+            217 => [
                 'id' => 218,
                 'country_code' => '760',
                 'currency_code' => 'SYP',
@@ -2844,8 +2845,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Syrian Arab Republic',
                 'calling_code' => '963',
                 'flag' => 'SY.png',
-            ),
-            218 => array (
+            ],
+            218 => [
                 'id' => 219,
                 'country_code' => '762',
                 'currency_code' => 'TJS',
@@ -2857,8 +2858,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Tajikistan',
                 'calling_code' => '992',
                 'flag' => 'TJ.png',
-            ),
-            219 => array (
+            ],
+            219 => [
                 'id' => 220,
                 'country_code' => '764',
                 'currency_code' => 'THB',
@@ -2870,8 +2871,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Thailand',
                 'calling_code' => '66',
                 'flag' => 'TH.png',
-            ),
-            220 => array (
+            ],
+            220 => [
                 'id' => 221,
                 'country_code' => '768',
                 'currency_code' => 'XOF',
@@ -2883,8 +2884,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Togo',
                 'calling_code' => '228',
                 'flag' => 'TG.png',
-            ),
-            221 => array (
+            ],
+            221 => [
                 'id' => 222,
                 'country_code' => '772',
                 'currency_code' => 'NZD',
@@ -2896,8 +2897,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Tokelau',
                 'calling_code' => '690',
                 'flag' => 'TK.png',
-            ),
-            222 => array (
+            ],
+            222 => [
                 'id' => 223,
                 'country_code' => '776',
                 'currency_code' => 'TOP',
@@ -2909,8 +2910,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Tonga',
                 'calling_code' => '676',
                 'flag' => 'TO.png',
-            ),
-            223 => array (
+            ],
+            223 => [
                 'id' => 224,
                 'country_code' => '780',
                 'currency_code' => 'TTD',
@@ -2922,8 +2923,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Trinidad and Tobago',
                 'calling_code' => '1',
                 'flag' => 'TT.png',
-            ),
-            224 => array (
+            ],
+            224 => [
                 'id' => 225,
                 'country_code' => '784',
                 'currency_code' => 'AED',
@@ -2935,8 +2936,8 @@ class CountrySeeder extends Seeder
                 'name' => 'United Arab Emirates',
                 'calling_code' => '971',
                 'flag' => 'AE.png',
-            ),
-            225 => array (
+            ],
+            225 => [
                 'id' => 226,
                 'country_code' => '788',
                 'currency_code' => 'TND',
@@ -2948,8 +2949,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Tunisia',
                 'calling_code' => '216',
                 'flag' => 'TN.png',
-            ),
-            226 => array (
+            ],
+            226 => [
                 'id' => 227,
                 'country_code' => '792',
                 'currency_code' => 'TRY',
@@ -2961,8 +2962,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Turkey',
                 'calling_code' => '90',
                 'flag' => 'TR.png',
-            ),
-            227 => array (
+            ],
+            227 => [
                 'id' => 228,
                 'country_code' => '795',
                 'currency_code' => 'TMT',
@@ -2974,8 +2975,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Turkmenistan',
                 'calling_code' => '993',
                 'flag' => 'TM.png',
-            ),
-            228 => array (
+            ],
+            228 => [
                 'id' => 229,
                 'country_code' => '796',
                 'currency_code' => 'USD',
@@ -2987,8 +2988,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Turks and Caicos Islands',
                 'calling_code' => '1',
                 'flag' => 'TC.png',
-            ),
-            229 => array (
+            ],
+            229 => [
                 'id' => 230,
                 'country_code' => '798',
                 'currency_code' => 'AUD',
@@ -3000,8 +3001,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Tuvalu',
                 'calling_code' => '688',
                 'flag' => 'TV.png',
-            ),
-            230 => array (
+            ],
+            230 => [
                 'id' => 231,
                 'country_code' => '800',
                 'currency_code' => 'UGX',
@@ -3013,8 +3014,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Uganda',
                 'calling_code' => '256',
                 'flag' => 'UG.png',
-            ),
-            231 => array (
+            ],
+            231 => [
                 'id' => 232,
                 'country_code' => '804',
                 'currency_code' => 'UAH',
@@ -3026,8 +3027,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Ukraine',
                 'calling_code' => '380',
                 'flag' => 'UA.png',
-            ),
-            232 => array (
+            ],
+            232 => [
                 'id' => 233,
                 'country_code' => '807',
                 'currency_code' => 'MKD',
@@ -3039,8 +3040,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Macedonia, the former Yugoslav Republic of',
                 'calling_code' => '389',
                 'flag' => 'MK.png',
-            ),
-            233 => array (
+            ],
+            233 => [
                 'id' => 234,
                 'country_code' => '818',
                 'currency_code' => 'EGP',
@@ -3052,8 +3053,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Egypt',
                 'calling_code' => '20',
                 'flag' => 'EG.png',
-            ),
-            234 => array (
+            ],
+            234 => [
                 'id' => 235,
                 'country_code' => '826',
                 'currency_code' => 'GBP',
@@ -3065,47 +3066,47 @@ class CountrySeeder extends Seeder
                 'name' => 'United Kingdom',
                 'calling_code' => '44',
                 'flag' => 'GB.png',
-            ),
-            235 => array (
+            ],
+            235 => [
                 'id' => 236,
                 'country_code' => '831',
                 'currency_code' => 'GGP (GG2)',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'GG',
                 'iso3' => 'GGY',
                 'continent_code' => 'EU',
                 'name' => 'Guernsey',
                 'calling_code' => '44',
-                'flag' => NULL,
-            ),
-            236 => array (
+                'flag' => null,
+            ],
+            236 => [
                 'id' => 237,
                 'country_code' => '832',
                 'currency_code' => 'JEP (JE2)',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'JE',
                 'iso3' => 'JEY',
                 'continent_code' => 'EU',
                 'name' => 'Jersey',
                 'calling_code' => '44',
-                'flag' => NULL,
-            ),
-            237 => array (
+                'flag' => null,
+            ],
+            237 => [
                 'id' => 238,
                 'country_code' => '833',
                 'currency_code' => 'IMP (IM2)',
-                'currency_symbol' => NULL,
-                'currency_decimals' => NULL,
+                'currency_symbol' => null,
+                'currency_decimals' => null,
                 'iso2' => 'IM',
                 'iso3' => 'IMN',
                 'continent_code' => 'EU',
                 'name' => 'Isle of Man',
                 'calling_code' => '44',
-                'flag' => NULL,
-            ),
-            238 => array (
+                'flag' => null,
+            ],
+            238 => [
                 'id' => 239,
                 'country_code' => '834',
                 'currency_code' => 'TZS',
@@ -3117,8 +3118,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Tanzania, United Republic of',
                 'calling_code' => '255',
                 'flag' => 'TZ.png',
-            ),
-            239 => array (
+            ],
+            239 => [
                 'id' => 240,
                 'country_code' => '840',
                 'currency_code' => 'USD',
@@ -3130,8 +3131,8 @@ class CountrySeeder extends Seeder
                 'name' => 'United States',
                 'calling_code' => '1',
                 'flag' => 'US.png',
-            ),
-            240 => array (
+            ],
+            240 => [
                 'id' => 241,
                 'country_code' => '850',
                 'currency_code' => 'USD',
@@ -3143,8 +3144,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Virgin Islands, U.S.',
                 'calling_code' => '1',
                 'flag' => 'VI.png',
-            ),
-            241 => array (
+            ],
+            241 => [
                 'id' => 242,
                 'country_code' => '854',
                 'currency_code' => 'XOF',
@@ -3156,8 +3157,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Burkina Faso',
                 'calling_code' => '226',
                 'flag' => 'BF.png',
-            ),
-            242 => array (
+            ],
+            242 => [
                 'id' => 243,
                 'country_code' => '858',
                 'currency_code' => 'UYU',
@@ -3169,8 +3170,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Uruguay',
                 'calling_code' => '598',
                 'flag' => 'UY.png',
-            ),
-            243 => array (
+            ],
+            243 => [
                 'id' => 244,
                 'country_code' => '860',
                 'currency_code' => 'UZS',
@@ -3182,8 +3183,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Uzbekistan',
                 'calling_code' => '998',
                 'flag' => 'UZ.png',
-            ),
-            244 => array (
+            ],
+            244 => [
                 'id' => 245,
                 'country_code' => '862',
                 'currency_code' => 'VEF',
@@ -3195,8 +3196,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Venezuela, Bolivarian Republic of',
                 'calling_code' => '58',
                 'flag' => 'VE.png',
-            ),
-            245 => array (
+            ],
+            245 => [
                 'id' => 246,
                 'country_code' => '876',
                 'currency_code' => 'XPF',
@@ -3208,8 +3209,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Wallis and Futuna',
                 'calling_code' => '681',
                 'flag' => 'WF.png',
-            ),
-            246 => array (
+            ],
+            246 => [
                 'id' => 247,
                 'country_code' => '882',
                 'currency_code' => 'WST',
@@ -3221,8 +3222,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Samoa',
                 'calling_code' => '685',
                 'flag' => 'WS.png',
-            ),
-            247 => array (
+            ],
+            247 => [
                 'id' => 248,
                 'country_code' => '887',
                 'currency_code' => 'YER',
@@ -3234,8 +3235,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Yemen',
                 'calling_code' => '967',
                 'flag' => 'YE.png',
-            ),
-            248 => array (
+            ],
+            248 => [
                 'id' => 249,
                 'country_code' => '894',
                 'currency_code' => 'ZMW',
@@ -3247,8 +3248,8 @@ class CountrySeeder extends Seeder
                 'name' => 'Zambia',
                 'calling_code' => '260',
                 'flag' => 'ZM.png',
-            ),
-        );
+            ],
+        ];
 
         \Illuminate\Support\Facades\DB::table('countries')->insert($countries);
     }

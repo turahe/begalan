@@ -8,18 +8,18 @@ use Illuminate\Database\Eloquent\Model;
  * App\Media
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $name
- * @property string|null $title
- * @property string|null $alt_text
- * @property string|null $slug
- * @property string|null $slug_ext
- * @property string|null $file_size
- * @property string|null $mime_type
- * @property string|null $metadata
- * @property int|null $sort_order
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property null|int $user_id
+ * @property null|string $name
+ * @property null|string $title
+ * @property null|string $alt_text
+ * @property null|string $slug
+ * @property null|string $slug_ext
+ * @property null|string $file_size
+ * @property null|string $mime_type
+ * @property null|string $metadata
+ * @property null|int $sort_order
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
  * @property-read mixed $media_info
  * @property-read mixed $readable_size
  * @property-read mixed $thumbnail
@@ -46,7 +46,8 @@ class Media extends Model
     protected $guarded = [];
     protected $table = 'media';
 
-    public function getMediaInfoAttribute(){
+    public function getMediaInfoAttribute()
+    {
         $url_path = null;
         $source = get_option('default_storage');
 
@@ -55,9 +56,9 @@ class Media extends Model
             $slug_ext = 'images/'.$slug_ext;
         }
 
-        if ($source == 'public'){
+        if ($source == 'public') {
             $url_path = asset("uploads/".$slug_ext);
-        }elseif ($source == 's3'){
+        } elseif ($source == 's3') {
             $url_path = \Illuminate\Support\Facades\Storage::disk('s3')->url("uploads/".$slug_ext);
         }
 
@@ -90,25 +91,27 @@ class Media extends Model
      * @param  integer $precision
      * @return integer
      */
-    public function formatBytes($precision = 2){
+    public function formatBytes($precision = 2)
+    {
         $size = $this->file_size;
 
         if ($size > 0) {
             $size = (int) $size;
             $base = log($size) / log(1024);
-            $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
+            $suffixes = [' bytes', ' KB', ' MB', ' GB', ' TB'];
 
             return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
-        } else {
-            return $size;
         }
+        return $size;
     }
 
-    public function getReadableSizeAttribute(){
+    public function getReadableSizeAttribute()
+    {
         return $this->formatBytes();
     }
 
-    public function getThumbnailAttribute(){
+    public function getThumbnailAttribute()
+    {
         $thumbnail_url = asset('uploads/placeholder-image.png');
         if (substr($this->mime_type, 0, 5) == 'image') {
             $thumbnail_url = media_image_uri($this)->thumbnail;
@@ -118,5 +121,4 @@ class Media extends Model
         }
         return $thumbnail_url;
     }
-
 }

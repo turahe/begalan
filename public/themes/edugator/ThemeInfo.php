@@ -2,8 +2,8 @@
 return [
     'name'          => 'Edugator - WebAcademy theme',
     'description'   => 'Beautiful LMS theme that covers your needs, Powered By WebAcademy',
-    'url'           => 'https://themeqx.com',
+    'url'           => 'https://circlecreative.id',
     'author'        => 'Themeqx',
-    'author_url'    => 'https://themeqx.com',
+    'author_url'    => 'https://circlecreative.id',
     'version'       => '1.0.0',
 ];

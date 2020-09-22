@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
     /**
      * @var string[][]
      */
-    protected  $defaultUsers = [
+    protected $defaultUsers = [
         [
             'name'      => 'Circle Creative',
             'email'     => 'developer@circlecreative.id',

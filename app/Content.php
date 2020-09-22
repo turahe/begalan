@@ -13,43 +13,43 @@ use Illuminate\Support\Facades\Auth;
  * App\Content
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $course_id
- * @property int|null $section_id
- * @property string|null $title
- * @property string|null $slug
- * @property string|null $text
- * @property string|null $video_src
- * @property int|null $video_time
- * @property string|null $item_type
- * @property int|null $is_preview
- * @property int|null $status
- * @property int|null $sort_order
- * @property string|null $options
- * @property int|null $quiz_gradable
- * @property string|null $unlock_date
- * @property int|null $unlock_days
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attachment[] $attachments
- * @property-read int|null $attachments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attempt[] $attempts
- * @property-read int|null $attempts_count
- * @property-read \App\Course|null $course
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Discussion[] $discussions
- * @property-read int|null $discussions_count
+ * @property null|int $user_id
+ * @property null|int $course_id
+ * @property null|int $section_id
+ * @property null|string $title
+ * @property null|string $slug
+ * @property null|string $text
+ * @property null|string $video_src
+ * @property null|int $video_time
+ * @property null|string $item_type
+ * @property null|int $is_preview
+ * @property null|int $status
+ * @property null|int $sort_order
+ * @property null|string $options
+ * @property null|int $quiz_gradable
+ * @property null|string $unlock_date
+ * @property null|int $unlock_days
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Attachment[]|\Illuminate\Database\Eloquent\Collection $attachments
+ * @property-read null|int $attachments_count
+ * @property-read \App\Attempt[]|\Illuminate\Database\Eloquent\Collection $attempts
+ * @property-read null|int $attempts_count
+ * @property-read null|\App\Course $course
+ * @property-read \App\Discussion[]|\Illuminate\Database\Eloquent\Collection $discussions
+ * @property-read null|int $discussions_count
  * @property-read mixed $drip
  * @property-read mixed $icon_html
  * @property-read mixed $runtime
  * @property-read mixed $runtime_seconds
  * @property-read mixed $url
- * @property-read Content|null $next
- * @property-read Content|null $previous
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Question[] $questions
- * @property-read int|null $questions_count
- * @property-read \App\Section|null $section
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AssignmentSubmission[] $submissions
- * @property-read int|null $submissions_count
+ * @property-read null|Content $next
+ * @property-read null|Content $previous
+ * @property-read \App\Question[]|\Illuminate\Database\Eloquent\Collection $questions
+ * @property-read null|int $questions_count
+ * @property-read null|\App\Section $section
+ * @property-read \App\AssignmentSubmission[]|\Illuminate\Database\Eloquent\Collection $submissions
+ * @property-read null|int $submissions_count
  * @method static \Illuminate\Database\Eloquent\Builder|Content newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Content newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Content query()
@@ -115,7 +115,7 @@ class Content extends Model
 
     /**
      * @param null $key
-     * @return mixed|null
+     * @return null|mixed
      *
      * Get Attached Video Info
      */
@@ -123,10 +123,10 @@ class Content extends Model
     public function video_info($key = null)
     {
         $video_info = null;
-        if ($this->video_src){
+        if ($this->video_src) {
             $video_info = json_decode($this->video_src, true);
         }
-        if ($key && is_array($video_info)){
+        if ($key && is_array($video_info)) {
             return array_get($video_info, $key);
         }
 
@@ -134,15 +134,17 @@ class Content extends Model
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getUrlAttribute()
     {
-        if ($this->item_type === 'lecture'){
+        if ($this->item_type === 'lecture') {
             return route('single_lecture', [$this->course_id, $this->id]);
-        }elseif ($this->item_type === 'assignment'){
+        }
+        if ($this->item_type === 'assignment') {
             return route('single_assignment', [$this->course_id, $this->id]);
-        }elseif ($this->item_type === 'quiz'){
+        }
+        if ($this->item_type === 'quiz') {
             return route('single_quiz', [$this->course_id, $this->id]);
         }
         return null;
@@ -166,7 +168,7 @@ class Content extends Model
     public function getRuntimeAttribute()
     {
         $seconds = $this->runtime_seconds;
-        if ($seconds){
+        if ($seconds) {
             return seconds_to_time_format($this->runtime_seconds);
         }
         return false;
@@ -175,20 +177,19 @@ class Content extends Model
     /**
      * @param null $key
      * @param null $default
-     * @return mixed|null
+     * @return null|mixed
      */
     public function option($key = null, $default = null)
     {
         $options = null;
-        if ($this->options){
+        if ($this->options) {
             $options = json_decode($this->options, true);
         }
-        if ($key){
-            if (is_array($options) && array_get($options, $key)){
+        if ($key) {
+            if (is_array($options) && array_get($options, $key)) {
                 return array_get($options, $key);
-            }else{
-                return $default;
             }
+            return $default;
         }
 
         return $options;
@@ -205,16 +206,17 @@ class Content extends Model
     /**
      * @return string
      */
-    public function getIconHtmlAttribute(){
+    public function getIconHtmlAttribute()
+    {
         $icon_class = 'file-text';
 
-        if ($this->video_src){
+        if ($this->video_src) {
             $icon_class = 'youtube';
         }
-        if ($this->item_type === 'assignment'){
+        if ($this->item_type === 'assignment') {
             $icon_class = 'clipboard';
         }
-        if ($this->item_type === 'quiz'){
+        if ($this->item_type === 'quiz') {
             $icon_class = 'tasks';
         }
 
@@ -225,8 +227,9 @@ class Content extends Model
      * @param int $user_id
      * @return HasOne
      */
-    public function has_submission($user_id = 0){
-        if ( ! $user_id && Auth::check()){
+    public function has_submission($user_id = 0)
+    {
+        if (! $user_id && Auth::check()) {
             $user_id = Auth::user()->id;
         }
         return $this->hasOne(AssignmentSubmission::class, 'assignment_id')->where('user_id', $user_id);
@@ -265,7 +268,7 @@ class Content extends Model
      */
     public function is_completed()
     {
-        if (Auth::user()){
+        if (Auth::user()) {
             $user_id = Auth::user()->id;
             return $this->hasOne(Complete::class)
                 ->whereUserId($user_id);
@@ -280,11 +283,12 @@ class Content extends Model
      * Save content and sync to all necessary place
      */
 
-    public function save_and_sync($data = []){
-        if (is_array($data) && count($data)){
+    public function save_and_sync($data = [])
+    {
+        if (is_array($data) && count($data)) {
             $data['video_time'] = $this->runtime_seconds;
             $this->update($data);
-        }else{
+        } else {
             $this->video_time = $this->runtime_seconds;
             $this->save();
         }
@@ -298,8 +302,9 @@ class Content extends Model
     /**
      * Content Drip
      */
-    public function enrolled_course(){
-        if ( ! Auth::check()){
+    public function enrolled_course()
+    {
+        if (! Auth::check()) {
             return null;
         }
 
@@ -312,7 +317,8 @@ class Content extends Model
     /**
      * @return object
      */
-    public function getDripAttribute(){
+    public function getDripAttribute()
+    {
         $section_drip = $this->section->drip;
 
         $data = [
@@ -323,8 +329,7 @@ class Content extends Model
         /**
          * If Section is Lock
          */
-        if ($section_drip->is_lock){
-
+        if ($section_drip->is_lock) {
             $data['is_lock'] = true;
             $data['message'] = $section_drip->message;
 
@@ -337,7 +342,7 @@ class Content extends Model
 
         $time = Carbon::now()->timestamp;
 
-        if ($this->unlock_date && strtotime($this->unlock_date) > $time ){
+        if ($this->unlock_date && strtotime($this->unlock_date) > $time) {
             $unlock_date = Carbon::parse($this->unlock_date)->format(get_option('date_format'));
 
             $data['is_lock'] = true;
@@ -347,15 +352,15 @@ class Content extends Model
         /**
          * If Lock by Days
          */
-        if ($this->unlock_days && $this->unlock_days > 0 ){
-            if (Auth::check()){
+        if ($this->unlock_days && $this->unlock_days > 0) {
+            if (Auth::check()) {
                 $user = Auth::user();
 
                 $isEnrol = $user->isEnrolled($this->course_id);
                 $unlock_date = Carbon::parse($isEnrol->enrolled_at)->addDays($this->unlock_days);
                 $now = Carbon::now();
 
-                if ($unlock_date->gt($now)){
+                if ($unlock_date->gt($now)) {
                     $diffDays = $unlock_date->diffInDays($now);
                     $data['is_lock'] = true;
                     $data['message'] = "The content will become available in {$diffDays} days";
@@ -376,5 +381,4 @@ class Content extends Model
             ->with('user', 'replies', 'user.photo_query')
             ->where('discussion_id', 0);
     }
-
 }

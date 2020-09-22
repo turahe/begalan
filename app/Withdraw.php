@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
  * App\Withdraw
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $amount
- * @property string|null $method_data
- * @property string|null $description
- * @property string|null $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property null|int $user_id
+ * @property null|string $amount
+ * @property null|string $method_data
+ * @property null|string $description
+ * @property null|string $status
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
  * @property-read mixed $status_context
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw newQuery()
@@ -33,8 +33,9 @@ class Withdraw extends Model
 {
     protected $guarded = [];
 
-    public function getMethodDataAttribute($value){
-        if ($value){
+    public function getMethodDataAttribute($value)
+    {
+        if ($value) {
             return json_decode($value, true);
         }
         return null;
@@ -42,10 +43,11 @@ class Withdraw extends Model
 
 
 
-    public function getStatusContextAttribute(){
+    public function getStatusContextAttribute()
+    {
         $statusClass = "";
         $iclass = "";
-        switch ($this->status){
+        switch ($this->status) {
             case 'pending':
                 $statusClass .= "dark";
                 $iclass = "clock-o";
@@ -63,6 +65,4 @@ class Withdraw extends Model
         $html = "<span class='badge withdraw-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$this->status}</span>";
         return $html;
     }
-
-
 }

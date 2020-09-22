@@ -8,24 +8,24 @@ use Illuminate\Database\Eloquent\Model;
  * App\AssignmentSubmission
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $course_id
- * @property int|null $assignment_id
- * @property int|null $instructor_id
- * @property string|null $text_submission
- * @property string|null $earned_numbers
- * @property string|null $instructors_note
- * @property string|null $status
- * @property int|null $is_evaluated
- * @property \Illuminate\Support\Carbon|null $evaluated_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Content|null $assignment
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attachment[] $attachments
- * @property-read int|null $attachments_count
- * @property-read \App\Course|null $course
- * @property-read \App\User|null $instructor
- * @property-read \App\User|null $student
+ * @property null|int $user_id
+ * @property null|int $course_id
+ * @property null|int $assignment_id
+ * @property null|int $instructor_id
+ * @property null|string $text_submission
+ * @property null|string $earned_numbers
+ * @property null|string $instructors_note
+ * @property null|string $status
+ * @property null|int $is_evaluated
+ * @property null|\Illuminate\Support\Carbon $evaluated_at
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read null|\App\Content $assignment
+ * @property-read \App\Attachment[]|\Illuminate\Database\Eloquent\Collection $attachments
+ * @property-read null|int $attachments_count
+ * @property-read null|\App\Course $course
+ * @property-read null|\App\User $instructor
+ * @property-read null|\App\User $student
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission query()
@@ -61,35 +61,40 @@ class AssignmentSubmission extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function attachments(){
+    public function attachments()
+    {
         return $this->hasMany(Attachment::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function student(){
+    public function student()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function assignment(){
+    public function assignment()
+    {
         return $this->belongsTo(Content::class, 'assignment_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function instructor(){
+    public function instructor()
+    {
         return $this->belongsTo(User::class, 'instructor_id');
     }
 }

@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\Model;
  * App\Post
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $title
- * @property string|null $slug
- * @property string|null $post_content
- * @property int|null $feature_image
- * @property string|null $type
- * @property string|null $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\User|null $author
+ * @property null|int $user_id
+ * @property null|string $title
+ * @property null|string $slug
+ * @property null|string $post_content
+ * @property null|int $feature_image
+ * @property null|string $type
+ * @property null|string $status
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read null|\App\User $author
  * @property-read mixed $published_time
  * @property-read mixed $status_context
  * @property-read mixed $thumbnail_url
  * @property-read mixed $url
- * @property-read \App\Media|null $media
+ * @property-read null|\App\Media $media
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post post()
@@ -113,7 +113,7 @@ class Post extends Model
         $statusClass = "";
         $iclass = "";
         $status = __a('pending');
-        switch ($this->status){
+        switch ($this->status) {
             case '0':
                 $statusClass .= "dark";
                 $iclass = "clock-o";
@@ -133,6 +133,4 @@ class Post extends Model
         $html = "<span class='badge post-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$status}</span>";
         return $html;
     }
-
-
 }

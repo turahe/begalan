@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
  * App\Country
  *
  * @property int $id
- * @property string|null $country_code
- * @property string|null $currency_code
- * @property string|null $currency_symbol
- * @property int|null $currency_decimals
- * @property string|null $iso2
- * @property string|null $iso3
- * @property string|null $continent_code
- * @property string|null $name
- * @property string|null $calling_code
- * @property string|null $flag
+ * @property null|string $country_code
+ * @property null|string $currency_code
+ * @property null|string $currency_symbol
+ * @property null|int $currency_decimals
+ * @property null|string $iso2
+ * @property null|string $iso3
+ * @property null|string $continent_code
+ * @property null|string $name
+ * @property null|string $calling_code
+ * @property null|string $flag
  * @method static \Illuminate\Database\Eloquent\Builder|Country newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Country newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Country query()

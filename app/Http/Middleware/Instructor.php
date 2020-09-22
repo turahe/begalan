@@ -18,7 +18,7 @@ class Instructor
     {
         if (Auth::check()) {
             $user = Auth::user();
-            if ( ! $user->isInstructor()){
+            if (! $user->isInstructor()) {
                 return redirect(route('dashboard'))->with('error', __t('access_denied'));
             }
         }

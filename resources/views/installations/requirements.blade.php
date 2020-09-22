@@ -1,5 +1,5 @@
 <?php
-$reqList = array(
+$reqList = [
     'php' => '7.2.5',
     'mcrypt' => false,
     'openssl' => true,
@@ -11,14 +11,14 @@ $reqList = array(
     'json' => true,
     'bcmath' => true,
     'fileinfo' => true,
-);
+];
 
 
 $strOk = '<i class="icon-ok la la-check-circle"></i>';
 $strFail = '<i class="icon-remove la la-times-circle-o"></i>';
 $strUnknown = '<i class="la la-question"></i>';
 
-$requirements = array();
+$requirements = [];
 
 
 // PHP Version
@@ -99,12 +99,12 @@ if (function_exists('apache_get_modules')) {
 <p>
     PHP <?php
     if (is_array($reqList['php'])) {
-        $phpVersions = array();
+        $phpVersions = [];
         foreach ($reqList['php'] as $operator => $version) {
             $phpVersions[] = "{$operator} {$version}";
         }
         echo implode(" && ", $phpVersions);
-    }else{
+    } else {
         echo ">= " . $reqList['php'];
     }
 

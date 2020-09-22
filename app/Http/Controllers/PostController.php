@@ -16,17 +16,19 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @throws \Exception
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function index(Request $request)
     {
-        if ($request->bulk_action_btn === 'update_status'){
+        if ($request->bulk_action_btn === 'update_status') {
             Post::query()->whereIn('id', $request->bulk_ids)->update(['status' => $request->status]);
             return back()->with('success', __a('bulk_action_success'));
         }
-        if ($request->bulk_action_btn === 'delete'){
-            if(config('app.is_demo')) return back()->with('error', __a('demo_restriction'));
+        if ($request->bulk_action_btn === 'delete') {
+            if (config('app.is_demo')) {
+                return back()->with('error', __a('demo_restriction'));
+            }
 
             Post::query()->whereIn('id', $request->bulk_ids)->delete();
             return back()->with('success', __a('bulk_action_success'));
@@ -39,17 +41,19 @@ class PostController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @throws \Exception
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function posts(Request $request)
     {
-        if ($request->bulk_action_btn === 'update_status'){
+        if ($request->bulk_action_btn === 'update_status') {
             Post::query()->whereIn('id', $request->bulk_ids)->update(['status' => $request->status]);
             return back()->with('success', __a('bulk_action_success'));
         }
-        if ($request->bulk_action_btn === 'delete'){
-            if(config('app.is_demo')) return back()->with('error', __a('demo_restriction'));
+        if ($request->bulk_action_btn === 'delete') {
+            if (config('app.is_demo')) {
+                return back()->with('error', __a('demo_restriction'));
+            }
 
             Post::query()->whereIn('id', $request->bulk_ids)->delete();
             return back()->with('success', __a('bulk_action_success'));
@@ -64,7 +68,8 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function createPost(){
+    public function createPost()
+    {
         $title = __a('create_new_post');
 
         return view('admin.cms.post_create', compact('title'));
@@ -73,11 +78,14 @@ class PostController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function storePost(Request $request){
-        if(config('app.is_demo')) return back()->with('error', __a('app.feature_disable_demo'));
+    public function storePost(Request $request)
+    {
+        if (config('app.is_demo')) {
+            return back()->with('error', __a('app.feature_disable_demo'));
+        }
 
         $user = Auth::user();
         $rules = [
@@ -106,7 +114,8 @@ class PostController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editPost($id){
+    public function editPost($id)
+    {
         $title = __a('edit_post');
         $post = Post::find($id);
 
@@ -116,11 +125,14 @@ class PostController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function updatePost(Request $request, $id){
-        if(config('app.is_demo')) return back()->with('error', __a('app.feature_disable_demo'));
+    public function updatePost(Request $request, $id)
+    {
+        if (config('app.is_demo')) {
+            return back()->with('error', __a('app.feature_disable_demo'));
+        }
 
         $rules = [
             'title'     => 'required|max:220',
@@ -143,18 +155,22 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(){
+    public function create()
+    {
         $title = __a('pages');
         return view('admin.cms.page_create', compact('title'));
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request){
-        if(config('app.is_demo')) return back()->with('error', __a('app.feature_disable_demo'));
+    public function store(Request $request)
+    {
+        if (config('app.is_demo')) {
+            return back()->with('error', __a('app.feature_disable_demo'));
+        }
 
         $user = Auth::user();
         $rules = [
@@ -181,7 +197,8 @@ class PostController extends Controller
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id){
+    public function edit($id)
+    {
         $title = __a('edit_page');
         $post = Post::find($id);
         return view('admin.cms.edit_page', compact('title', 'post'));
@@ -190,11 +207,14 @@ class PostController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function updatePage(Request $request, $id){
-        if(config('app.is_demo')) return back()->with('error', __a('app.feature_disable_demo'));
+    public function updatePage(Request $request, $id)
+    {
+        if (config('app.is_demo')) {
+            return back()->with('error', __a('app.feature_disable_demo'));
+        }
 
         $rules = [
             'title'     => 'required|max:220',
@@ -216,10 +236,11 @@ class PostController extends Controller
      * @param $slug
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showPage($slug){
+    public function showPage($slug)
+    {
         $page = Post::whereSlug($slug)->first();
 
-        if (! $page){
+        if (! $page) {
             return view('theme.error_404');
         }
         $title = $page->title;
@@ -229,7 +250,8 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function blog(){
+    public function blog()
+    {
         $title = __t('blog');
         $posts = Post::post()->publish()->paginate(20);
         return view(theme('blog'), compact('title', 'posts'));
@@ -239,7 +261,8 @@ class PostController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function authorPosts($id){
+    public function authorPosts($id)
+    {
         $posts = Post::whereType('post')->whereUserId($id)->paginate(20);
         $user = User::find($id);
         $title = $user->name."'s ".trans('app.blog');
@@ -250,14 +273,15 @@ class PostController extends Controller
      * @param $slug
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function postSingle($slug){
+    public function postSingle($slug)
+    {
         $post = Post::whereSlug($slug)->first();
-        if ( ! $post){
+        if (! $post) {
             abort(404);
         }
         $title = $post->title;
 
-        if ($post->type === 'post'){
+        if ($post->type === 'post') {
             return view(theme('single_post'), compact('title', 'post'));
         }
         return view(theme('single_page'), compact('title', 'post'));
@@ -267,12 +291,12 @@ class PostController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postProxy($id){
+    public function postProxy($id)
+    {
         $post = Post::where('id', $id)->orWhere('slug', $id)->first();
-        if ( ! $post){
+        if (! $post) {
             abort(404);
         }
         return redirect(route('post', $post->slug));
     }
-
 }

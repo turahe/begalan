@@ -12,11 +12,11 @@ define('LARAVEL_START', microtime(true));
 /**
  * Added for Teachify
  */
-if ( ! defined('ROOT_PATH')){
+if (! defined('ROOT_PATH')) {
     define('ROOT_PATH', __DIR__);
 }
 
-if ( ! defined('TEACHIFY_VERSION')){
+if (! defined('TEACHIFY_VERSION')) {
     define('TEACHIFY_VERSION', '2.3.0');
 }
 
@@ -27,7 +27,8 @@ if ( ! defined('TEACHIFY_VERSION')){
  * root path like app_path()
  */
 
-function root_path($path = ''){
+function root_path($path = '')
+{
     return ROOT_PATH.'/'.$path;
 }
 /** End: Teachify */

@@ -8,29 +8,29 @@ use Illuminate\Database\Eloquent\Model;
  * App\Quiz
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $course_id
- * @property int|null $section_id
- * @property string|null $title
- * @property string|null $slug
- * @property string|null $text
- * @property string|null $video_src
- * @property int|null $video_time
- * @property string|null $item_type
- * @property int|null $is_preview
- * @property int|null $status
- * @property int|null $sort_order
- * @property string|null $options
- * @property int|null $quiz_gradable
- * @property string|null $unlock_date
- * @property int|null $unlock_days
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attempt[] $attempts
- * @property-read int|null $attempts_count
+ * @property null|int $user_id
+ * @property null|int $course_id
+ * @property null|int $section_id
+ * @property null|string $title
+ * @property null|string $slug
+ * @property null|string $text
+ * @property null|string $video_src
+ * @property null|int $video_time
+ * @property null|string $item_type
+ * @property null|int $is_preview
+ * @property null|int $status
+ * @property null|int $sort_order
+ * @property null|string $options
+ * @property null|int $quiz_gradable
+ * @property null|string $unlock_date
+ * @property null|int $unlock_days
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Attempt[]|\Illuminate\Database\Eloquent\Collection $attempts
+ * @property-read null|int $attempts_count
  * @property-read mixed $url
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Question[] $questions
- * @property-read int|null $questions_count
+ * @property-read \App\Question[]|\Illuminate\Database\Eloquent\Collection $questions
+ * @property-read null|int $questions_count
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz query()
@@ -60,30 +60,32 @@ class Quiz extends Model
     protected $table = 'contents';
     protected $guarded = [];
 
-    public function questions(){
+    public function questions()
+    {
         return $this->hasMany(Question::class, 'quiz_id')->with('media');
     }
-    public function attempts(){
+    public function attempts()
+    {
         return $this->hasMany(Attempt::class, 'quiz_id');
     }
-    public function option($key = null, $default = null){
+    public function option($key = null, $default = null)
+    {
         $options = null;
-        if ($this->options){
+        if ($this->options) {
             $options = json_decode($this->options, true);
         }
-        if ($key){
-            if (is_array($options) && array_get($options, $key)){
+        if ($key) {
+            if (is_array($options) && array_get($options, $key)) {
                 return array_get($options, $key);
-            }else{
-                return $default;
             }
+            return $default;
         }
 
         return $options;
     }
 
-    public function getUrlAttribute(){
+    public function getUrlAttribute()
+    {
         return route('single_quiz', [$this->course_id, $this->id]);
     }
-
 }

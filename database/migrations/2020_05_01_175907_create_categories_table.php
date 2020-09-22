@@ -11,7 +11,8 @@ class CreateCategoriesTable extends Migration
      *
      * @return void
      */
-    public function up(){
+    public function up()
+    {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();

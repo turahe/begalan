@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
  * App\Complete
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $completed_course_id
- * @property int|null $course_id
- * @property int|null $content_id
+ * @property null|int $user_id
+ * @property null|int $completed_course_id
+ * @property null|int $course_id
+ * @property null|int $content_id
  * @property \Illuminate\Support\Carbon $completed_at
  * @method static \Illuminate\Database\Eloquent\Builder|Complete newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Complete newQuery()

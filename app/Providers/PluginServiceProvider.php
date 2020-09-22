@@ -21,7 +21,8 @@ class PluginServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(){
+    public function boot()
+    {
         require app_path('Module/Plugin.php');
     }
 }

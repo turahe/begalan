@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
  * App\QuestionOption
  *
  * @property int $id
- * @property int|null $question_id
- * @property string|null $title
- * @property int|null $image_id
- * @property string|null $d_pref
- * @property int|null $is_correct
- * @property int|null $sort_order
+ * @property null|int $question_id
+ * @property null|string $title
+ * @property null|int $image_id
+ * @property null|string $d_pref
+ * @property null|int $is_correct
+ * @property null|int $sort_order
  * @method static \Illuminate\Database\Eloquent\Builder|QuestionOption newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|QuestionOption newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|QuestionOption query()

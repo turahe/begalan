@@ -77,7 +77,7 @@ if (! function_exists('array_first')) {
      * Return the first element in an array passing a given truth test.
      *
      * @param  array  $array
-     * @param  callable|null  $callback
+     * @param  null|callable  $callback
      * @param  mixed  $default
      * @return mixed
      */
@@ -119,7 +119,7 @@ if (! function_exists('array_get')) {
     /**
      * Get an item from an array using "dot" notation.
      *
-     * @param  \ArrayAccess|array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  string  $key
      * @param  mixed  $default
      * @return mixed
@@ -134,8 +134,8 @@ if (! function_exists('array_has')) {
     /**
      * Check if an item or items exist in an array using "dot" notation.
      *
-     * @param  \ArrayAccess|array  $array
-     * @param  string|array  $keys
+     * @param  array|\ArrayAccess  $array
+     * @param  array|string  $keys
      * @return bool
      */
     function array_has($array, $keys)
@@ -149,7 +149,7 @@ if (! function_exists('array_last')) {
      * Return the last element in an array passing a given truth test.
      *
      * @param  array  $array
-     * @param  callable|null  $callback
+     * @param  null|callable  $callback
      * @param  mixed  $default
      * @return mixed
      */
@@ -178,8 +178,8 @@ if (! function_exists('array_pluck')) {
      * Pluck an array of values from an array.
      *
      * @param  array  $array
-     * @param  string|array  $value
-     * @param  string|array|null  $key
+     * @param  array|string  $value
+     * @param  null|array|string  $key
      * @return array
      */
     function array_pluck($array, $value, $key = null)
@@ -223,7 +223,7 @@ if (! function_exists('array_random')) {
      * Get a random value from an array.
      *
      * @param  array  $array
-     * @param  int|null  $num
+     * @param  null|int  $num
      * @return mixed
      */
     function array_random($array, $num = null)
@@ -254,7 +254,7 @@ if (! function_exists('array_sort')) {
      * Sort the array by the given callback or attribute name.
      *
      * @param  array  $array
-     * @param  callable|string|null  $callback
+     * @param  null|callable|string  $callback
      * @return array
      */
     function array_sort($array, $callback = null)
@@ -321,7 +321,7 @@ if (! function_exists('ends_with')) {
      * Determine if a given string ends with a given substring.
      *
      * @param  string  $haystack
-     * @param  string|array  $needles
+     * @param  array|string  $needles
      * @return bool
      */
     function ends_with($haystack, $needles)
@@ -362,7 +362,7 @@ if (! function_exists('starts_with')) {
      * Determine if a given string starts with a given substring.
      *
      * @param  string  $haystack
-     * @param  string|array  $needles
+     * @param  array|string  $needles
      * @return bool
      */
     function starts_with($haystack, $needles)
@@ -404,7 +404,7 @@ if (! function_exists('str_contains')) {
      * Determine if a given string contains a given substring.
      *
      * @param  string  $haystack
-     * @param  string|array  $needles
+     * @param  array|string  $needles
      * @return bool
      */
     function str_contains($haystack, $needles)
@@ -431,7 +431,7 @@ if (! function_exists('str_is')) {
     /**
      * Determine if a given string matches a given pattern.
      *
-     * @param  string|array  $pattern
+     * @param  array|string  $pattern
      * @param  string  $value
      * @return bool
      */
@@ -475,9 +475,9 @@ if (! function_exists('str_random')) {
      * Generate a more truly "random" alpha-numeric string.
      *
      * @param  int  $length
+     * @throws \RuntimeException
      * @return string
      *
-     * @throws \RuntimeException
      */
     function str_random($length = 16)
     {

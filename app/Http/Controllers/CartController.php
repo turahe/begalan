@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Course;
-use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,9 +17,10 @@ class CartController extends Controller
      * @param Request $request
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function addToCart(Request $request){
-        if ( ! Auth::check()){
-            if ($request->ajax()){
+    public function addToCart(Request $request)
+    {
+        if (! Auth::check()) {
+            if ($request->ajax()) {
                 //return ['success' => 0, 'message' => 'unauthenticated'];
             }
             //return route('login');
@@ -43,11 +43,11 @@ class CartController extends Controller
         ];
         session(['cart' => $cartData]);
 
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return ['success' => 1, 'cart_html' => view_template_part('template-part.minicart') ];
         }
 
-        if ($request->cart_btn === 'buy_now'){
+        if ($request->cart_btn === 'buy_now') {
             return redirect(route('checkout'));
         }
     }
@@ -58,9 +58,10 @@ class CartController extends Controller
      *
      * Remove From Cart
      */
-    public function removeCart(Request $request){
+    public function removeCart(Request $request)
+    {
         $cartData = (array) session('cart');
-        if (array_get($cartData, $request->cart_id)){
+        if (array_get($cartData, $request->cart_id)) {
             unset($cartData[$request->cart_id]);
         }
         session(['cart' => $cartData]);
@@ -70,13 +71,9 @@ class CartController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function checkout(){
+    public function checkout()
+    {
         $title = __('checkout');
         return view(theme('checkout'), compact('title'));
     }
-
-
-
-
-
 }

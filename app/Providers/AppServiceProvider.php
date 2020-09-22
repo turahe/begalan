@@ -121,15 +121,13 @@ class AppServiceProvider extends ServiceProvider
                 date_default_timezone_set(array_get($options, 'default_timezone'));
 
                 require get_theme()->path . 'functions.php';
-
             } catch (\Exception $e) {
                 //
             }
-        }else{
-            if ( ! strpos(request()->getPathInfo(), 'installations')){
+        } else {
+            if (! strpos(request()->getPathInfo(), 'installations')) {
                 die("<script>location.href= '".url('installations')."' </script>");
             }
         }
-
     }
 }

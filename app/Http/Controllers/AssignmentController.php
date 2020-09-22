@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\AssignmentSubmission;
-use App\Course;
 use App\Content;
+use App\Course;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\Auth;
  * Class AssignmentController
  * @package App\Http\Controllers
  */
-class AssignmentController extends Controller{
+class AssignmentController extends Controller
+{
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * Assignments for the instructors
      */
-    public function index(){
+    public function index()
+    {
         $title = __t('assignments');
         $user = Auth::user();
         $courses = $user->courses()->has('assignments')->get();
@@ -34,7 +36,8 @@ class AssignmentController extends Controller{
      *
      * View all assignments
      */
-    public function assignmentsByCourse($course_id){
+    public function assignmentsByCourse($course_id)
+    {
         $title = __t('assignments');
         $course = Course::find($course_id);
         $assignments = $course->assignments()->with('submissions')->paginate(50);
@@ -46,7 +49,8 @@ class AssignmentController extends Controller{
      * @param $assignment_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function submissions($assignment_id){
+    public function submissions($assignment_id)
+    {
         $title = __('assignment_submissions');
         $assignment = Content::find($assignment_id);
         $submissions = $assignment->submissions()->paginate(50);
@@ -60,7 +64,8 @@ class AssignmentController extends Controller{
      *
      * All submission for the quiz
      */
-    public function submission($submission_id){
+    public function submission($submission_id)
+    {
         $title = __t('submission');
         $submission = AssignmentSubmission::find($submission_id);
 
@@ -70,14 +75,14 @@ class AssignmentController extends Controller{
     /**
      * @param Request $request
      * @param $submission_id
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      *
      * Evaluating the quiz
+     * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function evaluation(Request $request, $submission_id){
-
+    public function evaluation(Request $request, $submission_id)
+    {
         $submission = AssignmentSubmission::find($submission_id);
         $max_number = $submission->assignment->option('total_number');
 
@@ -98,5 +103,4 @@ class AssignmentController extends Controller{
         $submission->update($data);
         return redirect()->back();
     }
-
 }

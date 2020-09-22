@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
  * App\Option
  *
  * @property int $id
- * @property string|null $option_key
- * @property string|null $option_value
+ * @property null|string $option_key
+ * @property null|string $option_value
  * @method static \Illuminate\Database\Eloquent\Builder|Option newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Option newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Option query()

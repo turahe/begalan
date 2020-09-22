@@ -10,44 +10,44 @@ use Illuminate\Support\Facades\DB;
  * App\Payment
  *
  * @property int $id
- * @property string|null $name
- * @property string|null $email
- * @property int|null $user_id
- * @property string|null $amount
- * @property string|null $total_amount
- * @property string|null $fees_name
- * @property string|null $fees_amount
- * @property string|null $fees_total
- * @property string|null $fees_type
- * @property string|null $payment_method
- * @property string|null $status
- * @property string|null $currency
- * @property string|null $token_id
- * @property string|null $card_last4
- * @property string|null $card_id
- * @property string|null $card_brand
- * @property string|null $card_country
- * @property string|null $card_exp_month
- * @property string|null $card_exp_year
- * @property string|null $client_ip
- * @property string|null $charge_id_or_token
- * @property string|null $payer_email
- * @property string|null $description
- * @property string|null $local_transaction_id
- * @property int|null $payment_created
- * @property string|null $bank_swift_code
- * @property string|null $account_number
- * @property string|null $branch_name
- * @property string|null $branch_address
- * @property string|null $account_name
- * @property string|null $iban
- * @property string|null $payment_note
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
- * @property-read int|null $courses_count
+ * @property null|string $name
+ * @property null|string $email
+ * @property null|int $user_id
+ * @property null|string $amount
+ * @property null|string $total_amount
+ * @property null|string $fees_name
+ * @property null|string $fees_amount
+ * @property null|string $fees_total
+ * @property null|string $fees_type
+ * @property null|string $payment_method
+ * @property null|string $status
+ * @property null|string $currency
+ * @property null|string $token_id
+ * @property null|string $card_last4
+ * @property null|string $card_id
+ * @property null|string $card_brand
+ * @property null|string $card_country
+ * @property null|string $card_exp_month
+ * @property null|string $card_exp_year
+ * @property null|string $client_ip
+ * @property null|string $charge_id_or_token
+ * @property null|string $payer_email
+ * @property null|string $description
+ * @property null|string $local_transaction_id
+ * @property null|int $payment_created
+ * @property null|string $bank_swift_code
+ * @property null|string $account_number
+ * @property null|string $branch_name
+ * @property null|string $branch_address
+ * @property null|string $account_name
+ * @property null|string $iban
+ * @property null|string $payment_note
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Course[]|\Illuminate\Database\Eloquent\Collection $courses
+ * @property-read null|int $courses_count
  * @property-read mixed $status_context
- * @property-read \App\User|null $user
+ * @property-read null|\App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
@@ -92,15 +92,18 @@ class Payment extends Model
 {
     protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function courses(){
+    public function courses()
+    {
         return $this->belongsToMany(Course::class, 'enrolls');
     }
 
-    public function do_enroll($cart_course){
+    public function do_enroll($cart_course)
+    {
         $carbon = Carbon::now()->toDateTimeString();
         $data = [
             'course_id'     => $cart_course['course_id'],
@@ -115,10 +118,11 @@ class Payment extends Model
         return $this;
     }
 
-    public function distribute_earning(){
+    public function distribute_earning()
+    {
         $enable_instructors_earning = (bool) get_option('enable_instructors_earning');
 
-        if ( $enable_instructors_earning) {
+        if ($enable_instructors_earning) {
             $enrolls = DB::table('enrolls')->wherePaymentId($this->id)->get();
 
             if ($enrolls->count()) {
@@ -158,11 +162,12 @@ class Payment extends Model
      *
      * Create Payment, Share Earning and enroll to the course
      */
-    public static function create_and_sync($data){
+    public static function create_and_sync($data)
+    {
         $cart = cart();
 
         //If any fees, add it to Payment
-        if ($cart->enable_charge_fees){
+        if ($cart->enable_charge_fees) {
             $data['fees_name']   = $cart->fees_name;
             $data['fees_amount'] = $cart->fees_amount;
             $data['fees_type']   = $cart->fees_type;
@@ -187,11 +192,11 @@ class Payment extends Model
      * Update payment and update to enroll, related earnings.
      */
 
-    public function save_and_sync($data = []){
-
-        if (is_array($data) && count($data)){
+    public function save_and_sync($data = [])
+    {
+        if (is_array($data) && count($data)) {
             $this->update($data);
-        }else{
+        } else {
             $this->save();
         }
 
@@ -204,22 +209,24 @@ class Payment extends Model
     }
 
     /**
-     * @return $this
      * @throws \Exception
      *
      * Delete the Payment and delete all data related this payment
+     * @return $this
      */
-    public function delete_and_sync(){
+    public function delete_and_sync()
+    {
         DB::table('earnings')->where('payment_id', $this->id)->delete();
         DB::table('enrolls')->where('payment_id', $this->id)->delete();
         $this->delete();
         return $this;
     }
 
-    public function getStatusContextAttribute(){
+    public function getStatusContextAttribute()
+    {
         $statusClass = "";
         $iclass = "";
-        switch ($this->status){
+        switch ($this->status) {
             case 'initial':
                 $statusClass .= "secondary";
                 $iclass = "clock-o";
@@ -248,6 +255,4 @@ class Payment extends Model
         $html = "<span class='badge payment-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$this->status}</span>";
         return $html;
     }
-
-
 }

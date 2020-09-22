@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Auth;
  * App\Section
  *
  * @property int $id
- * @property int|null $course_id
- * @property string|null $section_name
- * @property string|null $unlock_date
- * @property int|null $unlock_days
- * @property int|null $sort_order
- * @property-read \App\Course|null $course
+ * @property null|int $course_id
+ * @property null|string $section_name
+ * @property null|string $unlock_date
+ * @property null|int $unlock_days
+ * @property null|int $sort_order
+ * @property-read null|\App\Course $course
  * @property-read mixed $drip
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Content[] $items
- * @property-read int|null $items_count
+ * @property-read \App\Content[]|\Illuminate\Database\Eloquent\Collection $items
+ * @property-read null|int $items_count
  * @method static \Illuminate\Database\Eloquent\Builder|Section newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Section newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Section query()
@@ -32,21 +32,42 @@ use Illuminate\Support\Facades\Auth;
  */
 class Section extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
-    public function course(){
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function course()
+    {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
-    public function items(){
-        if (Auth::check()){
-            return $this->hasMany(Content::class)->orderBy('sort_order', 'asc')->with('is_completed');
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items()
+    {
+        if (Auth::check()) {
+            return $this->hasMany(Content::class)
+                ->orderBy('sort_order', 'asc')
+                ->with('is_completed');
         }
-        return $this->hasMany(Content::class)->orderBy('sort_order', 'asc');
+        return $this->hasMany(Content::class)
+            ->orderBy('sort_order', 'asc');
     }
 
-    public function getDripAttribute(){
+    /**
+     * @return object
+     */
+    public function getDripAttribute()
+    {
         $data = [
             'is_lock' => false,
             'message' => null,
@@ -54,7 +75,7 @@ class Section extends Model
 
         $time = Carbon::now()->timestamp;
 
-        if ($this->unlock_date && strtotime($this->unlock_date) > $time ){
+        if ($this->unlock_date && strtotime($this->unlock_date) > $time) {
             $unlock_date = Carbon::createFromTimeString($this->unlock_date)->format(get_option('date_format'));
 
             $data['is_lock'] = true;
@@ -64,8 +85,8 @@ class Section extends Model
         /**
          * If Lock by Days
          */
-        if ($this->unlock_days && $this->unlock_days > 0 ){
-            if (Auth::check()){
+        if ($this->unlock_days && $this->unlock_days > 0) {
+            if (Auth::check()) {
                 $user = Auth::user();
 
                 $isEnrol = $user->isEnrolled($this->course_id);
@@ -73,7 +94,7 @@ class Section extends Model
                 $unlock_date = Carbon::parse($isEnrol->enrolled_at)->addDays($this->unlock_days);
                 $now = Carbon::now();
 
-                if ($unlock_date->gt($now)){
+                if ($unlock_date->gt($now)) {
                     $diffDays = $unlock_date->diffInDays($now);
                     $data['is_lock'] = true;
                     $data['message'] = "The content will become available in {$diffDays} days";
@@ -83,5 +104,4 @@ class Section extends Model
 
         return (object) $data;
     }
-
 }

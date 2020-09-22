@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
  * App\Answer
  *
  * @property int $id
- * @property int|null $quiz_id
- * @property int|null $question_id
- * @property int|null $user_id
- * @property int|null $attempt_id
- * @property string|null $answer
- * @property string|null $q_type
- * @property string|null $q_score
- * @property string|null $r_score
- * @property int|null $is_correct
- * @property-read \App\Question|null $question
+ * @property null|int $quiz_id
+ * @property null|int $question_id
+ * @property null|int $user_id
+ * @property null|int $attempt_id
+ * @property null|string $answer
+ * @property null|string $q_type
+ * @property null|string $q_score
+ * @property null|string $r_score
+ * @property null|int $is_correct
+ * @property-read null|\App\Question $question
  * @method static \Illuminate\Database\Eloquent\Builder|Answer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Answer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Answer query()
@@ -47,7 +47,8 @@ class Answer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function question(){
+    public function question()
+    {
         return $this->belongsTo(Question::class, 'question_id');
     }
 }

@@ -21,8 +21,8 @@ class CreateAttemptsTable extends Migration
             $table->integer('reviewer_id')->nullable();
             $table->integer('questions_limit')->nullable();
             $table->integer('total_answered')->nullable();
-            $table->decimal('total_scores', 5,1)->nullable();
-            $table->decimal('earned_scores', 5,1)->nullable();
+            $table->decimal('total_scores', 5, 1)->nullable();
+            $table->decimal('earned_scores', 5, 1)->nullable();
             $table->integer('passing_percent')->nullable();
             $table->integer('earned_percent')->nullable();
             $table->string('status')->nullable();

@@ -9,20 +9,20 @@ use Illuminate\Support\Facades\DB;
  * App\Category
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $category_name
- * @property string|null $slug
- * @property int|null $category_id
- * @property int|null $thumbnail_id
- * @property string|null $icon_class
+ * @property null|int $user_id
+ * @property null|string $category_name
+ * @property null|string $slug
+ * @property null|int $category_id
+ * @property null|int $thumbnail_id
+ * @property null|string $icon_class
  * @property int $step
- * @property int|null $status
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
- * @property-read int|null $courses_count
+ * @property null|int $status
+ * @property-read \App\Course[]|\Illuminate\Database\Eloquent\Collection $courses
+ * @property-read null|int $courses_count
  * @property-read mixed $bg_color
- * @property-read Category|null $parent_category
- * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $sub_categories
- * @property-read int|null $sub_categories_count
+ * @property-read null|Category $parent_category
+ * @property-read Category[]|\Illuminate\Database\Eloquent\Collection $sub_categories
+ * @property-read null|int $sub_categories_count
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category parent()
@@ -49,18 +49,20 @@ class Category extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeParent($query){
+    public function scopeParent($query)
+    {
         return $query->where('category_id', 0)->orWhere('category_id', null);
     }
 
     /**
      * @return mixed
      */
-    public function courses(){
+    public function courses()
+    {
         $foreignKey = 'category_id';
-        if ( ! $this->step){
+        if (! $this->step) {
             $foreignKey = 'parent_category_id';
-        }elseif ($this->step == 1){
+        } elseif ($this->step == 1) {
             $foreignKey = 'second_category_id';
         }
 
@@ -70,19 +72,20 @@ class Category extends Model
     /**
      * @return string
      */
-    public function categoryNameParent(){
+    public function categoryNameParent()
+    {
         $parent_id = $this->category_id;
         $category_name = '';
 
-        if($parent_id){
+        if ($parent_id) {
             $parent_category_names = [];
-            while($parent_id){
+            while ($parent_id) {
                 $category = DB::table('categories')->whereId($parent_id)->first();
                 $parent_id = $category->category_id;
                 $parent_category_names[] = $category->category_name;
             }
             //krsort($parent_category_names);
-            $category_name .= ' → '.implode(' → ',$parent_category_names);
+            $category_name .= ' → '.implode(' → ', $parent_category_names);
         }
         return $category_name;
     }
@@ -90,7 +93,8 @@ class Category extends Model
     /**
      * @return string
      */
-    public function getCategoryNameParent(){
+    public function getCategoryNameParent()
+    {
         $category_name = $this->category_name.$this->categoryNameParent();
         return $category_name;
     }
@@ -98,21 +102,24 @@ class Category extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sub_categories(){
+    public function sub_categories()
+    {
         return $this->hasMany(Category::class, 'category_id', 'id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parent_category(){
+    public function parent_category()
+    {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     /**
      * @return string
      */
-    public function getBgColorAttribute(){
+    public function getBgColorAttribute()
+    {
         $bg_color = '#303'.substr(md5($this->category_name), 0, 3);
         return $bg_color;
     }

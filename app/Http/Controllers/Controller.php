@@ -19,12 +19,11 @@ class Controller extends BaseController
     /**
      * Controller constructor.
      */
-    public function __construct(){
+    public function __construct()
+    {
         view()->composer('*', function ($view) {
             $auth_user = Auth::user();
             $view->with(['auth_user' => $auth_user]);
         });
-
     }
-
 }

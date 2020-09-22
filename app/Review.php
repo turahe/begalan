@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
  * App\Review
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $course_id
- * @property int|null $review_id
- * @property string|null $review
- * @property int|null $rating
- * @property int|null $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Course|null $course
- * @property-read \App\User|null $user
+ * @property null|int $user_id
+ * @property null|int $course_id
+ * @property null|int $review_id
+ * @property null|string $review
+ * @property null|int $rating
+ * @property null|int $status
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read null|\App\Course $course
+ * @property-read null|\App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Review newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Review newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Review query()
@@ -36,18 +36,21 @@ class Review extends Model
 {
     protected $guarded = [];
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id')->with('photo_query');
     }
 
-    public function save_and_sync($data = []){
-        if (is_array($data) && count($data)){
+    public function save_and_sync($data = [])
+    {
+        if (is_array($data) && count($data)) {
             $this->update($data);
-        }else{
+        } else {
             $this->save();
         }
 
@@ -56,7 +59,7 @@ class Review extends Model
         $ratingCount = $course->reviews->count();
 
         $ratingVal = '0.00';
-        if ($ratingCount > 0){
+        if ($ratingCount > 0) {
             $ratingVal = $course->reviews->sum('rating');
             $ratingVal = $ratingVal / $ratingCount;
         }

@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Model;
  * App\Earning
  *
  * @property int $id
- * @property int|null $instructor_id
- * @property int|null $course_id
- * @property int|null $payment_id
- * @property string|null $payment_status
- * @property string|null $amount
- * @property string|null $instructor_amount
- * @property string|null $admin_amount
- * @property string|null $instructor_share
- * @property string|null $admin_share
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Course|null $course
- * @property-read \App\Payment|null $payment
+ * @property null|int $instructor_id
+ * @property null|int $course_id
+ * @property null|int $payment_id
+ * @property null|string $payment_status
+ * @property null|string $amount
+ * @property null|string $instructor_amount
+ * @property null|string $admin_amount
+ * @property null|string $instructor_share
+ * @property null|string $admin_share
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read null|\App\Course $course
+ * @property-read null|\App\Payment $payment
  * @method static \Illuminate\Database\Eloquent\Builder|Earning newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Earning newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Earning query()
@@ -42,11 +42,12 @@ class Earning extends Model
 {
     protected $guarded = [];
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
-    public function payment(){
+    public function payment()
+    {
         return $this->belongsTo(Payment::class, 'payment_id', 'id');
     }
-
 }

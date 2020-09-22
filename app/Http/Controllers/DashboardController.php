@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Hash;
 class DashboardController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(){
+    public function index()
+    {
         $title = __t('dashboard');
 
         $user = Auth::user();
@@ -36,7 +37,7 @@ class DashboardController extends Controller
             $interval = \DateInterval::createFromDateString('1 day');
             $period = new \DatePeriod($begin, $interval, $end);
 
-            $datesPeriod = array();
+            $datesPeriod = [];
             foreach ($period as $dt) {
                 $datesPeriod[$dt->format("Y-m-d")] = 0;
             }
@@ -75,17 +76,19 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function profileSettings(){
+    public function profileSettings()
+    {
         $title = __t('profile_settings');
         return view(theme('dashboard.settings.profile'), compact('title'));
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function profileSettingsPost(Request $request){
+    public function profileSettingsPost(Request $request)
+    {
         $rules = [
             'name'      => 'required',
             'job_title' => 'max:220',
@@ -103,18 +106,20 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function resetPassword(){
+    public function resetPassword()
+    {
         $title = __t('reset_password');
         return view(theme('dashboard.settings.reset_password'), compact('title'));
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function resetPasswordPost(Request $request){
-        if(config('app.is_demo')){
+    public function resetPasswordPost(Request $request)
+    {
+        if (config('app.is_demo')) {
             return redirect()->back()->with('error', 'This feature has been disable for demo');
         }
         $rules = [
@@ -127,10 +132,10 @@ class DashboardController extends Controller
         $old_password = clean_html($request->old_password);
         $new_password = clean_html($request->new_password);
 
-        if(Auth::check()) {
+        if (Auth::check()) {
             $logged_user = Auth::user();
 
-            if(Hash::check($old_password, $logged_user->password)) {
+            if (Hash::check($old_password, $logged_user->password)) {
                 $logged_user->password = Hash::make($new_password);
                 $logged_user->save();
                 return redirect()->back()->with('success', __t('password_changed_msg'));
@@ -142,7 +147,8 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function enrolledCourses(){
+    public function enrolledCourses()
+    {
         $title = __t('enrolled_courses');
         return view(theme('dashboard.enrolled_courses'), compact('title'));
     }
@@ -150,7 +156,8 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myReviews(){
+    public function myReviews()
+    {
         $title = __t('my_reviews');
         return view(theme('dashboard.my_reviews'), compact('title'));
     }
@@ -158,7 +165,8 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function wishlist(){
+    public function wishlist()
+    {
         $title = __t('wishlist');
         return view(theme('dashboard.wishlist'), compact('title'));
     }
@@ -166,7 +174,8 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function purchaseHistory(){
+    public function purchaseHistory()
+    {
         $title = __t('purchase_history');
         return view(theme('dashboard.purchase_history'), compact('title'));
     }
@@ -175,10 +184,10 @@ class DashboardController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function purchaseView($id){
+    public function purchaseView($id)
+    {
         $title = __a('purchase_view');
         $payment = Payment::find($id);
         return view(theme('dashboard.purchase_view'), compact('title', 'payment'));
     }
-
 }

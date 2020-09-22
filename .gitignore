@@ -1,7 +1,9 @@
 .idea
-vendor
+/vendor
 node_modules
 public/uploads
 _ide_helper.php
 .phpstorm.meta.php
 .env
+.php_cs.cache
+php-cs-fixer

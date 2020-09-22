@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -14,64 +13,64 @@ use Illuminate\Support\Facades\DB;
  *
  * @property int $id
  * @property string $name
- * @property string|null $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property null|string $email
+ * @property null|\Illuminate\Support\Carbon $email_verified_at
  * @property string $password
- * @property string|null $gender
- * @property string|null $company_name
- * @property int|null $country_id
- * @property string|null $address
- * @property string|null $address_2
- * @property string|null $city
- * @property string|null $zip_code
- * @property string|null $postcode
- * @property string|null $website
- * @property string|null $phone
- * @property string|null $about_me
- * @property string|null $date_of_birth
- * @property int|null $photo
- * @property string|null $job_title
- * @property string|null $options
- * @property string|null $user_type
- * @property int|null $active_status
- * @property string|null $provider_user_id
- * @property string|null $provider
- * @property string|null $reset_token
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Country|null $country
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $courses
- * @property-read int|null $courses_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Earning[] $earnings
- * @property-read int|null $earnings_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $enrolls
- * @property-read int|null $enrolls_count
+ * @property null|string $gender
+ * @property null|string $company_name
+ * @property null|int $country_id
+ * @property null|string $address
+ * @property null|string $address_2
+ * @property null|string $city
+ * @property null|string $zip_code
+ * @property null|string $postcode
+ * @property null|string $website
+ * @property null|string $phone
+ * @property null|string $about_me
+ * @property null|string $date_of_birth
+ * @property null|int $photo
+ * @property null|string $job_title
+ * @property null|string $options
+ * @property null|string $user_type
+ * @property null|int $active_status
+ * @property null|string $provider_user_id
+ * @property null|string $provider
+ * @property null|string $reset_token
+ * @property null|string $remember_token
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read null|\App\Country $country
+ * @property-read \App\Course[]|\Illuminate\Database\Eloquent\Collection $courses
+ * @property-read null|int $courses_count
+ * @property-read \App\Earning[]|\Illuminate\Database\Eloquent\Collection $earnings
+ * @property-read null|int $earnings_count
+ * @property-read \App\Course[]|\Illuminate\Database\Eloquent\Collection $enrolls
+ * @property-read null|int $enrolls_count
  * @property-read mixed $earning
  * @property-read mixed $get_photo
  * @property-read mixed $get_rating
  * @property-read mixed $is_admin
  * @property-read mixed $is_instructor
  * @property-read mixed $withdraw_method
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Discussion[] $instructor_discussions
- * @property-read int|null $instructor_discussions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Media[] $medias
- * @property-read int|null $medias_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Attempt[] $my_quiz_attempts
- * @property-read int|null $my_quiz_attempts_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @property-read \App\Media|null $photo_query
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Payment[] $purchases
- * @property-read int|null $purchases_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Review[] $reviews
- * @property-read int|null $reviews_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Enroll[] $student_enrolls
- * @property-read int|null $student_enrolls_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Course[] $wishlist
- * @property-read int|null $wishlist_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Withdraw[] $withdraws
- * @property-read int|null $withdraws_count
+ * @property-read \App\Discussion[]|\Illuminate\Database\Eloquent\Collection $instructor_discussions
+ * @property-read null|int $instructor_discussions_count
+ * @property-read \App\Media[]|\Illuminate\Database\Eloquent\Collection $medias
+ * @property-read null|int $medias_count
+ * @property-read \App\Attempt[]|\Illuminate\Database\Eloquent\Collection $my_quiz_attempts
+ * @property-read null|int $my_quiz_attempts_count
+ * @property-read \Illuminate\Notifications\DatabaseNotification[]|\Illuminate\Notifications\DatabaseNotificationCollection $notifications
+ * @property-read null|int $notifications_count
+ * @property-read null|\App\Media $photo_query
+ * @property-read \App\Payment[]|\Illuminate\Database\Eloquent\Collection $purchases
+ * @property-read null|int $purchases_count
+ * @property-read \App\Review[]|\Illuminate\Database\Eloquent\Collection $reviews
+ * @property-read null|int $reviews_count
+ * @property-read \App\Enroll[]|\Illuminate\Database\Eloquent\Collection $student_enrolls
+ * @property-read null|int $student_enrolls_count
+ * @property-read \App\Course[]|\Illuminate\Database\Eloquent\Collection $wishlist
+ * @property-read null|int $wishlist_count
+ * @property-read \App\Withdraw[]|\Illuminate\Database\Eloquent\Collection $withdraws
+ * @property-read null|int $withdraws_count
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
  * @method static \Illuminate\Database\Eloquent\Builder|User instructor()
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -132,57 +131,71 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-    public function scopeActive($query){
+    public function scopeActive($query)
+    {
         return $query->where('active_status', 1)->with('photo_query');
     }
-    public function scopeInstructor($query){
+    public function scopeInstructor($query)
+    {
         return $query->where('user_type', 'instructor');
     }
 
 
-    public function medias(){
+    public function medias()
+    {
         return $this->hasMany(Media::class);
     }
 
-    public function courses(){
+    public function courses()
+    {
         return $this->belongsToMany(Course::class)->orderBy('created_at', 'desc');
     }
 
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(Review::class);
     }
 
-    public function get_reviews(){
+    public function get_reviews()
+    {
         return $this->belongsToMany(Review::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id');
     }
 
-    public function instructor_discussions(){
+    public function instructor_discussions()
+    {
         return $this->belongsToMany(Discussion::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id')->with('user', 'user.photo_query')->where('discussion_id', 0);
     }
-    public function wishlist(){
+    public function wishlist()
+    {
         return $this->belongsToMany(Course::class, 'wishlists');
     }
 
-    public function earnings(){
+    public function earnings()
+    {
         return $this->hasMany(Earning::class, 'instructor_id')->where('payment_status', 'success');
     }
 
-    public function withdraws(){
+    public function withdraws()
+    {
         return $this->hasMany(Withdraw::class)->orderBy('created_at', 'desc');
     }
 
-    public function purchases(){
+    public function purchases()
+    {
         return $this->hasMany(Payment::class)->orderBy('created_at', 'desc');
     }
 
-    public function country(){
+    public function country()
+    {
         return $this->belongsTo(Country::class, 'country_id');
     }
-    public function my_quiz_attempts(){
+    public function my_quiz_attempts()
+    {
         return $this->hasMany(Attempt::class);
     }
 
-    public function getGetRatingAttribute(){
+    public function getGetRatingAttribute()
+    {
         $sql = "select count(reviews.id) as rating_count,
 avg(reviews.rating) as rating_avg
 from reviews
@@ -194,37 +207,43 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return $rating;
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return $this->user_type === 'admin';
     }
 
-    public function getIsAdminAttribute(){
+    public function getIsAdminAttribute()
+    {
         return $this->isAdmin();
     }
 
-    public function isInstructor(){
+    public function isInstructor()
+    {
         return $this->user_type === 'instructor' || $this->isAdmin();
     }
-    public function getIsInstructorAttribute(){
+    public function getIsInstructorAttribute()
+    {
         return $this->isInstructor();
     }
 
-    public function photo_query(){
+    public function photo_query()
+    {
         return $this->belongsTo(Media::class, 'photo');
     }
 
-    public function getGetPhotoAttribute(){
-        if ($this->photo){
+    public function getGetPhotoAttribute()
+    {
+        if ($this->photo) {
             $url = media_image_uri($this->photo_query)->thumbnail;
             return "<img src='{$url}' class='profile-photo' alt='{$this->name}' /> ";
         }
 
         $arr = explode(' ', trim($this->name));
 
-        if (count($arr) > 1){
+        if (count($arr) > 1) {
             $first_char = substr($arr[0], 0, 1) ;
             $second_char = substr($arr[1], 0, 1) ;
-        }else{
+        } else {
             $first_char = substr($arr[0], 0, 1) ;
             $second_char = substr($arr[0], 1, 1) ;
         }
@@ -238,12 +257,14 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
 
-    public function enrolls(){
+    public function enrolls()
+    {
         return $this->belongsToMany(Course::class, 'enrolls')->wherePivot('status', '=', 'success');
     }
 
-    public function isEnrolled($course_id = 0){
-        if ($course_id === 0){
+    public function isEnrolled($course_id = 0)
+    {
+        if ($course_id === 0) {
             return false;
         }
 
@@ -253,7 +274,8 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
 
-    public function isInstructorInCourse($course_id){
+    public function isInstructorInCourse($course_id)
+    {
         return $this->courses()->whereCourseId($course_id)->first();
     }
 
@@ -263,14 +285,15 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
      *
      * Complete Course
      */
-    public function complete_course($course_id = null){
-        if ( ! $course_id){
+    public function complete_course($course_id = null)
+    {
+        if (! $course_id) {
             return false;
         }
 
         $is_completed = Complete::whereCompletedCourseId($course_id)->whereUserId($this->id)->first();
 
-        if ($is_completed){
+        if ($is_completed) {
             return $is_completed;
         }
         $data = [
@@ -281,36 +304,41 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return Complete::create($data);
     }
 
-    public function is_completed_course($course_id){
+    public function is_completed_course($course_id)
+    {
         $is_completed = Complete::whereCompletedCourseId($course_id)->whereUserId($this->id)->first();
         return $is_completed;
     }
 
-    public function get_option($key = null, $default = null){
-        if ($this->options){
+    public function get_option($key = null, $default = null)
+    {
+        if ($this->options) {
             $options = (array) json_decode($this->options, true);
             $value = get_from_array($key, $options);
 
-            if ($value){
+            if ($value) {
                 return $value;
             }
         }
         return $default;
     }
 
-    public function update_option($key = null, $value = ''){
-        if ($key){
+    public function update_option($key = null, $value = '')
+    {
+        if ($key) {
             $options = (array) json_decode($this->options, true);
             $options[$key] = $value;
             $this->update(['options' => $options]);
         }
     }
 
-    public function student_enrolls(){
+    public function student_enrolls()
+    {
         return $this->belongsToMany(Enroll::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id')->whereStatus('success');
     }
 
-    public function enroll_sync(){
+    public function enroll_sync()
+    {
         $enrolledCourse = (array) $this->enrolls()->pluck('course_id')->all();
         $enrolledCourse =  array_unique($enrolledCourse);
         $this->update_option('enrolled_courses', $enrolledCourse);
@@ -322,7 +350,8 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
      * Earning Related
      */
 
-    public function getEarningAttribute(){
+    public function getEarningAttribute()
+    {
         $sales_amount = $this->earnings->sum('amount');
 
         $earnings = $this->earnings->sum('instructor_amount');
@@ -345,11 +374,12 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
 
-    function getWithdrawMethodAttribute(){
+    public function getWithdrawMethodAttribute()
+    {
         $method = $this->get_option('withdraw_preference');
         $method_key = array_get($method, 'method');
 
-        if ( ! array_get($method, 'method')){
+        if (! array_get($method, 'method')) {
             return null;
         }
 
@@ -357,9 +387,9 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         $saved_method['method_key'] = $method_key;
         $form_fields = array_get($saved_method, 'form_fields');
 
-        if (is_array($form_fields) && count($form_fields)){
-            foreach ($form_fields as $form_key => $form_value){
-                $form_value['value'] = array_get($method, $method_key.'.'.$form_key );
+        if (is_array($form_fields) && count($form_fields)) {
+            foreach ($form_fields as $form_key => $form_value) {
+                $form_value['value'] = array_get($method, $method_key.'.'.$form_key);
                 $form_fields[$form_key] = $form_value;
             }
         }
@@ -370,9 +400,9 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return (object) $saved_method;
     }
 
-    public function get_attempt($quiz_id){
+    public function get_attempt($quiz_id)
+    {
         $attempt = Attempt::where('user_id', $this->id)->where('quiz_id', $quiz_id)->first();
         return $attempt;
     }
-
 }

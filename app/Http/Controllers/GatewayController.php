@@ -18,12 +18,13 @@ class GatewayController extends Controller
 
     /**
      * @param Request $request
-     * @return array
      * @throws \Stripe\Exception\ApiErrorException
      *
      * Stripe Charge
+     * @return array
      */
-    public function stripeCharge(Request $request){
+    public function stripeCharge(Request $request)
+    {
         $stripeToken = $request->stripeToken;
         Stripe::setApiKey(get_stripe_key('secret'));
 
@@ -36,14 +37,14 @@ class GatewayController extends Controller
             $currency = get_option('currency_sign');
 
             //Charge from card
-            $charge = Charge::create(array(
+            $charge = Charge::create([
                 "amount"        => get_stripe_amount($amount), // amount in cents, again
                 "currency"      => $currency,
                 "source"        => $stripeToken,
                 "description"   => get_option('site_name')."'s course enrolment"
-            ));
+            ]);
 
-            if ($charge->status == 'succeeded'){
+            if ($charge->status == 'succeeded') {
                 //Save payment into database
                 $data = [
                     'name'              => $user->name,
@@ -74,7 +75,7 @@ class GatewayController extends Controller
 
                 return ['success'=> 1, 'message_html' => $this->payment_success_html()];
             }
-        } catch(CardException $e) {
+        } catch (CardException $e) {
             // The card has been declined
             return ['success'=>0, 'msg'=> __t('payment_declined_msg'), 'response' => $e];
         }
@@ -83,7 +84,8 @@ class GatewayController extends Controller
     /**
      * @return string
      */
-    public function payment_success_html(){
+    public function payment_success_html()
+    {
         $html = ' <div class="payment-received text-center">
                             <h1> <i class="fa fa-check-circle-o"></i> '.__t('payment_thank_you').'</h1>
                             <p>'.__t('payment_receive_successfully').'</p>
@@ -97,7 +99,8 @@ class GatewayController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function bankPost(Request $request){
+    public function bankPost(Request $request)
+    {
         $cart = cart();
         $amount = $cart->total_amount;
 
@@ -107,7 +110,7 @@ class GatewayController extends Controller
         //Create payment in database
         $transaction_id = 'tran_'.time().str_random(6);
         // get unique recharge transaction id
-        while( ( Payment::whereLocalTransactionId($transaction_id)->count() ) > 0) {
+        while ((Payment::whereLocalTransactionId($transaction_id)->count()) > 0) {
             $transaction_id = 'reid'.time().str_random(5);
         }
         $transaction_id = strtoupper($transaction_id);
@@ -144,8 +147,9 @@ class GatewayController extends Controller
      *
      * Redirect to PayPal for the Payment
      */
-    public function paypalRedirect(Request $request){
-        if ( ! session('cart')){
+    public function paypalRedirect(Request $request)
+    {
+        if (! session('cart')) {
             return redirect(route('checkout'));
         }
 
@@ -158,7 +162,7 @@ class GatewayController extends Controller
         //Create payment in database
         $transaction_id = 'tran_'.time().str_random(6);
         // get unique recharge transaction id
-        while( ( Payment::whereLocalTransactionId($transaction_id)->count() ) > 0) {
+        while ((Payment::whereLocalTransactionId($transaction_id)->count()) > 0) {
             $transaction_id = 'reid'.time().str_random(5);
         }
         $transaction_id = strtoupper($transaction_id);
@@ -179,8 +183,9 @@ class GatewayController extends Controller
 
         // PayPal settings
         $paypal_action_url = "https://www.paypal.com/cgi-bin/webscr";
-        if (get_option('enable_paypal_sandbox'))
+        if (get_option('enable_paypal_sandbox')) {
             $paypal_action_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+        }
 
         $paypal_email = get_option('paypal_receiver_email');
         $return_url = route('payment_thank_you_page', $transaction_id);
@@ -210,7 +215,8 @@ class GatewayController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function payOffline(Request $request){
+    public function payOffline(Request $request)
+    {
         $cart = cart();
         $amount = $cart->total_amount;
 
@@ -220,7 +226,7 @@ class GatewayController extends Controller
         //Create payment in database
         $transaction_id = 'tran_'.time().str_random(6);
         // get unique recharge transaction id
-        while( ( Payment::whereLocalTransactionId($transaction_id)->count() ) > 0) {
+        while ((Payment::whereLocalTransactionId($transaction_id)->count()) > 0) {
             $transaction_id = 'reid'.time().str_random(5);
         }
         $transaction_id = strtoupper($transaction_id);
@@ -242,5 +248,4 @@ class GatewayController extends Controller
 
         return redirect(route('payment_thank_you_page'));
     }
-
 }

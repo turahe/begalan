@@ -1,6 +1,7 @@
 <?php
 
-function dashboard_menu(){
+function dashboard_menu()
+{
     $menu = [];
 
     //$menu['route_name'] = 'value';
@@ -9,10 +10,9 @@ function dashboard_menu(){
     $user = \Illuminate\Support\Facades\Auth::user();
 
     if ($user->isInstructor()) {
-
         $pendingDiscusionBadge = '';
         $pendingDiscussionCount = $user->instructor_discussions->where('replied', 0)->count();
-        if ($pendingDiscussionCount){
+        if ($pendingDiscussionCount) {
             $pendingDiscusionBadge = "<span class='badge badge-warning float-right'> {$pendingDiscussionCount} </span>";
         }
 
@@ -58,7 +58,6 @@ function dashboard_menu(){
                 'is_active' => request()->is('dashboard/discussions*'),
             ]
         ]);
-
     }
 
     $menu = $menu + apply_filters('dashboard_menu_for_users', [
@@ -94,7 +93,7 @@ function dashboard_menu(){
         ],
     ]);
 
-    if ($user->is_admin){
+    if ($user->is_admin) {
         $menu['admin'] = [
             'name' => __t('go_to_admin'),
             'icon' => '<i class="la la-cogs"></i>',
@@ -107,8 +106,8 @@ function dashboard_menu(){
 }
 
 
-function course_edit_navs(){
-
+function course_edit_navs()
+{
     $nav_items = apply_filters('course_edit_nav_items', [
         'edit_course_information' => [
             'name' => __t('information'),

@@ -17,7 +17,8 @@ class DiscussionController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(){
+    public function index()
+    {
         $title = __t('discussions');
 
         return view(theme('dashboard.discussions.index'), compact('title'));
@@ -27,7 +28,8 @@ class DiscussionController extends Controller
      * @param $discussion_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function reply($discussion_id){
+    public function reply($discussion_id)
+    {
         $title = __t('discussions');
         $discussion = Discussion::find($discussion_id);
 
@@ -37,10 +39,11 @@ class DiscussionController extends Controller
     /**
      * @param Request $request
      * @param $discussion_id
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function replyPost(Request $request, $discussion_id){
+    public function replyPost(Request $request, $discussion_id)
+    {
         $this->validate($request, ['message' => 'required']);
 
         $discussion = Discussion::find($discussion_id);
@@ -66,10 +69,11 @@ class DiscussionController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function askQuestion(Request $request){
+    public function askQuestion(Request $request)
+    {
         $rules = [
             'title'     => 'required|max:220',
             'message'   => 'required'
@@ -97,6 +101,4 @@ class DiscussionController extends Controller
 
         return redirect(url()->previous().'#course-discussion-wrap');
     }
-
-
 }

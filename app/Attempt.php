@@ -3,37 +3,35 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 /**
  * App\Attempt
  *
  * @property int $id
- * @property int|null $course_id
- * @property int|null $quiz_id
- * @property int|null $user_id
- * @property int|null $reviewer_id
- * @property int|null $questions_limit
- * @property int|null $total_answered
- * @property string|null $total_scores
- * @property string|null $earned_scores
- * @property int|null $passing_percent
- * @property int|null $earned_percent
- * @property string|null $status
- * @property int|null $quiz_gradable
- * @property int|null $is_reviewed
- * @property \Illuminate\Support\Carbon|null $ended_at
- * @property string|null $reviewed_at
- * @property int|null $passed
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Answer[] $answers
- * @property-read int|null $answers_count
- * @property-read \App\Course|null $course
+ * @property null|int $course_id
+ * @property null|int $quiz_id
+ * @property null|int $user_id
+ * @property null|int $reviewer_id
+ * @property null|int $questions_limit
+ * @property null|int $total_answered
+ * @property null|string $total_scores
+ * @property null|string $earned_scores
+ * @property null|int $passing_percent
+ * @property null|int $earned_percent
+ * @property null|string $status
+ * @property null|int $quiz_gradable
+ * @property null|int $is_reviewed
+ * @property null|\Illuminate\Support\Carbon $ended_at
+ * @property null|string $reviewed_at
+ * @property null|int $passed
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Answer[]|\Illuminate\Database\Eloquent\Collection $answers
+ * @property-read null|int $answers_count
+ * @property-read null|\App\Course $course
  * @property-read mixed $status_html
- * @property-read \App\Content|null $quiz
- * @property-read \App\User|null $user
+ * @property-read null|\App\Content $quiz
+ * @property-read null|\App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt query()
@@ -73,38 +71,43 @@ class Attempt extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function answers(){
+    public function answers()
+    {
         return $this->hasMany(Answer::class)->with('question');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function quiz(){
+    public function quiz()
+    {
         return $this->belongsTo(Content::class, 'quiz_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
     /**
      * @return string
      */
-    public function getStatusHtmlAttribute(){
+    public function getStatusHtmlAttribute()
+    {
         $statusClass = "";
         $iclass = "";
-        switch ($this->status){
+        switch ($this->status) {
             case 'started':
                 $statusClass .= "dark";
                 $iclass = "clock-o";
@@ -121,7 +124,6 @@ class Attempt extends Model
 
         $html = "<span class='badge payment-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$this->status}</span>";
         return $html;
-
     }
 
 
@@ -129,10 +131,11 @@ class Attempt extends Model
      * @param array $data
      * @return $this
      */
-    public function save_and_sync($data = []){
-        if (is_array($data) && count($data)){
+    public function save_and_sync($data = [])
+    {
+        if (is_array($data) && count($data)) {
             $this->update($data);
-        }else{
+        } else {
             $this->save();
         }
 
@@ -140,7 +143,7 @@ class Attempt extends Model
         $r_score = $this->answers->sum('r_score');
 
         $earned_percent = 0;
-        if ($r_score > 0){
+        if ($r_score > 0) {
             $earned_percent = (100 * $r_score) / $q_score;
         }
 
@@ -158,6 +161,4 @@ class Attempt extends Model
 
         return $this;
     }
-
-
 }

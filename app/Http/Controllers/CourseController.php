@@ -5,16 +5,14 @@ namespace App\Http\Controllers;
 use App\AssignmentSubmission;
 use App\Attachment;
 use App\Category;
+use App\Content;
 use App\Course;
 use App\Http\Requests\Courses\CourseStoreRequest;
 use App\Review;
 use App\Section;
-use App\Content;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -25,35 +23,37 @@ class CourseController extends Controller
 {
 
     /**
+     * @param string $slug
      * @return string
      *
      * View Course
      */
 
-    public function view($slug){
+    public function view(string $slug)
+    {
         $course = Course::whereSlug($slug)
             ->with('sections', 'sections.items', 'sections.items.attachments')
             ->first();
 
-        if ( ! $course){
+        if (! $course) {
             abort(404);
         }
 
         $user = Auth::user();
 
-        if ( $course->status != 1){
-            if ( ! $user || ! $user->isInstructorInCourse($course->id)){
+        if ($course->status != 1) {
+            if (! $user || ! $user->isInstructorInCourse($course->id)) {
                 abort(404);
             }
         }
         $title = $course->title;
 
         $isEnrolled = false;
-        if (Auth::check()){
+        if (Auth::check()) {
             $user = Auth::user();
 
             $enrolled = $user->isEnrolled($course->id);
-            if ($enrolled){
+            if ($enrolled) {
                 $isEnrolled = $enrolled;
             }
         }
@@ -67,7 +67,8 @@ class CourseController extends Controller
      *
      * View lecture in full width mode.
      */
-    public function lectureView($slug, $lecture_id){
+    public function lectureView($slug, $lecture_id)
+    {
         $lecture = Content::find($lecture_id);
         $course = $lecture->course;
         $title = $lecture->title;
@@ -79,26 +80,27 @@ class CourseController extends Controller
 
         $user = Auth::user();
 
-        if ($course->paid && $user){
+        if ($course->paid && $user) {
             $isEnrolled = $user->isEnrolled($course->id);
-            if ($course->paid && $isEnrolled){
+            if ($course->paid && $isEnrolled) {
                 $isOpen = true;
             }
-        }elseif ($course->free){
-            if ($course->require_enroll && $user){
+        } elseif ($course->free) {
+            if ($course->require_enroll && $user) {
                 $isEnrolled = $user->isEnrolled($course->id);
-                if ($isEnrolled){
+                if ($isEnrolled) {
                     $isOpen = true;
                 }
-            }elseif ($course->require_login){
-                if ($user)
-                $isOpen = true;
-            }else{
+            } elseif ($course->require_login) {
+                if ($user) {
+                    $isOpen = true;
+                }
+            } else {
                 $isOpen = true;
             }
         }
 
-        if ($lecture->drip->is_lock){
+        if ($lecture->drip->is_lock) {
             $isOpen = false;
         }
 
@@ -110,14 +112,15 @@ class CourseController extends Controller
      * @param $assignment_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function assignmentView($slug, $assignment_id){
+    public function assignmentView($slug, $assignment_id)
+    {
         $assignment = Content::find($assignment_id);
         $course = $assignment->course;
         $title = $assignment->title;
         $has_submission = $assignment->has_submission;
 
         $isEnrolled = false;
-        if (Auth::check()){
+        if (Auth::check()) {
             $user = Auth::user();
             $isEnrolled = $user->isEnrolled($course->id);
         }
@@ -131,15 +134,15 @@ class CourseController extends Controller
      * @param $assignment_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function assignmentSubmitting(Request $request, $slug, $assignment_id){
+    public function assignmentSubmitting(Request $request, $slug, $assignment_id)
+    {
         $user = Auth::user();
         $user_id = $user->id;
         $assignment = Content::find($assignment_id);
 
         $submission = $assignment->has_submission;
-        if ($submission){
-            if ($submission->status === 'submitting'){
-
+        if ($submission) {
+            if ($submission->status === 'submitting') {
                 $submission->text_submission = clean_html($request->assignment_text);
                 $submission->status = 'submitted';
                 $submission->save();
@@ -150,16 +153,15 @@ class CourseController extends Controller
                  *
                  * @todo, check attachment size, if exceed, delete those attachments
                  */
-                $attachments = array_filter( (array) $request->assignment_attachments);
-                if (is_array($attachments) && count($attachments) ){
-                    foreach ($attachments as $media_id){
-                        $hash = strtolower(str_random(13).substr(time(),4).str_random(13));
+                $attachments = array_filter((array) $request->assignment_attachments);
+                if (is_array($attachments) && count($attachments)) {
+                    foreach ($attachments as $media_id) {
+                        $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
                         Attachment::create(['assignment_submission_id' => $submission->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash ]);
                     }
                 }
             }
-
-        }else {
+        } else {
             $course = $assignment->course;
             $data = [
                 'user_id' => $user_id,
@@ -177,9 +179,10 @@ class CourseController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(){
+    public function create()
+    {
         $title = __t('create_new_course');
-        $categories = Category::parent()->get();
+        $categories = Category::parent()->with('sub_categories')->get();
 
         return view(theme('dashboard.courses.create_course'), compact('title', 'categories'));
     }
@@ -221,16 +224,16 @@ class CourseController extends Controller
          * save video data
          */
         $video_source = $request->input('video.source');
-        if ($video_source === '-1'){
+        if ($video_source === '-1') {
             $data['video_src'] = null;
-        }else{
+        } else {
             $data['video_src'] = json_encode($request->video);
         }
 
         $course = Course::create($data);
 
         $now = Carbon::now()->toDateTimeString();
-        if ($course){
+        if ($course) {
             $course->instructors()->attach($user_id, ['added_at' => $now]);
         }
 
@@ -241,10 +244,11 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function information($course_id){
+    public function information($course_id)
+    {
         $title = __t('information');
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
         $categories = Category::parent()->get();
@@ -255,10 +259,11 @@ class CourseController extends Controller
     /**
      * @param Request $request
      * @param $course_id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function informationPost(Request $request, $course_id){
+    public function informationPost(Request $request, $course_id)
+    {
         $rules = [
             'title'             => 'required|max:120',
             'short_description' => 'max:220',
@@ -268,7 +273,7 @@ class CourseController extends Controller
         $this->validate($request, $rules);
 
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
         $category = Category::find($request->category_id);
@@ -289,16 +294,17 @@ class CourseController extends Controller
          * save video data
          */
         $video_source = $request->input('video.source');
-        if ($video_source === '-1'){
+        if ($video_source === '-1') {
             $data['video_src'] = null;
-        }else{
+        } else {
             $data['video_src'] = json_encode($request->video);
         }
 
         $course->update($data);
 
-        if ($request->save === 'save_next')
+        if ($request->save === 'save_next') {
             return redirect(route('edit_course_curriculum', $course_id));
+        }
         return redirect()->back();
     }
 
@@ -306,10 +312,11 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function curriculum($course_id){
+    public function curriculum($course_id)
+    {
         $title = __t('curriculum');
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
 
@@ -321,7 +328,8 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function newSection($course_id){
+    public function newSection($course_id)
+    {
         $title = __t('curriculum');
         $course = Course::find($course_id);
         return view(theme('dashboard.courses.new_section'), compact('title', 'course'));
@@ -330,16 +338,18 @@ class CourseController extends Controller
     /**
      * @param Request $request
      * @param $course_id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function newSectionPost(Request $request, $course_id){
+    public function newSectionPost(Request $request, $course_id)
+    {
         $rules = [
             'section_name' => 'required',
         ];
         $this->validate($request, $rules);
 
-        Section::create([
+        Section::create(
+            [
                 'course_id' => $course_id,
                 'section_name' => clean_html($request->section_name)
             ]
@@ -354,7 +364,8 @@ class CourseController extends Controller
      *
      * Update the section
      */
-    public function updateSection(Request $request, $id){
+    public function updateSection(Request $request, $id)
+    {
         $rules = [
             'section_name' => 'required',
         ];
@@ -367,8 +378,11 @@ class CourseController extends Controller
      * @param Request $request
      * @return array|bool[]
      */
-    public function deleteSection(Request $request){
-        if(config('app.is_demo')) return ['success' => false, 'msg' => __t('demo_restriction')];
+    public function deleteSection(Request $request)
+    {
+        if (config('app.is_demo')) {
+            return ['success' => false, 'msg' => __t('demo_restriction')];
+        }
 
         $section = Section::find($request->section_id);
         $course = $section->course;
@@ -385,18 +399,19 @@ class CourseController extends Controller
      * @param $course_id
      * @return array
      */
-    public function newLecture(Request $request, $course_id){
+    public function newLecture(Request $request, $course_id)
+    {
         $rules = [
             'title' => 'required'
         ];
 
         $validation = Validator::make($request->input(), $rules);
 
-        if ($validation->fails()){
+        if ($validation->fails()) {
             $errors = $validation->errors()->toArray();
 
             $error_msg = "<div class='alert alert-danger mb-3'>";
-            foreach ($errors as $error){
+            foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
             $error_msg .= "</div>";
@@ -432,7 +447,8 @@ class CourseController extends Controller
      * @param Request $request
      * @return array
      */
-    public function loadContents(Request $request){
+    public function loadContents(Request $request)
+    {
         $section = Section::find($request->section_id);
 
         $html = view_template_part('dashboard.courses.section-items', compact('section'));
@@ -446,16 +462,17 @@ class CourseController extends Controller
      * @param $item_id
      * @return array|bool[]
      */
-    public function updateLecture(Request $request, $course_id, $item_id){
+    public function updateLecture(Request $request, $course_id, $item_id)
+    {
         $rules = [
             'title' => 'required'
         ];
         $validation = Validator::make($request->input(), $rules);
 
-        if ($validation->fails()){
+        if ($validation->fails()) {
             $errors = $validation->errors()->toArray();
             $error_msg = "<div class='alert alert-danger mb-3'>";
-            foreach ($errors as $error){
+            foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
             $error_msg .= "</div>";
@@ -476,9 +493,9 @@ class CourseController extends Controller
          * save video data
          */
         $video_source = $request->input('video.source');
-        if ($video_source === '-1'){
+        if ($video_source === '-1') {
             $data['video_src'] = null;
-        }else{
+        } else {
             $data['video_src'] = json_encode($request->video);
         }
 
@@ -488,10 +505,10 @@ class CourseController extends Controller
         /**
          * Save Attachments if any
          */
-        $attachments = array_filter( (array) $request->attachments);
-        if (is_array($attachments) && count($attachments) ){
-            foreach ($attachments as $media_id){
-                $hash = strtolower(str_random(13).substr(time(),4).str_random(13));
+        $attachments = array_filter((array) $request->attachments);
+        if (is_array($attachments) && count($attachments)) {
+            foreach ($attachments as $media_id) {
+                $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
                 Attachment::create(['belongs_course_id' => $item->course_id, 'content_id' => $item->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash ]);
             }
         }
@@ -504,18 +521,19 @@ class CourseController extends Controller
      * @param Request $request
      * @return array
      */
-    public function editItem(Request $request){
+    public function editItem(Request $request)
+    {
         $item_id = $request->item_id;
         $item = Content::find($item_id);
 
         $form_html = '';
 
-        if ($item->item_type === 'lecture'){
-            $form_html = view_template_part( 'dashboard.courses.edit_lecture_form', compact('item'));
-        }elseif ($item->item_type === 'quiz'){
-            $form_html = view_template_part( 'dashboard.courses.quiz.edit_quiz', compact('item'));
-        }elseif ($item->item_type === 'assignment'){
-            $form_html = view_template_part( 'dashboard.courses.edit_assignment_form', compact('item'));
+        if ($item->item_type === 'lecture') {
+            $form_html = view_template_part('dashboard.courses.edit_lecture_form', compact('item'));
+        } elseif ($item->item_type === 'quiz') {
+            $form_html = view_template_part('dashboard.courses.quiz.edit_quiz', compact('item'));
+        } elseif ($item->item_type === 'assignment') {
+            $form_html = view_template_part('dashboard.courses.edit_assignment_form', compact('item'));
         }
 
         return ['success' => true, 'form_html' => $form_html];
@@ -525,7 +543,8 @@ class CourseController extends Controller
      * @param Request $request
      * @return bool[]
      */
-    public function deleteItem(Request $request){
+    public function deleteItem(Request $request)
+    {
         $item_id = $request->item_id;
         Content::destroy($item_id);
         return ['success' => true];
@@ -535,10 +554,11 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function pricing($course_id){
+    public function pricing($course_id)
+    {
         $title = __t('course_pricing');
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
 
@@ -548,23 +568,23 @@ class CourseController extends Controller
     /**
      * @param Request $request
      * @param $course_id
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function pricingSet(Request $request, $course_id){
-
-        if ($request->price_plan == 'paid'){
+    public function pricingSet(Request $request, $course_id)
+    {
+        if ($request->price_plan == 'paid') {
             $rules = [
                 'price' => 'required|numeric',
             ];
-            if ($request->sale_price){
+            if ($request->sale_price) {
                 $rules['sale_price'] = 'numeric';
             }
             $this->validate($request, $rules);
         }
 
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
 
@@ -585,10 +605,11 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function drip($course_id){
+    public function drip($course_id)
+    {
         $title = __t('drip_content');
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
 
@@ -600,14 +621,14 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function dripPost(Request $request, $course_id){
-
+    public function dripPost(Request $request, $course_id)
+    {
         $sections = $request->section;
-        foreach ($sections as $sectionId => $section){
+        foreach ($sections as $sectionId => $section) {
             Section::whereId($sectionId)->update(array_except($section, 'content'));
 
             $contents = array_get($section, 'content');
-            foreach ($contents as $contentId => $content){
+            foreach ($contents as $contentId => $content) {
                 Content::whereId($contentId)->update(array_except($content, 'content'));
             }
         }
@@ -620,10 +641,11 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function publish($course_id){
+    public function publish($course_id)
+    {
         $title = __t('publish_course');
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
 
@@ -635,18 +657,19 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function publishPost(Request $request, $course_id){
+    public function publishPost(Request $request, $course_id)
+    {
         $course = Course::find($course_id);
-        if ( ! $course || ! $course->i_am_instructor){
+        if (! $course || ! $course->i_am_instructor) {
             abort(404);
         }
-        if ($request->publish_btn == 'publish'){
-            if (get_option("lms_settings.instructor_can_publish_course")){
+        if ($request->publish_btn == 'publish') {
+            if (get_option("lms_settings.instructor_can_publish_course")) {
                 $course->status = 1;
-            }else{
+            } else {
                 $course->status = 2;
             }
-        }elseif ($request->publish_btn == 'unpublish'){
+        } elseif ($request->publish_btn == 'unpublish') {
             $course->status = 4;
         }
 
@@ -660,10 +683,11 @@ class CourseController extends Controller
      * Course Free Enroll
      */
 
-    public function freeEnroll(Request $request){
+    public function freeEnroll(Request $request)
+    {
         $course_id = $request->course_id;
 
-        if ( ! Auth::check()){
+        if (! Auth::check()) {
             return redirect(route('login'));
         }
 
@@ -672,7 +696,7 @@ class CourseController extends Controller
 
         $isEnrolled = $user->isEnrolled($course_id);
 
-        if ( ! $isEnrolled){
+        if (! $isEnrolled) {
             $carbon = Carbon::now()->toDateTimeString();
             $user->enrolls()->attach($course_id, ['status' => 'success', 'enrolled_at' => $carbon ]);
             $user->enroll_sync();
@@ -686,18 +710,19 @@ class CourseController extends Controller
      * return to next after complete
      * stay current page if there is no next.
      */
-    public function contentComplete($content_id){
+    public function contentComplete($content_id)
+    {
         $content = Content::find($content_id);
         $user = Auth::user();
 
         complete_content($content, $user);
 
         $go_content = $content->next;
-        if ( ! $go_content){
+        if (! $go_content) {
             $go_content = $content;
         }
 
-        return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id ] ));
+        return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id ]));
     }
 
     /**
@@ -705,7 +730,8 @@ class CourseController extends Controller
      * @param $course_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function complete(Request $request, $course_id){
+    public function complete(Request $request, $course_id)
+    {
         $user = Auth::user();
         $user->complete_course($course_id);
 
@@ -716,17 +742,18 @@ class CourseController extends Controller
      * @param $hash
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function attachmentDownload($hash){
+    public function attachmentDownload($hash)
+    {
         $attachment = Attachment::whereHashId($hash)->first();
-        if ( ! $attachment ||  ! $attachment->media){
+        if (! $attachment ||  ! $attachment->media) {
             abort(404);
         }
 
         /**
          * If Assignment Submission Attachment, download it right now
          */
-        if ($attachment->assignment_submission_id){
-            if (Auth::check()){
+        if ($attachment->assignment_submission_id) {
+            if (Auth::check()) {
                 return $this->forceDownload($attachment->media);
             }
             abort(404);
@@ -734,18 +761,18 @@ class CourseController extends Controller
 
         $item = $attachment->belongs_item;
 
-        if ($item && $item->item_type === 'lecture' && $item->is_preview){
+        if ($item && $item->item_type === 'lecture' && $item->is_preview) {
             return $this->forceDownload($attachment->media);
         }
 
-        if ( ! Auth::check()){
+        if (! Auth::check()) {
             abort(404);
         }
         $user = Auth::user();
 
         $course = $attachment->course;
 
-        if ( ! $user->isEnrolled($course->id)){
+        if (! $user->isEnrolled($course->id)) {
             abort(404);
         }
 
@@ -756,7 +783,8 @@ class CourseController extends Controller
      * @param $media
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function forceDownload($media){
+    public function forceDownload($media)
+    {
         $source = get_option('default_storage');
         $slug_ext = $media->slug_ext;
 
@@ -765,9 +793,9 @@ class CourseController extends Controller
         }
 
         $path = '';
-        if ($source == 'public'){
+        if ($source == 'public') {
             $path = ROOT_PATH."/uploads/{$slug_ext}";
-        }elseif ($source == 's3'){
+        } elseif ($source == 's3') {
             $path = \Illuminate\Support\Facades\Storage::disk('s3')->url("uploads/".$slug_ext);
         }
 
@@ -779,11 +807,12 @@ class CourseController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function writeReview(Request $request, $id){
-        if ($request->rating_value < 1){
+    public function writeReview(Request $request, $id)
+    {
+        if ($request->rating_value < 1) {
             return back();
         }
-        if ( ! $id){
+        if (! $id) {
             $id = $request->course_id;
         }
 
@@ -798,7 +827,7 @@ class CourseController extends Controller
         ];
 
         $review = has_review($user->id, $id);
-        if ( ! $review){
+        if (! $review) {
             $review = Review::create($data);
         }
         $review->save_and_sync($data);
@@ -810,7 +839,8 @@ class CourseController extends Controller
      * My Courses page from Dashboard
      */
 
-    public function myCourses(){
+    public function myCourses()
+    {
         $title = __t('my_courses');
         return view(theme('dashboard.my_courses'), compact('title'));
     }
@@ -818,9 +848,9 @@ class CourseController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myCoursesReviews(){
+    public function myCoursesReviews()
+    {
         $title = __t('my_courses_reviews');
         return view(theme('dashboard.my_courses_reviews'), compact('title'));
     }
-
 }

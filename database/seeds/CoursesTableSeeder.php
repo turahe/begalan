@@ -1,5 +1,8 @@
 <?php
 
+use App\Content;
+use App\Course;
+use App\Section;
 use Illuminate\Database\Seeder;
 
 class CoursesTableSeeder extends Seeder
@@ -11,6 +14,23 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(Course::class, 35)->create()->each(function (Course $course) {
+            factory(Section::class, 10)->make()->each(function (Section $section) use ($course) {
+                $course->sections()->save($section);
+
+                $section->items()->saveMany(factory(Content::class, mt_rand(10,30))->make([
+                    'user_id' => $course->user_id,
+                    'course_id' => $course->id,
+                    'section_id' => $section->id,
+                ]));
+            });
+        });
+
+
+//        factory(Course::class, 12)->create()->each(function ($course) {
+//            $course->sections()->saveMany(factory(Section::class, mt_rand(7,18))->make());
+//        });
+
         $courses = collect($this->defaultCourses)->map(function ($course) {
             return [
                 'user_id' => 1,
@@ -56,8 +76,7 @@ class CoursesTableSeeder extends Seeder
             ];
         });
 
-        \App\Course::insert($courses->toArray());
-
+//        \App\Course::insert($courses->toArray());
     }
 
     protected array $defaultCourses = [

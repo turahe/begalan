@@ -2,7 +2,14 @@
     <div class="row">
         <div class="col-md-8 mx-auto">
 
-            <h2 class="mb-5 text-center">{{__t('register')}} <small>or <a href="{{route('login')}}">{{__t('login')}}</a> </small> </h2>
+            <h2 class="mb-5 text-center">
+                {{__t('register')}}
+                <small>{{__t('or')}}
+                    <a href="{{route('login')}}">
+                        {{__t('login')}}
+                    </a>
+                </small>
+            </h2>
 
             <div class="auth-form-wrap">
 

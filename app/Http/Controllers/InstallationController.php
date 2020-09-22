@@ -16,38 +16,41 @@ class InstallationController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function installations(){
-        if ( file_exists(base_path('.env')) ) {
+    public function installations()
+    {
+        if (file_exists(base_path('.env'))) {
             return redirect(route('home'));
         }
 
         $title = "Installations";
 
-        return view('installations.index',  compact('title'));
+        return view('installations.index', compact('title'));
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function installationsTwo(){
-        if ( file_exists(base_path('.env')) ) {
+    public function installationsTwo()
+    {
+        if (file_exists(base_path('.env'))) {
             return redirect(route('home'));
         }
 
         $title = "Installations Step Two";
-        return view('installations.step_two',  compact('title'));
+        return view('installations.step_two', compact('title'));
     }
 
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function installationPost(Request $request){
-        define('STDIN',fopen("php://stdin","r"));
+    public function installationPost(Request $request)
+    {
+        define('STDIN', fopen("php://stdin", "r"));
 
-        if ( file_exists(base_path('.env')) ) {
+        if (file_exists(base_path('.env'))) {
             return redirect(route('home'));
         }
 
@@ -70,21 +73,18 @@ class InstallationController extends Controller
 
         $dbname = $request->database_name;
 
-        try{
+        try {
             $mysqli_link = mysqli_connect($request->hostname, $request->username, $request->password, $request->database_name);
 
             mysqli_close($mysqli_link);
-
         } catch (\Exception $e) {
-
             $conn = new \mysqli($request->hostname, $request->username, $request->password);
 
-            if ( ! $conn->connect_error) {
+            if (! $conn->connect_error) {
                 mysqli_query($conn, "DROP DATABASE IF EXISTS {$dbname} ;");
                 mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS {$dbname} ;");
                 mysqli_close($conn);
-
-            }else{
+            } else {
                 return back()->with('error', $e->getMessage());
             }
         }
@@ -99,7 +99,7 @@ class InstallationController extends Controller
         $default_value['DB_PASSWORD'] = $request->password."\n";
 
         $conf = "";
-        foreach ($default_value as $convKey => $confVal){
+        foreach ($default_value as $convKey => $confVal) {
             $conf .= "{$convKey}={$confVal}\n";
         }
 
@@ -124,8 +124,9 @@ class InstallationController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function installationFinal(){
-        if ( file_exists(base_path('.env')) ) {
+    public function installationFinal()
+    {
+        if (file_exists(base_path('.env'))) {
             try {
                 $option = Option::query()->where('option_name', 'site_title')->first();
             } catch (\Exception $e) {
@@ -135,7 +136,7 @@ class InstallationController extends Controller
                     Artisan::call('db:seed');
                 }
             }
-        }else{
+        } else {
             return redirect(route('installations'));
         }
 
@@ -146,8 +147,8 @@ class InstallationController extends Controller
     /**
      * @return string[]
      */
-    public function env_default_value(){
-
+    public function env_default_value()
+    {
         $envValue = [
             'APP_NAME' => 'Teachify',
             'APP_ENV' => 'local',
@@ -200,5 +201,4 @@ class InstallationController extends Controller
 
         return $envValue;
     }
-
 }

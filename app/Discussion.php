@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\Model;
  * App\Discussion
  *
  * @property int $id
- * @property int|null $course_id
- * @property int|null $content_id
- * @property int|null $instructor_id
- * @property int|null $user_id
- * @property int|null $discussion_id
- * @property string|null $title
- * @property string|null $message
- * @property int|null $replied
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Content|null $content
- * @property-read \App\Course|null $course
- * @property-read \Illuminate\Database\Eloquent\Collection|Discussion[] $replies
- * @property-read int|null $replies_count
- * @property-read \App\User|null $user
+ * @property null|int $course_id
+ * @property null|int $content_id
+ * @property null|int $instructor_id
+ * @property null|int $user_id
+ * @property null|int $discussion_id
+ * @property null|string $title
+ * @property null|string $message
+ * @property null|int $replied
+ * @property null|\Illuminate\Support\Carbon $created_at
+ * @property null|\Illuminate\Support\Carbon $updated_at
+ * @property-read null|\App\Content $content
+ * @property-read null|\App\Course $course
+ * @property-read Discussion[]|\Illuminate\Database\Eloquent\Collection $replies
+ * @property-read null|int $replies_count
+ * @property-read null|\App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Discussion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Discussion newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Discussion query()
@@ -43,21 +43,22 @@ class Discussion extends Model
 {
     protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function replies(){
+    public function replies()
+    {
         return $this->hasMany(Discussion::class)->with('user', 'user.photo_query');
     }
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class, 'course_id');
     }
-    public function content(){
+    public function content()
+    {
         return $this->belongsTo(Content::class, 'content_id');
     }
-
-
-
 }

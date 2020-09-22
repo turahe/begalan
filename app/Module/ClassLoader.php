@@ -22,7 +22,7 @@ class ClassLoader
      * Loads the given class or interface.
      *
      * @param $class
-     * @return bool|null
+     * @return null|bool
      */
     public function loadClass($class)
     {

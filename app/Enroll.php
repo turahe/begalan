@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
  * App\Enroll
  *
  * @property int $id
- * @property int|null $course_id
- * @property int|null $user_id
- * @property string|null $course_price
- * @property int|null $payment_id
- * @property string|null $status
- * @property string|null $enrolled_at
+ * @property null|int $course_id
+ * @property null|int $user_id
+ * @property null|string $course_price
+ * @property null|int $payment_id
+ * @property null|string $status
+ * @property null|string $enrolled_at
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll query()

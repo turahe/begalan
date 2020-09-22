@@ -16,15 +16,15 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-
-        if ( ! Auth::check()){
+        if (! Auth::check()) {
             return redirect()->guest(route('login'))->with('error', trans('app.unauthorized_access'));
         }
 
         $user = Auth::user();
 
-        if ( ! $user->isAdmin())
+        if (! $user->isAdmin()) {
             return redirect(route('dashboard'))->with('error', __t('access_restricted'));
+        }
 
 
         return $next($request);

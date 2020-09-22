@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             CountrySeeder::class,
             OptionSeeder::class,
-            CategoriesTableSeeder::class
+            MediaTableSeeder::class,
+            CategoriesTableSeeder::class,
+            CoursesTableSeeder::class
         ]);
     }
 }
