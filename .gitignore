@@ -7,3 +7,4 @@ _ide_helper.php
 .env
 .php_cs.cache
 php-cs-fixer
+.phpunit.result.cache
