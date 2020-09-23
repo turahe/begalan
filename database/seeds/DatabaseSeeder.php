@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             OptionSeeder::class,
             MediaTableSeeder::class,
             CategoriesTableSeeder::class,
-            CoursesTableSeeder::class
+            CoursesTableSeeder::class,
+            PostsTableSeeder::class
         ]);
     }
 }

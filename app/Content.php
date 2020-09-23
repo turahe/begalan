@@ -102,7 +102,9 @@ class Content extends Model
      */
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class, 'quiz_id')->with('media')->orderBy('sort_order', 'asc');
+        return $this->hasMany(Question::class, 'quiz_id')
+            ->with('media')
+            ->orderBy('sort_order', 'asc');
     }
 
     /**

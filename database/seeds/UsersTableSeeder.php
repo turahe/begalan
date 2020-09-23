@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -27,11 +28,17 @@ class UsersTableSeeder extends Seeder
                 'postcode' => '40236',
                 'website' => 'https://circlecreative.id',
                 'gender' => $user['gender'],
+                'remember_token' => Str::random(10),
                 'created_at'  => now()->toDateTimeString(),
                 'updated_at'  => now()->toDateTimeString(),
             ];
         });
-        \App\User::insert($users->toArray());
+        User::insert($users->toArray());
+
+        factory(User::class, 100)->create([
+            'user_type' => 'student',
+            'active_status' => 1,
+        ]);
     }
 
     /**

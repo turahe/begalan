@@ -26,10 +26,10 @@ $factory->define(\App\Content::class, function (Faker $faker) {
     return [
         'title' => $title,
         'slug' => str_slug($title),
-        'text' => $faker->paragraph(3),
+        'text' => join("\n\n", $faker->paragraphs(mt_rand(3, 6))),
         'video_src' => json_encode($video),
         'video_time' => mt_rand(6,10),
-        'item_type' => 'lecture',
+        'item_type' => $faker->randomElement(['lecture', 'assignment', 'quiz']),
         'is_preview' => $faker->boolean,
         'status' => $faker->boolean,
 //        'sort_order' => '',

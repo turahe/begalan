@@ -17,10 +17,10 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('clear', 'HomeController@clearCache')->name('clear_cache');
 
 
-Route::get('installations', 'InstallationController@installations')->name('installations');
-Route::get('installations/step/2', 'InstallationController@installationsTwo')->name('installations_step_two');
-Route::post('installations/step/2', 'InstallationController@installationPost');
-Route::get('installations/step/final', 'InstallationController@installationFinal')->name('installation_final');
+//Route::get('installations', 'InstallationController@installations')->name('installations');
+//Route::get('installations/step/2', 'InstallationController@installationsTwo')->name('installations_step_two');
+//Route::post('installations/step/2', 'InstallationController@installationPost');
+//Route::get('installations/step/final', 'InstallationController@installationFinal')->name('installation_final');
 
 /**
  * Authentication

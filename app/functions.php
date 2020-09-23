@@ -19,6 +19,9 @@ require __DIR__.'/theme_functions.php';
  * @return string
  */
 if (! function_exists('pageJsonData')) {
+    /**
+     * @return mixed
+     */
     function pageJsonData()
     {
         $data = [
@@ -45,59 +48,76 @@ if (! function_exists('pageJsonData')) {
 
 /**
  * @param string $title
- * @param $model
+ * @param string $model
+ * @param int $skip_id
  * @return string
  */
 
-function unique_slug($title = '', $model = 'Course', $skip_id = 0)
-{
-    $slug = str_slug($title);
+if (! function_exists('unique_slug')) {
+    /**
+     * @param string $title
+     * @param string $model
+     * @param int $skip_id
+     * @return string|string[]|null
+     */
+    function unique_slug($title = '', $model = 'Course', $skip_id = 0)
+    {
+        $slug = str_slug($title);
 
-    if (empty($slug)) {
-        $string = mb_strtolower($title, "UTF-8");
-        ;
-        $string = preg_replace("/[\/\.]/", " ", $string);
-        $string = preg_replace("/[\s-]+/", " ", $string);
-        $slug = preg_replace("/[\s_]/", '-', $string);
-    }
-
-    //get unique slug...
-    $nSlug = $slug;
-    $i = 0;
-
-    $model = str_replace(' ', '', "\App\ ".$model);
-
-    if ($skip_id === 0) {
-        while (($model::whereSlug($nSlug)->count()) > 0) {
-            $i++;
-            $nSlug = $slug . '-' . $i;
+        if (empty($slug)) {
+            $string = mb_strtolower($title, "UTF-8");;
+            $string = preg_replace("/[\/\.]/", " ", $string);
+            $string = preg_replace("/[\s-]+/", " ", $string);
+            $slug = preg_replace("/[\s_]/", '-', $string);
         }
-    } else {
-        while (($model::whereSlug($nSlug)->where('id', '!=', $skip_id)->count()) > 0) {
-            $i++;
-            $nSlug = $slug . '-' . $i;
+
+        //get unique slug...
+        $nSlug = $slug;
+        $i = 0;
+
+        $model = str_replace(' ', '', "\App\ " . $model);
+
+        if ($skip_id === 0) {
+            while (($model::whereSlug($nSlug)->count()) > 0) {
+                $i++;
+                $nSlug = $slug . '-' . $i;
+            }
+        } else {
+            while (($model::whereSlug($nSlug)->where('id', '!=', $skip_id)->count()) > 0) {
+                $i++;
+                $nSlug = $slug . '-' . $i;
+            }
         }
+        if ($i > 0) {
+            $newSlug = substr($nSlug, 0, strlen($slug)) . '-' . $i;
+        } else {
+            $newSlug = $slug;
+        }
+        return $newSlug;
     }
-    if ($i > 0) {
-        $newSlug = substr($nSlug, 0, strlen($slug)) . '-' . $i;
-    } else {
-        $newSlug = $slug;
-    }
-    return $newSlug;
 }
 
-
-function next_curriculum_item_id($course_id)
-{
-    $order_number = (int) DB::table('contents')->where('course_id', $course_id)->max('sort_order');
-    return $order_number + 1;
+if (! function_exists('next_curriculum_item_id')) {
+    /**
+     * @param $course_id
+     * @return int
+     */
+    function next_curriculum_item_id($course_id)
+    {
+        $order_number = (int)DB::table('contents')
+            ->where('course_id', $course_id)
+            ->max('sort_order');
+        return $order_number + 1;
+    }
 }
-
 /**
  * @return mixed
  * Return the current Disk
  */
-if (! function_exists('current_disk')) {
+if (!function_exists('current_disk')) {
+    /**
+     * @return \Illuminate\Contracts\Filesystem\Filesystem|\Illuminate\Filesystem\FilesystemAdapter
+     */
     function current_disk()
     {
         $current_disk = \Illuminate\Support\Facades\Storage::disk(get_option('default_storage'));
@@ -110,58 +130,82 @@ if (! function_exists('current_disk')) {
  * @param null $default
  * @return string
  */
-function get_option($key = '', $default = null)
-{
-    $options = config('options');
-    if (! $key) {
-        return $options;
-    }
+if (! function_exists('get_option')) {
+    /**
+     * @param string $key
+     * @param null $default
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    function get_option($key = '', $default = null)
+    {
+        $options = config('options');
+        if (!$key) {
+            return $options;
+        }
 
-    $value = get_from_array($key, $options);
-    if ($value) {
-        return $value;
-    }
-
-    return apply_filters('options', $default);
-}
-
-function get_from_array($key = null, $arr = [])
-{
-    if (strpos($key, '.') === false) {
-        $value = array_get($arr, $key);
+        $value = get_from_array($key, $options);
         if ($value) {
-            if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
-                $value = json_decode(substr($value, 18), true);
-            }
             return $value;
         }
-    } else {
-        $firstKey = substr($key, 0, strpos($key, '.'));
-        $secondKey = substr($key, strpos($key, '.')+1);
 
-        $value = array_get($arr, $firstKey);
-        if ($value) {
-            if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
-                $value = json_decode(substr($value, 18), true);
-            }
-            return array_get($value, $secondKey);
-        }
+        return apply_filters('options', $default);
     }
-    return null;
+}
+if (! function_exists('get_from_array')) {
+    /**
+     * @param null $key
+     * @param array $arr
+     * @return mixed|null
+     */
+    function get_from_array($key = null, $arr = [])
+    {
+        if (strpos($key, '.') === false) {
+            $value = array_get($arr, $key);
+            if ($value) {
+                if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
+                    $value = json_decode(substr($value, 18), true);
+                }
+                return $value;
+            }
+        } else {
+            $firstKey = substr($key, 0, strpos($key, '.'));
+            $secondKey = substr($key, strpos($key, '.') + 1);
+
+            $value = array_get($arr, $firstKey);
+            if ($value) {
+                if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
+                    $value = json_decode(substr($value, 18), true);
+                }
+                return array_get($value, $secondKey);
+            }
+        }
+        return null;
+    }
 }
 
-function update_option($key, $value)
-{
-    $option = \App\Option::firstOrCreate(['option_key' => $key]);
-    $option->option_value = $value;
-    return $option->save();
+if (! function_exists('update_option')) {
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    function update_option($key, $value)
+    {
+        $option = \App\Option::firstOrCreate(['option_key' => $key]);
+        $option->option_value = $value;
+        return $option->save();
+    }
 }
-
-function delete_option($key)
-{
-    \App\Option::whereOptionKey($key)->delete();
+if (! function_exists('delete_option')) {
+    /**
+     * @param $key
+     * @throws Exception
+     */
+    function delete_option($key)
+    {
+        \App\Option::whereOptionKey($key)->delete();
+    }
 }
-
 
 /**
  * @param null $key
@@ -170,6 +214,10 @@ function delete_option($key)
  * return theme translation from theme directory
  */
 if (! function_exists('__t')) {
+    /**
+     * @param null $key
+     * @return array|mixed|null
+     */
     function __t($key = null)
     {
         $language = config('lang_str');
@@ -189,6 +237,10 @@ if (! function_exists('__t')) {
  * returning Admin panel translation from resources/lang
  */
 if (! function_exists('__a')) {
+    /**
+     * @param null $key
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Translation\Translator|mixed|string|null
+     */
     function __a($key = null)
     {
         if ($key) {
@@ -200,6 +252,9 @@ if (! function_exists('__a')) {
 
 
 if (! function_exists('get_theme')) {
+    /**
+     * @return object
+     */
     function get_theme()
     {
         $theme_slug = get_option('current_theme', 'edugator');
@@ -226,6 +281,10 @@ if (! function_exists('get_theme')) {
  * Return current theme directory
  */
 if (! function_exists('theme')) {
+    /**
+     * @param null $view
+     * @return string
+     */
     function theme($view = null)
     {
         return get_theme()->view . $view;
@@ -233,6 +292,10 @@ if (! function_exists('theme')) {
 }
 
 if (! function_exists('theme_asset')) {
+    /**
+     * @param string $path
+     * @return string
+     */
     function theme_asset($path = '')
     {
         return get_theme()->url . '/assets/' . $path;
@@ -240,6 +303,10 @@ if (! function_exists('theme_asset')) {
 }
 
 if (! function_exists('theme_url')) {
+    /**
+     * @param string $path
+     * @return string
+     */
     function theme_url($path = '')
     {
         return get_theme()->url . '/' . $path;
@@ -255,6 +322,13 @@ if (! function_exists('theme_url')) {
  */
 
 if (! function_exists('view_template')) {
+    /**
+     * @param null $view
+     * @param array $data
+     * @param array $mergeData
+     * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     function view_template($view = null, $data = [], $mergeData = [])
     {
         $view_dir = get_theme()->view;
@@ -282,6 +356,13 @@ function view_dashboard_template($view = null, $data = [], $mergeData = []){
  */
 
 if (! function_exists('view_template_part')) {
+    /**
+     * @param null $view
+     * @param array $data
+     * @param array $mergeData
+     * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     function view_template_part($view = null, $data = [], $mergeData = [])
     {
         return view()->make(theme($view), $data, $mergeData)->render();
@@ -295,6 +376,10 @@ if (! function_exists('view_template_part')) {
  * Get Media Image URL
  */
 if (! function_exists('media_image_uri')) {
+    /**
+     * @param null $media
+     * @return object
+     */
     function media_image_uri($media = null)
     {
         $sizes = config('media.size');
@@ -351,6 +436,10 @@ if (! function_exists('media_image_uri')) {
  */
 
 if (! function_exists('media_file_uri')) {
+    /**
+     * @param null $media
+     * @return string|null
+     */
     function media_file_uri($media = null)
     {
         $url_path       = null;
@@ -396,6 +485,11 @@ if (! function_exists('media_file_uri')) {
  */
 
 if (! function_exists('media_image_uri_attr')) {
+    /**
+     * @param $media
+     * @param false $echo
+     * @return string
+     */
     function media_image_uri_attr($media, $echo = false)
     {
         $get_all_size = media_image_uri($media);
@@ -432,11 +526,11 @@ if (! function_exists('image_upload_form')) {
             <a href="javascript:;" data-toggle="filemanager">
                 <?php
                 $img_src = '';
-        if ($current_image_id) {
-            $img_src = media_image_uri($current_image_id)->thumbnail;
-        } else {
-            $img_src = asset('uploads/placeholder-image.png');
-        } ?>
+                if ($current_image_id) {
+                    $img_src = media_image_uri($current_image_id)->thumbnail;
+                } else {
+                    $img_src = asset('uploads/placeholder-image.png');
+                } ?>
                 <img src="<?php echo $img_src; ?>" alt="" class="img-thumbnail" />
             </a>
             <input type="hidden" name="<?php echo $input_name; ?>" class="image-input" value="<?php echo $current_image_id; ?>">
@@ -473,8 +567,8 @@ if (! function_exists('media_upload_form')) {
         <div class="image-wrap media-btn-wrap">
             <div class="saved-media-id">
                 <?php if ($current_media_id) {
-            echo "<p class='text-info'>Uploaded ID: <strong>{$current_media_id}</strong></p>";
-        } ?>
+                    echo "<p class='text-info'>Uploaded ID: <strong>{$current_media_id}</strong></p>";
+                } ?>
             </div>
             <a href="javascript:;" class="<?php echo $btn_class; ?>" data-toggle="filemanager">
                 <?php echo $btn_text; ?>
@@ -494,17 +588,28 @@ function course_url($course_instance)
 }
 
 if (! function_exists('date_time_format')) {
+    /**
+     * @return string
+     */
     function date_time_format()
     {
         return get_option('date_format') . ' ' . get_option('time_format');
     }
 }
 
+/**
+ * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+ */
 function get_currency()
 {
     return get_option('currency_sign');
 }
 
+/**
+ * @param int $amount
+ * @param null $currency
+ * @return string
+ */
 function price_format($amount = 0, $currency = null)
 {
     $show_price = '';
@@ -527,6 +632,10 @@ function price_format($amount = 0, $currency = null)
 }
 
 
+/**
+ * @param int $amount
+ * @return int|string
+ */
 function get_amount_raw($amount = 0)
 {
     $get_price = '0.00';
@@ -545,6 +654,9 @@ function get_amount_raw($amount = 0)
 
 
 if (! function_exists('get_zero_decimal_currency')) {
+    /**
+     * @return string[]
+     */
     function get_zero_decimal_currency()
     {
         $zero_decimal_currency = [
@@ -572,6 +684,11 @@ if (! function_exists('get_zero_decimal_currency')) {
 
 
 if (! function_exists('get_stripe_amount')) {
+    /**
+     * @param int $amount
+     * @param string $type
+     * @return float|int|mixed
+     */
     function get_stripe_amount($amount = 0, $type = 'to_cents')
     {
         if (! $amount) {
@@ -771,6 +888,10 @@ function get_currencies()
  * @return string
  */
 if (! function_exists('get_currency_symbol')) {
+    /**
+     * @param string $currency
+     * @return string
+     */
     function get_currency_symbol($currency = '')
     {
         if (!$currency) {
@@ -960,6 +1081,12 @@ if (! function_exists('get_currency_symbol')) {
  */
 
 if (! function_exists('checked')) {
+    /**
+     * @param $checked
+     * @param bool $current
+     * @param bool $echo
+     * @return string
+     */
     function checked($checked, $current = true, $echo = true)
     {
         return __checked_selected_helper($checked, $current, $echo, 'checked');
@@ -973,6 +1100,12 @@ if (! function_exists('checked')) {
  */
 
 if (! function_exists('selected')) {
+    /**
+     * @param $selected
+     * @param bool $current
+     * @param bool $echo
+     * @return string
+     */
     function selected($selected, $current = true, $echo = true)
     {
         return __checked_selected_helper($selected, $current, $echo, 'selected');
@@ -988,6 +1121,13 @@ if (! function_exists('selected')) {
  */
 
 if (! function_exists('__checked_selected_helper')) {
+    /**
+     * @param $helper
+     * @param $current
+     * @param $echo
+     * @param $type
+     * @return string
+     */
     function __checked_selected_helper($helper, $current, $echo, $type)
     {
         if ((string)$helper === (string)$current) {
@@ -1169,6 +1309,9 @@ function get_media_creation_timestamp($metadata)
 }
 
 if (! function_exists('icon_classes')) {
+    /**
+     * @return mixed
+     */
     function icon_classes()
     {
         $pattern = '/\.(la-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"\\\\(.+)";\s+}/';
@@ -1206,6 +1349,10 @@ function course_levels($level = null)
     return apply_filters('course_levels', $levels);
 }
 
+/**
+ * @param int $seconds
+ * @return string
+ */
 function seconds_to_time_format($seconds = 0)
 {
     if (! $seconds) {
@@ -1328,6 +1475,11 @@ function do_enroll($user_id, $course_id, $course_price, $payment_id = 0)
 }
 
 if (! function_exists('complete_content')) {
+    /**
+     * @param $content
+     * @param $user
+     * @return false
+     */
     function complete_content($content, $user)
     {
         if (!$content || !$user) {
@@ -1403,6 +1555,12 @@ function switch_field($name = '', $label = '', $old_value = '')
  * Course Card, this will be use to all place where required to show the cards.
  */
 if (! function_exists('course_card')) {
+    /**
+     * @param $course
+     * @param null $grid_class
+     * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     function course_card($course, $grid_class = null)
     {
         return view_template_part('template-part.course-loop', compact('course', 'grid_class'));
@@ -1410,6 +1568,10 @@ if (! function_exists('course_card')) {
 }
 
 if (! function_exists('countries')) {
+    /**
+     * @param null $country_id
+     * @return \App\Country|\App\Country[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|null
+     */
     function countries($country_id = null)
     {
         if (!$country_id) {
@@ -1431,6 +1593,11 @@ if (! function_exists('countries')) {
  */
 
 if (! function_exists('star_rating_field')) {
+    /**
+     * @param float $current_rating
+     * @param false $echo
+     * @return string
+     */
     function star_rating_field($current_rating = 0.00, $echo = false)
     {
         $output = '<div class="review-write-star-wrap mb-3">';
@@ -1446,6 +1613,10 @@ if (! function_exists('star_rating_field')) {
 }
 
 if (! function_exists('star_rating_generator')) {
+    /**
+     * @param float $current_rating
+     * @return string
+     */
     function star_rating_generator($current_rating = 0.00)
     {
         $output = '<div class="generated-star-rating-wrap">';
@@ -1472,6 +1643,11 @@ if (! function_exists('star_rating_generator')) {
 }
 
 if (! function_exists('has_review')) {
+    /**
+     * @param null $user_id
+     * @param null $course_id
+     * @return Review|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
     function has_review($user_id = null, $course_id = null)
     {
         return Review::whereUserId($user_id)->whereCourseId($course_id)->first();
@@ -1487,6 +1663,12 @@ if (! function_exists('has_review')) {
  * return no data found predefined template
  */
 if (! function_exists('no_data')) {
+    /**
+     * @param string $title
+     * @param string $desc
+     * @param null $class
+     * @return string
+     */
     function no_data($title = '', $desc = '', $class = null)
     {
         $title = $title ? $title : __t('nothing_here');
@@ -1504,6 +1686,9 @@ if (! function_exists('no_data')) {
 }
 
 if (! function_exists('withdraw_methods')) {
+    /**
+     * @return mixed
+     */
     function withdraw_methods()
     {
         $methods = [
@@ -1575,6 +1760,10 @@ if (! function_exists('withdraw_methods')) {
 }
 
 if (! function_exists('active_withdraw_methods')) {
+    /**
+     * @param null $method_key
+     * @return mixed
+     */
     function active_withdraw_methods($method_key = null)
     {
         $methods = withdraw_methods();
@@ -1597,6 +1786,10 @@ if (! function_exists('active_withdraw_methods')) {
  * @return array|mixed
  */
 if (! function_exists('question_types')) {
+    /**
+     * @param null $type
+     * @return mixed
+     */
     function question_types($type = null)
     {
         $types = [
@@ -1623,6 +1816,12 @@ if (! function_exists('question_types')) {
  */
 
 if (! function_exists('linkify')) {
+    /**
+     * @param $value
+     * @param string[] $protocols
+     * @param array $attributes
+     * @return string|string[]|null
+     */
     function linkify($value, $protocols = ['http', 'mail'], array $attributes = [])
     {
         // Link attributes
@@ -1683,6 +1882,10 @@ if (! function_exists('linkify')) {
  * Check if route exists
  */
 if (! function_exists('route_has')) {
+    /**
+     * @param $route
+     * @return bool
+     */
     function route_has($route)
     {
         return \Illuminate\Support\Facades\Route::has($route);
@@ -1696,6 +1899,10 @@ if (! function_exists('route_has')) {
  * Check if given plugin is activated
  */
 if (function_exists('plugin_activated')) {
+    /**
+     * @param null $basename
+     * @return bool|null
+     */
     function plugin_activated($basename = null)
     {
         if ($basename) {
@@ -1707,6 +1914,9 @@ if (function_exists('plugin_activated')) {
 }
 
 if (! function_exists('get_pages')) {
+    /**
+     * @return Post[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
     function get_pages()
     {
         $posts = Post::whereType('page')->orderBy('title', 'asc')->get();
@@ -1715,6 +1925,9 @@ if (! function_exists('get_pages')) {
 }
 
 if (! function_exists('cookie_message_html')) {
+    /**
+     * @return string
+     */
     function cookie_message_html()
     {
         $msg = get_option('cookie_alert.message');
@@ -1730,6 +1943,10 @@ if (! function_exists('cookie_message_html')) {
 }
 
 if (! function_exists('clean_html')) {
+    /**
+     * @param null $text
+     * @return string|string[]|null
+     */
     function clean_html($text = null)
     {
         if ($text) {
