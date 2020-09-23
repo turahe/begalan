@@ -54,9 +54,9 @@
                                             <a href="{{route('single_'.$item->item_type, [$course->slug, $item->id ] )}}" class="p-2 d-flex" @if($is_completed) data-toggle="tooltip" title="{{__t('completed')}}" @endif>
                                                 <p class="lecture-status-icon border-right pr-3 m-0">
                                                     @if($is_completed)
-                                                        <i class="la la-check-circle text-success"></i>
+                                                        <i class="las la-check-circle text-success"></i>
                                                     @else
-                                                        <i class="la la-circle"></i>
+                                                        <i class="las la-circle"></i>
                                                     @endif
                                                 </p>
                                                 <div class="title-container pl-2 flex-grow-1 d-flex">

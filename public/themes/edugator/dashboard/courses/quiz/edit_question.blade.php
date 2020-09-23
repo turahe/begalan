@@ -58,12 +58,12 @@
                                                 <div class="form-group m-0">
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
-                                                            <a href="javascript:;" class="input-group-text question-option-sort"><i class="la la-sort"></i> </a>
+                                                            <a href="javascript:;" class="input-group-text question-option-sort"><i class="las la-sort"></i> </a>
                                                         </div>
 
                                                         <input type="text" class="form-control" name="options[{{$loop->iteration}}][title]" value="{{$option->title}}" placeholder="Option title">
                                                         <div class="input-group-append">
-                                                            <a href="javascript:;" class="input-group-text question-opt-trash bg-danger text-white" data-option-id="{{$option->id}}"><i class="la la-trash"></i> </a>
+                                                            <a href="javascript:;" class="input-group-text question-opt-trash bg-danger text-white" data-option-id="{{$option->id}}"><i class="las la-trash"></i> </a>
                                                         </div>
                                                     </div>
 
@@ -103,11 +103,11 @@
 
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
-                                                    <a href="javascript:;" class="input-group-text question-option-sort"><i class="la la-sort"></i> </a>
+                                                    <a href="javascript:;" class="input-group-text question-option-sort"><i class="las la-sort"></i> </a>
                                                 </div>
                                                 <input type="text" class="form-control" name="options[{index}][title]" value="" placeholder="Option title">
                                                 <div class="input-group-append">
-                                                    <a href="javascript:;" class="input-group-text question-opt-trash bg-danger text-white"><i class="la la-trash"></i> </a>
+                                                    <a href="javascript:;" class="input-group-text question-opt-trash bg-danger text-white"><i class="las la-trash"></i> </a>
                                                 </div>
                                             </div>
 
@@ -174,7 +174,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-purple"><i class="la la-save"></i> Save Question</button>
+                    <button type="submit" class="btn btn-purple"><i class="las la-save"></i> Save Question</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>

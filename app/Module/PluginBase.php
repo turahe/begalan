@@ -96,8 +96,7 @@ abstract class PluginBase
      *
      * @param $app
      */
-    public function __construct(Application $app)
-    {
+    public function __construct(Application $app){
         $this->app = $app;
 
         $this->checkPluginName();
@@ -161,8 +160,7 @@ abstract class PluginBase
      *
      * @param string $path
      */
-    protected function enableRoutes($path = 'routes.php')
-    {
+    protected function enableRoutes($path = 'routes.php'){
         $this->app->router->group(['middleware' => 'web', 'namespace' => $this->getPluginControllerNamespace()], function ($app) use ($path) {
             require $this->getPluginPath() . DIRECTORY_SEPARATOR . $path;
         });

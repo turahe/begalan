@@ -486,7 +486,7 @@ $(function() {
         var search_term = $form.find('[name="q"]').val();
         var term_length = search_term.trim().length;
         if (term_length < 4){
-            $('#form-response-msg').html('<p class="text-info"> <i class="la la-info-circle"></i> Enter '+(4 - term_length)+' more characters to start search</p>');
+            $('#form-response-msg').html('<p class="text-info"> <i class="las la-info-circle"></i> Enter '+(4 - term_length)+' more characters to start search</p>');
             return false;
         }else{
             $('#form-response-msg').html('');

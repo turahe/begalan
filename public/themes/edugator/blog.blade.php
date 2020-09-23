@@ -32,12 +32,12 @@
                                 <h2><a href="{{$post->url}}">{{$post->title}}</a></h2>
                                 <div class="post-meta d-flex justify-content-between">
                                     <span>
-                                        <i class="la la-user"></i>
+                                        <i class="las la-user"></i>
                                         <a href="{{route('profile', $post->user_id)}}">
                                             {{$post->author->name}}
                                         </a>
                                     </span>
-                                    <span>&nbsp;<i class="la la-calendar"></i>&nbsp; {{$post->published_time}}</span>
+                                    <span>&nbsp;<i class="las la-calendar"></i>&nbsp; {{$post->published_time}}</span>
                                 </div>
 
                                 <div class="excerpt-content my-4">
@@ -45,7 +45,7 @@
                                 </div>
 
                                 <p class="mt-4">
-                                    <a href="{{$post->url}}"><strong>READ MORE <i class="la la-arrow-right"></i> </strong></a>
+                                    <a href="{{$post->url}}"><strong>READ MORE <i class="las la-arrow-right"></i> </strong></a>
                                 </p>
                             </div>
                         </div>

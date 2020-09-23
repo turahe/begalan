@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
 @section('page-header-right')
-    <a href="{{route('create_post')}}" class="btn btn-success" data-toggle="tooltip" title="{{__a('create_new_post')}}"> <i class="la la-plus-circle"></i> {{__a('create_new_post')}} </a>
+    <a href="{{route('create_post')}}" class="btn btn-success" data-toggle="tooltip" title="{{__a('create_new_post')}}">
+        <i class="las la-plus-circle"></i>
+        {{__a('create_new_post')}}
+    </a>
 @endsection
 
 @section('content')
@@ -20,9 +23,12 @@
                     </select>
 
                     <button type="submit" name="bulk_action_btn" value="update_status" class="btn btn-primary mr-2">
-                        <i class="la la-refresh"></i> {{__a('update')}}
+                        <i class="las la-refresh"></i> {{__a('update')}}
                     </button>
-                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="la la-trash"></i> {{__a('delete')}}</button>
+                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm">
+                        <i class="las la-trash"></i>
+                        {{__a('delete')}}
+                    </button>
                 </div>
             </div>
 
@@ -60,9 +66,11 @@
 
                                 <td>
                                     <a href="{{route('edit_post',$post->id)}}" class="btn btn-primary">
-                                        <i class="la la-edit"></i>
+                                        <i class="las la-edit"></i>
                                     </a>
-                                    <a href="{{route('post', $post->slug)}}" class="btn btn-purple"><i class="la la-eye"></i> </a>
+                                    <a href="{{route('post', $post->slug)}}" class="btn btn-purple">
+                                        <i class="las la-eye"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

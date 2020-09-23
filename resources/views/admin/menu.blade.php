@@ -4,7 +4,7 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li>
-                <a href="{{route('admin')}}"><i class="la la-dashboard fa-fw"></i> @lang('admin.admin_home')</a>
+                <a href="{{route('admin')}}"><i class="lasla-dashboard fa-fw"></i> @lang('admin.admin_home')</a>
             </li>
 
             @php
@@ -12,7 +12,7 @@
             @endphp
 
             <li>
-                <a href="#"><i class="la la-newspaper-o fa-fw"></i> @lang('admin.cms')<span class="la arrow"></span></a>
+                <a href="#"><i class="lasla-newspaper-o fa-fw"></i> @lang('admin.cms')<span class="la arrow"></span></a>
                 <ul class="nav nav-second-level" style="display: none;">
                     <li> <a href="{{ route('posts') }}">@lang('admin.posts')</a> </li>
                     <li> <a href="{{ route('pages') }}">@lang('admin.pages')</a> </li>
@@ -20,29 +20,29 @@
             </li>
 
             <li>
-                <a href="{{route('media_manager')}}"><i class="la la-photo-video"></i> @lang('admin.media_manager')</a>
+                <a href="{{route('media_manager')}}"><i class="lasla-photo-video"></i> @lang('admin.media_manager')</a>
             </li>
 
             <li>
-                <a href="{{route('category_index')}}"><i class="la la-folder"></i> @lang('admin.categories')</a>
+                <a href="{{route('category_index')}}"><i class="lasla-folder"></i> @lang('admin.categories')</a>
             </li>
 
-            <li> <a href="{{route('admin_courses')}}"><i class="la la-chalkboard"></i> {{__a('courses')}}</a>  </li>
+            <li> <a href="{{route('admin_courses')}}"><i class="lasla-chalkboard"></i> {{__a('courses')}}</a>  </li>
 
             <li>
                 <a href="{{route('plugins')}}" class="{{request()->is('admin/plugins*') ? 'active' : ''}}" >
-                    <i class="la la-plug"></i> {{__a('plugins')}}
+                    <i class="lasla-plug"></i> {{__a('plugins')}}
                 </a>
             </li>
 
             <li>
                 <a href="{{route('themes')}}" class="{{request()->is('admin/themes*') ? 'active' : ''}}">
-                    <i class="la la-brush"></i> {{__a('themes')}}
+                    <i class="lasla-brush"></i> {{__a('themes')}}
                 </a>
             </li>
 
             <li>
-                <a href="#"><i class="la la-tools fa-fw"></i> @lang('admin.settings')<span class="la arrow"></span></a>
+                <a href="#"><i class="lasla-tools fa-fw"></i> @lang('admin.settings')<span class="la arrow"></span></a>
                 <ul class="nav nav-second-level" style="display: none;">
                     @php
                         do_action('admin_menu_settings_item_before');
@@ -63,12 +63,12 @@
                 <!-- /.nav-second-level -->
             </li>
 
-            <li> <a href="{{route('payments')}}"><i class="la la-file-invoice-dollar"></i> {{__a('payments')}}</a>  </li>
-            <li> <a href="{{route('withdraws')}}"><i class="la la-wallet"></i> {{__a('withdraws')}}</a>  </li>
+            <li> <a href="{{route('payments')}}"><i class="lasla-file-invoice-dollar"></i> {{__a('payments')}}</a>  </li>
+            <li> <a href="{{route('withdraws')}}"><i class="lasla-wallet"></i> {{__a('withdraws')}}</a>  </li>
 
-            <li> <a href="{{ route('users') }}"><i class="la la-users"></i> {{__a('users')}}</a>  </li>
+            <li> <a href="{{ route('users') }}"><i class="lasla-users"></i> {{__a('users')}}</a>  </li>
 
-            <li> <a href="{{route('change_password')}}"><i class="la la-lock"></i> @lang('admin.change_password')</a>  </li>
+            <li> <a href="{{route('change_password')}}"><i class="lasla-lock"></i> @lang('admin.change_password')</a>  </li>
 
             @php
             do_action('admin_menu_item_after');
@@ -77,7 +77,7 @@
             <li>
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="la la-sign-out"></i> {{__a('logout')}}
+                    <i class="lasla-sign-out"></i> {{__a('logout')}}
                 </a>
             </li>
 

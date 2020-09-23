@@ -22,9 +22,9 @@
                             @if($path === 'courses')
                                 <li class='breadcrumb-item active'> {{__t('courses')}}</li>
                             @elseif($path === 'popular-courses')
-                                <li class='breadcrumb-item active'> <i class="la la-bolt"></i> {{__t('popular_courses')}}</li>
+                                <li class='breadcrumb-item active'> <i class="las la-bolt"></i> {{__t('popular_courses')}}</li>
                             @elseif($path === 'featured-courses')
-                                <li class='breadcrumb-item active'> <i class="la la-bookmark"></i> {{__t('featured_courses')}}</li>
+                                <li class='breadcrumb-item active'> <i class="las la-bookmark"></i> {{__t('featured_courses')}}</li>
                             @endif
                         </ol>
                     </nav>
@@ -208,7 +208,7 @@
 
                             <div class="form-group mr-2">
                                 <button type="button" id="hide-course-filter-sidebar" class="btn btn-outline-dark">
-                                    <i class="la la-filter"></i> Filter  {{count(array_except(array_filter(request()->input()), 'q'))}}
+                                    <i class="las la-filter"></i> Filter  {{count(array_except(array_filter(request()->input()), 'q'))}}
                                 </button>
                             </div>
 
@@ -234,7 +234,7 @@
 
 
                             <div class="form-group ml-auto">
-                                <a href="{{route('courses')}}" class="btn btn-link"> <i class="la la-refresh"></i> Clear Filter</a>
+                                <a href="{{route('courses')}}" class="btn btn-link"> <i class="las la-refresh"></i> Clear Filter</a>
                             </div>
                         </div>
 

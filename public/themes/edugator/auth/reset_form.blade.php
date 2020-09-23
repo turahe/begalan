@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><i class="la la-unlock"></i> {{__t('reset_password')}}</button>
+                            <button type="submit" class="btn btn-primary"><i class="las la-unlock"></i> {{__t('reset_password')}}</button>
                         </div>
                     </form>
 

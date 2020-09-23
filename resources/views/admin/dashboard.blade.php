@@ -26,7 +26,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-user"></i> </span>
+                    <span><i class="lasla-user"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -39,7 +39,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-chalkboard-teacher"></i> </span>
+                    <span><i class="lasla-chalkboard-teacher"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -52,7 +52,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-user-graduate"></i> </span>
+                    <span><i class="lasla-user-graduate"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -66,7 +66,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-graduation-cap"></i> </span>
+                    <span><i class="lasla-graduation-cap"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -79,7 +79,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-play"></i> </span>
+                    <span><i class="lasla-play"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -91,7 +91,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-clipboard-list"></i> </span>
+                    <span><i class="lasla-clipboard-list"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -104,7 +104,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-check-circle"></i> </span>
+                    <span><i class="lasla-check-circle"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -117,7 +117,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-question-circle"></i> </span>
+                    <span><i class="lasla-question-circle"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -130,7 +130,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-sign-in"></i> </span>
+                    <span><i class="lasla-sign-in"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -143,7 +143,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-star-half-alt"></i> </span>
+                    <span><i class="lasla-star-half-alt"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -156,7 +156,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-money"></i> </span>
+                    <span><i class="lasla-money"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -170,7 +170,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-sign-out"></i> </span>
+                    <span><i class="lasla-sign-out"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -235,7 +235,7 @@
                             <span class="text-warning" data-toggle="tooltip" title="{!!$payment->status!!}"><i class="fa fa-exclamation-circle"></i> </span>
                         @endif
 
-                        <a href="{!!route('payment_view', $payment->id)!!}" class="btn btn-info"><i class="la la-eye"></i> </a>
+                        <a href="{!!route('payment_view', $payment->id)!!}" class="btn btn-info"><i class="lasla-eye"></i> </a>
                     </td>
 
                 </tr>

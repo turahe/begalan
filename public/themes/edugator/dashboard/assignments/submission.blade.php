@@ -23,7 +23,7 @@
 
             @if($submission->is_evaluated)
                 <div class="alert alert-success mt-4">
-                    <h5 class="text-success mt-2"><i class="la la-check-circle-o"></i> {{__t('submission_evaluated')}} </h5>
+                    <h5 class="text-success mt-2"><i class="las la-check-circle-o"></i> {{__t('submission_evaluated')}} </h5>
                     <p class="text-muted m-0"> {{__t('evaluated_by')}}: <strong>{{$submission->instructor->name}}</strong></p>
                     <p class="text-muted"> Evaluated at: {{$submission->evaluated_at->format(date_time_format())}}</p>
                 </div>
@@ -37,7 +37,7 @@
             <form action="" method="post">
                 @csrf
 
-                <h4 class="mb-4"><i class="la la-book-reader"></i> Assignment Evaluation Form</h4>
+                <h4 class="mb-4"><i class="las la-book-reader"></i> Assignment Evaluation Form</h4>
 
                 <div class="form-group row {{ $errors->has('give_numbers') ? ' has-error' : '' }}">
 
@@ -88,7 +88,7 @@
                 @foreach($submission->attachments as $attachment)
                     @if($attachment->media)
                         <a href="{{route('attachment_download', $attachment->hash_id)}}" class="lecture-attachment mb-2 d-block">
-                            <i class="la la-cloud-download mr-2"></i>
+                            <i class="las la-cloud-download mr-2"></i>
                             {{$attachment->media->slug_ext}} <small class="text-muted">({{$attachment->media->readable_size}})</small>
                         </a>
                     @endif

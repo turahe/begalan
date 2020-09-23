@@ -57,14 +57,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav dashboard-navbar-icons mx-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{route('dashboard')}}" data-toggle="tooltip" data-original-title="{{__a('dashboard')}}"><i class="la la-dashboard"></i> </a>
+                <a class="nav-link" href="{{route('dashboard')}}" data-toggle="tooltip" data-original-title="{{__a('dashboard')}}"><i class="lasla-dashboard"></i> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('home')}}" target="_blank" data-toggle="tooltip" data-original-title="{{__a('site_home')}}"><i class="la la-home"></i></a>
+                <a class="nav-link" href="{{route('home')}}" target="_blank" data-toggle="tooltip" data-original-title="{{__a('site_home')}}"><i class="lasla-home"></i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('payments')}}" data-toggle="tooltip" data-original-title="{{__a('payments')}}">
-                    <i class="la la-file-invoice-dollar"></i>
+                    <i class="lasla-file-invoice-dollar"></i>
                 </a>
             </li>
         </ul>
@@ -77,11 +77,11 @@
                 </a>
 
                 <div role="menu" class="dropdown-menu">
-                    <a href="{{route('profile_settings')}}" class="dropdown-item" target="_blank"><i class="la la-user"></i> {{__('admin.profile')}}</a>
+                    <a href="{{route('profile_settings')}}" class="dropdown-item" target="_blank"><i class="lasla-user"></i> {{__('admin.profile')}}</a>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
 
-                        <i class="la la-sign-out"></i> {{ __('Logout') }}
+                        <i class="lasla-sign-out"></i> {{ __('Logout') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

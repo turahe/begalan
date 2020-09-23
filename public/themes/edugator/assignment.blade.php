@@ -14,10 +14,10 @@
 
             <div class="assignment-header-info mb-4 p-3">
                 <p class="assignment-basic-info mb-1">
-                    <span class="mr-4"> <i class="la la-clock"></i> <strong> {{__t('time_duration')}} : </strong> {{$assignment->option('time_duration.time_value').' '.$assignment->option('time_duration.time_type')}} </span>
+                    <span class="mr-4"> <i class="las la-clock"></i> <strong> {{__t('time_duration')}} : </strong> {{$assignment->option('time_duration.time_value').' '.$assignment->option('time_duration.time_type')}} </span>
 
-                    <span class="mr-4"><i class="la la-chart-pie"></i> <strong> {{__t('total_number')}} : </strong> {{$assignment->option('total_number')}}</span>
-                    <span class="mr-4"><i class="la la-check-circle"></i> <strong> {{__t('minimum_pass_number')}} : </strong> {{$assignment->option('pass_number')}}</span>
+                    <span class="mr-4"><i class="las la-chart-pie"></i> <strong> {{__t('total_number')}} : </strong> {{$assignment->option('total_number')}}</span>
+                    <span class="mr-4"><i class="las la-check-circle"></i> <strong> {{__t('minimum_pass_number')}} : </strong> {{$assignment->option('pass_number')}}</span>
                 </p>
 
                 <?php
@@ -37,7 +37,7 @@
 
                         @if($has_submission->is_evaluated)
                             <div class="alert alert-success">
-                                <h5 class="text-success mt-2"><i class="la la-check-circle-o"></i> {{__t('submission_evaluated')}} </h5>
+                                <h5 class="text-success mt-2"><i class="las la-check-circle-o"></i> {{__t('submission_evaluated')}} </h5>
                                 <p class="text-muted m-0"> {{__t('evaluated_by')}}: <strong>{{$has_submission->instructor->name}}</strong></p>
                                 <p class="text-muted"> Evaluated at: {{$has_submission->evaluated_at->format(date_time_format())}}</p>
                             </div>
@@ -81,10 +81,10 @@
 
                         @else
 
-                            <h4 class="text-success mb-3"><i class="la la-check-circle"></i> You have submitted assignment.</h4>
+                            <h4 class="text-success mb-3"><i class="las la-check-circle"></i> You have submitted assignment.</h4>
 
                             <div class="alert alert-warning">
-                                <i class="la la-exclamation-triangle"></i> {{__t('submission_not_valuated_text')}}
+                                <i class="las la-exclamation-triangle"></i> {{__t('submission_not_valuated_text')}}
                             </div>
 
                         @endif
@@ -105,7 +105,7 @@
                                     @foreach($has_submission->attachments as $attachment)
                                         @if($attachment->media)
                                             <a href="{{route('attachment_download', $attachment->hash_id)}}" class="lecture-attachment mb-2 d-block">
-                                                <i class="la la-cloud-download mr-2"></i>
+                                                <i class="las la-cloud-download mr-2"></i>
                                                 {{$attachment->media->slug_ext}} <small class="text-muted">({{$attachment->media->readable_size}})</small>
                                             </a>
                                         @endif
@@ -132,7 +132,7 @@
                         @foreach($assignment->attachments as $attachment)
                             @if($attachment->media)
                                 <a href="{{route('attachment_download', $attachment->hash_id)}}" class="lecture-attachment mb-2 d-block">
-                                    <i class="la la-cloud-download mr-2"></i>
+                                    <i class="las la-cloud-download mr-2"></i>
                                     {{$attachment->media->slug_ext}} <small class="text-muted">({{$attachment->media->readable_size}})</small>
                                 </a>
                             @endif
@@ -175,7 +175,7 @@
                                             @for($i = 1; $i<= $upload_attachment_limit; $i++)
                                                 <div class="col-md-3 mb-4">
                                                     <div class="assignment-attachment-wrap bg-white p-3 text-center border">
-                                                        {!! media_upload_form('assignment_attachments[]', '<i class="la la-paperclip"></i>'. __t('attach_file')) !!}
+                                                        {!! media_upload_form('assignment_attachments[]', '<i class="las la-paperclip"></i>'. __t('attach_file')) !!}
                                                     </div>
                                                 </div>
                                             @endfor
@@ -208,7 +208,7 @@
 
                 <div class="lecture-contents-locked text-center mt-5">
                     <div class="lecture-lock-icon mb-4">
-                        <i class="la la-lock"></i>
+                        <i class="las la-lock"></i>
                     </div>
                     <h4 class="lecture-lock-title mb-4">{{__t('content_locked')}}</h4>
 

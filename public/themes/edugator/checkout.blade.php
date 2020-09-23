@@ -67,19 +67,19 @@
 
                             <div class="checkout-section order-account-information-wrap bg-white p-4 mt-3">
                                 <p class="checkout-logged-email d-flex">
-                                    <i class="la la-user"></i>
+                                    <i class="las la-user"></i>
 
                                     <span class="mr-2"> {{__t('logged_in_as')}} </span>
                                     <strong class="flex-grow-1">{{$auth_user->name}}</strong>
 
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <i class="la la-sign-out"></i> {{__t('logout')}}
+                                        <i class="las la-sign-out"></i> {{__t('logout')}}
                                     </a>
                                 </p>
 
                                 <p class="checkout-logged-email">
-                                    <i class="la la-envelope"></i> {{__t('email')}} <strong>{{$auth_user->email}}</strong>
+                                    <i class="las la-envelope"></i> {{__t('email')}} <strong>{{$auth_user->email}}</strong>
                                 </p>
                             </div>
                         </div>
@@ -106,8 +106,8 @@
 
     @else
         <div class="text-center my-5">
-            <h2 class="mb-4 mt-5"><i class="la la-frown"></i> {{__t('nothing_to_checkout')}} </h2>
-            <a href="{{route('home')}}" class="btn btn-lg btn-warning mb-5"> <i class="la la-home"></i> {{__t('go_to_home')}}</a>
+            <h2 class="mb-4 mt-5"><i class="las la-frown"></i> {{__t('nothing_to_checkout')}} </h2>
+            <a href="{{route('home')}}" class="btn btn-lg btn-warning mb-5"> <i class="las la-home"></i> {{__t('go_to_home')}}</a>
         </div>
     @endif
 

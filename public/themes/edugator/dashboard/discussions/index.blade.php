@@ -25,11 +25,11 @@
                             <a href="{{$discussion->course->url}}" class="text-info" target="_blank">
                                 {{$discussion->course->title}}
                             </a>
-                            <i class="la la-arrow-right"></i> {{$discussion->content->title}}
+                            <i class="las la-arrow-right"></i> {{$discussion->content->title}}
                         </p>
 
                         <a href="{{route('discussion_reply', $discussion->id)}}" class="mb-4 d-block">
-                            <h4> <i class="la la-question-circle-o"></i> {{$discussion->title}}</h4>
+                            <h4> <i class="las la-question-circle-o"></i> {{$discussion->title}}</h4>
                         </a>
                         <a href="{{route('discussion_reply', $discussion->id)}}" class="btn btn-purple btn-sm">View Question</a>
                     </div>

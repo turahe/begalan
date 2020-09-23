@@ -2,7 +2,7 @@
 
 
 @section('page-header-right')
-    <a href="{{route('pages')}}" class="btn btn-info" data-toggle="tooltip" title="{{__a('pages')}}"> <i class="la la-list"></i> {{__a('pages')}} </a>
+    <a href="{{route('pages')}}" class="btn btn-info" data-toggle="tooltip" title="{{__a('pages')}}"> <i class="lasla-list"></i> {{__a('pages')}} </a>
 @endsection
 
 

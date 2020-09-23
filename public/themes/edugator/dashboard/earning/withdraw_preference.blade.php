@@ -94,7 +94,7 @@
                             </div>
                         @endif
 
-                        <button type="submit" class="btn btn-purple btn-lg mt-5"> <i class="la la-save"></i> Save Withdraw Preference</button>
+                        <button type="submit" class="btn btn-purple btn-lg mt-5"> <i class="las la-save"></i> Save Withdraw Preference</button>
 
                     </div>
 

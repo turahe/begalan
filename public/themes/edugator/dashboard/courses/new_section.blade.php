@@ -4,7 +4,7 @@
     @include(theme('dashboard.courses.course_nav'))
 
     <div class="curriculum-top-nav d-flex bg-white mb-4 p-2 border">
-        <h4 class="flex-grow-1"><i class="la la-list-alt"></i> {{__t('new_section')}} </h4>
+        <h4 class="flex-grow-1"><i class="las la-list-alt"></i> {{__t('new_section')}} </h4>
     </div>
 
     <div class="card">
@@ -22,7 +22,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-warning" name="save" value="save">
-                    <i class="la la-save"></i> {{__t('create_section')}}
+                    <i class="las la-save"></i> {{__t('create_section')}}
                 </button>
             </form>
 

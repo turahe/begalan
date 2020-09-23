@@ -25,7 +25,7 @@
                         @foreach($user->get_option('social') as $socialKey => $social)
                             @if($social)
                                 <a title="{{ucfirst($socialKey)}}" href="{{$social}}" class="d-block border py-2 px-3 mb-1" target="_blank">
-                                    <i class="la la-{{$socialKey === 'website' ? 'link' : $socialKey}}"></i>
+                                    <i class="las la-{{$socialKey === 'website' ? 'link' : $socialKey}}"></i>
                                     {{ucfirst($socialKey)}}
                                 </a>
                             @endif

@@ -18,16 +18,16 @@
                         @endif
 
                         <p class="mt-3 course-head-meta-wrap">
-                            <span><i class="la la-signal"></i> {{course_levels($course->level)}} </span>
+                            <span><i class="las la-signal"></i> {{course_levels($course->level)}} </span>
                         </p>
 
                         <p>
                             <span class="created-by mr-3">
-                                <i class="la la-user"></i> {{__t('created_by')}} {{$course->author->name}}
+                                <i class="las la-user"></i> {{__t('created_by')}} {{$course->author->name}}
                             </span>
 
                             <span class="last-updated-at">
-                                <i class="la la-clock"></i>
+                                <i class="las la-clock"></i>
                                 {{__t('last_updated')}} {{$course->last_updated_at->format(date_time_format())}}
                             </span>
                         </p>
@@ -42,7 +42,7 @@
                         @if( $isEnrolled)
                             <p class="text-muted"><strong>Enrolled At</strong> : {{date('F d, Y', strtotime($isEnrolled->enrolled_at))}} </p>
 
-                            <a href="{{$contine_url}}" class="btn btn-info btn-lg btn-block"><i class="la la-play-circle"></i> Continue course</a>
+                            <a href="{{$contine_url}}" class="btn btn-info btn-lg btn-block"><i class="las la-play-circle"></i> Continue course</a>
 
                         @else
                             @if($course->paid)
@@ -66,7 +66,7 @@
                                             @if($in_cart)
                                                 <i class='la la-check-circle'></i> Added to cart
                                             @else
-                                                <i class="la la-shopping-cart"></i> Add to cart
+                                                <i class="las la-shopping-cart"></i> Add to cart
                                             @endif
                                         </button>
                                         <button type="submit" class="btn btn-lg btn-outline-dark btn-block" name="cart_btn" value="buy_now">Buy now</button>
@@ -120,19 +120,19 @@
 
                                     <ul>
                                         @if($course->total_video_time)
-                                            <li> <i class="la la-video"></i> {{seconds_to_time_format($course->total_video_time)}} {{__t('on_demand_video')}} </li>
+                                            <li> <i class="las la-video"></i> {{seconds_to_time_format($course->total_video_time)}} {{__t('on_demand_video')}} </li>
                                         @endif
 
-                                        <li> <i class="la la-book"></i> {{$lectures_count}} {{__t('lectures')}} </li>
+                                        <li> <i class="las la-book"></i> {{$lectures_count}} {{__t('lectures')}} </li>
                                         @if($assignments_count)
-                                            <li> <i class="la la-tasks"></i> {{$assignments_count}} {{__t('assignments')}}</li>
+                                            <li> <i class="las la-tasks"></i> {{$assignments_count}} {{__t('assignments')}}</li>
                                         @endif
                                         @if($attachments_count)
-                                            <li> <i class="la la-file-download"></i> {{$attachments_count}} downloadable resources </li>
+                                            <li> <i class="las la-file-download"></i> {{$attachments_count}} downloadable resources </li>
                                         @endif
 
-                                        <li> <i class="la la-mobile"></i> Access on tablet and phone </li>
-                                        <li> <i class="la la-certificate"></i> Certificate of completion </li>
+                                        <li> <i class="las la-mobile"></i> Access on tablet and phone </li>
+                                        <li> <i class="las la-certificate"></i> Certificate of completion </li>
                                     </ul>
                                 </div>
 
@@ -163,7 +163,7 @@
                                     <ul class="benefits-items row">
                                         @foreach($course->benefits_arr as $benefit)
                                             <li class="col-6 benefit-item d-flex mb-2">
-                                                <i class="la la-check-square"></i>
+                                                <i class="las la-check-square"></i>
                                                 <span class="benefit-item-text ml-2">{{$benefit}}</span>
                                             </li>
                                         @endforeach
@@ -196,7 +196,7 @@
                                     <div class="course-section-header bg-light p-3 border-bottom d-flex">
                                         <span class="course-section-name flex-grow-1 ml-2">
                                             <strong>
-                                                <i class="la la-{{$loop->first ? 'minus' : 'plus'}}"></i>
+                                                <i class="las la-{{$loop->first ? 'minus' : 'plus'}}"></i>
                                                 {{$section->section_name}}
                                             </strong>
                                         </span>
@@ -227,14 +227,14 @@
                                                         <span class="section-item-preview flex-grow-1">
                                                             @if($item->is_preview)
                                                                 <a href="{{route('single_lecture', [$course->slug, $item->id ] )}}">
-                                                                 <i class="la la-eye"></i> {{__t('preview')}}
+                                                                 <i class="las la-eye"></i> {{__t('preview')}}
                                                              </a>
                                                             @endif
                                                         </span>
 
                                                         @if($item->attachments->count())
                                                             <span class="section-item-attachments mr-3" data-toggle="tooltip" title="{{__t('dl_resource_available')}}">
-                                                                <i class="la la-paperclip"></i>
+                                                                <i class="las la-paperclip"></i>
                                                             </span>
                                                         @endif
 
@@ -262,7 +262,7 @@
                             <ul class="benefits-items row">
                                 @foreach($course->requirements_arr as $requirement)
                                     <li class="col-6 benefit-item d-flex mb-2">
-                                        <i class="la la-info-circle"></i>
+                                        <i class="las la-info-circle"></i>
                                         <span class="benefit-item-text ml-2">{{$requirement}}</span>
                                     </li>
                                 @endforeach
@@ -311,15 +311,15 @@
                                     @endif
 
                                     <p class="instructor-stat-value mb-1">
-                                        <i class="la la-play-circle"></i>
+                                        <i class="las la-play-circle"></i>
                                         <strong>{{$courses_count}}</strong> {{__t('courses')}}
                                     </p>
                                     <p class="instructor-stat-value mb-1">
-                                        <i class="la la-user-circle"></i>
+                                        <i class="las la-user-circle"></i>
                                         <strong>{{$students_count}}</strong> {{__t('students')}}
                                     </p>
                                     <p class="instructor-stat-value mb-1">
-                                        <i class="la la-comments"></i>
+                                        <i class="las la-comments"></i>
                                         <strong>{{$instructor_rating->rating_count}} </strong> {{__t('reviews')}}
                                     </p>
                                 </div>

@@ -1,5 +1,5 @@
 <ul class="dashboard-menu">
-    <li class="{{request()->is('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}"> <i class="la la-dashboard"></i> {{__t('dashboard')}} </a></li>
+    <li class="{{request()->is('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}"> <i class="las la-dashboard"></i> {{__t('dashboard')}} </a></li>
 
     @php
     $menus = dashboard_menu();
@@ -16,7 +16,7 @@
     <li>
         <a href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="la la-sign-out"></i> {{__t('logout')}}
+            <i class="las la-sign-out"></i> {{__t('logout')}}
         </a>
     </li>
 </ul>

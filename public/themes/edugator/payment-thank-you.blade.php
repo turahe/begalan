@@ -9,7 +9,7 @@
                 <div class="payment-thankyou-wrap text-center py-5">
                     <img src="{{theme_url('images/payment-success.png')}}" />
 
-                    <h1 class="mb-4 text-success"> <i class="la la-check-circle"></i> {{__t('thank_you')}}</h1>
+                    <h1 class="mb-4 text-success"> <i class="las la-check-circle"></i> {{__t('thank_you')}}</h1>
                     <div class="thankyou-payment-text-details my-4">
                         {{__t('payment_receive_successfully')}}
                     </div>

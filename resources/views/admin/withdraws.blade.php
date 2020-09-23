@@ -3,10 +3,10 @@
 
 @section('page-header-right')
 
-    <a href="{{route('withdraws')}}" class="btn btn-dark ml-2" > <i class="la la-clock-o"></i> Pending</a>
-    <a href="{{route('withdraws', ['status' => 'success'])}}" class="btn btn-success ml-2" > <i class="la la-check-circle"></i> Success</a>
-    <a href="{{route('withdraws', ['status' => 'rejected'])}}" class="btn btn-warning ml-2" > <i class="la la-exclamation-circle"></i> Rejected</a>
-    <a href="{{route('withdraws', ['status' => 'all'])}}" class="btn btn-light ml-2" > <i class="la la-th-list"></i> All</a>
+    <a href="{{route('withdraws')}}" class="btn btn-dark ml-2" > <i class="lasla-clock-o"></i> Pending</a>
+    <a href="{{route('withdraws', ['status' => 'success'])}}" class="btn btn-success ml-2" > <i class="lasla-check-circle"></i> Success</a>
+    <a href="{{route('withdraws', ['status' => 'rejected'])}}" class="btn btn-warning ml-2" > <i class="lasla-exclamation-circle"></i> Rejected</a>
+    <a href="{{route('withdraws', ['status' => 'all'])}}" class="btn btn-light ml-2" > <i class="lasla-th-list"></i> All</a>
 
 @endsection
 
@@ -32,7 +32,7 @@
                             </select>
 
                             <button type="submit" name="bulk_action_btn" value="update_status" class="btn btn-primary mr-2">{{__a('update')}}</button>
-                            <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="la la-trash"></i> {{__a('delete')}}</button>
+                            <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="lasla-trash"></i> {{__a('delete')}}</button>
                         </div>
                     </div>
                 </div>

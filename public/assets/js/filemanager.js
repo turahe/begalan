@@ -119,11 +119,11 @@ $(function() {
                     contentType: false,
                     processData: false,
                     beforeSend: function() {
-                        $('#button-upload i').replaceWith('<i class="la la-circle-o-notch fa-spin"></i>');
+                        $('#button-upload i').replaceWith('<i class="las la-circle-o-notch fa-spin"></i>');
                         $('#button-upload').prop('disabled', true);
                     },
                     complete: function() {
-                        $('#button-upload i').replaceWith('<i class="la la-upload"></i>');
+                        $('#button-upload i').replaceWith('<i class="las la-upload"></i>');
                         $('#button-upload').prop('disabled', false);
                     },
                     xhr: function () {
@@ -246,7 +246,7 @@ $(function() {
                 trigger: 'manual',
                 sanitize : false,
                 content: function() {
-                    return '<button type="button" id="button-image" class="btn btn-primary"><i class="la la-pencil"></i></button> <button type="button" id="button-clear" class="btn btn-danger"><i class="la la-trash-o"></i></button>';
+                    return '<button type="button" id="button-image" class="btn btn-primary"><i class="las la-pencil"></i></button> <button type="button" id="button-clear" class="btn btn-danger"><i class="las la-trash-o"></i></button>';
                 }
             });
 
@@ -417,7 +417,7 @@ $(function() {
             url : pageData.routes.media_update,
             data: inputData,
             beforeSend : function(){
-                $('#formWorkingIconWrap').html('<i class="la la-spin la-spinner"></i>');
+                $('#formWorkingIconWrap').html('<i class="las la-spin la-spinner"></i>');
             },
             success: function(data){
                 //

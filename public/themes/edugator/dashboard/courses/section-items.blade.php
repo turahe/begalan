@@ -9,10 +9,10 @@
                     <span class="section-item-title-text">{{$item->title}}</span>
                 </div>
 
-                <button class="section-item-btn-tool btn px-1 py-0 section-item-edit-btn" data-item-id="{{$item->id}}" ><i class="la la-pencil"></i> </button>
-                <button class="section-item-btn-tool text-danger btn ml-2 px-1 py-0 section-item-delete-btn" data-item-id="{{$item->id}}" ><i class="la la-trash"></i> </button>
+                <button class="section-item-btn-tool btn px-1 py-0 section-item-edit-btn" data-item-id="{{$item->id}}" ><i class="las la-pencil"></i> </button>
+                <button class="section-item-btn-tool text-danger btn ml-2 px-1 py-0 section-item-delete-btn" data-item-id="{{$item->id}}" ><i class="las la-trash"></i> </button>
 
-                <p class="section-item-btn-tool m-0 btn ml-2 px-1 py-0 section-item-sorting-bar ml-auto" ><i class="la la-bars"></i> </p>
+                <p class="section-item-btn-tool m-0 btn ml-2 px-1 py-0 section-item-sorting-bar ml-auto" ><i class="las la-bars"></i> </p>
             </div>
 
             <div class="section-item-edit-form-wrap"></div>

@@ -42,7 +42,7 @@
             <div class="card card-body mb-4">
                 <h6 class="text-muted text-uppercase">Balance</h6>
                 <h4 class="earning-stats amount">{!! price_format($user->earning->balance) !!}</h4>
-                <a href="{{route('withdraw')}}"> <small><i class="la la-cash-register"></i> Withdraw</small></a>
+                <a href="{{route('withdraw')}}"> <small><i class="las la-cash-register"></i> Withdraw</small></a>
             </div>
         </div>
 

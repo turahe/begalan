@@ -2,7 +2,7 @@
 <div id="course-discussion-wrap">
 
     <div class="discusion-calltoaction-wrap text-center py-4 bg-dark-blue text-white my-4">
-        <h1><i class="la la-question-circle-o"></i> </h1>
+        <h1><i class="las la-question-circle-o"></i> </h1>
         <h3>Discussion</h3>
         <h5>Get answers directory from your instructor <br /> if you have any question about this topic.</h5>
     </div>
@@ -24,7 +24,7 @@
                 {!! form_error($errors, 'message')->message !!}
             </div>
 
-            <button type="submit" class="btn btn-purple"><i class="la la-question-circle-o"></i> {{__t('ask_question')}} </button>
+            <button type="submit" class="btn btn-purple"><i class="las la-question-circle-o"></i> {{__t('ask_question')}} </button>
         </form>
 
     </div>
@@ -95,7 +95,7 @@
                             <textarea class="form-control" name="message" rows="5"></textarea>
                             {!! form_error($errors, 'message')->message !!}
                         </div>
-                        <button type="submit" class="btn btn-purple"><i class="la la-question-circle-o"></i> {{__t('send_reply')}} </button>
+                        <button type="submit" class="btn btn-purple"><i class="las la-question-circle-o"></i> {{__t('send_reply')}} </button>
                     </form>
                 </div>
 

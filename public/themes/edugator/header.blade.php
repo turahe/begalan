@@ -10,18 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{theme_url('favicon.png')}}"/>
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>  @if( ! empty($title)) {{ $title }} | {{get_option('site_title')}}  @else {{get_option('site_title')}} @endif </title>
-
-    <!-- all css here -->
-
-    <!-- bootstrap v3.3.6 css -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/line-awesome.min.css')}}">
-
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 @yield('page-css')
 
 <!-- style css -->
@@ -64,7 +55,7 @@
                 <ul class="navbar-nav categories-nav-item-wrapper mt-2 mt-lg-0">
                     <li class="nav-item nav-categories-item">
                         <a class="nav-link browse-categories-nav-link" href="{{route('categories')}}">
-                            <i class="la la-th-large"></i>
+                            <i class="las la-th-large"></i>
                             {{__t('categories') }}
                         </a>
 
@@ -72,16 +63,16 @@
                             <ul class="categories-ul-first">
                                 <li>
                                     <a href="{{route('categories')}}">
-                                        <i class="la la-th-list"></i> {{__t('all_categories')}}
+                                        <i class="las la-th-list"></i> {{__t('all_categories')}}
                                     </a>
                                 </li>
                                 @foreach($categories as $category)
                                     <li>
                                         <a href="{{route('category_view', $category->slug)}}">
-                                            <i class="la {{$category->icon_class}}"></i> {{$category->category_name}}
+                                            <i class="las {{$category->icon_class}}"></i> {{$category->category_name}}
 
                                             @if($category->sub_categories->count())
-                                                <i class="la la-angle-right"></i>
+                                                <i class="las la-angle-right"></i>
                                             @endif
                                         </a>
                                         @if($category->sub_categories->count())
@@ -103,7 +94,7 @@
                 <div class="header-search-wrap my-2 my-lg-0  ml-2">
                     <form action="{{route('courses')}}" class="form-inline " method="get">
                         <input class="form-control" type="search" name="q" value="{{request('q')}}" placeholder="Search">
-                        <button class="btn my-2 my-sm-0 header-search-btn" type="submit"><i class="la la-search"></i></button>
+                        <button class="btn my-2 my-sm-0 header-search-btn" type="submit"><i class="las la-search"></i></button>
                     </form>
                 </div>
 
@@ -116,13 +107,13 @@
                     @if (Auth::guest())
                         <li class="nav-item mr-2 ml-2">
                             <a class="nav-link btn btn-login-outline" href="{{route('login')}}">
-                                <i class="la la-sign-in"></i>
+                                <i class="las la-sign-in"></i>
                                 {{__t('login')}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn btn-theme-primary" href="{{route('register')}}">
-                                <i class="la la-user-plus"></i>
+                                <i class="las la-user-plus"></i>
                                 {{__t('signup')}}
                             </a>
                         </li>

@@ -29,7 +29,7 @@
 
                             <div class="d-flex justify-content-between">
                                 <p class="instructor-stat-value m-0 mr-2">
-                                    <i class="la la-play-circle"></i>
+                                    <i class="las la-play-circle"></i>
                                     <strong>{{$courses_count}}</strong> {{__t('courses')}}
                                 </p>
 
@@ -42,7 +42,7 @@
 
             </div>
 
-            <button type="submit" class="btn btn-warning btn-purple"> <i class="la la-user-plus"></i> {{__t('add_instructors')}} </button>
+            <button type="submit" class="btn btn-warning btn-purple"> <i class="las la-user-plus"></i> {{__t('add_instructors')}} </button>
 
         </form>
 

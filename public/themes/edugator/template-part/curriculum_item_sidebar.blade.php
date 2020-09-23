@@ -29,7 +29,7 @@
                 </p>
                 @if($completed_percent >= 10)
                     <a href="#" class="text-center d-block write-review-text" data-toggle="modal" data-target="#writeReviewModal">
-                        <i class="la la-comment"></i> {{ $review ? __t('update_review') : __t('write_review')}}
+                        <i class="las la-comment"></i> {{ $review ? __t('update_review') : __t('write_review')}}
                     </a>
                 @endif
             </div>
@@ -52,7 +52,7 @@
                         <strong class="flex-grow-1">{{$section->section_name}}</strong>
 
                         @if($auth_user && in_array($section->id, $drip_items['sections']))
-                            <i class="la la-lock pt-1"></i>
+                            <i class="las la-lock pt-1"></i>
                         @endif
                     </span>
                     </div>
@@ -76,9 +76,9 @@
                                         <a href="{{route('single_'.$item->item_type, [$course->slug, $item->id ] )}}" class="p-2 d-flex" @if($is_completed) data-toggle="tooltip" title="{{__t('completed')}}" @endif>
                                             <span class="lecture-status-icon border-right pr-1">
                                                 @if($is_completed)
-                                                    <i class="la la-check-circle text-success"></i>
+                                                    <i class="las la-check-circle text-success"></i>
                                                 @else
-                                                    <i class="la la-circle"></i>
+                                                    <i class="las la-circle"></i>
                                                 @endif
                                             </span>
                                             <div class="title-container pl-2 flex-grow-1 d-flex">
@@ -89,9 +89,9 @@
 
                                                 @if($auth_user)
                                                     @if(in_array($section->id, $drip_items['sections']))
-                                                        <span><i class="la la-lock pt-1"></i></span>
+                                                        <span><i class="las la-lock pt-1"></i></span>
                                                     @elseif(in_array($item->id, $drip_items['contents']))
-                                                        <span><i class="la la-lock pt-1"></i></span>
+                                                        <span><i class="las la-lock pt-1"></i></span>
                                                     @endif
                                                 @endif
 
@@ -151,11 +151,11 @@
                     </div>
                     <div class="review-modal-footer">
                         <p class="review-modal-nofity-text">
-                            <i class="la la-globe"></i> Your review will be posted publicly. Under <strong>{{$auth_user->name}}</strong>
+                            <i class="las la-globe"></i> Your review will be posted publicly. Under <strong>{{$auth_user->name}}</strong>
                         </p>
 
                         <button type="submit" class="btn btn-theme-primary">
-                            <i class="la la-comment"></i>
+                            <i class="las la-comment"></i>
                             @if($review)
                                 {{__t('update_review')}}
                             @else

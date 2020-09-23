@@ -23,13 +23,13 @@
                 <a href="{{route('profile', $attempt->user->id)}}">{!! $attempt->user->name !!}</a>
                 <p class="mb-0">
                     <small>
-                        <small><i class="la la-clock-o"></i> {{$attempt->created_at->diffForHumans()}}</small>
+                        <small><i class="las la-clock-o"></i> {{$attempt->created_at->diffForHumans()}}</small>
 
                         <strong>{{__t('course')}} :</strong>
                         <a href="{{$attempt->course->url}}" class="text-info" target="_blank">
                             {{$attempt->course->title}}
                         </a>
-                        <i class="la la-arrow-right"></i>
+                        <i class="las la-arrow-right"></i>
                         <strong>{{__t('quiz')}} :</strong>
                         <a href="{{$attempt->quiz->url}}">
                             {{$attempt->quiz->title}}
@@ -43,14 +43,14 @@
         <div class="quiz-attempt-time-wrap bg-white p-2 border mb-3">
             <p class="mb-0">
                 @if($attempt->created_at)
-                    <strong><i class="la la-clock"></i> Start time:</strong> {{$attempt->created_at->format(date_time_format())}},
+                    <strong><i class="las la-clock"></i> Start time:</strong> {{$attempt->created_at->format(date_time_format())}},
                 @endif
                 @if($attempt->ended_at)
-                    <strong><i class="la la-clock"></i> End time:</strong> {{$attempt->ended_at->format(date_time_format())}},
+                    <strong><i class="las la-clock"></i> End time:</strong> {{$attempt->ended_at->format(date_time_format())}},
                 @endif
                 @if($attempt->ended_at)
                     <span class="text-info">
-                    <strong><i class="la la-clock"></i> Time Required:</strong>
+                    <strong><i class="las la-clock"></i> Time Required:</strong>
                     {{$attempt->ended_at->diffInMinutes($attempt->created_at)}} {{__t('minutes')}}
                 </span>
                 @endif
@@ -105,9 +105,9 @@
                 <li class="list-group-item">
                     <p class="mb-2"><strong>Result</strong></p>
                     @if($attempt->earned_percent >= $passing_percent)
-                        <p class="mb-1 text-success"> <strong> <i class="la la-check-circle"></i> Passed</strong> </p>
+                        <p class="mb-1 text-success"> <strong> <i class="las la-check-circle"></i> Passed</strong> </p>
                     @else
-                        <p class="mb-1 text-danger"> <strong> <i class="la la-exclamation-circle"></i> Failed</strong> </p>
+                        <p class="mb-1 text-danger"> <strong> <i class="las la-exclamation-circle"></i> Failed</strong> </p>
                     @endif
                 </li>
                 <li class="list-group-item">
@@ -125,7 +125,7 @@
         @endphp
 
         @if($answers->count())
-            <h4 class="my-4"> <i class="la la-info-circle"></i> {{__t('review_attempt_info_text')}}</h4>
+            <h4 class="my-4"> <i class="las la-info-circle"></i> {{__t('review_attempt_info_text')}}</h4>
 
             <form method="post">
                 @csrf
@@ -145,7 +145,7 @@
 
                         <tr>
                             <td>
-                                <span class="badge badge-info"> <i class="la la-question-{{$qtype}}"></i> {{$qtype}}</span> <br />
+                                <span class="badge badge-info"> <i class="las la-question-{{$qtype}}"></i> {{$qtype}}</span> <br />
                                 {{$answer->question->title}}
                             </td>
                             <td>
@@ -159,12 +159,12 @@
                                     @endphp
 
                                     @if($qtype === 'radio' &&  $answer->answer)
-                                        <p class="mb-0"> <i class="la la-question-{{$qtype}}"></i>
+                                        <p class="mb-0"> <i class="las la-question-{{$qtype}}"></i>
                                             {{array_get($options, $answer->answer)}}
                                         </p>
                                     @elseif($qtype === 'checkbox' &&  $answer->answer)
                                         @foreach(json_decode($answer->answer, true) as $answeredKey)
-                                            <p class="mb-0"> <i class="la la-question-{{$qtype}}"></i> {{array_get($options, $answeredKey)}}</p>
+                                            <p class="mb-0"> <i class="las la-question-{{$qtype}}"></i> {{array_get($options, $answeredKey)}}</p>
                                         @endforeach
                                     @endif
                                 @endif
@@ -186,9 +186,9 @@
                 </table>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-dark-blue" name="review_btn" value="review" > <i class="la la-save"></i> Review quiz attempt</button>
+                    <button type="submit" class="btn btn-dark-blue" name="review_btn" value="review" > <i class="las la-save"></i> Review quiz attempt</button>
 
-                    <button type="submit" class="btn btn-danger confirm-btn float-right" name="review_btn" value="delete" > <i class="la la-trash"></i> Delete attempt</button>
+                    <button type="submit" class="btn btn-danger confirm-btn float-right" name="review_btn" value="delete" > <i class="las la-trash"></i> Delete attempt</button>
                 </div>
 
             </form>

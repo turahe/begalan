@@ -2,7 +2,7 @@
 
 <a class="nav-link" href="javascript:;" id="miniCartDropDown">
     <div class="text-center">
-        <i class="la la-shopping-cart"></i>
+        <i class="las la-shopping-cart"></i>
         @if($cart->count)
             <span class="badge badge-pill badge-danger">{{$cart->count}}</span>
         @endif

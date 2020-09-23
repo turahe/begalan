@@ -37,7 +37,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-purple">
-                                    <i class="la la-save"></i> {{__t('save_drip_preference')}}
+                                    <i class="las la-save"></i> {{__t('save_drip_preference')}}
                                 </button>
 
                             </div>
@@ -70,7 +70,7 @@
                             @endforeach
 
                             <button type="submit" class="btn btn-info mt-3">
-                                <i class="la la-save"></i> {{__t('save_drip_preference')}}
+                                <i class="las la-save"></i> {{__t('save_drip_preference')}}
                             </button>
                         </div>
 

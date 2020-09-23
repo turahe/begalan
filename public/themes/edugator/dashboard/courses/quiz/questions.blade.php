@@ -8,7 +8,7 @@
         <div id="question-{{$question->id}}" class="quiz-question-item  input-group mb-3">
 
             <div class="input-group-prepend">
-                <a href="javascript:;" class="input-group-text question-sort"><i class="la la-sort"></i> </a>
+                <a href="javascript:;" class="input-group-text question-sort"><i class="las la-sort"></i> </a>
                 <span class="input-group-text"><i class=" la la-question-{{$question->type}}"></i></span>
 
                 @if($question->image_id)
@@ -22,8 +22,8 @@
                 <span class="question-title">{{$question->title}}</span>
             </p>
             <div class="input-group-append">
-                <a href="javascript:;" class="input-group-text question-edit" data-question-id="{{$question->id}}"><i class="la la-pencil-square"></i> </a>
-                <a href="javascript:;" class="input-group-text question-trash bg-danger text-white" data-question-id="{{$question->id}}"><i class="la la-trash"></i> </a>
+                <a href="javascript:;" class="input-group-text question-edit" data-question-id="{{$question->id}}"><i class="las la-pencil-square"></i> </a>
+                <a href="javascript:;" class="input-group-text question-trash bg-danger text-white" data-question-id="{{$question->id}}"><i class="las la-trash"></i> </a>
             </div>
 
         </div>

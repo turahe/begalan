@@ -78,15 +78,15 @@
                         @endif
 
                         <p class="instructor-stat-value  mr-3">
-                            <i class="la la-play-circle"></i>
+                            <i class="las la-play-circle"></i>
                             <strong>{{$courses_count}}</strong> {{__t('courses')}}
                         </p>
                         <p class="instructor-stat-value  mr-3">
-                            <i class="la la-user-circle"></i>
+                            <i class="las la-user-circle"></i>
                             <strong>{{$students_count}}</strong> {{__t('students')}}
                         </p>
                         <p class="instructor-stat-value  mr-3">
-                            <i class="la la-comments"></i>
+                            <i class="las la-comments"></i>
                             <strong>{{$author_rating->rating_count}} </strong> {{__t('reviews')}}
                         </p>
                     </div>
@@ -137,15 +137,15 @@
                                     @endif
 
                                     <p class="instructor-stat-value  mr-3">
-                                        <i class="la la-play-circle"></i>
+                                        <i class="las la-play-circle"></i>
                                         <strong>{{$courses_count}}</strong> {{__t('courses')}}
                                     </p>
                                     <p class="instructor-stat-value  mr-3">
-                                        <i class="la la-user-circle"></i>
+                                        <i class="las la-user-circle"></i>
                                         <strong>{{$students_count}}</strong> {{__t('students')}}
                                     </p>
                                     <p class="instructor-stat-value  mr-3">
-                                        <i class="la la-comments"></i>
+                                        <i class="las la-comments"></i>
                                         <strong>{{$instructor_rating->rating_count}} </strong> {{__t('reviews')}}
                                     </p>
                                 </div>
@@ -159,7 +159,7 @@
 
                                     <input type="hidden" name="instructor_id" value="{{$instructor->id}}">
 
-                                    <button type="submit" class="instructor-remove-btn btn btn-outline-danger"><i class="la la-trash"></i> </button>
+                                    <button type="submit" class="instructor-remove-btn btn btn-outline-danger"><i class="las la-trash"></i> </button>
 
                                 </form>
 

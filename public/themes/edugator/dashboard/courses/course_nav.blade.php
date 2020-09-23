@@ -12,19 +12,19 @@
     @endif
 
     <a href="{{route('publish_course', $course->id)}}" class="list-group-item list-group-item-action list-group-item-info {{request()->is('dashboard/courses/*/publish') ? 'active' : ''}}">
-        <i class="la la-arrow-alt-circle-up"></i> <p class="m-0">{{__t('publish')}}</p>
+        <i class="las la-arrow-alt-circle-up"></i> <p class="m-0">{{__t('publish')}}</p>
     </a>
 </div>
 
 <div class="course-edit-header d-flex mb-3">
 
-    <a href="{{route('my_courses')}}"> <i class="la la-angle-left"></i> Back to courses</a> | <strong class="header-course-title ellipsis">{{$course->title}}</strong>
+    <a href="{{route('my_courses')}}"> <i class="las la-angle-left"></i> Back to courses</a> | <strong class="header-course-title ellipsis">{{$course->title}}</strong>
     | {!! $course->status_html(false) !!}
 
     @if($course->status == 1)
-        <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary ml-auto" target="_blank"><i class="la la-eye"></i> {{__t('view')}} </a>
+        <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary ml-auto" target="_blank"><i class="las la-eye"></i> {{__t('view')}} </a>
     @else
-        <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple ml-auto" target="_blank"><i class="la la-eye"></i> {{__t('preview')}} </a>
+        <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple ml-auto" target="_blank"><i class="las la-eye"></i> {{__t('preview')}} </a>
     @endif
 
 </div>

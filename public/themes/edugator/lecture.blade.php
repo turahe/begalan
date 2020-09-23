@@ -27,7 +27,7 @@
                         @foreach($lecture->attachments as $attachment)
                             @if($attachment->media)
                                 <a href="{{route('attachment_download', $attachment->hash_id)}}" class="lecture-attachment mb-2 d-block">
-                                    <i class="la la-cloud-download mr-2"></i>
+                                    <i class="las la-cloud-download mr-2"></i>
                                     {{$attachment->media->slug_ext}} <small class="text-muted">({{$attachment->media->readable_size}})</small>
                                 </a>
                             @endif
@@ -43,7 +43,7 @@
 
                 <div class="lecture-contents-locked text-center mt-5">
                     <div class="lecture-lock-icon mb-4">
-                        <i class="la la-lock"></i>
+                        <i class="las la-lock"></i>
                     </div>
                     <h4 class="lecture-lock-title mb-4">{{__t('lecture_content_locked')}}</h4>
 

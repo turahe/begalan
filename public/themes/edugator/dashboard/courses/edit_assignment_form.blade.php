@@ -1,7 +1,7 @@
 <div class="section-item-form-html p-4 border">
     <div class="update-assignment-form-header d-flex mb-3 pb-3 border-bottom">
         <h5 class="flex-grow-1">{{__t('update_assignment')}}</h5>
-        <a href="javascript:;" class="btn btn-outline-dark btn-sm btn-cancel-form" ><i class="la la-close"></i> </a>
+        <a href="javascript:;" class="btn btn-outline-dark btn-sm btn-cancel-form" ><i class="las la-close"></i> </a>
     </div>
 
     <form class="update-assignment-form" action="{{route('update_assignment', [$item->course_id, $item->id])}}" method="post">
@@ -87,7 +87,7 @@
                     <div class="single-attachment-form mb-3 border">
                         <div class="d-flex p-3">
                             {!! media_upload_form('attachments[]', __t('upload_attachments')) !!}
-                            <a href="javascript:;" class="btn btn-outline-danger btn-sm btn-remove-lecture-attachment-form ml-4"><i class="la la-close"></i> </a>
+                            <a href="javascript:;" class="btn btn-outline-danger btn-sm btn-remove-lecture-attachment-form ml-4"><i class="las la-close"></i> </a>
                         </div>
                     </div>
                 </div>
@@ -98,12 +98,12 @@
                         @foreach($item->attachments as $attachment)
                             @if($attachment->media)
                                 <div class="dashboard-item-attachment d-flex">
-                                    <span class="attachment-icon mr-2"><i class="la la-cloud-download"></i> </span>
+                                    <span class="attachment-icon mr-2"><i class="las la-cloud-download"></i> </span>
                                     <span class="attachment-title flex-grow-1">
                                         {{$attachment->media->slug_ext}} <small class="text-muted">({{$attachment->media->readable_size}})</small>
                                     </span>
                                     <span>
-                                        <button type="button" class="section-item-attachment-delete-btn text-danger btn" data-attachment-id="{{$attachment->id}}"><i class="la la-trash"></i> </button>
+                                        <button type="button" class="section-item-attachment-delete-btn text-danger btn" data-attachment-id="{{$attachment->id}}"><i class="las la-trash"></i> </button>
                                     </span>
                                 </div>
                             @endif
@@ -111,7 +111,7 @@
                     </div>
                 @endif
 
-                <a href="javascript:;" id="add_more_attachment_btn" class="mt-4 mb-2 d-inline-block btn btn-outline-info"> <i class="la la-plus"></i>  {{__t('attachments')}} </a>
+                <a href="javascript:;" id="add_more_attachment_btn" class="mt-4 mb-2 d-inline-block btn btn-outline-info"> <i class="las la-plus"></i>  {{__t('attachments')}} </a>
 
                 <p class="m-0"> <small class="text-muted">{{__t('assignment_resources_desc')}}</small></p>
             </div>
@@ -120,7 +120,7 @@
 
         <div class="form-group text-right">
             <button type="button" class="btn btn-outline-info btn-cancel-form"> {{__t('cancel')}}</button>
-            <button type="submit" class="btn btn-info btn-save-assignment"  name="save" value="save_next"> <i class="la la-save"></i> {{__t('save_assignment')}}</button>
+            <button type="submit" class="btn btn-info btn-save-assignment"  name="save" value="save_next"> <i class="las la-save"></i> {{__t('save_assignment')}}</button>
         </div>
     </form>
 </div>

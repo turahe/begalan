@@ -17,7 +17,7 @@
                     </select>
 
                     <button type="submit" name="bulk_action_btn" value="update_status" class="btn btn-primary mr-2">{{__a('update')}}</button>
-                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="la la-trash"></i> {{__a('delete')}}</button>
+                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="lasla-trash"></i> {{__a('delete')}}</button>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
 
                         </select>
 
-                        <button type="submit" class="btn btn-primary btn-purple"><i class="la la-search-plus"></i> Filter results</button>
+                        <button type="submit" class="btn btn-primary btn-purple"><i class="lasla-search-plus"></i> Filter results</button>
                     </div>
                 </div>
             </div>

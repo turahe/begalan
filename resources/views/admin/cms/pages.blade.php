@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-header-right')
-    <a href="{{route('create_page')}}" class="btn btn-success" data-toggle="tooltip" title="{{__a('create_new_page')}}"> <i class="la la-plus-circle"></i> {{__a('create_new_page')}} </a>
+    <a href="{{route('create_page')}}" class="btn btn-success" data-toggle="tooltip" title="{{__a('create_new_page')}}"> <i class="lasla-plus-circle"></i> {{__a('create_new_page')}} </a>
 @endsection
 
 @section('content')
@@ -20,9 +20,9 @@
                     </select>
 
                     <button type="submit" name="bulk_action_btn" value="update_status" class="btn btn-primary mr-2">
-                        <i class="la la-refresh"></i> {{__a('update')}}
+                        <i class="lasla-refresh"></i> {{__a('update')}}
                     </button>
-                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="la la-trash"></i> {{__a('delete')}}</button>
+                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="lasla-trash"></i> {{__a('delete')}}</button>
                 </div>
             </div>
 
@@ -57,9 +57,9 @@
 
                             <td>
                                 <a href="{{route('edit_page',$post->id)}}" class="btn btn-primary">
-                                    <i class="la la-edit"></i>
+                                    <i class="lasla-edit"></i>
                                 </a>
-                                <a href="{{route('post', $post->slug)}}" class="btn btn-purple"><i class="la la-eye"></i> </a>
+                                <a href="{{route('post', $post->slug)}}" class="btn btn-purple"><i class="lasla-eye"></i> </a>
                             </td>
                         </tr>
                     @endforeach

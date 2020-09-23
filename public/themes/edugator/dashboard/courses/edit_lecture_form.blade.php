@@ -2,18 +2,18 @@
 
     <div class="new-lecture-form-header d-flex mb-3 pb-3 border-bottom">
         <h5 class="flex-grow-1">{{__t('edit_'.$item->item_type)}}</h5>
-        <a href="javascript:;" class="btn btn-outline-dark btn-sm btn-cancel-form" ><i class="la la-close"></i> </a>
+        <a href="javascript:;" class="btn btn-outline-dark btn-sm btn-cancel-form" ><i class="las la-close"></i> </a>
     </div>
 
     <div class="curriculum-item-edit-tab list-group list-group-horizontal-md mb-3 text-center  ">
         <a href="javascript:;" data-tab="#lecture-basic" class="list-group-item list-tab-item list-group-item-action list-group-item-secondary active ">
-            <i class="la la-file-text"></i> {{__t('basic')}}
+            <i class="las la-file-text"></i> {{__t('basic')}}
         </a>
         <a href="javascript:;" data-tab="#lecture-video" class="list-group-item list-tab-item list-group-item-action list-group-item-secondary ">
-            <i class="la la-video"></i> {{__t('video')}}
+            <i class="las la-video"></i> {{__t('video')}}
         </a>
         <a href="javascript:;" data-tab="#dashboard-lecture-attachments" class="list-group-item list-tab-item list-group-item-action list-group-item-secondary ">
-            <i class="la la-paperclip"></i> {{__t('attachments')}}
+            <i class="las la-paperclip"></i> {{__t('attachments')}}
         </a>
     </div>
 
@@ -74,7 +74,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="video-upload-wrap text-center">
-                                    <i class="la la-cloud-upload text-muted"></i>
+                                    <i class="las la-cloud-upload text-muted"></i>
                                     <h5>{{__t('upload_video')}}</h5>
                                     <p class="mb-2">File Format:  .mp4</p>
                                     {!! media_upload_form('video[html5_video_id]', __t('upload_video'), null, $item->video_info('html5_video_id')) !!}
@@ -83,7 +83,7 @@
 
                             <div class="col-md-6">
                                 <div class="video-poster-upload-wrap text-center">
-                                    <i class="la la-image text-muted"></i>
+                                    <i class="las la-image text-muted"></i>
                                     <h5>{{__t('video_poster')}}</h5>
                                     <small class="text-muted mb-3 d-block">Size: 700x430 pixels. Supports: jpg,jpeg, or png</small>
 
@@ -138,7 +138,7 @@
                     <div class="single-attachment-form mb-3 border">
                         <div class="d-flex p-3">
                             {!! media_upload_form('attachments[]', __t('upload_attachments')) !!}
-                            <a href="javascript:;" class="btn btn-outline-danger btn-sm btn-remove-lecture-attachment-form ml-4"><i class="la la-close"></i> </a>
+                            <a href="javascript:;" class="btn btn-outline-danger btn-sm btn-remove-lecture-attachment-form ml-4"><i class="las la-close"></i> </a>
                         </div>
                     </div>
                 </div>
@@ -152,12 +152,12 @@
                             @if($attachment->media)
 
                                 <div class="dashboard-item-attachment d-flex">
-                                    <span class="attachment-icon mr-2"><i class="la la-cloud-download"></i> </span>
+                                    <span class="attachment-icon mr-2"><i class="las la-cloud-download"></i> </span>
                                     <span class="attachment-title flex-grow-1">
                                         {{$attachment->media->slug_ext}} <small class="text-muted">({{$attachment->media->readable_size}})</small>
                                     </span>
                                     <span>
-                                        <button class="section-item-attachment-delete-btn text-danger btn" data-attachment-id="{{$attachment->id}}"><i class="la la-trash"></i> </button>
+                                        <button class="section-item-attachment-delete-btn text-danger btn" data-attachment-id="{{$attachment->id}}"><i class="las la-trash"></i> </button>
                                     </span>
                                 </div>
 
@@ -167,7 +167,7 @@
 
                 @endif
 
-                <a href="javascript:;" id="add_more_attachment_btn" class="my-4 d-inline-block btn btn-outline-info"> <i class="la la-plus"></i>  {{__t('attachments')}} </a>
+                <a href="javascript:;" id="add_more_attachment_btn" class="my-4 d-inline-block btn btn-outline-info"> <i class="las la-plus"></i>  {{__t('attachments')}} </a>
 
             </div>
 
@@ -175,7 +175,7 @@
 
         <div class="form-group text-right">
             <button type="button" class="btn btn-outline-info btn-cancel-form"> {{__t('cancel')}}</button>
-            <button type="submit" class="btn btn-info btn-edit-lecture"  name="save" value="save_next"> <i class="la la-save"></i> {{__t('save_'.$item->item_type)}}</button>
+            <button type="submit" class="btn btn-info btn-edit-lecture"  name="save" value="save_next"> <i class="las la-save"></i> {{__t('save_'.$item->item_type)}}</button>
         </div>
 
     </form>

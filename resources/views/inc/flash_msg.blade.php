@@ -1,17 +1,17 @@
 @if(session('success'))
     <div class="alert alert-success">
-        <i class="la la-check-circle"></i> {!! session('success') !!}
+        <i class="lasla-check-circle"></i> {!! session('success') !!}
     </div>
 @endif
 
 @if(session('error'))
     <div class="alert alert-danger">
-        <i class="la la-info-circle"></i> {!! session('error') !!}
+        <i class="lasla-info-circle"></i> {!! session('error') !!}
     </div>
 @endif
 
 @if($errors->count() > 0)
     <div class="alert alert-danger">
-        <i class="la la-info-circle"></i> @lang('admin.form_error')
+        <i class="lasla-info-circle"></i> @lang('admin.form_error')
     </div>
 @endif

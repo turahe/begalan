@@ -18,18 +18,18 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="paypal-payment-tab" data-toggle="pill" href="#paypal-payment">
-                    <i class="la la-paypal"></i>PayPal
+                    <i class="lasla-paypal"></i>PayPal
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="bank-payment-tab" data-toggle="pill" href="#bank-payment">
-                    <i class="la la-university"></i>
+                    <i class="lasla-university"></i>
                     Bank Payment
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="offline-payment-tab" data-toggle="pill" href="#offline-payment">
-                    <i class="la la-wallet"></i>
+                    <i class="lasla-wallet"></i>
                     Offline Payment
                 </a>
             </li>

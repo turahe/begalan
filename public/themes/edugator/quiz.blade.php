@@ -20,10 +20,10 @@
                             <h4 class="mb-4">Instructions</h4>
 
                             <p class="assignment-basic-info mb-2">
-                                <span class="mr-4"> <i class="la la-clock"></i> <strong> Duration : </strong> {{$quiz->option('time_limit')}} Minutes </span>
+                                <span class="mr-4"> <i class="las la-clock"></i> <strong> Duration : </strong> {{$quiz->option('time_limit')}} Minutes </span>
 
-                                <span class="mr-4"><i class="la la-chart-pie"></i> <strong> Total Questions : </strong> {{$quiz->option('questions_limit')}}</span>
-                                <span class="mr-4"><i class="la la-check-circle"></i> <strong> Minimum Pass Score : </strong> {{$quiz->option('passing_score')}}%</span>
+                                <span class="mr-4"><i class="las la-chart-pie"></i> <strong> Total Questions : </strong> {{$quiz->option('questions_limit')}}</span>
+                                <span class="mr-4"><i class="las la-check-circle"></i> <strong> Minimum Pass Score : </strong> {{$quiz->option('passing_score')}}%</span>
                             </p>
 
                             <p class="font-italic text-muted m-0">
@@ -41,7 +41,7 @@
                             </div>
                             <div id="start-quiz-btn-wrapper" class="mt-5">
                                 <button id="btn-start-quiz" class="btn btn-success btn-lg" data-quiz-id="{{$quiz->id}}">
-                                    <i class="la la-play-circle"></i> Continue Quiz
+                                    <i class="las la-play-circle"></i> Continue Quiz
                                 </button>
                             </div>
                         @endif
@@ -49,7 +49,7 @@
                         @if($attempt->status === 'in_review')
                             <div class="bg-light-sky p-4 border d-flex quiz-submitted-alert">
                                 <h1 class="mr-3">
-                                    <i class="la la-info-circle"></i>
+                                    <i class="las la-info-circle"></i>
                                 </h1>
                                 <div>
                                     <h3>Quiz result in review</h3>
@@ -62,10 +62,10 @@
 
                             <div class="quiz-attempt-time-wrap bg-white p-2 border mb-3">
                                 <p class="mb-0">
-                                    <strong><i class="la la-clock"></i> Start time:</strong> {{$attempt->created_at->format(date_time_format())}},
-                                    <strong><i class="la la-clock"></i> End time:</strong> {{$attempt->ended_at->format(date_time_format())}},
+                                    <strong><i class="las la-clock"></i> Start time:</strong> {{$attempt->created_at->format(date_time_format())}},
+                                    <strong><i class="las la-clock"></i> End time:</strong> {{$attempt->ended_at->format(date_time_format())}},
                                     <span class="text-info">
-                    <strong><i class="la la-clock"></i> Time Required:</strong>
+                    <strong><i class="las la-clock"></i> Time Required:</strong>
                     {{$attempt->ended_at->diffInMinutes($attempt->created_at)}} {{__t('minutes')}}
                 </span>
                                 </p>
@@ -119,9 +119,9 @@
                                     <li class="list-group-item">
                                         <p class="mb-2"><strong>Result</strong></p>
                                         @if($attempt->earned_percent >= $passing_percent)
-                                            <p class="mb-1 text-success"> <strong> <i class="la la-check-circle"></i> Passed</strong> </p>
+                                            <p class="mb-1 text-success"> <strong> <i class="las la-check-circle"></i> Passed</strong> </p>
                                         @else
-                                            <p class="mb-1 text-danger"> <strong> <i class="la la-exclamation-circle"></i> Failed</strong> </p>
+                                            <p class="mb-1 text-danger"> <strong> <i class="las la-exclamation-circle"></i> Failed</strong> </p>
                                         @endif
                                     </li>
                                     <li class="list-group-item">
@@ -138,13 +138,13 @@
                             <div class="quiz-result-gretings">
                                 @if($attempt->passed)
                                     <div class="bg-success text-white p-3 border text-center">
-                                        <span class="greetings-icon"><i class="la la-trophy"></i> </span>
+                                        <span class="greetings-icon"><i class="las la-trophy"></i> </span>
                                         <h2>Congratulations</h2>
                                         <h3 class="mb-3">You passed with <strong>{{$passing_score}} ({{$passing_percent}}%)</strong> Score</h3>
                                     </div>
                                 @else
                                     <div class="bg-warning p-3 border text-center">
-                                        <span class="greetings-icon"><i class="la la-exclamation-circle"></i> </span>
+                                        <span class="greetings-icon"><i class="las la-exclamation-circle"></i> </span>
                                         <h2>Failed</h2>
                                         <h3 class="mb-3">Unfortunately, you could not passed at this time.</h3>
                                     </div>
@@ -172,10 +172,10 @@
                                                 <div class="view-attempted-answer border p-3 mb-3">
 
                                                     <p class="text-success mb-0">
-                                                        <span class="badge badge-info mr-3"> <i class="la la-question-{{$qtype}}"></i> {{$qtype}}</span>
+                                                        <span class="badge badge-info mr-3"> <i class="las la-question-{{$qtype}}"></i> {{$qtype}}</span>
 
                                                         @if($answer->is_correct)
-                                                            <span class="text-success"><i class="la la-check-circle"></i> Correct</span>
+                                                            <span class="text-success"><i class="las la-check-circle"></i> Correct</span>
                                                         @endif
 
                                                     </p>
@@ -194,12 +194,12 @@
                                                         @endphp
 
                                                         @if($qtype === 'radio' &&  $answer->answer)
-                                                            <p class="mb-0"> <i class="la la-question-{{$qtype}}"></i>
+                                                            <p class="mb-0"> <i class="las la-question-{{$qtype}}"></i>
                                                                 {{array_get($options, $answer->answer)}}
                                                             </p>
                                                         @elseif($qtype === 'checkbox' &&  $answer->answer)
                                                             @foreach(json_decode($answer->answer, true) as $answeredKey)
-                                                                <p class="mb-0"> <i class="la la-question-{{$qtype}}"></i> {{array_get($options, $answeredKey)}}</p>
+                                                                <p class="mb-0"> <i class="las la-question-{{$qtype}}"></i> {{array_get($options, $answeredKey)}}</p>
                                                             @endforeach
                                                         @endif
                                                     @endif
@@ -219,7 +219,7 @@
                     @else
                         <div id="start-quiz-btn-wrapper" class="mt-5">
                             <button id="btn-start-quiz" class="btn btn-success btn-lg" data-quiz-id="{{$quiz->id}}">
-                                <i class="la la-play-circle"></i> Start Quiz
+                                <i class="las la-play-circle"></i> Start Quiz
                             </button>
                         </div>
                     @endif
@@ -229,7 +229,7 @@
             @else
                 <div class="lecture-contents-locked text-center mt-5">
                     <div class="lecture-lock-icon mb-4">
-                        <i class="la la-lock"></i>
+                        <i class="las la-lock"></i>
                     </div>
                     <h4 class="lecture-lock-title mb-4">{{__t('content_locked')}}</h4>
                     @if( ! auth()->check())

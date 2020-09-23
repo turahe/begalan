@@ -19,6 +19,7 @@ class AuthController extends Controller
 
     /**
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function login()
     {

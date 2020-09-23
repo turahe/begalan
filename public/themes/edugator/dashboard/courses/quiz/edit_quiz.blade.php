@@ -2,18 +2,18 @@
 
     <div class="new-quiz-form-header d-flex mb-3 pb-3 border-bottom">
         <h5 class="flex-grow-1">{{__t('edit_'.$item->item_type)}}</h5>
-        <a href="javascript:;" class="btn btn-outline-dark btn-sm btn-cancel-form" ><i class="la la-close"></i> </a>
+        <a href="javascript:;" class="btn btn-outline-dark btn-sm btn-cancel-form" ><i class="las la-close"></i> </a>
     </div>
 
     <div class="curriculum-item-edit-tab list-group list-group-horizontal-md mb-3 text-center  ">
         <a href="javascript:;" data-tab="#quiz-basic" class="list-group-item list-tab-item list-group-item-action list-group-item-secondary active ">
-            <i class="la la-file-text"></i> {{__t('basic')}}
+            <i class="las la-file-text"></i> {{__t('basic')}}
         </a>
         <a href="javascript:;" id="quiz-questions-tab-item" data-tab="#quiz-questions" class="list-group-item list-tab-item list-group-item-action list-group-item-secondary ">
-            <i class="la la-question-circle"></i> {{__t('questions')}}
+            <i class="las la-question-circle"></i> {{__t('questions')}}
         </a>
         <a href="javascript:;" data-tab="#quiz-settings" class="list-group-item list-tab-item list-group-item-action list-group-item-secondary ">
-            <i class="la la-cog"></i> {{__t('settings')}}
+            <i class="las la-cog"></i> {{__t('settings')}}
         </a>
     </div>
 
@@ -36,7 +36,7 @@
             <!-- Quiz Save Button -->
             <div class="form-group">
                 <button type="button" class="btn btn-outline-info btn-cancel-form"> {{__t('cancel')}}</button>
-                <button type="submit" class="btn btn-info btn-edit-quiz"  name="save" value="save_next"> <i class="la la-save"></i> {{__t('save_'.$item->item_type)}}</button>
+                <button type="submit" class="btn btn-info btn-edit-quiz"  name="save" value="save_next"> <i class="las la-save"></i> {{__t('save_'.$item->item_type)}}</button>
             </div>
 
         </div>
@@ -48,7 +48,7 @@
             </div>
 
             <button type="button" id="quiz-add-question-btn" class="btn btn-success btn-lg btn-block mt-5">
-                <i class="la la-plus-circle"></i> Add Question
+                <i class="las la-plus-circle"></i> Add Question
             </button>
 
 
@@ -111,7 +111,7 @@
                 <!-- Quiz Save Button -->
                 <div class="form-group">
                     <button type="button" class="btn btn-outline-info btn-cancel-form"> {{__t('cancel')}}</button>
-                    <button type="submit" class="btn btn-info btn-edit-quiz"  name="save" value="save_next"> <i class="la la-save"></i> {{__t('save_'.$item->item_type)}}</button>
+                    <button type="submit" class="btn btn-info btn-edit-quiz"  name="save" value="save_next"> <i class="las la-save"></i> {{__t('save_'.$item->item_type)}}</button>
                 </div>
 
             </div>
@@ -168,8 +168,8 @@
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name="options[{index}][title]" value="" placeholder="Option title">
                             <div class="input-group-append">
-                                <a href="javascript:;" class="input-group-text question-opt-trash"><i class="la la-trash"></i> </a>
-                                <a href="javascript:;" class="input-group-text"><i class="la la-sort"></i> </a>
+                                <a href="javascript:;" class="input-group-text question-opt-trash"><i class="las la-trash"></i> </a>
+                                <a href="javascript:;" class="input-group-text"><i class="las la-sort"></i> </a>
                             </div>
                         </div>
 
@@ -252,22 +252,22 @@
                     <div class="form-group option-type-selection-wrapper">
                         <input type="radio" id="input_option_type_radio" name="question_type" class="d-none" value="radio">
                         <label class="px-3 py-2" for="input_option_type_radio">
-                            <i class="la la-dot-circle"></i> Single Choice
+                            <i class="las la-dot-circle"></i> Single Choice
                         </label>
 
                         <input type="radio" id="input_option_type_checkbox" name="question_type"  class="d-none" value="checkbox">
                         <label class="px-3 py-2" for="input_option_type_checkbox">
-                            <i class="la la-check-square"></i> Multiple Choice
+                            <i class="las la-check-square"></i> Multiple Choice
                         </label>
 
                         <input type="radio" id="input_option_type_text" name="question_type" class="d-none" value="text">
                         <label class="px-3 py-2" for="input_option_type_text">
-                            <i class="la la-pencil-square"></i> Single Line Text
+                            <i class="las la-pencil-square"></i> Single Line Text
                         </label>
 
                         <input type="radio" id="input_option_type_textarea" name="question_type" class="d-none" value="textarea">
                         <label class="px-3 py-2" for="input_option_type_textarea">
-                            <i class="la la-file-text"></i> Multi Line Text
+                            <i class="las la-file-text"></i> Multi Line Text
                         </label>
                     </div>
 
@@ -277,7 +277,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-purple"><i class="la la-save"></i> Save Question</button>
+                    <button type="submit" class="btn btn-purple"><i class="las la-save"></i> Save Question</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>

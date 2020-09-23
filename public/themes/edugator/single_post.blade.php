@@ -78,15 +78,15 @@
                                 @endif
 
                                 <p class="instructor-stat-value mb-1">
-                                    <i class="la la-play-circle"></i>
+                                    <i class="las la-play-circle"></i>
                                     <strong>{{$courses_count}}</strong> {{__t('courses')}}
                                 </p>
                                 <p class="instructor-stat-value mb-1">
-                                    <i class="la la-user-circle"></i>
+                                    <i class="las la-user-circle"></i>
                                     <strong>{{$students_count}}</strong> {{__t('students')}}
                                 </p>
                                 <p class="instructor-stat-value mb-1">
-                                    <i class="la la-comments"></i>
+                                    <i class="las la-comments"></i>
                                     <strong>{{$instructor_rating->rating_count}} </strong> {{__t('reviews')}}
                                 </p>
                             </div>

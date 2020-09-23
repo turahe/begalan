@@ -16,7 +16,7 @@ $reqList = [
 
 $strOk = '<i class="icon-ok la la-check-circle"></i>';
 $strFail = '<i class="icon-remove la la-times-circle-o"></i>';
-$strUnknown = '<i class="la la-question"></i>';
+$strUnknown = '<i class="lasla-question"></i>';
 
 $requirements = [];
 

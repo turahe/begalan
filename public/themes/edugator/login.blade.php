@@ -73,19 +73,19 @@
                             <div class="social-login-wrap mb-4 text-center">
                                 @if(get_option('social_login.facebook.enable'))
                                     <a href="{{ route('facebook_redirect') }}" class="social-login-item btn-facebook">
-                                        <i class="la la-facebook"></i> Facebook
+                                        <i class="las la-facebook"></i> Facebook
                                     </a>
                                 @endif
 
                                 @if(get_option('social_login.google.enable'))
                                     <a href="{{ route('google_redirect') }}" class="social-login-item btn-google">
-                                        <i class="la la-google"></i> Google
+                                        <i class="las la-google"></i> Google
                                     </a>
                                 @endif
 
                                 @if(get_option('social_login.twitter.enable'))
                                     <a href="{{ route('twitter_redirect') }}" class="social-login-item btn-twitter">
-                                        <span class="hidden-xs"><i class="la la-twitter"></i> Twitter</span>
+                                        <span class="hidden-xs"><i class="las la-twitter"></i> Twitter</span>
                                     </a>
                                 @endif
 
@@ -93,7 +93,7 @@
 
                                     @if(get_option('social_login.twitter.enable'))
                                         <a href="{{ route('linkedin_redirect') }}" class="social-login-item btn-linkedin">
-                                            <span class="hidden-xs"><i class="la la-linkedin-square"></i> LinkedIn</span>
+                                            <span class="hidden-xs"><i class="las la-linkedin-square"></i> LinkedIn</span>
                                         </a>
                                     @endif
                                 @endif

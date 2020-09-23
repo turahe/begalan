@@ -47,7 +47,7 @@
                             <span class="text-warning" data-toggle="tooltip" title="{!!$purchase->status!!}"><i class="fa fa-exclamation-circle"></i> </span>
                         @endif
 
-                        <a href="{!!route('purchase_view', $purchase->id)!!}" class="btn btn-info"><i class="la la-eye"></i> </a>
+                        <a href="{!!route('purchase_view', $purchase->id)!!}" class="btn btn-info"><i class="las la-eye"></i> </a>
                     </td>
 
                 </tr>

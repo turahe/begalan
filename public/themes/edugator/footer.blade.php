@@ -14,9 +14,9 @@
                             Teachers crate high quality course and present them in super easy way.
                         </p>
                         <p class="footer-social-icon-wrap">
-                            <a href="#"><i class="la la-facebook"></i> </a>
-                            <a href="#"><i class="la la-twitter"></i> </a>
-                            <a href="#"><i class="la la-youtube"></i> </a>
+                            <a href="#"><i class="las la-facebook"></i> </a>
+                            <a href="#"><i class="las la-twitter"></i> </a>
+                            <a href="#"><i class="las la-youtube"></i> </a>
                         </p>
                     </div>
                 </div>
@@ -109,6 +109,10 @@
 @if( ! auth()->check() && request()->path() != 'login')
     @include(theme('template-part.login-modal-form'))
 @endif
+
+{{--<script src="{{ mix('js/manifest.js') }}"></script>--}}
+{{--<script src="{{ mix('js/vendor.js') }}"></script>--}}
+{{--<script src="{{ mix('js/app.js') }}"></script>--}}
 
 <!-- jquery latest version -->
 <script src="{{asset('assets/js/vendor/jquery-1.12.0.min.js')}}"></script>

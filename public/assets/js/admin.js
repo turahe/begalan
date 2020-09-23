@@ -49,7 +49,7 @@ $(function() {
 
     function fa_icon_format(icon) {
         var originalOption = icon.element;
-        return '<i class="la ' + $(originalOption).data('icon') + '"></i> ' + icon.text;
+        return '<i class="las ' + $(originalOption).data('icon') + '"></i> ' + icon.text;
     }
     $("select.select2icon").select2({
         templateResult: fa_icon_format,
@@ -73,7 +73,7 @@ $(function() {
         }
 
         if ( (admin_share + instructor_share) > 100){
-            var shareExceedText = '<p class="bg-dark text-white p-3 mt-3"> <i class="la la-info-circle"></i> Please make sure that (admin share + instructor share) should be <strong>100</strong>, no more, no less</p>';
+            var shareExceedText = '<p class="bg-dark text-white p-3 mt-3"> <i class="las la-info-circle"></i> Please make sure that (admin share + instructor share) should be <strong>100</strong>, no more, no less</p>';
             $('#share_input_response').html(shareExceedText);
         }else{
             $('#share_input_response').html('');

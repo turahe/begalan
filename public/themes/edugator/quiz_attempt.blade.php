@@ -8,7 +8,7 @@
     @endphp
 
     <div class="question-top-nav py-3 px-4 bg-dark-blue text-white">
-        <h4 class="m-0"><i class="la la-clipboard-list"></i> {{$quiz->title}}</h4>
+        <h4 class="m-0"><i class="las la-clipboard-list"></i> {{$quiz->title}}</h4>
     </div>
 
     <div class="quiz-wrap mt-4">
@@ -30,7 +30,7 @@
                         @endif
 
                         <h2 class="question-title d-flex mb-3">
-                            <span><i class="la la-question-circle mr-3"></i></span>
+                            <span><i class="las la-question-circle mr-3"></i></span>
                             <span>{{$question->title}}</span>
                         </h2>
 
@@ -62,9 +62,9 @@
 
                         <button type="submit" name="question-submit-btn" class="btn btn-dark-blue btn-lg question-submit-btn">
                             @if($q_number == $q_limit)
-                                Finish <i class="la la-angle-right"></i>
+                                Finish <i class="las la-angle-right"></i>
                             @else
-                                Next <i class="la la-angle-right"></i>
+                                Next <i class="las la-angle-right"></i>
                             @endif
                         </button>
 

@@ -4,7 +4,7 @@
     <div class="section-payment-methods-wrap">
         <h4>{{__t('payment_information')}}</h4>
 
-        <p class="text-muted"> <i class="la la-lock"></i> {{__t('payment_secure_text')}}</p>
+        <p class="text-muted"> <i class="las la-lock"></i> {{__t('payment_secure_text')}}</p>
 
         <div class="checkout-section checkout-payment-methods-wrap bg-white p-4 mt-3">
 
@@ -13,7 +13,7 @@
                 @if(get_option('enable_stripe'))
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="pill" href="#payment-tab-card">
-                            <i class="la la-credit-card"></i> Credit Card
+                            <i class="las la-credit-card"></i> Credit Card
                         </a>
                     </li>
                 @endif
@@ -21,7 +21,7 @@
                 @if(get_option('enable_paypal'))
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="#payment-tab-paypal">
-                            <i class="la la-paypal"></i> PayPal
+                            <i class="las la-paypal"></i> PayPal
                         </a>
                     </li>
                 @endif
@@ -29,7 +29,7 @@
                 @if(get_option('bank_gateway.enable_bank_transfer'))
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="#payment-tab-bank">
-                            <i class="la la-university"></i>  Bank Transfer
+                            <i class="las la-university"></i>  Bank Transfer
                         </a>
                     </li>
                 @endif
@@ -38,7 +38,7 @@
                 @if(get_option('enable_offline_payment'))
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="#payment-tab-offline">
-                            <i class="la la-wallet"></i>  Offline Payment
+                            <i class="las la-wallet"></i>  Offline Payment
                         </a>
                     </li>
                 @endif
@@ -81,7 +81,7 @@
                                 <p>
                                     <button type="submit" class="btn btn-purple btn-lg" id="paypal-payment-form-btn">
                                         <span class="enroll-course-btn-text mr-4 border-right pr-4">
-                                            <i class="la la-paypal"></i> Pay with PayPal
+                                            <i class="las la-paypal"></i> Pay with PayPal
                                         </span>
                                         <span class="enroll-course-btn-price">
                                             {!! price_format($cart->total_amount) !!}
@@ -126,7 +126,7 @@
                                 <p>
                                     <button type="submit" class="btn btn-purple btn-lg" id="offline-payment-form-btn">
                                         <span class="enroll-course-btn-text mr-4 border-right pr-4">
-                                            <i class="la la-wallet"></i> Pay with Offline Payment
+                                            <i class="las la-wallet"></i> Pay with Offline Payment
                                         </span>
                                         <span class="enroll-course-btn-price">
                                             {!! price_format($cart->total_amount) !!}
@@ -148,6 +148,6 @@
 
 @else
     <div class="alert alert-warning">
-        <i class="la la-exclamation-circle"></i> There is no payment gateway available to complete purchase.
+        <i class="las la-exclamation-circle"></i> There is no payment gateway available to complete purchase.
     </div>
 @endif

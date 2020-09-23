@@ -51,7 +51,7 @@
     @if( ! $user->withdraw_method)
         <div class="alert alert-warning">You did not select any withdraw method yet. Please select a withdraw method to process your withdraw.</div>
 
-        <a href="{{route('withdraw_preference')}}" class="btn btn-outline-info"> <i class="la la-cash-register"></i> Set Withdraw Method</a>
+        <a href="{{route('withdraw_preference')}}" class="btn btn-outline-info"> <i class="las la-cash-register"></i> Set Withdraw Method</a>
     @else
 
         <h4 class="mb-4">Enter withdrawal details</h4>

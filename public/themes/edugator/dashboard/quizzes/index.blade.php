@@ -41,7 +41,7 @@
                     <td>{!! $course->price_html() !!}</td>
                     <td>
                         <a href="{{route('courses_quizzes', $course->id)}}" class="btn btn-dark-blue">
-                            <i class="la la-check-double"></i> {{__t('quizzes')}} </a>
+                            <i class="las la-check-double"></i> {{__t('quizzes')}} </a>
                     </td>
                 </tr>
 

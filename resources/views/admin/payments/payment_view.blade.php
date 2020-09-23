@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
 @section('page-header-right')
-    <a href="{{route('payments')}}" data-toggle="tooltip" title="{{__a('payments')}}"> <i class="la la-arrow-circle-left"></i> {{__a('back_to_payments')}} </a>
+    <a href="{{route('payments')}}" data-toggle="tooltip" title="{{__a('payments')}}">
+        <i class="las la-arrow-circle-left"></i>
+        {{__a('back_to_payments')}}
+    </a>
 @endsection
 
 @section('content')
@@ -70,9 +73,12 @@
                         <td>
 
                             @if($course->status == 1)
-                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank"><i class="la la-eye"></i> {{__t('view')}} </a>
+                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank">
+                                    <i class="lasla-eye"></i>
+                                    {{__t('view')}}
+                                </a>
                             @else
-                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple mt-2" target="_blank"><i class="la la-eye"></i> {{__t('preview')}} </a>
+                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple mt-2" target="_blank"><i class="lasla-eye"></i> {{__t('preview')}} </a>
                             @endif
 
                         </td>

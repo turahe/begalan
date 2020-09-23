@@ -15,7 +15,7 @@
         <div class="col-lg-4 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-user"></i> </span>
+                    <span><i class="las la-user"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -28,7 +28,7 @@
         <div class="col-lg-4 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-heart"></i> </span>
+                    <span><i class="las la-heart"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -41,7 +41,7 @@
         <div class="col-lg-4 col-md-6">
             <div class="dashboard-card mb-3 d-flex border p-3 bg-light">
                 <div class="card-icon mr-2">
-                    <span><i class="la la-star-half-alt"></i> </span>
+                    <span><i class="las la-star-half-alt"></i> </span>
                 </div>
 
                 <div class="card-info">
@@ -102,7 +102,7 @@
                             <span class="text-warning" data-toggle="tooltip" title="{!!$purchase->status!!}"><i class="fa fa-exclamation-circle"></i> </span>
                         @endif
 
-                        <a href="{!!route('purchase_view', $purchase->id)!!}" class="btn btn-info"><i class="la la-eye"></i> </a>
+                        <a href="{!!route('purchase_view', $purchase->id)!!}" class="btn btn-info"><i class="las la-eye"></i> </a>
                     </td>
                 </tr>
             @endforeach

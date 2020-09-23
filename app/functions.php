@@ -1625,15 +1625,15 @@ if (! function_exists('star_rating_generator')) {
             $intRating = (int)$current_rating;
 
             if ($intRating >= $i) {
-                $output .= '<i class="la la-star" data-rating-value="' . $i . '"></i>';
+                $output .= '<i class="las la-star" data-rating-value="' . $i . '"></i>';
             } else {
                 $fraction = 1 - ($i - $current_rating);
                 if ($fraction > 0.69) {
-                    $output .= '<i class="la la-star" data-rating-value="' . $i . '"></i>';
+                    $output .= '<i class="las la-star" data-rating-value="' . $i . '"></i>';
                 } elseif ($fraction > 0.39) {
-                    $output .= '<i class="la la-star-half-alt" data-rating-value="' . $i . '"></i>';
+                    $output .= '<i class="las la-star-half-alt" data-rating-value="' . $i . '"></i>';
                 } else {
-                    $output .= '<i class="la la-star-o" data-rating-value="' . $i . '"></i>';
+                    $output .= '<i class="las la-star-o" data-rating-value="' . $i . '"></i>';
                 }
             }
         }

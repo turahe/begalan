@@ -67,7 +67,7 @@
                 <textarea class="form-control" name="message" rows="5"></textarea>
                 {!! form_error($errors, 'message')->message !!}
             </div>
-            <button type="submit" class="btn btn-purple"><i class="la la-question-circle-o"></i> {{__t('send_reply')}} </button>
+            <button type="submit" class="btn btn-purple"><i class="las la-question-circle-o"></i> {{__t('send_reply')}} </button>
         </form>
     </div>
 

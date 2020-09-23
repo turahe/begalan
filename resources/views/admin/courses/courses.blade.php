@@ -2,11 +2,11 @@
 
 @section('page-header-right')
 
-    <a href="{{route('admin_courses', ['filter_by' => 'popular'])}}" class="ml-4"> <i class="la la-bolt"></i> {{__a('popular_courses')}}  </a>
-    <a href="{{route('admin_courses', ['filter_by' => 'featured'])}}" class="ml-4"> <i class="la la-bookmark"></i> {{__a('featured_courses')}}  </a>
+    <a href="{{route('admin_courses', ['filter_by' => 'popular'])}}" class="ml-4"> <i class="lasla-bolt"></i> {{__a('popular_courses')}}  </a>
+    <a href="{{route('admin_courses', ['filter_by' => 'featured'])}}" class="ml-4"> <i class="lasla-bookmark"></i> {{__a('featured_courses')}}  </a>
 
     @if(count(request()->input()))
-        <a href="{{route('admin_courses')}}" class="ml-4"> <i class="la la-arrow-circle-left"></i> {{__a('reset_filter')}}  </a>
+        <a href="{{route('admin_courses')}}" class="ml-4"> <i class="lasla-arrow-circle-left"></i> {{__a('reset_filter')}}  </a>
     @endif
 @endsection
 
@@ -29,25 +29,25 @@
                         </select>
 
                         <button type="submit" name="bulk_action_btn" value="update_status" class="btn btn-primary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{__a('update')}}
+                            <i class="lasla-refresh"></i> {{__a('update')}}
                         </button>
 
                         <button type="submit" name="bulk_action_btn" value="mark_as_popular" class="btn btn-info mt-3 mr-2">
-                            <i class="la la-bolt"></i>{{__a('mark_as_popular')}}
+                            <i class="lasla-bolt"></i>{{__a('mark_as_popular')}}
                         </button>
 
                         <button type="submit" name="bulk_action_btn" value="remove_from_popular" class="btn btn-warning mt-3 mr-2">
-                            <i class="la la-bolt"></i> {{__a('remove_from_popular')}}
+                            <i class="lasla-bolt"></i> {{__a('remove_from_popular')}}
                         </button>
 
                         <button type="submit" name="bulk_action_btn" value="mark_as_feature" class="btn btn-dark mt-3 mr-2">
-                            <i class="la la-bookmark"></i> {{__a('mark_as_feature')}}
+                            <i class="lasla-bookmark"></i> {{__a('mark_as_feature')}}
                         </button>
                         <button type="submit" name="bulk_action_btn" value="remove_from_feature" class="btn btn-warning mt-3 mr-2">
-                            <i class="la la-bolt"></i> {{__a('remove_from_feature')}}
+                            <i class="lasla-bolt"></i> {{__a('remove_from_feature')}}
                         </button>
 
-                        <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm mt-3"> <i class="la la-trash"></i> {{__a('delete')}}</button>
+                        <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm mt-3"> <i class="lasla-trash"></i> {{__a('delete')}}</button>
 
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                                 <option value="4" {{selected('4', request('filter_status'))}} >unpublish</option>
                             </select>
 
-                            <button type="submit" class="btn btn-primary btn-purple"><i class="la la-search-plus"></i> Filter results</button>
+                            <button type="submit" class="btn btn-primary btn-purple"><i class="lasla-search-plus"></i> Filter results</button>
                         </div>
 
                     </div>
@@ -127,9 +127,9 @@
                         <td>
 
                             @if($course->status == 1)
-                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank"><i class="la la-eye"></i> {{__t('view')}} </a>
+                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank"><i class="lasla-eye"></i> {{__t('view')}} </a>
                             @else
-                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple mt-2" target="_blank"><i class="la la-eye"></i> {{__t('preview')}} </a>
+                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple mt-2" target="_blank"><i class="lasla-eye"></i> {{__t('preview')}} </a>
                             @endif
 
                         </td>

@@ -2,7 +2,7 @@
 
 @section('page-header-right')
     @if(count(request()->input()))
-        <a href="{{route('payments')}}"> <i class="la la-arrow-circle-left"></i> {{__a('reset_filter')}}  </a>
+        <a href="{{route('payments')}}"> <i class="lasla-arrow-circle-left"></i> {{__a('reset_filter')}}  </a>
     @endif
 @endsection
 
@@ -28,7 +28,7 @@
                     </select>
 
                     <button type="submit" name="bulk_action_btn" value="update_status" class="btn btn-primary mr-2">{{__a('update')}}</button>
-                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="la la-trash"></i> {{__a('delete')}}</button>
+                    <button type="submit" name="bulk_action_btn" value="delete" class="btn btn-danger delete_confirm"> <i class="lasla-trash"></i> {{__a('delete')}}</button>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
                             <option value="expired" {{selected('expired', request('filter_status'))}} >expired</option>
                         </select>
 
-                        <button type="submit" class="btn btn-primary btn-purple"><i class="la la-search-plus"></i> Filter results</button>
+                        <button type="submit" class="btn btn-primary btn-purple"><i class="lasla-search-plus"></i> Filter results</button>
                     </div>
                 </div>
             </div>
@@ -111,8 +111,8 @@
                                 <span class="text-warning" data-toggle="tooltip" title="{!!$payment->status!!}"><i class="fa fa-exclamation-circle"></i> </span>
                             @endif
 
-                            <a href="{!!route('payment_view', $payment->id)!!}" class="btn btn-info"><i class="la la-eye"></i> </a>
-                            <a href="{!!route('payment_delete', $payment->id)!!}" class="btn btn-danger delete_confirm"><i class="la la-trash"></i> </a>
+                            <a href="{!!route('payment_view', $payment->id)!!}" class="btn btn-info"><i class="lasla-eye"></i> </a>
+                            <a href="{!!route('payment_delete', $payment->id)!!}" class="btn btn-danger delete_confirm"><i class="lasla-trash"></i> </a>
                         </td>
 
                     </tr>

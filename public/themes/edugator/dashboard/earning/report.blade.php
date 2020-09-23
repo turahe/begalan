@@ -24,14 +24,14 @@
             <div class="d-flex">
                 <input type="text" class="form-control date_picker" name="date_from" value="{{request('date_from')}}" >
                 <div class="input-group-append" >
-                    <span class="input-group-text" ><i class="la la-calendar"></i> </span>
+                    <span class="input-group-text" ><i class="las la-calendar"></i> </span>
                 </div>
             </div>
 
             <div class="d-flex">
                 <input type="text" class="form-control date_picker" name="date_to" value="{{request('date_to')}}">
                 <div class="input-group-append" >
-                    <span class="input-group-text" ><i class="la la-calendar"></i> </span>
+                    <span class="input-group-text" ><i class="las la-calendar"></i> </span>
                 </div>
             </div>
 
@@ -112,7 +112,7 @@
                             </p>
 
                             @if( ! empty($statement->payment->user))
-                                <h5 class="my-3"><i class="la la-user"></i> Customer</h5>
+                                <h5 class="my-3"><i class="las la-user"></i> Customer</h5>
 
                                 <p class="mb-0">{{$statement->payment->user->name}} </p>
                                 <p class="text-muted mb-0">

@@ -121,7 +121,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="video-upload-wrap text-center">
-                                        <i class="la la-cloud-upload text-muted"></i>
+                                        <i class="las la-cloud-upload text-muted"></i>
                                         <h5>{{__t('upload_video')}}</h5>
                                         <p class="mb-2">File Format:  .mp4</p>
                                         {!! media_upload_form('video[html5_video_id]', __t('upload_video'), null) !!}
@@ -130,7 +130,7 @@
 
                                 <div class="col-md-6">
                                     <div class="video-poster-upload-wrap text-center">
-                                        <i class="la la-image text-muted"></i>
+                                        <i class="las la-image text-muted"></i>
                                         <h5>{{__t('video_poster')}}</h5>
                                         <small class="text-muted mb-3 d-block">Size: 700x430 pixels. Supports: jpg,jpeg, or png</small>
 
@@ -158,7 +158,7 @@
 
 
 
-                <button type="submit" class="btn btn-warning"> <i class="la la-save"></i> {{__t('create_course')}}</button>
+                <button type="submit" class="btn btn-warning"> <i class="las la-save"></i> {{__t('create_course')}}</button>
             </form>
 
         </div>

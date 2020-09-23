@@ -12,9 +12,9 @@ $gridClass = $grid_class ? $grid_class : 'col-md-3';
 
             <button class="course-card-add-wish btn btn-link btn-sm p-0" data-course-id="{{$course->id}}">
                 @if($auth_user && in_array($course->id, $auth_user->get_option('wishlists', []) ))
-                    <i class="la la-heart"></i>
+                    <i class="las la-heart"></i>
                 @else
-                    <i class="la la-heart-o"></i>
+                    <i class="las la-heart-o"></i>
                 @endif
             </button>
         </div>
@@ -23,19 +23,19 @@ $gridClass = $grid_class ? $grid_class : 'col-md-3';
             <a href="{{route('course', $course->slug)}}">
                 <h4 class="course-card-title mb-3">{{$course->title}}</h4>
                 <p class="course-card-short-info mb-2 d-flex justify-content-between">
-                    <span><i class="la la-play-circle"></i> {{$course->total_lectures}} {{__t('lectures')}}</span>
-                    <span><i class="la la-signal"></i> {{course_levels($course->level)}}</span>
+                    <span><i class="las la-play-circle"></i> {{$course->total_lectures}} {{__t('lectures')}}</span>
+                    <span><i class="las la-signal"></i> {{course_levels($course->level)}}</span>
                 </p>
             </a>
 
             <div class="course-card-info-wrap">
                 <p class="course-card-author d-flex justify-content-between">
                     <span>
-                        <i class="la la-user"></i> by <a href="{{route('profile', $course->user_id)}}">{{$course->author->name}}</a>
+                        <i class="las la-user"></i> by <a href="{{route('profile', $course->user_id)}}">{{$course->author->name}}</a>
                     </span>
                     @if($course->category)
                         <span>
-                            <i class="la la-folder"></i> in <a href="{{route('category_view', $course->category->slug)}}">{{$course->category->category_name}}</a>
+                            <i class="las la-folder"></i> in <a href="{{route('category_view', $course->category->slug)}}">{{$course->category->category_name}}</a>
                         </span>
                     @endif
                 </p>
@@ -63,7 +63,7 @@ $gridClass = $grid_class ? $grid_class : 'col-md-3';
                                 @if($in_cart)
                                     <i class='la la-check-circle'></i> {{__t('in_cart')}}
                                 @else
-                                    <i class="la la-shopping-cart"></i> {{__t('add_to_cart')}}
+                                    <i class="las la-shopping-cart"></i> {{__t('add_to_cart')}}
                                 @endif
                             </button>
                         @endif

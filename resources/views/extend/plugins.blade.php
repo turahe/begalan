@@ -2,7 +2,7 @@
 
 
 @section('title-after')
-    <a href="{{route('find_plugins')}}" class="btn btn-primary" > <i class="la la-plug"></i> Find new plugins </a>
+    <a href="{{route('find_plugins')}}" class="btn btn-primary" > <i class="lasla-plug"></i> Find new plugins </a>
 @endsection
 
 @section('content')
@@ -85,7 +85,7 @@
 
         <div class="alert alert-light bg-light d-flex">
             <div class="mr-3">
-                <span class="no-plugin-icon"><i class="la la-info-circle"></i></span>
+                <span class="no-plugin-icon"><i class="lasla-info-circle"></i></span>
             </div>
             <div>
                 <h4> No available plugins</h4>

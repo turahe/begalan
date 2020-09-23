@@ -41,18 +41,18 @@
 
                         <div class="courses-action-links mt-1">
                             <a href="{{route('edit_course_information', $course->id)}}" class="font-weight-bold mr-3">
-                                <i class="la la-pencil-square-o"></i> {{__t('edit')}}
+                                <i class="las la-pencil-square-o"></i> {{__t('edit')}}
                             </a>
 
                             @if($course->status == 1)
-                                <a href="{{route('course', $course->slug)}}" class="font-weight-bold mr-3" target="_blank"><i class="la la-eye"></i> {{__t('view')}} </a>
+                                <a href="{{route('course', $course->slug)}}" class="font-weight-bold mr-3" target="_blank"><i class="las la-eye"></i> {{__t('view')}} </a>
                             @else
-                                <a href="{{route('course', $course->slug)}}" class="font-weight-bold mr-3" target="_blank"><i class="la la-eye"></i> {{__t('preview')}} </a>
+                                <a href="{{route('course', $course->slug)}}" class="font-weight-bold mr-3" target="_blank"><i class="las la-eye"></i> {{__t('preview')}} </a>
                             @endif
 
                             @if(route_has('student_progress'))
                                 <a href="{{route('student_progress', $course->id)}}" class="font-weight-bold mr-3">
-                                    <i class="la la-pie-chart"></i>
+                                    <i class="las la-pie-chart"></i>
                                     {{__t('students_progress_report')}}
                                 </a>
                             @endif

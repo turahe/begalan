@@ -88,7 +88,7 @@
             <div class="form-group row">
                 <div class="offset-sm-3">
                     <button type="submit" id="settings_save_btn" class="btn btn-primary">
-                        <i class="la la-save"></i> {{__a('save_settings')}}
+                        <i class="lasla-save"></i> {{__a('save_settings')}}
                     </button>
                 </div>
             </div>

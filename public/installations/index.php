@@ -114,7 +114,7 @@ if (file_exists(custom_base_path().'/.env')) {
 
                 $strOk = '<i class="icon-ok la la-check-circle"></i>';
                 $strFail = '<i class="icon-remove la la-times-circle-o"></i>';
-                $strUnknown = '<i class="la la-question"></i>';
+                $strUnknown = '<i class="las la-question"></i>';
 
                 $requirements = [];
 

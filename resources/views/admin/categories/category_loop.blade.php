@@ -11,16 +11,16 @@
                 <span class="category-loop-icon">
                     @if( ! $category->step)
                         @if($category->icon_class)
-                            <i class="la {{$category->icon_class}}" data-toggle="tooltip" title="Top Category"></i>
+                            <i class="las {{$category->icon_class}}" data-toggle="tooltip" title="Top Category"></i>
                         @else
-                            <i class="la la-arrow-circle-up" data-toggle="tooltip" title="Top Category"></i>
+                            <i class="las la-arrow-circle-up" data-toggle="tooltip" title="Top Category"></i>
                         @endif
                     @endif
                     @if( $category->step == 1 && $i == 1)
-                        <i class="la la-chevron-circle-right"></i>
+                        <i class="las la-chevron-circle-right"></i>
                     @endif
                     @if( $category->step == 2 && $i == 2)
-                        <i class="la la-tag" data-toggle="tooltip" title="Topic"></i>
+                        <i class="las la-tag" data-toggle="tooltip" title="Topic"></i>
                     @endif
                 </span>
             @endfor
@@ -34,7 +34,11 @@
         @endif
     </td>
     <td>
-        <a href="{{route('category_edit', $category->id)}}" class="btn btn-primary btn-sm"><i class="la la-pencil"></i> </a>
-        <a href="{{route('category_view', $category->slug)}}" class="btn btn-outline-info btn-sm" target="_blank"><i class="la la-eye"></i> </a>
+        <a href="{{route('category_edit', $category->id)}}" class="btn btn-primary btn-sm">
+            <i class="las la-pencil"></i>
+        </a>
+        <a href="{{route('category_view', $category->slug)}}" class="btn btn-outline-info btn-sm" target="_blank">
+            <i class="las la-eye"></i>
+        </a>
     </td>
 </tr>

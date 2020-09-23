@@ -89,12 +89,12 @@ class PluginManager
                 dd('Plugin ' . $directoryName . ' must extends the Plugin Base Class');
             }
 
-            if ($plugin->activated) {
-                if (version_compare($plugin->lms_version, $lms_version, '>')) {
-                    add_action('admin_notices', function () use ($plugin, $lms_version) {
+            if ($plugin->activated){
+                if (version_compare($plugin->lms_version, $lms_version,'>')){
+                    add_action('admin_notices', function ()use($plugin, $lms_version){
                         echo "<div class='alert alert-warning d-flex'> <p class='mb-0 mr-2' style='font-size: 35px; line-height: 1'><i class='la la-info-circle'></i></p> <p class='mb-0'> Teachify LMS is running version {$lms_version} but {$plugin->name} requires at least {$plugin->lms_version}, in order to use <strong>{$plugin->name} Plugin</strong>, please update your Teachiy LMS version.  </p> </div>";
                     });
-                } else {
+                }else {
                     $plugin->boot();
                 }
             }
@@ -155,4 +155,5 @@ class PluginManager
     {
         return $this->pluginDirectory;
     }
+
 }

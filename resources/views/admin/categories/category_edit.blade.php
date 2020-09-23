@@ -1,11 +1,17 @@
 @extends('layouts.admin')
 
 @section('page-header-right')
-    <a href="{{route('category_index')}}" class="ml-1 btn btn-secondary btn-xl" data-toggle="tooltip" title="@lang('admin.categories')"> <i class="la la-folder-open"></i> </a>
+    <a href="{{route('category_index')}}" class="ml-1 btn btn-secondary btn-xl" data-toggle="tooltip" title="@lang('admin.categories')">
+        <i class="las la-folder-open"></i>
+    </a>
 
-    <a href="{{route('category_create')}}" class="ml-1 btn btn-primary btn-xl" data-toggle="tooltip" title="@lang('admin.category_add')"> <i class="la la-plus"></i> </a>
+    <a href="{{route('category_create')}}" class="ml-1 btn btn-primary btn-xl" data-toggle="tooltip" title="@lang('admin.category_add')">
+        <i class="las la-plus"></i>
+    </a>
 
-    <button type="submit" form="form-category" class="ml-1 btn btn-success btn-xl" data-toggle="tooltip" title="@lang('admin.save')"> <i class="la la-save"></i> </button>
+    <button type="submit" form="form-category" class="ml-1 btn btn-success btn-xl" data-toggle="tooltip" title="@lang('admin.save')">
+        <i class="las la-save"></i>
+    </button>
 @endsection
 
 @section('content')
@@ -68,7 +74,10 @@
 
                 <div class="form-group row">
                     <div class="col-sm-7 offset-3">
-                        <button type="submit" form="form-category" class="btn btn-success btn-xl" data-toggle="tooltip" title="@lang('admin.save')"> <i class="la la-save"></i> {{__a('save')}} </button>
+                        <button type="submit" form="form-category" class="btn btn-success btn-xl" data-toggle="tooltip" title="@lang('admin.save')">
+                            <i class="las la-save"></i>
+                            {{__a('save')}}
+                        </button>
                     </div>
                 </div>
 
