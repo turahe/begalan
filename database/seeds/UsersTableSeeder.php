@@ -52,6 +52,12 @@ class UsersTableSeeder extends Seeder
             'gender' => 'female',
         ],
         [
+            'name'      => 'Instructor Bertalenta',
+            'email'     => 'instructor@circlecreative.id',
+            'user_type' => 'instructor',
+            'gender' => 'male',
+        ],
+        [
             'name'      => 'Nur Wachid',
             'email'     => 'nur.wachid@circlecreative.id',
             'user_type' => 'instructor',

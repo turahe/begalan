@@ -11,23 +11,23 @@ class OptionSeeder extends Seeder
      */
     public function run()
     {
-        $bank_gateway = array (
+        $bank_gateway = [
             'enable_bank_transfer' => '1',
-        );
-        $payment_gateway_bank_transfer = array (
+        ];
+        $payment_gateway_bank_transfer = [
             'enabled' => '1',
             'title' => 'Direct Bank Transfer',
             'description' => 'Pay via direct bank transfer to process your order',
             'instructions' => 'Please transfer your fund using following Bank Account\\r\\n\\r\\nBank Name: Bank Asia\\r\\nBranch: Mirpur circle 10\\r\\nA\\/C No: 079878765545354',
             'gateway_save_btn' => NULL,
-        );
-        $payment_gateway_cod = array (
+        ];
+        $payment_gateway_cod = [
             'enabled' => '1',
             'title' => 'Cash on delivery',
             'description' => 'Pay upon delivery',
             'instructions' => 'Pay upon delivery to the delivery man',
             'gateway_save_btn' => NULL,
-        );
+        ];
         $withdraw_method = [
             'bank_transfer' =>
                 [
@@ -47,10 +47,10 @@ class OptionSeeder extends Seeder
                 ],
         ];
 
-        $cookie_alert = array (
+        $cookie_alert = [
             'enable' => '1',
             'message' => 'By using WebAcademy you accept our cookies and agree to our privacy policy, including cookie policy. {privacy_policy_url}',
-        );
+        ];
         $social_login = [
             'facebook' =>
                 [
@@ -126,8 +126,8 @@ class OptionSeeder extends Seeder
             'lms_settings' => 'json_encode_value_{"enable_discussion":"1"}',
             'active_plugins' => '{"3":"MultiInstructor","4":"StudentsProgress"}',
             'site_logo' => null,
-            'terms_of_use_page' => '7',
-            'privacy_policy_page' => '8',
+            'terms_of_use_page' => 1,
+            'privacy_policy_page' => 4,
             'about_us_page' => '3',
             'cookie_alert' => json_encode($cookie_alert),
             'social_login' => json_encode($social_login),
