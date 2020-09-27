@@ -88,7 +88,6 @@ Route::group(['middleware' => ['auth'] ], function () {
     Route::group(['prefix' => 'checkout' ], function () {
         Route::get('/', 'CartController@checkout')->name('checkout');
         Route::post('bank-transfer', 'GatewayController@bankPost')->name('bank_transfer_submit');
-        Route::post('midtrans', 'GatewayController@midtransCharge')->name('midtrans_submit');
         Route::post('paypal', 'GatewayController@paypalRedirect')->name('paypal_redirect');
         Route::post('offline', 'GatewayController@payOffline')->name('pay_offline');
     });
@@ -118,6 +117,7 @@ Route::post('remove-cart', 'CartController@removeCart')->name('remove_cart');
  */
 Route::group(['prefix' => 'gateway-ipn' ], function () {
     Route::post('stripe', 'GatewayController@stripeCharge')->name('stripe_charge');
+    Route::post('midtrans', 'GatewayController@midtransCharge')->name('midtrans_submit');
     Route::any('paypal/{transaction_id?}', 'IPNController@paypalNotify')->name('paypal_notify');
 });
 

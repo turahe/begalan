@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Midtrans\MidtransRequest;
 use App\Jobs\SendMailOrderReceived;
 use App\Payment;
+use Midtrans\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Charge;
@@ -143,16 +143,32 @@ class GatewayController extends Controller
         return redirect(route('payment_thank_you_page'));
     }
 
-    public function midtransCharge(MidtransRequest $request)
+    public function midtransCharge(Request $request)
     {
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-// Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-// Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-// Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+        $payload = $request->getContent();
+        $notification = json_decode($payload);
+
+        $user = Auth::user();
+        $currency = get_option('currency_sign');
+        $transaction_id = 'tran_'.time().str_random(6);
+
+//        dd($notification->status_code);
+        $payments_data = [
+            'name'                  => $user->name,
+            'email'                 => $user->email,
+            'user_id'               => $user->id,
+            'amount'                => $notification->gross_amount,
+            'payment_method'        => $notification->payment_type,
+            'status'                => $notification->transaction_status,
+            'currency'              => $currency,
+            'local_transaction_id'  => $transaction_id,
+
+        ];
+        //Create payment and clear it from session
+        Payment::create_and_sync($payments_data);
+        $this->dispatch( new SendMailOrderReceived($payments_data, $user));
+
+        $request->session()->forget('cart');
 
         return redirect(route('payment_thank_you_page'));
     }
