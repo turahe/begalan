@@ -2,7 +2,7 @@
 
 
 @section('title-after')
-    <a href="{{route('find_themes')}}" class="btn btn-primary" > <i class="lasla-brush"></i> Find new Themes </a>
+    <a href="{{route('find_themes')}}" class="btn btn-primary" > <i class="las la-brush"></i> Find new Themes </a>
 @endsection
 
 @section('content')

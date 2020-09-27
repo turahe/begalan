@@ -37,15 +37,16 @@
         </dl>
     </div>
 
-    <div class="bank-payment-instruction-wrap mt-2 mb-3 border p-4">
-        <p><strong>Note:</strong> Write above Bank information, you need to pay at this bank account manually. </p>
-        <h5 class="text-muted">{{__t('bank_payment_instruction')}}</h5>
+    <div class="alert alert-warning mt-2 mb-3 border p-4">
+        <h5 class="alert-heading"><strong>Note:</strong> Write above Bank information, you need to pay at this bank account manually. </h5>
+        <p class="text-muted">{{__t('bank_payment_instruction')}}</p>
     </div>
 
     <div class="row">
         <div class="col-md-12">
 
-            <form action="{{route('bank_transfer_submit')}}" id="bankTransferForm" class="form-horizontal" method="post" enctype="multipart/form-data" > @csrf
+            <form action="{{route('bank_transfer_submit')}}" id="bankTransferForm" class="form-horizontal needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                @csrf
 
                 <div class="row">
                     <div class="col-md-6">
@@ -58,7 +59,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="account_number"> {{__t('account_number')}} </label>
-                            <input type="text" class="form-control" id="account_number" value="{{ old('account_number') }}" name="account_number">
+                            <input type="text" class="form-control" id="account_number" value="{{ old('account_number') }}" name="account_number" required/>
                         </div>
                     </div>
 
@@ -73,7 +74,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="branch_address"> {{__t('branch_address')}} </label>
-                            <input type="text" class="form-control" id="branch_address" value="{{ old('branch_address') }}" name="branch_address">
+                            <input type="text" class="form-control" id="branch_address" value="{{ old('branch_address') }}" name="branch_address" required/>
                         </div>
                     </div>
 
@@ -81,7 +82,7 @@
                         <div class="form-group">
                             <label for="account_name" >{{__t('account_name')}} </label>
 
-                            <input type="text" class="form-control" id="account_name" value="{{ old('account_name') }}" name="account_name">
+                            <input type="text" class="form-control" id="account_name" value="{{ old('account_name') }}" name="account_name" required />
 
                         </div>
                     </div>
@@ -107,5 +108,6 @@
     </div>
 
 </div>
+
 
 

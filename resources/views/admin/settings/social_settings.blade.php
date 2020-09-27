@@ -14,17 +14,17 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="google-login-tab" data-toggle="pill" href="#google-login">
-                    <i class="lasla-google"></i> Google
+                    <i class="las la-google"></i> Google
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="twitter-login-tab" data-toggle="pill" href="#twitter-login">
-                    <i class="lasla-twitter"></i> Twitter
+                    <i class="las la-twitter"></i> Twitter
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="linkedin-login-tab" data-toggle="pill" href="#linkedin-login">
-                    <i class="lasla-linkedin"></i> LinkedIn
+                    <i class="las la-linkedin"></i> LinkedIn
                 </a>
             </li>
         </ul>

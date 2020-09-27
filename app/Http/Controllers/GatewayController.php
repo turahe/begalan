@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Midtrans\MidtransRequest;
+use App\Jobs\SendMailOrderReceived;
 use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -134,8 +136,23 @@ class GatewayController extends Controller
         ];
         //Create payment and clear it from session
         Payment::create_and_sync($payments_data);
+        $this->dispatch( new SendMailOrderReceived($payments_data, $user));
 
         $request->session()->forget('cart');
+
+        return redirect(route('payment_thank_you_page'));
+    }
+
+    public function midtransCharge(MidtransRequest $request)
+    {
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+// Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+// Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+// Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
 
         return redirect(route('payment_thank_you_page'));
     }

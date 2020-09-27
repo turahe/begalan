@@ -10,9 +10,15 @@
 
             <ul class="nav bg-light nav-pills mb-3" role="tablist">
 
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="pill" href="#payment-gateway-tab-card">
+                        <i class="las la-credit-card"></i> Credit Card
+                    </a>
+                </li>
+
                 @if(get_option('enable_stripe'))
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="pill" href="#payment-tab-card">
+                        <a class="nav-link" data-toggle="pill" href="#payment-tab-card">
                             <i class="las la-credit-card"></i> Credit Card
                         </a>
                     </li>
@@ -48,6 +54,16 @@
 
 
             <div class="tab-content">
+
+                <div class="tab-pane fade show active" id="payment-gateway-tab-card">
+                    <div class="stripe-credit-card-form-wrap ml-auto mr-auto py-5">
+
+                        <button id="pay-button">Pay!</button>
+                        <pre><div id="result-json">JSON result will appear here after payment:<br></div></pre>
+
+                    </div>
+                </div> <!-- tab-pane.// -->
+
                 @if(get_option('enable_stripe'))
                     <div class="tab-pane fade show active" id="payment-tab-card">
                         <div class="stripe-credit-card-form-wrap ml-auto mr-auto py-5">

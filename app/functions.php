@@ -623,9 +623,9 @@ function price_format($amount = 0, $currency = null)
     $get_price = get_amount_raw($amount);
 
     if ($currency_position == 'right') {
-        $show_price = $get_price.''.$currency_sign;
+        $show_price = $get_price.' '.$currency_sign;
     } else {
-        $show_price = $currency_sign.''.$get_price;
+        $show_price = $currency_sign.' '.$get_price;
     }
 
     return $show_price;
@@ -1393,6 +1393,7 @@ if (! function_exists('cart')) {
             'total_original_price' => array_sum(array_column(array_values($data), 'original_price')),
             'count' => count($data),
             'enable_charge_fees'    => false,
+            'unique_code' => mt_rand(111, 999),
         ];
 
         $fees_total = 0;
@@ -1413,7 +1414,7 @@ if (! function_exists('cart')) {
             $data['fees_total'] = $fees_total;
         }
 
-        $data['total_amount'] = $total_price + $fees_total;
+        $data['total_amount'] = $total_price + $fees_total + $data['unique_code'];
 
 
         return (object) $data;
@@ -1955,5 +1956,26 @@ if (! function_exists('clean_html')) {
             $text = str_replace('javascript:', '', $text);
         }
         return $text;
+    }
+}
+
+if(!function_exists('optionalGetValueOrValueIsEqual')) {
+    /**
+     * Return boolean if value is set, else return the value is equal as expected
+     *
+     * @param mixed $actual
+     * @param null|string|array $value
+     * @return mixed|boolean
+     */
+    function optionalGetValueOrValueIsEqual($actual, $expected) {
+        if($expected) {
+            if(is_array($expected)) {
+                return in_array($actual, $expected);
+            }
+
+            return $actual === $expected;
+        }
+
+        return $actual;
     }
 }

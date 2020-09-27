@@ -7,7 +7,7 @@
 
         <div class="row my-3">
             <div class="col-sm-4">
-                <button type="button" data-toggle="tooltip" title="Upload" id="button-upload" class="btn btn-primary" data-upload-success="reload" ><i class="lasla-upload"></i></button>
+                <button type="button" data-toggle="tooltip" title="Upload" id="button-upload" class="btn btn-primary" data-upload-success="reload" ><i class="las la-upload"></i></button>
             </div>
 
             <div class="col-sm-8">
@@ -16,7 +16,7 @@
                         <input type="text" name="q" value="{{request('q')}}" placeholder="Search.." class="form-control">
                         <span class="input-group-btn">
                         <button type="submit" data-toggle="tooltip" title="Search" id="button-search" class="btn btn-primary">
-                            <i class="lasla-search"></i>
+                            <i class="las la-search"></i>
                         </button>
                     </span>
                     </div>
@@ -118,8 +118,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="lasla-times"></i> Close</button>
-                    <button type="button" id="media-info-modal-trash-btn" class="btn btn-sm btn-danger"><i class="lasla-trash-o"></i> {{__a('delete_permanently')}}</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><i class="las la-times"></i> Close</button>
+                    <button type="button" id="media-info-modal-trash-btn" class="btn btn-sm btn-danger"><i class="las la-trash-o"></i> {{__a('delete_permanently')}}</button>
                 </div>
             </div>
         </div>

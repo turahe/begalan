@@ -196,7 +196,7 @@ class CourseController extends Controller
         $rules = [
             'title' => 'required',
             'category_id' => 'required',
-//            'topic_id' => 'required',
+            'topic_id' => 'required',
         ];
 
         $this->validate($request, $rules);

@@ -25,7 +25,7 @@
                                                 <a href="{{array_get($cart_course, 'course_url')}}" class="d-block d-flex">
 
                                                     <div class="order-summery-course-thumbnail mr-2">
-                                                        <img src="{{array_get($cart_course, 'thumbnail')}}" class="img-fluid img-thumbnail" />
+                                                        <img alt="" src="{{array_get($cart_course, 'thumbnail')}}" class="img-fluid img-thumbnail" />
                                                     </div>
 
                                                     <p class="order-summery-course-title flex-grow-1"> {{$cart_course['title']}}</p>
@@ -48,6 +48,12 @@
                                                 ({!! $cart->fees_type === 'percent' ? $cart->fees_amount.'%' : '' !!})
                                             </h5>
                                             <strong>+ {!! price_format($cart->fees_total) !!}</strong>
+                                        </div>
+                                        <div class="order-summery-fees-wrap d-flex border-bottom mb-3 pb-3">
+                                            <h5 class="flex-grow-1">
+                                                {{ __t('unique_code') }}
+                                            </h5>
+                                            <strong>+ {!! $cart->unique_code !!}</strong>
                                         </div>
 
                                     @endif
@@ -115,4 +121,28 @@
 
 @section('page-js')
     @include(theme('template-part.gateways.gateway-js'))
+    <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+    <script type="text/javascript">
+        document.getElementById('pay-button').onclick = function(){
+            // SnapToken acquired from previous step
+            snap.pay('{{ $snapToken }}', {
+                // Optional
+                onSuccess: function(result){
+                    /* You may add your own js here, this is just example */
+                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                },
+                // Optional
+                onPending: function(result){
+                    /* You may add your own js here, this is just example */
+                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                },
+                // Optional
+                onError: function(result){
+                    /* You may add your own js here, this is just example */
+                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                }
+            });
+        };
+    </script>
 @endsection

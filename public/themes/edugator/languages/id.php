@@ -336,5 +336,6 @@ return [
     'email_not_found'               => 'Tidak di temukan alamat E-mail',
     'invalid_reset_token'           => 'Token kata sandi tidak valid',
     'password_reset_success'        => 'Reset kata sandi berhasil',
+    'unique_code' => 'Code Unik'
 
 ];

@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('page-header-right')
-    <a href="{{route('create_page')}}" class="btn btn-success mr-3" data-toggle="tooltip" title="{{__a('create_new_page')}}"> <i class="lasla-plus-circle"></i> {{__a('create_new_page')}} </a>
+    <a href="{{route('create_page')}}" class="btn btn-success mr-3" data-toggle="tooltip" title="{{__a('create_new_page')}}"> <i class="las la-plus-circle"></i> {{__a('create_new_page')}} </a>
 
-    <a href="{{route('pages')}}" class="btn btn-info" data-toggle="tooltip" title="{{__a('pages')}}"> <i class="lasla-list"></i> {{__a('pages')}} </a>
+    <a href="{{route('pages')}}" class="btn btn-info" data-toggle="tooltip" title="{{__a('pages')}}"> <i class="las la-list"></i> {{__a('pages')}} </a>
 
 @endsection
 

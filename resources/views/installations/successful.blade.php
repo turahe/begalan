@@ -67,7 +67,7 @@
 
             <div class="alert alert-success d-flex">
                 <span class="installation-success-icon mr-3">
-                    <i class="lasla-check-circle"></i>
+                    <i class="las la-check-circle"></i>
                 </span>
                 <div>
 
@@ -77,10 +77,10 @@
             </div>
 
             <a href="{{route('home')}}" class="btn btn-success">
-                <i class="lasla-check-circle"></i> Go Home
+                <i class="las la-check-circle"></i> Go Home
             </a>
             <a href="{{route('login')}}" class="btn btn-info">
-                <i class="lasla-sign-in"></i> Log In
+                <i class="las la-sign-in"></i> Log In
             </a>
 
         </div>

@@ -4,11 +4,15 @@
             <div class="row">
                 <div class="col-sm-4">
 
-                    <a href="{{route('load_filemanager')}}" data-toggle="tooltip" title="" id="button-refresh" class="btn btn-default" data-original-title="Refresh"><i class="lasla-refresh"></i></a>
+                    <a href="{{route('load_filemanager')}}" data-toggle="tooltip" title="" id="button-refresh" class="btn btn-default" data-original-title="Refresh">
+                        <i class="las la-refresh"></i></a>
 
-                    <button type="button" data-toggle="tooltip" title="Upload" id="button-upload" class="btn btn-primary"><i class="lasla-upload"></i></button>
-                    <button type="button" data-toggle="tooltip" title="Insert Media" class="btn btn-info mediaInsertBtn"><i class="lasla-plus-circle"></i></button>
-                    <button type="button" data-toggle="tooltip" title="Delete" id="button-delete" class="btn btn-danger"><i class="lasla-trash-o"></i></button>
+                    <button type="button" data-toggle="tooltip" title="Upload" id="button-upload" class="btn btn-primary">
+                        <i class="las la-upload"></i></button>
+                    <button type="button" data-toggle="tooltip" title="Insert Media" class="btn btn-info mediaInsertBtn">
+                        <i class="las la-plus-circle"></i></button>
+                    <button type="button" data-toggle="tooltip" title="Delete" id="button-delete" class="btn btn-danger">
+                        <i class="las la-trash-o"></i></button>
                 </div>
 
                 <div class="col-sm-7">
@@ -16,7 +20,7 @@
                         <input type="text" name="filemanager-search" value="{{request('filter_name')}}" placeholder="Search.." class="form-control">
                         <span class="input-group-btn">
                             <button type="button" data-toggle="tooltip" title="Search" id="button-search" class="btn btn-primary">
-                                <i class="lasla-search"></i>
+                                <i class="las la-search"></i>
                             </button>
                         </span>
                     </div>
@@ -97,7 +101,7 @@
                     <hr />
 
                     <button type="button" class="btn btn-info mediaInsertBtn">
-                        <i class="lasla-plus-circle"></i> {{__a('insert_selected_media')}}
+                        <i class="las la-plus-circle"></i> {{__a('insert_selected_media')}}
                     </button>
 
                 </div>

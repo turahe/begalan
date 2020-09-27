@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth'] ], function () {
     Route::group(['prefix' => 'checkout' ], function () {
         Route::get('/', 'CartController@checkout')->name('checkout');
         Route::post('bank-transfer', 'GatewayController@bankPost')->name('bank_transfer_submit');
+        Route::post('midtrans', 'GatewayController@midtransCharge')->name('midtrans_submit');
         Route::post('paypal', 'GatewayController@paypalRedirect')->name('paypal_redirect');
         Route::post('offline', 'GatewayController@payOffline')->name('pay_offline');
     });

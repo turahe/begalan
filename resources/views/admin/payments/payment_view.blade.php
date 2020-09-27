@@ -74,11 +74,11 @@
 
                             @if($course->status == 1)
                                 <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank">
-                                    <i class="lasla-eye"></i>
+                                    <i class="las la-eye"></i>
                                     {{__t('view')}}
                                 </a>
                             @else
-                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple mt-2" target="_blank"><i class="lasla-eye"></i> {{__t('preview')}} </a>
+                                <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple mt-2" target="_blank"><i class="las la-eye"></i> {{__t('preview')}} </a>
                             @endif
 
                         </td>

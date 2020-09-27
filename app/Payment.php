@@ -4,6 +4,8 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -90,18 +92,31 @@ use Illuminate\Support\Facades\DB;
  */
 class Payment extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    public function user()
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function courses()
+    /**
+     * @return BelongsToMany
+     */
+    public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'enrolls');
     }
 
+    /**
+     * @param $cart_course
+     * @return $this
+     */
     public function do_enroll($cart_course)
     {
         $carbon = Carbon::now()->toDateTimeString();
@@ -118,6 +133,9 @@ class Payment extends Model
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function distribute_earning()
     {
         $enable_instructors_earning = (bool) get_option('enable_instructors_earning');
@@ -222,6 +240,9 @@ class Payment extends Model
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getStatusContextAttribute()
     {
         $statusClass = "";

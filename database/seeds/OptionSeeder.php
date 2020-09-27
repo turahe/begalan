@@ -13,6 +13,21 @@ class OptionSeeder extends Seeder
     {
         $bank_gateway = [
             'enable_bank_transfer' => '1',
+            'bank_name' => 'BCA',
+            'bank_swift_code' => NULL,
+            'account_number' => '123443423',
+            'branch_name' => 'KOPO',
+            'branch_address' => 'Jalan kopo no 3',
+            'account_name' => 'Circle Creative',
+            'iban' => 'IBM',
+        ];
+
+        $midtrans = [
+            'enable_midtrans' => true,
+            'test_mode' => true,
+            'id_merchant' =>'G624028022',
+            'client_key' =>'SB-Mid-client-OhuBYYdphvdOhY1L',
+            'server_Key' => 'SB-Mid-server-Sx1oMaKFdO1FHdTj2VihS_fI',
         ];
         $payment_gateway_bank_transfer = [
             'enabled' => '1',
@@ -88,6 +103,7 @@ class OptionSeeder extends Seeder
             'default_timezone' => 'Asia/Jakarta',
             'date_format_custom' => 'd/m/Y',
             'time_format_custom' => 'H:i',
+            'midtrans' => 'json_encode_value_' .json_encode($midtrans),
             'enable_stripe' => 0,
             'stripe_test_mode' => '1',
             'paypal_receiver_email' => 'admin@circle-creative.com',
@@ -119,18 +135,18 @@ class OptionSeeder extends Seeder
             'charge_fees_type' => 'percent',
             'enable_charge_fees' => '1',
             'enable_instructors_earning' => '1',
-            'bank_gateway' => json_encode($bank_gateway),
+            'bank_gateway' => 'json_encode_value_' .json_encode($bank_gateway),
             'enable_offline_payment' => '1',
             'site_url' => url('/'),
-            'withdraw_methods' => json_encode($withdraw_method),
+            'withdraw_methods' => 'json_encode_value_' .json_encode($withdraw_method),
             'lms_settings' => 'json_encode_value_{"enable_discussion":"1"}',
             'active_plugins' => '{"3":"MultiInstructor","4":"StudentsProgress"}',
             'site_logo' => null,
             'terms_of_use_page' => 1,
             'privacy_policy_page' => 4,
             'about_us_page' => '3',
-            'cookie_alert' => json_encode($cookie_alert),
-            'social_login' => json_encode($social_login),
+            'cookie_alert' => 'json_encode_value_' .json_encode($cookie_alert),
+            'social_login' => 'json_encode_value_' .json_encode($social_login),
         ];
 
         $newOptions = [];

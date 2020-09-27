@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Config;
+use Midtrans\Snap;
+use function Aws\map;
 
 /**
  * Class CartController
@@ -16,6 +20,7 @@ class CartController extends Controller
     /**
      * @param Request $request
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function addToCart(Request $request)
     {
@@ -57,6 +62,7 @@ class CartController extends Controller
      * @return array
      *
      * Remove From Cart
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removeCart(Request $request)
     {
@@ -74,6 +80,82 @@ class CartController extends Controller
     public function checkout()
     {
         $title = __('checkout');
-        return view(theme('checkout'), compact('title'));
+        //Set Your server key
+        Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+// Uncomment for production environment
+// Config::$isProduction = true;
+        Config::$isSanitized = Config::$is3ds = true;
+
+// Required
+        $cart = cart();
+//        dd($cart);
+        $amount = $cart->total_amount;
+
+
+        //Create payment in database
+        $transaction_id = 'tran_'.time().str_random(6);
+        // get unique recharge transaction id
+        while ((Payment::whereLocalTransactionId($transaction_id)->count()) > 0) {
+            $transaction_id = 'reid'.time().str_random(5);
+        }
+        $transaction_id = strtoupper($transaction_id);
+
+
+
+//        dd($data);
+
+
+
+        $transaction_details = array(
+            'order_id' => $transaction_id,
+            'gross_amount' => (int)$amount, // no decimal allowed for creditcard
+        );
+// Optional
+        $sample = array (
+            array(
+                'id' => 'a1',
+                'price' => 94000,
+                'quantity' => 1,
+                'name' => "Apple"
+            ),
+        );
+        $item_details = array_map(function ($course) {
+            return [
+                'id' => $course['course_id'],
+                'price' => (int)$course['price'],
+                'quantity' => (int)1,
+                'name' => $course['title']
+            ];
+        }, $cart->courses);
+
+//        $item_details = $data;
+//        dd($item_details, $sample);
+
+//        dd($item_details, $items);
+// Optional
+        $user = Auth::user();
+        $name = explode(' ', trim($user->name));
+        $first_name = $name[0];
+        $last_name = array_pop($name);
+
+        $customer_details = array(
+            'first_name'    => $first_name,
+            'last_name'     => $last_name,
+            'email'         => $user->email,
+            'phone'         => $user->phone,
+            'billing_address'  => isset($user->address) ? $user->address : $user->address_2,
+//            'shipping_address' => $shipping_address
+        );
+// Fill transaction details
+        $transaction = array(
+            'transaction_details' => $transaction_details,
+            'customer_details' => $customer_details,
+//            'item_details' => $item_details,
+        );
+
+        $snapToken = Snap::getSnapToken($transaction);
+//        echo "snapToken = ".$snapToken;
+
+        return view(theme('checkout'), compact('title', 'snapToken'));
     }
 }

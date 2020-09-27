@@ -8,35 +8,44 @@
 
 @section('content')
 
-    <form action="{{route('save_settings')}}" class="form-horizontal" method="post" enctype="multipart/form-data"> @csrf
+    <form action="{{route('save_settings')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+        @csrf
 
         <ul class="nav nav-tabs mb-5" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="stripe-payment-tab" data-toggle="pill" href="#stripe-payment">
+                <a class="nav-link active" id="midtrans-payment-tab" data-toggle="pill" href="#midtrans-payment">
+                    <i class="lab la-stripe"> </i> Midtrans
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="stripe-payment-tab" data-toggle="pill" href="#stripe-payment">
                     <i class="lab la-stripe"> </i> Stripe
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="paypal-payment-tab" data-toggle="pill" href="#paypal-payment">
-                    <i class="lasla-paypal"></i>PayPal
+                    <i class="las la-paypal"></i>PayPal
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="bank-payment-tab" data-toggle="pill" href="#bank-payment">
-                    <i class="lasla-university"></i>
-                    Bank Payment
+                    <i class="las la-university"></i>
+                    {{ __('admin.bank_transfer') }}
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="offline-payment-tab" data-toggle="pill" href="#offline-payment">
-                    <i class="lasla-wallet"></i>
-                    Offline Payment
+                    <i class="las la-wallet"></i>
+                    {{ __('admin.offline_payment') }}
                 </a>
             </li>
         </ul>
 
         <div class="tab-content" id="payment-settings-tab-wrap">
-            <div class="tab-pane fade show active" id="stripe-payment">
+            <div class="tab-pane fade show active" id="midtrans-payment">
+                @include('admin.payments.gateways.midtrans')
+            </div>
+            <div class="tab-pane fade show" id="stripe-payment">
                 @include('admin.payments.gateways.stripe')
             </div>
 

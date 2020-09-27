@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Answer
@@ -47,7 +48,7 @@ class Answer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function question()
+    public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class, 'question_id');
     }
