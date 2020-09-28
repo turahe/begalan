@@ -93,6 +93,24 @@ class OptionSeeder extends Seeder
                 ],
         ];
 
+        $service = [
+            'mailgun' => [
+                'domain' => env('MAILGUN_DOMAIN', null),
+                'secret' => env('MAILGUN_SECRET', null),
+                'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+            ],
+
+            'postmark' => [
+                'token' => env('POSTMARK_TOKEN', null),
+            ],
+
+            'ses' => [
+                'key' => env('AWS_ACCESS_KEY_ID', null),
+                'secret' => env('AWS_SECRET_ACCESS_KEY', null),
+                'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+            ],
+        ];
+
         $options = [
             'default_storage' => 'public',
             'date_format' => 'd/m/Y',
@@ -138,6 +156,7 @@ class OptionSeeder extends Seeder
             'bank_gateway' => 'json_encode_value_' .json_encode($bank_gateway),
             'enable_offline_payment' => '1',
             'site_url' => url('/'),
+            'mailgun' => 'json_encode_value_' .json_encode($service['mailgun']),
             'withdraw_methods' => 'json_encode_value_' .json_encode($withdraw_method),
             'lms_settings' => 'json_encode_value_{"enable_discussion":"1"}',
             'active_plugins' => '{"3":"MultiInstructor","4":"StudentsProgress"}',
@@ -145,6 +164,7 @@ class OptionSeeder extends Seeder
             'terms_of_use_page' => 1,
             'privacy_policy_page' => 4,
             'about_us_page' => '3',
+
             'cookie_alert' => 'json_encode_value_' .json_encode($cookie_alert),
             'social_login' => 'json_encode_value_' .json_encode($social_login),
         ];
@@ -154,6 +174,7 @@ class OptionSeeder extends Seeder
             $newOptions[] = ['option_key' => $key, 'option_value' => $value];
         }
 
+        \Illuminate\Support\Facades\DB::table('options')->truncate();
         \Illuminate\Support\Facades\DB::table('options')->insert($newOptions);
     }
 }
