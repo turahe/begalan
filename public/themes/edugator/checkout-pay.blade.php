@@ -13,6 +13,7 @@
                     <div class="checkout-section order-account-information-wrap bg-white  p-4 mt-3">
                         <div class="d-flex justify-content-center">
                             <button id="pay-button" class=" btn btn-primary btn-lg">Pay!</button>
+                            <pre><div id="result-json">JSON result will appear here after payment:<br></div></pre>
                         </div>
 
                         <div class="checkout-agreement-wrap mt-4 text-center text-muted">
