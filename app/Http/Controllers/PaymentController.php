@@ -17,8 +17,8 @@ class PaymentController extends Controller
 
     /**
      * @param Request $request
-     * @throws \Exception
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|RedirectResponse
+     * @return RedirectResponse|View
+     *@throws \Exception
      */
     public function index(Request $request)
     {
@@ -64,7 +64,7 @@ class PaymentController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
     public function view(int $id): View
     {
@@ -96,7 +96,6 @@ class PaymentController extends Controller
      *
      * Update the payment status, and it's related data
      */
-
     public function updateStatus(PaymentUpdateRequest $request, int $id): RedirectResponse
     {
         $payment = Payment::find($id);

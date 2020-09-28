@@ -5,14 +5,13 @@
 use Faker\Generator as Faker;
 
 $factory->define(\App\Content::class, function (Faker $faker) {
-    $faker->addProvider(new \App\Libraries\Youtube($faker));
     $title = $faker->unique()->sentence;
     $video = [
         'source' => 'youtube',
         'html5_video_id' => NULL,
         'html5_video_poster_id' => NULL,
         'source_external_url' => NULL,
-        'source_youtube' => $faker->youtubeShortUri(),
+        'source_youtube' => 'https://www.youtube.com/watch?v=VJNwRPLq3z8',
         'source_vimeo' => NULL,
         'source_embedded' => NULL,
         'runtime' =>

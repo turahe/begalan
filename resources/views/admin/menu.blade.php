@@ -4,7 +4,10 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li>
-                <a href="{{route('admin')}}"><i class="las la-dashboard fa-fw"></i> @lang('admin.admin_home')</a>
+                <a href="{{route('admin')}}">
+                    <i class="las la-dashboard fa-fw"></i>
+                    @lang('admin.admin_home')
+                </a>
             </li>
 
             @php
@@ -12,7 +15,11 @@
             @endphp
 
             <li>
-                <a href="#"><i class="las la-newspaper-o fa-fw"></i> @lang('admin.cms')<span class="la arrow"></span></a>
+                <a href="#">
+                    <i class="las la-newspaper-o fa-fw"></i>
+                    @lang('admin.cms')
+                    <span class="la arrow"></span>
+                </a>
                 <ul class="nav nav-second-level" style="display: none;">
                     <li> <a href="{{ route('posts') }}">@lang('admin.posts')</a> </li>
                     <li> <a href="{{ route('pages') }}">@lang('admin.pages')</a> </li>
@@ -29,7 +36,7 @@
 
             <li> <a href="{{route('admin_courses')}}"><i class="las la-chalkboard"></i> {{__a('courses')}}</a>  </li>
 
-            <li>
+            {{--<li>
                 <a href="{{route('plugins')}}" class="{{request()->is('admin/plugins*') ? 'active' : ''}}" >
                     <i class="las la-plug"></i> {{__a('plugins')}}
                 </a>
@@ -39,7 +46,7 @@
                 <a href="{{route('themes')}}" class="{{request()->is('admin/themes*') ? 'active' : ''}}">
                     <i class="las la-brush"></i> {{__a('themes')}}
                 </a>
-            </li>
+            </li>--}}
 
             <li>
                 <a href="#"><i class="las la-tools fa-fw"></i> @lang('admin.settings')<span class="la arrow"></span></a>
@@ -63,8 +70,10 @@
                 <!-- /.nav-second-level -->
             </li>
 
-            <li> <a href="{{route('payments')}}"><i class="las la-file-invoice-dollar"></i> {{__a('payments')}}</a>  </li>
-            <li> <a href="{{route('withdraws')}}"><i class="las la-wallet"></i> {{__a('withdraws')}}</a>  </li>
+            <li> <a href="{{route('payments')}}">
+                    <i class="las la-file-invoice-dollar"></i> {{__a('payments')}}</a>  </li>
+            <li> <a href="{{route('withdraws')}}">
+                    <i class="las la-wallet"></i> {{__a('withdraws')}}</a>  </li>
 
             <li> <a href="{{ route('users') }}"><i class="las la-users"></i> {{__a('users')}}</a>  </li>
 

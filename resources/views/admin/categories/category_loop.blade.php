@@ -35,7 +35,7 @@
     </td>
     <td>
         <a href="{{route('category_edit', $category->id)}}" class="btn btn-primary btn-sm">
-            <i class="las la-pencil"></i>
+            <i class="la la-pencil"></i>
         </a>
         <a href="{{route('category_view', $category->slug)}}" class="btn btn-outline-info btn-sm" target="_blank">
             <i class="las la-eye"></i>

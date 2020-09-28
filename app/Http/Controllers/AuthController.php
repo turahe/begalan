@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendPasswordResetLink;
 use App\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -67,6 +68,7 @@ class AuthController extends Controller
 
     /**
      * @return string
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function register()
     {
@@ -96,6 +98,7 @@ class AuthController extends Controller
             'user_type' => $request->user_as,
             'active_status' => 1
         ]);
+        event(new Registered($user));
 
         if ($user) {
             $this->loginPost($request);

@@ -10,8 +10,8 @@
 
             <div class="form-row">
                 <div class="form-group col-md-12 {{form_error($errors, 'old_password')->class}}">
-                    <label>{{__t('old_password')}}</label>
-                    <input type="tel" class="form-control" name="old_password" >
+                    <label for="old_password">{{__t('old_password')}}</label>
+                    <input id="old_password" type="tel" class="form-control" name="old_password" >
                     {!! form_error($errors, 'old_password')->message !!}
                 </div>
 
@@ -19,14 +19,14 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6 {{form_error($errors, 'new_password')->class}}">
-                    <label>{{__t('new_password')}}</label>
-                    <input type="tel" class="form-control" name="new_password" >
+                    <label for="new_password">{{__t('new_password')}}</label>
+                    <input id="new_password" type="tel" class="form-control" name="new_password" >
                     {!! form_error($errors, 'new_password')->message !!}
                 </div>
 
                 <div class="form-group col-md-6 {{form_error($errors, 'new_password_confirmation')->class}}">
-                    <label>{{__t('new_password_confirmation')}}</label>
-                    <input type="tel" class="form-control" name="new_password_confirmation" >
+                    <label for="new_password">{{__t('new_password_confirmation')}}</label>
+                    <input id="new_password" type="tel" class="form-control" name="new_password_confirmation" >
                     {!! form_error($errors, 'new_password_confirmation')->message !!}
                 </div>
 

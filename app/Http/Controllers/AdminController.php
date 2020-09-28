@@ -142,7 +142,7 @@ class AdminController extends Controller
         } else {
             $courses = $courses->orderBy('last_updated_at', 'desc');
         }
-        $courses = $courses->paginate(20);
+        $courses = $courses->paginate(10);
 
         return view('admin.courses.courses', compact('title', 'courses'));
     }

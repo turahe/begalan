@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/test', function () {
+    Mail::send('welcome', [], function($message) {
+        $message->to('sparrow.dewa@gmail.com')->subject('Testing mails');
+    });
+});
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('clear', 'HomeController@clearCache')->name('clear_cache');
 
@@ -32,6 +38,9 @@ Route::any('logout', 'AuthController@logoutPost')->name('logout');
 
 Route::get('register', 'AuthController@register')->name('register')->middleware('guest');
 Route::post('register', 'AuthController@registerPost');
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 Route::get('forgot-password', 'AuthController@forgotPassword')->name('forgot_password');
 Route::post('forgot-password', 'AuthController@sendResetToken');
@@ -358,3 +367,10 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin'] ], function (
 Route::get('blog', 'PostController@blog')->name('blog');
 Route::get('{slug}', 'PostController@postSingle')->name('post');
 Route::get('post/{id?}', 'PostController@postProxy')->name('post_proxy');
+
+
+
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');
+

@@ -7,29 +7,32 @@ use Faker\Generator as Faker;
 $factory->define(\App\Course::class, function (Faker $faker) {
     $faker->addProvider(new \App\Libraries\Youtube($faker));
     $thumbnail_id = $faker->randomElement(\App\Media::pluck('id')->toArray());
-    $category_id = $faker->randomElement(\App\Category::pluck('id')->toArray());
+    $parent_category_id = $faker->randomElement(\App\Category::where('category_id', 0)->pluck('id')->toArray());
+    $second_category_id = $faker->randomElement(\App\Category::where('category_id', $parent_category_id)->pluck('id')->toArray());
+    $category_id = $faker->randomElement(\App\Category::where('category_id', $second_category_id)->pluck('id')->toArray());
     $user_id = $faker->randomElement(\App\User::where('user_type', 'instructor')->pluck('id')->toArray());
     $price = mt_rand(60, 100) * 1000;
+
     $video = [
         'source' => 'youtube',
         'html5_video_id' => NULL,
         'html5_video_poster_id' => NULL,
         'source_external_url' => NULL,
-        'source_youtube' => $faker->youtubeShortUri(),
+        'source_youtube' => 'https://www.youtube.com/watch?v=VJNwRPLq3z8',
         'source_vimeo' => NULL,
         'source_embedded' => NULL,
         'runtime' =>
             [
-                'hours' => '00',
+                'hours' => mt_rand(1,24),
                 'mins' => mt_rand(6,10),
-                'secs' => '00',
+                'secs' => mt_rand(1,60),
             ],
     ];
 
     return [
         'user_id' => $user_id,
-        'parent_category_id'  => 1,
-        'second_category_id'  => 1,
+        'parent_category_id'  => $parent_category_id,
+        'second_category_id'  => $second_category_id,
         'category_id'  => $category_id,
         'title'  => $faker->sentence,
         'slug'  => str_slug($faker->sentence),

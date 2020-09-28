@@ -39,6 +39,13 @@ class AppServiceProvider extends ServiceProvider
             return "Rp. <?php echo number_format($expression,0,',','.'); ?>";
         });
 
+        $this->options();
+
+
+    }
+
+    protected function options()
+    {
         if (file_exists(base_path('.env'))) {
             try {
                 DB::connection()->getPdo();
@@ -112,7 +119,23 @@ class AppServiceProvider extends ServiceProvider
                         'client_secret' => get_option('social_login.linkedin.client_secret'),
                         'redirect' => url('login/linkedin/callback'),
                     ],
+                    'mailgun' => [
+                        'domain' => get_option('mailgun.domain') ?? env('MAILGUN_DOMAIN'),
+                        'secret' => get_option('mailgun.secret') ?? env('MAILGUN_SECRET'),
+                        'endpoint' => get_option('mailgun.endpoint') ?? env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+                    ],
+
+                    'postmark' => [
+                        'token' => get_option('postmark.token') ?? env('POSTMARK_TOKEN'),
+                    ],
+
+                    'ses' => [
+                        'key' => get_option('postmark.key') ?? env('AWS_ACCESS_KEY_ID'),
+                        'secret' => get_option('postmark.secret') ?? env('AWS_SECRET_ACCESS_KEY'),
+                        'region' => get_option('postmark.region') ?? env('AWS_DEFAULT_REGION', 'us-east-1'),
+                    ],
                 ];
+
                 config($socialConfig);
                 config($amazonS3Config);
 

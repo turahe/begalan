@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * App\Category
@@ -66,7 +67,9 @@ class Category extends Model
             $foreignKey = 'second_category_id';
         }
 
-        return $this->hasMany(Course::class, $foreignKey)->publish()->orderBy('created_at', 'desc');
+        return $this->hasMany(Course::class, $foreignKey)
+            ->publish()
+            ->orderBy('created_at', 'desc');
     }
 
     /**

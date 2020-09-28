@@ -4,8 +4,8 @@
     <a href="{{route('category_create')}}" class=" ml-1 btn btn-primary btn-xl" data-toggle="tooltip" title="@lang('admin.category_add')">
         <i class="las la-plus"></i>
     </a>
-    <a href="#" class=" ml-1 btn btn-danger btn_delete" data-toggle="tooltip" title="@lang('admin.delete')">
-        <i class="las la-trash-o"></i>
+    <a href="#" class="ml-1 btn btn-danger btn_delete" data-toggle="tooltip" title="@lang('admin.delete')">
+        <i class="la la-trash-o"></i>
     </a>
 @endsection
 
