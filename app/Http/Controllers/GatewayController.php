@@ -17,7 +17,7 @@ use Stripe\Stripe;
  */
 class GatewayController extends Controller
 {
-    public function choosePaymentMethod()
+    public function choosePaymentMethod(Request $request)
     {
         $cart = cart();
         $amount = $cart->total_amount;
@@ -44,6 +44,8 @@ class GatewayController extends Controller
         ];
         //Create payment and clear it from session
         $payment = Payment::create_and_sync($payments_data);
+        $request->session()->forget('cart');
+
 
         return redirect(route('checkout_payment', $payment->id));
 
