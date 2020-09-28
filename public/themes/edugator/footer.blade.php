@@ -115,7 +115,8 @@
 {{--<script src="{{ mix('js/app.js') }}"></script>--}}
 
 <!-- jquery latest version -->
-<script src="{{asset('assets/js/vendor/jquery-1.12.0.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+{{--<script src="{{asset('assets/js/vendor/jquery-1.12.0.min.js')}}"></script>--}}
 <!-- bootstrap js -->
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 

@@ -90,9 +90,18 @@
                             </div>
                         </div>
 
-                        @include(theme('template-part.gateways.available-gateways'))
+{{--                        @include(theme('template-part.gateways.available-gateways'))--}}
 
                         <div class="checkout-agreement-wrap mt-4 text-center text-muted">
+                            <form action="{{ route('choose_payment_method') }}" method="POST">
+                                @csrf
+                                <button class="btn btn-primary" type="submit">
+                                    @lang('front.place_order')
+                                </button>
+                            </form>
+                        </div>
+
+                        {{--<div class="checkout-agreement-wrap mt-4 text-center text-muted">
                             <p class="agreement-text"> {{__t('agreement_text')}} <br />
                                 <strong>{{get_option('site_name')}}'s</strong>
                                 <a href="{{route('post_proxy', get_option('terms_of_use_page'))}}">
@@ -101,7 +110,7 @@
                                     {{__t('privacy_policy')}}
                                 </a>
                             </p>
-                        </div>
+                        </div>--}}
 
                     </div>
 
@@ -113,7 +122,10 @@
     @else
         <div class="text-center my-5">
             <h2 class="mb-4 mt-5"><i class="las la-frown"></i> {{__t('nothing_to_checkout')}} </h2>
-            <a href="{{route('home')}}" class="btn btn-lg btn-warning mb-5"> <i class="las la-home"></i> {{__t('go_to_home')}}</a>
+            <a href="{{route('home')}}" class="btn btn-lg btn-warning mb-5">
+                <i class="las la-home"></i>
+                {{__t('go_to_home')}}
+            </a>
         </div>
     @endif
 
@@ -122,27 +134,4 @@
 @section('page-js')
     @include(theme('template-part.gateways.gateway-js'))
     <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
-    <script type="text/javascript">
-        document.getElementById('pay-button').onclick = function(){
-            // SnapToken acquired from previous step
-            snap.pay('{{ $snapToken }}', {
-                // Optional
-                onSuccess: function(result){
-                    /* You may add your own js here, this is just example */
-                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                },
-                // Optional
-                onPending: function(result){
-                    /* You may add your own js here, this is just example */
-                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                },
-                // Optional
-                onError: function(result){
-                    /* You may add your own js here, this is just example */
-                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                }
-            });
-        };
-    </script>
 @endsection

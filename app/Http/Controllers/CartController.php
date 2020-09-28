@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Libraries\Midtrans\Midtrans;
 use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,59 +81,25 @@ class CartController extends Controller
     public function checkout()
     {
         $title = __('checkout');
+        return view(theme('checkout'), compact('title'));
+    }
+
+    public function payment($id)
+    {
         //Set Your server key
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
 // Uncomment for production environment
 // Config::$isProduction = true;
         Config::$isSanitized = Config::$is3ds = true;
 
-// Required
-        $cart = cart();
-//        dd($cart);
-        $amount = $cart->total_amount;
-
-
-        //Create payment in database
-        $transaction_id = 'tran_'.time().str_random(6);
-        // get unique recharge transaction id
-        while ((Payment::whereLocalTransactionId($transaction_id)->count()) > 0) {
-            $transaction_id = 'reid'.time().str_random(5);
-        }
-        $transaction_id = strtoupper($transaction_id);
-
-
-
-//        dd($data);
-
-
+       $payment = Payment::findOrFail($id);
 
         $transaction_details = array(
-            'order_id' => $transaction_id,
-            'gross_amount' => (int)$amount, // no decimal allowed for creditcard
+            'order_id' => $payment->local_transaction_id,
+            'gross_amount' => (int)$payment->amount, // no decimal allowed for creditcard
         );
-// Optional
-        $sample = array (
-            array(
-                'id' => 'a1',
-                'price' => 94000,
-                'quantity' => 1,
-                'name' => "Apple"
-            ),
-        );
-        $item_details = array_map(function ($course) {
-            return [
-                'id' => $course['course_id'],
-                'price' => (int)$course['price'],
-                'quantity' => (int)1,
-                'name' => $course['title']
-            ];
-        }, $cart->courses);
 
-//        $item_details = $data;
-//        dd($item_details, $sample);
-
-//        dd($item_details, $items);
-// Optional
+        // Optional
         $user = Auth::user();
         $name = explode(' ', trim($user->name));
         $first_name = $name[0];
@@ -141,7 +108,7 @@ class CartController extends Controller
         $customer_details = array(
             'first_name'    => $first_name,
             'last_name'     => $last_name,
-            'email'         => $user->email,
+            'email'         => $payment->email,
             'phone'         => $user->phone,
             'billing_address'  => isset($user->address) ? $user->address : $user->address_2,
 //            'shipping_address' => $shipping_address
@@ -150,12 +117,12 @@ class CartController extends Controller
         $transaction = array(
             'transaction_details' => $transaction_details,
             'customer_details' => $customer_details,
-//            'item_details' => $item_details,
         );
+        $token    = Snap::getSnapToken($transaction);
 
-        $snapToken = Snap::getSnapToken($transaction);
-//        echo "snapToken = ".$snapToken;
 
-        return view(theme('checkout'), compact('title', 'snapToken'));
+
+
+        return view(theme('checkout-pay'), compact( 'token'));
     }
 }

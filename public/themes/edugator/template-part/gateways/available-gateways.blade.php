@@ -58,7 +58,9 @@
                 <div class="tab-pane fade show active" id="payment-gateway-tab-card">
                     <div class="stripe-credit-card-form-wrap ml-auto mr-auto py-5">
 
-                        <button id="pay-button">Pay!</button>
+                        <form action=""></form>
+
+                        <button class="btn btn-primary" id="pay-button">Pay!</button>
                         <pre><div id="result-json">JSON result will appear here after payment:<br></div></pre>
 
                     </div>

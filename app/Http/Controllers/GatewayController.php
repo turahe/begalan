@@ -17,6 +17,37 @@ use Stripe\Stripe;
  */
 class GatewayController extends Controller
 {
+    public function choosePaymentMethod()
+    {
+        $cart = cart();
+        $amount = $cart->total_amount;
+
+        $user = Auth::user();
+        $currency = get_option('currency_sign');
+
+        //Create payment in database
+        $transaction_id = 'tran_'.time().str_random(6);
+        // get unique recharge transaction id
+        while ((Payment::whereLocalTransactionId($transaction_id)->count()) > 0) {
+            $transaction_id = 'reid'.time().str_random(5);
+        }
+        $transaction_id = strtoupper($transaction_id);
+
+        $payments_data = [
+            'name'                  => $user->name,
+            'email'                 => $user->email,
+            'user_id'               => $user->id,
+            'amount'                => $amount,
+            'status'                => 'pending',
+            'currency'              => $currency,
+            'local_transaction_id'  => $transaction_id,
+        ];
+        //Create payment and clear it from session
+        $payment = Payment::create_and_sync($payments_data);
+
+        return redirect(route('checkout_payment', $payment->id));
+
+    }
 
     /**
      * @param Request $request
@@ -136,7 +167,7 @@ class GatewayController extends Controller
         ];
         //Create payment and clear it from session
         Payment::create_and_sync($payments_data);
-        $this->dispatch( new SendMailOrderReceived($payments_data, $user));
+//        $this->dispatch( new SendMailOrderReceived($payments_data, $user));
 
         $request->session()->forget('cart');
 
@@ -148,29 +179,80 @@ class GatewayController extends Controller
         $payload = $request->getContent();
         $notification = json_decode($payload);
 
-        $user = Auth::user();
-        $currency = get_option('currency_sign');
-        $transaction_id = 'tran_'.time().str_random(6);
+        $validSignatureKey = hash("sha512", $notification->order_id . $notification->status_code . $notification->gross_amount . env('MIDTRANS_SERVER_KEY'));
 
-//        dd($notification->status_code);
+        if ($notification->signature_key != $validSignatureKey) {
+            return response(['message' => 'Invalid signature'], 403);
+        }
+
+        // Set your Merchant Server Key
+        Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        Config::$isProduction = false;
+        // Set sanitization on (default)
+        Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        Config::$is3ds = true;
+
+        $statusCode = null;
+
+        $paymentNotification = new \Midtrans\Notification();
+
+        $payment = Payment::where('local_transaction_id',$notification->order_id)->firstOrFail();
+
+        $transaction = $paymentNotification->transaction_status;
+        $type = $paymentNotification->payment_type;
+        $orderId = $paymentNotification->order_id;
+        $fraud = $paymentNotification->fraud_status;
+
+        $paymentStatus = null;
+        if ($transaction == 'capture') {
+            // For credit card transaction, we need to check whether transaction is challenge by FDS or not
+            if ($type == 'credit_card') {
+                if ($fraud == 'challenge') {
+                    // TODO set payment status in merchant's database to 'Challenge by FDS'
+                    // TODO merchant should decide whether this transaction is authorized or not in MAP
+                    $paymentStatus = Payment::CHALLENGE;
+                } else {
+                    // TODO set payment status in merchant's database to 'Success'
+                    $paymentStatus = Payment::SUCCESS;
+                }
+            }
+        } else if ($transaction == 'settlement' || $transaction == 'success') {
+            // TODO set payment status in merchant's database to 'Settlement or success'
+            $paymentStatus = Payment::SUCCESS;
+        } else if ($transaction == 'pending') {
+            // TODO set payment status in merchant's database to 'Pending'
+            $paymentStatus = Payment::PENDING;
+        } else if ($transaction == 'deny') {
+            // TODO set payment status in merchant's database to 'Denied'
+            $paymentStatus = PAYMENT::DENY;
+        } else if ($transaction == 'expire') {
+            // TODO set payment status in merchant's database to 'expire'
+            $paymentStatus = PAYMENT::EXPIRE;
+        } else if ($transaction == 'cancel') {
+            // TODO set payment status in merchant's database to 'Denied'
+            $paymentStatus = PAYMENT::CANCEL;
+        }
+
         $payments_data = [
-            'name'                  => $user->name,
-            'email'                 => $user->email,
-            'user_id'               => $user->id,
             'amount'                => $notification->gross_amount,
             'payment_method'        => $notification->payment_type,
-            'status'                => $notification->transaction_status,
-            'currency'              => $currency,
-            'local_transaction_id'  => $transaction_id,
+            'status'                => $paymentStatus,
+            'currency'              => $notification->currency,
+            'payment_created' => $notification->transaction_time
 
         ];
         //Create payment and clear it from session
-        Payment::create_and_sync($payments_data);
-        $this->dispatch( new SendMailOrderReceived($payments_data, $user));
+        $payment->update($payments_data);
 
         $request->session()->forget('cart');
 
-        return redirect(route('payment_thank_you_page'));
+
+        return response()->json([
+            'success'=>'Ajax request submitted successfully',
+            'data' => $payment
+        ]);
     }
 
 
