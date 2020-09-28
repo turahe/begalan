@@ -190,18 +190,16 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\TelescopeServiceProvider::class,
 
         /**
          * Extend This application by adding module
          */
 
-        \App\Module\PluginServiceProvider::class,
+//        \App\Module\PluginServiceProvider::class,
 
         /**
          * Debugbar
          */
-        Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
 
