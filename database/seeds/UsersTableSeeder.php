@@ -12,6 +12,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        User::truncate();
         $users  = collect($this->defaultUsers)->map(function ($user) {
             return [
                 'name'      => $user['name'],

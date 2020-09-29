@@ -106,6 +106,13 @@ class AuthController extends Controller
         return back()->with('error', __t('failed_try_again'))->withInput($request->input());
     }
 
+    public function userVerified(Request $request)
+    {
+        return $request->user()->hasVerifiedEmail()
+            ? redirect('/dashboard')
+            : view(theme('auth.verify'));
+    }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

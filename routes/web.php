@@ -38,7 +38,7 @@ Route::any('logout', 'AuthController@logoutPost')->name('logout');
 
 Route::get('register', 'AuthController@register')->name('register')->middleware('guest');
 Route::post('register', 'AuthController@registerPost');
-Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify', 'AuthController@userVerified')->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
@@ -136,7 +136,7 @@ Route::group(['prefix' => 'gateway-ipn' ], function () {
  * Users,Instructor dashboard area
  */
 
-Route::group(['prefix'=>'dashboard', 'middleware' => ['auth'] ], function () {
+Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
     /**
