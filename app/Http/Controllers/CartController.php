@@ -92,7 +92,7 @@ class CartController extends Controller
 // Config::$isProduction = true;
         Config::$isSanitized = Config::$is3ds = true;
 
-       $payment = Payment::findOrFail($id);
+        $payment = Payment::findOrFail($id);
 
         $transaction_details = array(
             'order_id' => $payment->local_transaction_id,

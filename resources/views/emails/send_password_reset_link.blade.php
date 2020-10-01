@@ -14,7 +14,7 @@ or
 
 past below URL to your browser.
 
-<p>{{route('forgot_password', $user->reset_token)}}</p>
+<p>{{route('reset_password_link', $user->reset_token)}}</p>
 
 Thanks,<br>
 {{ get_option('site_name') }}

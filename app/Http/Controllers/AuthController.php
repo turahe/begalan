@@ -106,6 +106,10 @@ class AuthController extends Controller
         return back()->with('error', __t('failed_try_again'))->withInput($request->input());
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function userVerified(Request $request)
     {
         return $request->user()->hasVerifiedEmail()
@@ -152,8 +156,9 @@ class AuthController extends Controller
 
         try {
             Mail::to($email)->send(new SendPasswordResetLink($user));
+            return redirect()->back()->with('success', trans('passwords.sent'));
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -189,6 +194,7 @@ class AuthController extends Controller
         }
 
         $user->password = Hash::make($request->password);
+        $user->reset_token = null;
         $user->save();
 
         return redirect(route('login'))->with('success', __t('password_reset_success'));

@@ -444,7 +444,8 @@ Home popular courses
     background-color: #ffffff;
     border-color: #ffffff;
 }
-.course-card-add-wish:hover i.la{
+.course-card-add-wish:hover i.las,
+.course-card-add-wish:hover svg{
     font-weight: 600 !important;
 }
 

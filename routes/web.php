@@ -90,6 +90,14 @@ Route::group(['prefix'=>'login'], function () {
 
 
 Route::group(['middleware' => ['auth'] ], function () {
+// Notifications
+    Route::get('notifications', 'NotificationController@index')->name('notifications');
+    Route::get('notifications/{id}', 'NotificationController@show')->name('notifications.show');
+    Route::get('notifications.markAsRead', 'NotificationController@markAllNotificationsAsRead')->name('notifications.markAllAsRead')->middleware('ajax');
+    Route::delete('notifications/{notification}', 'NotificationController@destroy')->name('notifications.delete');
+    Route::delete('notifications', 'NotificationController@destroyAll')->name('notifications.deleteAll');
+
+//    Courses
     Route::post('courses/{slug}/assignment/{assignment_id}', 'CourseController@assignmentSubmitting');
     Route::get('content_complete/{content_id}', 'CourseController@contentComplete')->name('content_complete');
     Route::post('courses-complete/{course_id}', 'CourseController@complete')->name('course_complete');

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendMailOrderReceived;
+use App\Notifications\StudentPaymentNotification;
 use App\Payment;
+use App\User;
+use Illuminate\Support\Facades\Notification;
 use Midtrans\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +24,13 @@ class GatewayController extends Controller
     {
         $cart = cart();
         $amount = $cart->total_amount;
+
+        $courses = collect($cart->courses)->map(function ($course) {
+            return [
+                "title" =>  $course['title'],
+                "price" =>  $course['price'],
+            ];
+        });
 
         $user = Auth::user();
         $currency = get_option('currency_sign');
@@ -41,10 +51,14 @@ class GatewayController extends Controller
             'status'                => 'pending',
             'currency'              => $currency,
             'local_transaction_id'  => $transaction_id,
+            'description' => $courses->implode('title', ', '),
         ];
         //Create payment and clear it from session
         $payment = Payment::create_and_sync($payments_data);
-        $request->session()->forget('cart');
+        $admin = User::where('user_type', 'admin')->get();
+//        $admin->notify(new StudentPaymentNotification($payment));
+        Notification::send($admin, new StudentPaymentNotification($payment));
+//        $request->session()->forget('cart');
 
 
         return redirect(route('checkout_payment', $payment->id));
@@ -247,9 +261,9 @@ class GatewayController extends Controller
         ];
         //Create payment and clear it from session
         $payment->update($payments_data);
+        $user = $payment->user;
 
-        $request->session()->forget('cart');
-
+        Notification::send($user, new StudentPaymentNotification($payment));
 
         return response()->json([
             'success'=>'Ajax request submitted successfully',

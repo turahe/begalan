@@ -118,6 +118,9 @@
                             </a>
                         </li>
                     @else
+                        <li class="nav-item dropdown mini-cart-item">
+                            {!! view_template_part('template-part.notification') !!}
+                        </li>
                         <li class="nav-item main-nav-right-menu nav-item-user-profile">
                             <a class="nav-link profile-dropdown-toogle" href="javascript:;">
                                 <span class="top-nav-user-name">

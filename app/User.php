@@ -110,6 +110,9 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
     /**
@@ -131,69 +134,116 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeActive($query)
     {
         return $query->where('active_status', 1)->with('photo_query');
     }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeInstructor($query)
     {
         return $query->where('user_type', 'instructor');
     }
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function medias()
     {
         return $this->hasMany(Media::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function courses()
     {
         return $this->belongsToMany(Course::class)->orderBy('created_at', 'desc');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function get_reviews()
     {
         return $this->belongsToMany(Review::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function instructor_discussions()
     {
         return $this->belongsToMany(Discussion::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id')->with('user', 'user.photo_query')->where('discussion_id', 0);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function wishlist()
     {
         return $this->belongsToMany(Course::class, 'wishlists');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function earnings()
     {
         return $this->hasMany(Earning::class, 'instructor_id')->where('payment_status', 'success');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function withdraws()
     {
         return $this->hasMany(Withdraw::class)->orderBy('created_at', 'desc');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function purchases()
     {
         return $this->hasMany(Payment::class)->orderBy('created_at', 'desc');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function my_quiz_attempts()
     {
         return $this->hasMany(Attempt::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function getGetRatingAttribute()
     {
         $sql = "select count(reviews.id) as rating_count,
@@ -207,30 +257,49 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return $rating;
     }
 
+    /**
+     * @return bool
+     */
     public function isAdmin()
     {
         return $this->user_type === 'admin';
     }
 
+    /**
+     * @return bool
+     */
     public function getIsAdminAttribute()
     {
         return $this->isAdmin();
     }
 
+    /**
+     * @return bool
+     */
     public function isInstructor()
     {
         return $this->user_type === 'instructor' || $this->isAdmin();
     }
+
+    /**
+     * @return bool
+     */
     public function getIsInstructorAttribute()
     {
         return $this->isInstructor();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function photo_query()
     {
         return $this->belongsTo(Media::class, 'photo');
     }
 
+    /**
+     * @return string
+     */
     public function getGetPhotoAttribute()
     {
         if ($this->photo) {
@@ -257,11 +326,18 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function enrolls()
     {
         return $this->belongsToMany(Course::class, 'enrolls')->wherePivot('status', '=', 'success');
     }
 
+    /**
+     * @param int $course_id
+     * @return false
+     */
     public function isEnrolled($course_id = 0)
     {
         if ($course_id === 0) {
@@ -274,6 +350,10 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
 
+    /**
+     * @param $course_id
+     * @return mixed
+     */
     public function isInstructorInCourse($course_id)
     {
         return $this->courses()->whereCourseId($course_id)->first();
@@ -304,12 +384,21 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return Complete::create($data);
     }
 
+    /**
+     * @param $course_id
+     * @return Complete|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
     public function is_completed_course($course_id)
     {
         $is_completed = Complete::whereCompletedCourseId($course_id)->whereUserId($this->id)->first();
         return $is_completed;
     }
 
+    /**
+     * @param null $key
+     * @param null $default
+     * @return mixed|null
+     */
     public function get_option($key = null, $default = null)
     {
         if ($this->options) {
@@ -323,6 +412,10 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return $default;
     }
 
+    /**
+     * @param null $key
+     * @param string $value
+     */
     public function update_option($key = null, $value = '')
     {
         if ($key) {
@@ -332,11 +425,17 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function student_enrolls()
     {
         return $this->belongsToMany(Enroll::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id')->whereStatus('success');
     }
 
+    /**
+     * @return $this
+     */
     public function enroll_sync()
     {
         $enrolledCourse = (array) $this->enrolls()->pluck('course_id')->all();
@@ -374,6 +473,9 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
 
+    /**
+     * @return object|null
+     */
     public function getWithdrawMethodAttribute()
     {
         $method = $this->get_option('withdraw_preference');
@@ -400,6 +502,10 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return (object) $saved_method;
     }
 
+    /**
+     * @param $quiz_id
+     * @return Attempt|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
     public function get_attempt($quiz_id)
     {
         $attempt = Attempt::where('user_id', $this->id)->where('quiz_id', $quiz_id)->first();

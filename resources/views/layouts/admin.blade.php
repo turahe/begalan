@@ -57,10 +57,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav dashboard-navbar-icons mx-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{route('dashboard')}}" data-toggle="tooltip" data-original-title="{{__a('dashboard')}}"><i class="las la-dashboard"></i> </a>
+                <a class="nav-link" href="{{route('dashboard')}}" data-toggle="tooltip" data-original-title="{{__a('dashboard')}}">
+                    <i class="las la-dashboard"></i>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('home')}}" target="_blank" data-toggle="tooltip" data-original-title="{{__a('site_home')}}"><i class="las la-home"></i></a>
+                <a class="nav-link" href="{{route('home')}}" target="_blank" data-toggle="tooltip" data-original-title="{{__a('site_home')}}">
+                    <i class="las la-home"></i>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('payments')}}" data-toggle="tooltip" data-original-title="{{__a('payments')}}">
@@ -70,6 +74,42 @@
         </ul>
 
         <ul class="navbar-nav dashboard-user-nav ml-auto">
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown mini-cart-item">
+                <a class="nav-link" href="javascript:;" id="miniCartDropDown">
+                    <div class="text-center">
+                        <i class="las la-bell"></i>
+                        @if(Auth::user()->unreadNotifications->count())
+                            <span class="badge badge-pill badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
+                        @endif
+                    </div>
+                </a>
+
+                <div class="mini-cart-body-wrap">
+                    <div class="mini-cart-courses-list-wrap">
+                    </div>
+                </div>
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">
+                        Alerts Center
+                    </h6>
+                    @foreach(Auth::user()->unreadNotifications as $notification)
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('notifications.show', $notification->id) }}">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="las la-file-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">{{ $notification->created_at->diffForHumans() }}</div>
+                            <span class="font-weight-bold">{{ __('admin.' . snake_case(class_basename($notification->type))) }}</span>
+                        </div>
+                    </a>
+                    @endforeach
+                    <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifications') }}">Show All Alerts</a>
+                </div>
+            </li>
             <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle nav-user-profile">
                     {!! $auth_user->get_photo !!}
@@ -77,7 +117,10 @@
                 </a>
 
                 <div role="menu" class="dropdown-menu">
-                    <a href="{{route('profile_settings')}}" class="dropdown-item" target="_blank"><i class="las la-user"></i> {{__('admin.profile')}}</a>
+                    <a href="{{route('profile_settings')}}" class="dropdown-item" target="_blank">
+                        <i class="las la-user"></i>
+                        {{__('admin.profile') }}
+                    </a>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
 

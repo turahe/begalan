@@ -272,4 +272,9 @@ return [
     'amazon_region'             => 'Region',
     'bucket'                    => 'Bucket',
     'amazon_region_help'        => 'Dapatkan nama wilayah sebenarnya',
+
+    'student_payment_notification' => 'Notifikasi pembayaran murid',
+    'notifications' => [
+      'description' => ':name telah membeli kursus  :course dengan harga harga :amount'
+    ],
 ];

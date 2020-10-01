@@ -12,9 +12,9 @@ $gridClass = $grid_class ? $grid_class : 'col-md-3';
 
             <button class="course-card-add-wish btn btn-link btn-sm p-0" data-course-id="{{$course->id}}">
                 @if($auth_user && in_array($course->id, $auth_user->get_option('wishlists', []) ))
-                    <i class="las la-heart"></i>
+                    <i class="la la-heart"></i>
                 @else
-                    <i class="las la-heart-o"></i>
+                    <i class="la la-heart-o"></i>
                 @endif
             </button>
         </div>
