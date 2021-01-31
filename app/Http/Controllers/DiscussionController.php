@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Content;
-use App\Discussion;
+use App\Models\Content;
+use App\Models\Discussion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

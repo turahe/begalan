@@ -1,37 +1,11 @@
 <?php
 
 /**
- * Laravel - A PHP Framework For Web Artisans
+ * Laravel - A PHP Framework For Web Artisans.
  *
- * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
 define('LARAVEL_START', microtime(true));
-
-/**
- * Added for Teachify
- */
-if (! defined('ROOT_PATH')) {
-    define('ROOT_PATH', __DIR__);
-}
-
-if (! defined('TEACHIFY_VERSION')) {
-    define('TEACHIFY_VERSION', '2.3.0');
-}
-
-/**
- * @param string $path
- * @return string
- *
- * root path like app_path()
- */
-
-function root_path($path = '')
-{
-    return ROOT_PATH.'/'.$path;
-}
-/** End: Teachify */
 
 /*
 |--------------------------------------------------------------------------

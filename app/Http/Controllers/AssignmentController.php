@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\AssignmentSubmission;
-use App\Content;
-use App\Course;
+use App\Models\AssignmentSubmission;
+use App\Models\Content;
+use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

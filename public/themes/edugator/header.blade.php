@@ -1,6 +1,5 @@
 @php
-    use App\Category;
-    $categories = Category::whereStep(0)->with('sub_categories')->orderBy('category_name', 'asc')->get();
+    $categories = \App\Models\Category::whereStep(0)->with('sub_categories')->orderBy('category_name', 'asc')->get();
 @endphp
 
     <!DOCTYPE html>

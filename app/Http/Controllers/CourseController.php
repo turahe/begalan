@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\AssignmentSubmission;
-use App\Attachment;
-use App\Category;
-use App\Content;
-use App\Course;
+use App\Models\AssignmentSubmission;
+use App\Models\Attachment;
+use App\Models\Category;
+use App\Models\Content;
+use App\Models\Course;
 use App\Http\Requests\Courses\CourseStoreRequest;
-use App\Review;
-use App\Section;
+use App\Models\Review;
+use App\Models\Section;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

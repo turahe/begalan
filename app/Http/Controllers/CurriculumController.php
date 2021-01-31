@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Attachment;
-use App\Content;
+use App\Models\Attachment;
+use App\Models\Content;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

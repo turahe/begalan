@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Payments\PaymentUpdateRequest;
 use App\Notifications\AdminPaymentNotification;
 use App\Notifications\StudentPaymentNotification;
-use App\Payment;
+use App\Models\Payment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;

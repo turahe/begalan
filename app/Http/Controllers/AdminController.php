@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Course;
-use App\Withdraw;
+
+use App\Models\Course;
+use App\Models\Withdraw;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Withdraw;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

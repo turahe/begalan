@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Course;
-use App\Post;
+use App\Models\Category;
+use App\Models\Course;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;

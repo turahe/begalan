@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
             return "Rp. <?php echo number_format($expression,0,',','.'); ?>";
         });
 
-        $this->options();
+//        $this->options();
 
 
     }

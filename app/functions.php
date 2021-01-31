@@ -75,7 +75,7 @@ if (! function_exists('unique_slug')) {
         $nSlug = $slug;
         $i = 0;
 
-        $model = str_replace(' ', '', "\App\ " . $model);
+        $model = str_replace(' ', '', "\App\Models\ " . $model);
 
         if ($skip_id === 0) {
             while (($model::whereSlug($nSlug)->count()) > 0) {
@@ -134,7 +134,7 @@ if (! function_exists('get_option')) {
     /**
      * @param string $key
      * @param null $default
-     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\App\Modelslication|mixed
      */
     function get_option($key = '', $default = null)
     {
@@ -191,7 +191,7 @@ if (! function_exists('update_option')) {
      */
     function update_option($key, $value)
     {
-        $option = \App\Option::firstOrCreate(['option_key' => $key]);
+        $option = \App\Models\Option::firstOrCreate(['option_key' => $key]);
         $option->option_value = $value;
         return $option->save();
     }
@@ -203,7 +203,7 @@ if (! function_exists('delete_option')) {
      */
     function delete_option($key)
     {
-        \App\Option::whereOptionKey($key)->delete();
+        \App\Models\Option::whereOptionKey($key)->delete();
     }
 }
 
@@ -239,7 +239,7 @@ if (! function_exists('__t')) {
 if (! function_exists('__a')) {
     /**
      * @param null $key
-     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Translation\Translator|mixed|string|null
+     * @return array|\Illuminate\Contracts\Foundation\App\Modelslication|\Illuminate\Contracts\Translation\Translator|mixed|string|null
      */
     function __a($key = null)
     {
@@ -391,8 +391,8 @@ if (! function_exists('media_image_uri')) {
         }
 
         if ($media) {
-            if (! is_object($media) || ! $media instanceof \App\Media) {
-                $media = \App\Media::find($media);
+            if (! is_object($media) || ! $media instanceof \App\Models\Media) {
+                $media = \App\Models\Media::find($media);
             }
 
             if ($media) {
@@ -445,8 +445,8 @@ if (! function_exists('media_file_uri')) {
         $url_path       = null;
 
         if ($media) {
-            if (! is_object($media) || ! $media instanceof \App\Media) {
-                $media = \App\Media::find($media);
+            if (! is_object($media) || ! $media instanceof \App\Models\Media) {
+                $media = \App\Models\Media::find($media);
             }
 
             if ($media) {
@@ -598,7 +598,7 @@ if (! function_exists('date_time_format')) {
 }
 
 /**
- * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+ * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\App\Modelslication|mixed
  */
 function get_currency()
 {
@@ -1490,8 +1490,8 @@ if (! function_exists('complete_content')) {
         if (!$content instanceof Content) {
             $content = Content::find($content);
         }
-        if (!$user instanceof \App\User) {
-            $user = \App\User::find($user);
+        if (!$user instanceof \App\Models\User) {
+            $user = \App\Models\User::find($user);
         }
 
         $course_id = $content->course_id;
@@ -1571,16 +1571,16 @@ if (! function_exists('course_card')) {
 if (! function_exists('countries')) {
     /**
      * @param null $country_id
-     * @return \App\Country|\App\Country[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|null
+     * @return \App\Models\Country|\App\Models\Country[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|null
      */
     function countries($country_id = null)
     {
         if (!$country_id) {
-            $countries = \App\Country::query()->orderBy('name', 'ASC')->get();
+            $countries = \App\Models\Country::query()->orderBy('name', 'ASC')->get();
             return $countries;
         }
 
-        return \App\Country::find($country_id);
+        return \App\Models\Country::find($country_id);
     }
 }
 

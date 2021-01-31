@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendMailOrderReceived;
 use App\Notifications\StudentPaymentNotification;
-use App\Payment;
-use App\User;
+use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Midtrans\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Stripe\Charge;
-use Stripe\Exception\CardException;
-use Stripe\Stripe;
+
 
 /**
  * Class GatewayController

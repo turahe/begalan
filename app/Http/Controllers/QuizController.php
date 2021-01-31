@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Answer;
-use App\Attempt;
-use App\Content;
-use App\Course;
-use App\Question;
-use App\QuestionOption;
-use App\Quiz;
+use App\Models\Answer;
+use App\Models\Attempt;
+use App\Models\Content;
+use App\Models\Course;
+use App\Models\Question;
+use App\Models\QuestionOption;
+use App\Models\Quiz;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

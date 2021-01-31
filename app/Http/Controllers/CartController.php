@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Course;
-use App\Libraries\Midtrans\Midtrans;
-use App\Payment;
+use App\Models\Course;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
-use function Aws\map;
 
 /**
  * Class CartController
