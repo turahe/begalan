@@ -8,7 +8,7 @@ function dashboard_menu()
 
     $user = \Illuminate\Support\Facades\Auth::user();
 
-    if ($user->isInstructor()) {
+    if (auth()->user()->hasRole('instructor')) {
         $pendingDiscusionBadge = '';
         $pendingDiscussionCount = $user->instructor_discussions->where('replied', 0)->count();
         if ($pendingDiscussionCount) {
@@ -92,7 +92,7 @@ function dashboard_menu()
         ],
     ]);
 
-    if ($user->is_admin) {
+    if (auth()->user()->hasRole('admin')) {
         $menu['admin'] = [
             'name' => __t('go_to_admin'),
             'icon' => '<i class="las la-cogs"></i>',

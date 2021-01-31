@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         $title = __t('login');
 
-        return view_template('login', compact('title'));
+        return view('theme::auth.login', compact('title'));
     }
 
     /**
@@ -73,7 +73,7 @@ class AuthController extends Controller
     {
         $title = __t('signup');
 
-        return view_template('register', compact('title'));
+        return view('theme::auth.register', compact('title'));
     }
 
     /**
@@ -115,7 +115,7 @@ class AuthController extends Controller
     {
         return $request->user()->hasVerifiedEmail()
             ? redirect('/dashboard')
-            : view(theme('auth.verify'));
+            : view('theme::auth.verify');
     }
 
     /**
@@ -135,7 +135,7 @@ class AuthController extends Controller
     {
         $title = __t('forgot_password');
 
-        return view(theme('auth.forgot_password'), compact('title'));
+        return view('theme::auth.forgot_password', compact('title'));
     }
 
     /**
@@ -173,7 +173,7 @@ class AuthController extends Controller
     {
         $title = __t('reset_your_password');
 
-        return view(theme('auth.reset_form'), compact('title'));
+        return view('theme::auth.reset_form', compact('title'));
     }
 
     /**

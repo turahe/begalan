@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Services\Libraries\Slug\HasSlug;
-use App\Services\Libraries\Slug\SlugOptions;
+use App\Services\Slug\HasSlug;
+use App\Services\Slug\SlugOptions;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * App\Models\Content
+ * App\Models\Content.
  *
  * @property int $id
  * @property int|null $user_id

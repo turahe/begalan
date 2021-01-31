@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Role as Model;
 
 /**
- * App\Models\Role
+ * App\Models\Role.
  *
  * @property int $id
  * @property string $name

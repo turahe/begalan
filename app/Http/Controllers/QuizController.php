@@ -37,7 +37,7 @@ class QuizController extends Controller
             $isEnrolled = $user->isEnrolled($course->id);
         }
 
-        return view(theme('quiz'), compact('course', 'title', 'isEnrolled', 'quiz'));
+        return view('theme::quiz', compact('course', 'title', 'isEnrolled', 'quiz'));
     }
 
     /**
@@ -136,7 +136,7 @@ class QuizController extends Controller
 
         session(['current_question' => $question->id]);
 
-        return view(theme('quiz_attempt'), compact('title', 'quiz', 'attempt', 'question', 'answered', 'q_number'));
+        return view('theme::quiz_attempt', compact('title', 'quiz', 'attempt', 'question', 'answered', 'q_number'));
     }
 
     /**
@@ -484,7 +484,7 @@ class QuizController extends Controller
         $user = Auth::user();
         $courses = $user->courses()->has('quizzes')->get();
 
-        return view(theme('dashboard.quizzes.index'), compact('title', 'courses'));
+        return view('theme::dashboard.quizzes.index', compact('title', 'courses'));
     }
 
     /**
@@ -496,7 +496,7 @@ class QuizController extends Controller
         $title = __t('quizzes');
         $course = Course::find($course_id);
 
-        return view(theme('dashboard.quizzes.quizzes'), compact('title', 'course'));
+        return view('theme::dashboard.quizzes.quizzes', compact('title', 'course'));
     }
 
     /**
@@ -508,7 +508,7 @@ class QuizController extends Controller
         $title = __t('quiz_attempts');
         $quiz = Quiz::find($quiz_id);
 
-        return view(theme('dashboard.quizzes.attempts'), compact('title', 'quiz'));
+        return view('theme::dashboard.quizzes.attempts', compact('title', 'quiz'));
     }
 
     /**
@@ -520,7 +520,7 @@ class QuizController extends Controller
         $title = __t('review_attempt');
         $attempt = Attempt::find($attempt_id);
 
-        return view(theme('dashboard.quizzes.attempt'), compact('title', 'attempt'));
+        return view('theme::dashboard.quizzes.attempt', compact('title', 'attempt'));
     }
 
     /**
@@ -566,6 +566,6 @@ class QuizController extends Controller
     {
         $title = __t('my_quiz_attempts');
 
-        return view(theme('dashboard.quizzes.my_attempts'), compact('title'));
+        return view('theme::dashboard.quizzes.my_attempts', compact('title'));
     }
 }

@@ -16,9 +16,9 @@ use Illuminate\View\View;
 class HomeController extends Controller
 {
     /**
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(): View
+    public function index()
     {
 //        $files = File::files(public_path('uploads/images/'));
 //        foreach ($files as $file) {
@@ -49,7 +49,7 @@ class HomeController extends Controller
 
         $posts = Post::post()->publish()->take(3)->get();
 
-        return view(theme('index'), compact('title', 'new_courses', 'featured_courses', 'popular_courses', 'posts'));
+        return view('theme::index', compact('title', 'new_courses', 'featured_courses', 'popular_courses', 'posts'));
     }
 
     /**
@@ -145,7 +145,7 @@ class HomeController extends Controller
         $per_page = $r->perpage ? $r->perpage : 9;
         $courses = $courses->paginate($per_page);
 
-        return view(theme('courses'), compact('title', 'courses', 'categories', 'topics'));
+        return view('theme::courses', compact('title', 'courses', 'categories', 'topics'));
     }
 
     /**

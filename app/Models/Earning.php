@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Earning
+ * App\Models\Earning.
  *
  * @property int $id
  * @property int|null $instructor_id

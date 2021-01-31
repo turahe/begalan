@@ -40,7 +40,9 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -83,7 +85,8 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
@@ -103,8 +106,10 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -146,7 +151,9 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @return bool[]|false[]|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request)
     {
@@ -194,7 +201,7 @@ class CategoriesController extends Controller
 
         $title = $category->category_name;
 
-        return view(theme('single-category'), compact('title', 'category'));
+        return view('theme::single-category', compact('title', 'category'));
     }
 
     /**
@@ -204,6 +211,6 @@ class CategoriesController extends Controller
     {
         $title = __t('topics');
 
-        return view(theme('categories'), compact('title'));
+        return view('theme::categories', compact('title'));
     }
 }

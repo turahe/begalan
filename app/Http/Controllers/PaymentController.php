@@ -126,9 +126,9 @@ class PaymentController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function PaymentSettings(): View
+    public function PaymentSettings()
     {
         $title = __a('payment_settings');
 
@@ -136,12 +136,12 @@ class PaymentController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function thankYou(): View
+    public function thankYou()
     {
         $title = __t('payment_thank_you');
 
-        return view(theme('payment-thank-you'), compact('title'));
+        return view('theme::payment-thank-you', compact('title'));
     }
 }

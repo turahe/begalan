@@ -25,7 +25,7 @@ class AssignmentController extends Controller
         $user = Auth::user();
         $courses = $user->courses()->has('assignments')->get();
 
-        return view(theme('dashboard.assignments.index'), compact('title', 'courses'));
+        return view('theme::dashboard.assignments.index', compact('title', 'courses'));
     }
 
     /**
@@ -40,7 +40,7 @@ class AssignmentController extends Controller
         $course = Course::find($course_id);
         $assignments = $course->assignments()->with('submissions')->paginate(50);
 
-        return view(theme('dashboard.assignments.assignments'), compact('title', 'course', 'assignments'));
+        return view('theme::dashboard.assignments.assignments', compact('title', 'course', 'assignments'));
     }
 
     /**
@@ -53,7 +53,7 @@ class AssignmentController extends Controller
         $assignment = Content::find($assignment_id);
         $submissions = $assignment->submissions()->paginate(50);
 
-        return view(theme('dashboard.assignments.submissions'), compact('title', 'assignment', 'submissions'));
+        return view('theme::dashboard.assignments.submissions', compact('title', 'assignment', 'submissions'));
     }
 
     /**
@@ -67,7 +67,7 @@ class AssignmentController extends Controller
         $title = __t('submission');
         $submission = AssignmentSubmission::find($submission_id);
 
-        return view(theme('dashboard.assignments.submission'), compact('title', 'submission'));
+        return view('theme::dashboard.assignments.submission', compact('title', 'submission'));
     }
 
     /**

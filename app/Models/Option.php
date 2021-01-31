@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Option
+ * App\Models\Option.
  *
  * @property int $id
  * @property string|null $option_key

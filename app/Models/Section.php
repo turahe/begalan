@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * App\Models\Section
+ * App\Models\Section.
  *
  * @property int $id
  * @property int|null $course_id

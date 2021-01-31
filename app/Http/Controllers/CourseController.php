@@ -55,7 +55,7 @@ class CourseController extends Controller
             }
         }
 
-        return view(theme('course'), compact('course', 'title', 'isEnrolled'));
+        return view('theme::course', compact('course', 'title', 'isEnrolled'));
     }
 
     /**
@@ -101,7 +101,7 @@ class CourseController extends Controller
             $isOpen = false;
         }
 
-        return view(theme('lecture'), compact('course', 'title', 'isEnrolled', 'lecture', 'isOpen'));
+        return view('theme::lecture', compact('course', 'title', 'isEnrolled', 'lecture', 'isOpen'));
     }
 
     /**
@@ -122,7 +122,7 @@ class CourseController extends Controller
             $isEnrolled = $user->isEnrolled($course->id);
         }
 
-        return view(theme('assignment'), compact('course', 'title', 'isEnrolled', 'assignment', 'has_submission'));
+        return view('theme::assignment', compact('course', 'title', 'isEnrolled', 'assignment', 'has_submission'));
     }
 
     /**
@@ -180,7 +180,7 @@ class CourseController extends Controller
         $title = __t('create_new_course');
         $categories = Category::parent()->with('sub_categories')->get();
 
-        return view(theme('dashboard.courses.create_course'), compact('title', 'categories'));
+        return view('theme::dashboard.courses.create_course', compact('title', 'categories'));
     }
 
     /**
@@ -250,7 +250,7 @@ class CourseController extends Controller
         $categories = Category::parent()->get();
         $topics = Category::whereCategoryId($course->second_category_id)->get();
 
-        return view(theme('dashboard.courses.information'), compact('title', 'course', 'categories', 'topics'));
+        return view('theme::dashboard.courses.information', compact('title', 'course', 'categories', 'topics'));
     }
 
     /**
@@ -318,7 +318,7 @@ class CourseController extends Controller
             abort(404);
         }
 
-        return view(theme('dashboard.courses.curriculum'), compact('title', 'course'));
+        return view('theme::dashboard.courses.curriculum', compact('title', 'course'));
     }
 
     /**
@@ -330,7 +330,7 @@ class CourseController extends Controller
         $title = __t('curriculum');
         $course = Course::find($course_id);
 
-        return view(theme('dashboard.courses.new_section'), compact('title', 'course'));
+        return view('theme::dashboard.courses.new_section', compact('title', 'course'));
     }
 
     /**
@@ -562,7 +562,7 @@ class CourseController extends Controller
             abort(404);
         }
 
-        return view(theme('dashboard.courses.pricing'), compact('title', 'course'));
+        return view('theme::dashboard.courses.pricing', compact('title', 'course'));
     }
 
     /**
@@ -613,7 +613,7 @@ class CourseController extends Controller
             abort(404);
         }
 
-        return view(theme('dashboard.courses.drip'), compact('title', 'course'));
+        return view('theme::dashboard.courses.drip', compact('title', 'course'));
     }
 
     /**
@@ -648,7 +648,7 @@ class CourseController extends Controller
             abort(404);
         }
 
-        return view(theme('dashboard.courses.publish'), compact('title', 'course'));
+        return view('theme::dashboard.courses.publish', compact('title', 'course'));
     }
 
     /**
@@ -679,6 +679,8 @@ class CourseController extends Controller
 
     /**
      * Course Free Enroll.
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function freeEnroll(Request $request)
     {
@@ -839,7 +841,7 @@ class CourseController extends Controller
     {
         $title = __t('my_courses');
 
-        return view(theme('dashboard.my_courses'), compact('title'));
+        return view('theme::dashboard.my_courses', compact('title'));
     }
 
     /**
@@ -849,6 +851,6 @@ class CourseController extends Controller
     {
         $title = __t('my_courses_reviews');
 
-        return view(theme('dashboard.my_courses_reviews'), compact('title'));
+        return view('theme::dashboard.my_courses_reviews', compact('title'));
     }
 }

@@ -126,7 +126,7 @@ class OptionSeeder extends Seeder
             'stripe_live_publishable_key' => null,
             'enable_paypal' => 0,
             'enable_paypal_sandbox' => '1',
-            'current_theme' => 'edugator',
+            'current_theme' => 'default',
             'copyright_text' => '[copyright_sign] [year] [site_name], All rights reserved.',
             'enable_social_login' => '1',
             'enable_facebook_login' => '1',

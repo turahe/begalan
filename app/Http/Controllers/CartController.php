@@ -46,7 +46,7 @@ class CartController extends Controller
         session(['cart' => $cartData]);
 
         if ($request->ajax()) {
-            return ['success' => 1, 'cart_html' => view_template_part('template-part.minicart')];
+            return ['success' => 1, 'cart_html' => view('theme::template-part.minicart')];
         }
 
         if ($request->cart_btn === 'buy_now') {
@@ -79,7 +79,7 @@ class CartController extends Controller
     {
         $title = __('checkout');
 
-        return view(theme('checkout'), compact('title'));
+        return view('theme::checkout', compact('title'));
     }
 
     public function payment($id)
@@ -118,6 +118,6 @@ class CartController extends Controller
         ];
         $token = Snap::getSnapToken($transaction);
 
-        return view(theme('checkout-pay'), compact('token'));
+        return view('theme::checkout-pay', compact('token'));
     }
 }

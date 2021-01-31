@@ -67,7 +67,7 @@ class DashboardController extends Controller
             }
         }
 
-        return view(theme('dashboard.dashboard'), compact('title', 'chartData'));
+        return view('theme::dashboard.dashboard', compact('title', 'chartData'));
     }
 
     /**
@@ -77,7 +77,7 @@ class DashboardController extends Controller
     {
         $title = __t('profile_settings');
 
-        return view(theme('dashboard.settings.profile'), compact('title'));
+        return view('theme::dashboard.settings.profile', compact('title'));
     }
 
     /**
@@ -108,7 +108,7 @@ class DashboardController extends Controller
     {
         $title = __t('reset_password');
 
-        return view(theme('dashboard.settings.reset_password'), compact('title'));
+        return view('theme::dashboard.settings.reset_password', compact('title'));
     }
 
     /**
@@ -152,7 +152,7 @@ class DashboardController extends Controller
     {
         $title = __t('enrolled_courses');
 
-        return view(theme('dashboard.enrolled_courses'), compact('title'));
+        return view('theme::dashboard.enrolled_courses', compact('title'));
     }
 
     /**
@@ -162,7 +162,7 @@ class DashboardController extends Controller
     {
         $title = __t('my_reviews');
 
-        return view(theme('dashboard.my_reviews'), compact('title'));
+        return view('theme::dashboard.my_reviews', compact('title'));
     }
 
     /**
@@ -172,7 +172,7 @@ class DashboardController extends Controller
     {
         $title = __t('wishlist');
 
-        return view(theme('dashboard.wishlist'), compact('title'));
+        return view('theme::dashboard.wishlist', compact('title'));
     }
 
     /**
@@ -182,7 +182,7 @@ class DashboardController extends Controller
     {
         $title = __t('purchase_history');
 
-        return view(theme('dashboard.purchase_history'), compact('title'));
+        return view('theme::dashboard.purchase_history', compact('title'));
     }
 
     /**
@@ -194,6 +194,6 @@ class DashboardController extends Controller
         $title = __a('purchase_view');
         $payment = Payment::find($id);
 
-        return view(theme('dashboard.purchase_view'), compact('title', 'payment'));
+        return view('theme::dashboard.purchase_view', compact('title', 'payment'));
     }
 }

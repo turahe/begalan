@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Option;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -32,14 +33,26 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Paginator::useBootstrap();
 
 //        Membuat Directive Custom Untuk Format Mata Uang
 
         Blade::directive('currency', function ($expression) {
             return "Rp. <?php echo number_format($expression,0,',','.'); ?>";
         });
+        $this->themes();
 
 //        $this->options();
+    }
+
+    /**
+     * get themes new path themes from resources.
+     */
+    protected function themes()
+    {
+        $views = resource_path('themes/'.config('global.current_theme', env('APP_THEME')));
+
+        $this->loadViewsFrom($views, 'theme');
     }
 
     protected function options()

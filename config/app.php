@@ -148,8 +148,6 @@ return [
 
     'providers' => [
 
-        \App\Providers\PluginServiceProvider::class,
-
         /*
          * Laravel Framework Service Providers...
          */

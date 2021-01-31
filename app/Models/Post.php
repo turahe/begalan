@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Services\Libraries\Slug\HasSlug;
-use App\Services\Libraries\Slug\SlugOptions;
+use App\Services\Slug\HasSlug;
+use App\Services\Slug\SlugOptions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Post
+ * App\Models\Post.
  *
  * @property int $id
  * @property int|null $user_id

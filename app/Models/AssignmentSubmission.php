@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * App\Models\AssignmentSubmission
+ * App\Models\AssignmentSubmission.
  *
  * @property int $id
  * @property int|null $user_id

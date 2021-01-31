@@ -1,4 +1,4 @@
 
-@include(theme('header'))
+@include('theme::header')
 @yield('content')
-@include(theme('footer'))
+@include('theme::footer')

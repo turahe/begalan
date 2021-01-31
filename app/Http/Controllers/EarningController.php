@@ -61,7 +61,7 @@ class EarningController extends Controller
             $chartData[$formatDate] = $salesCount;
         }
 
-        return view(theme('dashboard.earning.index'), compact('user', 'title', 'chartData'));
+        return view('theme::dashboard.earning.index', compact('user', 'title', 'chartData'));
     }
 
     /**
@@ -189,7 +189,7 @@ class EarningController extends Controller
 
         $statements = $statements->with('course', 'payment', 'payment.user', 'payment.user.country')->paginate(20);
 
-        return view(theme('dashboard.earning.report'), compact('user', 'title', 'page_title', 'total_amount', 'total_earning', 'commission', 'chartData', 'statements'));
+        return view('theme::dashboard.earning.report', compact('user', 'title', 'page_title', 'total_amount', 'total_earning', 'commission', 'chartData', 'statements'));
     }
 
     /**
@@ -200,7 +200,7 @@ class EarningController extends Controller
         $title = __t('withdraw');
         $user = Auth::user();
 
-        return view(theme('dashboard.earning.withdraw'), compact('title', 'user'));
+        return view('theme::dashboard.earning.withdraw', compact('title', 'user'));
     }
 
     /**
@@ -247,7 +247,7 @@ class EarningController extends Controller
         $title = __t('withdraw_preference');
         $user = Auth::user();
 
-        return view(theme('dashboard.earning.withdraw_preference'), compact('title', 'user'));
+        return view('theme::dashboard.earning.withdraw_preference', compact('title', 'user'));
     }
 
     /**

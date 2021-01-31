@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Review
+ * App\Models\Review.
  *
  * @property int $id
  * @property int|null $user_id
@@ -34,18 +34,31 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Review extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->with('photo_query');
     }
 
+    /**
+     * @param array $data
+     * @return $this
+     */
     public function save_and_sync($data = [])
     {
         if (is_array($data) && count($data)) {

@@ -1,1 +1,1 @@
-@include(theme('404'))
+@include('theme::404')

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 
 /**
- * App\Models\Payment
+ * App\Models\Payment.
  *
  * @property int $id
  * @property string|null $name

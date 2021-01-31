@@ -19,7 +19,7 @@ class DiscussionController extends Controller
     {
         $title = __t('discussions');
 
-        return view(theme('dashboard.discussions.index'), compact('title'));
+        return view('theme::dashboard.discussions.index', compact('title'));
     }
 
     /**
@@ -31,7 +31,7 @@ class DiscussionController extends Controller
         $title = __t('discussions');
         $discussion = Discussion::find($discussion_id);
 
-        return view(theme('dashboard.discussions.reply'), compact('title', 'discussion'));
+        return view('theme::dashboard.discussions.reply', compact('title', 'discussion'));
     }
 
     /**

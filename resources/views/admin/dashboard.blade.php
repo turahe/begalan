@@ -4,20 +4,20 @@
 
 
     @php
-    $userCount = \App\User::count();
-    $totalInstructors = \App\User::whereUserType('instructor')->count();
-    $totalStudents = \App\User::whereUserType('student')->count();
-    $courseCount = \App\Course::publish()->count();
-    $lectureCount = \App\Content::whereItemType('lecture')->count();
-    $quizCount = \App\Content::whereItemType('quiz')->count();
-    $assignmentCount = \App\Content::whereItemType('assignment')->count();
-    $questionCount = \App\Discussion::whereDiscussionId(0)->count();
-    $totalEnrol = \App\Enroll::whereStatus('success')->count();
-    $totalReview = \App\Review::count();
-    $totalAmount = \App\Payment::whereStatus('success')->sum('amount');
-    $withdrawsTotal = \App\Withdraw::whereStatus('approved')->sum('amount');
+    $userCount = \App\Models\User::count();
+    $totalInstructors = 2; //\App\Models\User::whereUserType('instructor')->count();
+    $totalStudents =  100;//\App\Models\User::whereUserType('student')->count();
+    $courseCount = \App\Models\Course::publish()->count();
+    $lectureCount = \App\Models\Content::whereItemType('lecture')->count();
+    $quizCount = \App\Models\Content::whereItemType('quiz')->count();
+    $assignmentCount = \App\Models\Content::whereItemType('assignment')->count();
+    $questionCount = \App\Models\Discussion::whereDiscussionId(0)->count();
+    $totalEnrol = \App\Models\Enroll::whereStatus('success')->count();
+    $totalReview = \App\Models\Review::count();
+    $totalAmount = \App\Models\Payment::whereStatus('success')->sum('amount');
+    $withdrawsTotal = \App\Models\Withdraw::whereStatus('approved')->sum('amount');
 
-    $payments = \App\Payment::query()->orderBy('id', 'desc')->take(20)->get();
+    $payments = \App\Models\Payment::query()->orderBy('id', 'desc')->take(20)->get();
 
     @endphp
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Quiz
+ * App\Models\Quiz.
  *
  * @property int $id
  * @property int|null $user_id
@@ -57,19 +57,36 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Quiz extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'contents';
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function questions()
     {
         return $this->hasMany(Question::class, 'quiz_id')->with('media');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function attempts()
     {
         return $this->hasMany(Attempt::class, 'quiz_id');
     }
 
+    /**
+     * @param null $key
+     * @param null $default
+     * @return mixed|null
+     */
     public function option($key = null, $default = null)
     {
         $options = null;
@@ -87,6 +104,9 @@ class Quiz extends Model
         return $options;
     }
 
+    /**
+     * @return string
+     */
     public function getUrlAttribute()
     {
         return route('single_quiz', [$this->course_id, $this->id]);

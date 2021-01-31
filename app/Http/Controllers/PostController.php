@@ -263,7 +263,7 @@ class PostController extends Controller
         $title = __t('blog');
         $posts = Post::post()->publish()->paginate(20);
 
-        return view(theme('blog'), compact('title', 'posts'));
+        return view('theme::blog', compact('title', 'posts'));
     }
 
     /**
@@ -292,10 +292,10 @@ class PostController extends Controller
         $title = $post->title;
 
         if ($post->type === 'post') {
-            return view(theme('single_post'), compact('title', 'post'));
+            return view('theme::single_post', compact('title', 'post'));
         }
 
-        return view(theme('single_page'), compact('title', 'post'));
+        return view('theme::single_page', compact('title', 'post'));
     }
 
     /**

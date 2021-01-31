@@ -27,7 +27,7 @@ class UserController extends Controller
 
         $title = $user->name;
 
-        return view(theme('profile'), compact('user', 'title'));
+        return view('theme::profile', compact('user', 'title'));
     }
 
     /**
@@ -39,7 +39,7 @@ class UserController extends Controller
         $review = Review::find($id);
         $title = 'Review by '.$review->user->name;
 
-        return view(theme('review'), compact('review', 'title'));
+        return view('theme::review', compact('review', 'title'));
     }
 
     /**
@@ -113,6 +113,7 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Exception
      */
     public function users(Request $request)
     {

@@ -20,9 +20,7 @@ class Admin
             return redirect()->guest(route('login'))->with('error', trans('app.unauthorized_access'));
         }
 
-        $user = Auth::user();
-
-        if (! $user->isAdmin()) {
+        if (! Auth::user()->hasAnyRole('admin', 'instructor')) {
             return redirect(route('dashboard'))->with('error', __t('access_restricted'));
         }
 

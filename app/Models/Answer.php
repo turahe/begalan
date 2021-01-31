@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\Answer
+ * App\Models\Answer.
  *
  * @property int $id
  * @property int|null $quiz_id

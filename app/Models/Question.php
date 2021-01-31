@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Question
+ * App\Models\Question.
  *
  * @property int $id
  * @property int|null $user_id
