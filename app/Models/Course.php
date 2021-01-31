@@ -10,6 +10,134 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Course
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property int|null $parent_category_id
+ * @property int|null $second_category_id
+ * @property int|null $category_id
+ * @property string|null $title
+ * @property string|null $slug
+ * @property string|null $short_description
+ * @property string|null $description
+ * @property string|null $benefits
+ * @property string|null $requirements
+ * @property string|null $price_plan
+ * @property string|null $price
+ * @property string|null $sale_price
+ * @property int $level
+ * @property int|null $status
+ * @property int|null $is_presale
+ * @property string|null $launch_at
+ * @property int|null $thumbnail_id
+ * @property string|null $video_src
+ * @property int|null $total_video_time
+ * @property int|null $require_enroll
+ * @property int|null $require_login
+ * @property int|null $total_lectures
+ * @property int|null $total_assignments
+ * @property int|null $total_quiz
+ * @property string|null $rating_value
+ * @property int|null $rating_count
+ * @property int|null $five_star_count
+ * @property int|null $four_star_count
+ * @property int|null $three_star_count
+ * @property int|null $two_star_count
+ * @property int|null $one_star_count
+ * @property int|null $is_featured
+ * @property string|null $featured_at
+ * @property int|null $is_popular
+ * @property string|null $popular_added_at
+ * @property \Illuminate\Support\Carbon|null $last_updated_at
+ * @property string|null $published_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssignmentSubmission[] $assignment_submissions
+ * @property-read int|null $assignment_submissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssignmentSubmission[] $assignment_submissions_waiting
+ * @property-read int|null $assignment_submissions_waiting_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $assignments
+ * @property-read int|null $assignments_count
+ * @property-read \App\Models\User|null $author
+ * @property-read \App\Models\Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $contents
+ * @property-read int|null $contents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attachment[] $contents_attachments
+ * @property-read int|null $contents_attachments_count
+ * @property-read null|array $benefits_arr
+ * @property-read null|string $continue_url
+ * @property-read array[] $drip_items
+ * @property-read bool $free
+ * @property-read null|int|string $get_price
+ * @property-read bool $i_am_instructor
+ * @property-read bool $paid
+ * @property-read null|array $requirements_arr
+ * @property-read mixed $thumbnail_url
+ * @property-read string $url
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $instructors
+ * @property-read int|null $instructors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $lectures
+ * @property-read int|null $lectures_count
+ * @property-read \App\Models\Media|null $media
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $quiz_attempts
+ * @property-read int|null $quiz_attempts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $quizzes
+ * @property-read int|null $quizzes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Review[] $reviews
+ * @property-read int|null $reviews_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Section[] $sections
+ * @property-read int|null $sections_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $students
+ * @property-read int|null $students_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Course newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course publish()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereBenefits($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereFeaturedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereFiveStarCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereFourStarCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereIsFeatured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereIsPopular($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereIsPresale($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereLastUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereLaunchAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereOneStarCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereParentCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePopularAddedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePricePlan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePublishedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRatingCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRatingValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRequireEnroll($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRequireLogin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRequirements($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereSalePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereSecondCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereThreeStarCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereThumbnailId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalAssignments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalLectures($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalQuiz($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalVideoTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTwoStarCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereVideoSrc($value)
+ * @mixin \Eloquent
+ */
 class Course extends Model
 {
     use HasFactory;

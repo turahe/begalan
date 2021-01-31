@@ -156,6 +156,7 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      *
      * Withdraw requests
+     * @throws \Exception
      */
     public function withdrawsRequests(Request $request)
     {

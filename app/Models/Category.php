@@ -7,6 +7,43 @@ use App\Services\Libraries\Slug\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Category
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property string|null $category_name
+ * @property string|null $slug
+ * @property int|null $category_id
+ * @property int|null $thumbnail_id
+ * @property string|null $icon_class
+ * @property int $step
+ * @property int|null $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
+ * @property-read int|null $courses_count
+ * @property-read string $bg_color
+ * @property-read Category|null $parent_category
+ * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $sub_categories
+ * @property-read int|null $sub_categories_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category parent()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCategoryName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereIconClass($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereStep($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereThumbnailId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Category extends Model
 {
     use HasSlug;

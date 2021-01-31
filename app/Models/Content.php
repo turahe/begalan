@@ -12,6 +12,71 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * App\Models\Content
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property int|null $course_id
+ * @property int|null $section_id
+ * @property string|null $title
+ * @property string|null $slug
+ * @property string|null $text
+ * @property string|null $video_src
+ * @property int|null $video_time
+ * @property string|null $item_type
+ * @property int|null $is_preview
+ * @property int|null $status
+ * @property int|null $sort_order
+ * @property string|null $options
+ * @property int|null $quiz_gradable
+ * @property string|null $unlock_date
+ * @property int|null $unlock_days
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attachment[] $attachments
+ * @property-read int|null $attachments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $attempts
+ * @property-read int|null $attempts_count
+ * @property-read \App\Models\Course|null $course
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Discussion[] $discussions
+ * @property-read int|null $discussions_count
+ * @property-read object $drip
+ * @property-read string $icon_html
+ * @property-read false|string $runtime
+ * @property-read float|int $runtime_seconds
+ * @property-read null|string $url
+ * @property-read Content|null $next
+ * @property-read Content|null $previous
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
+ * @property-read int|null $questions_count
+ * @property-read \App\Models\Section|null $section
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssignmentSubmission[] $submissions
+ * @property-read int|null $submissions_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Content newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Content newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Content query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereIsPreview($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereItemType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereQuizGradable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereSectionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereUnlockDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereUnlockDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereVideoSrc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereVideoTime($value)
+ * @mixin \Eloquent
+ */
 class Content extends Model
 {
     use HasFactory;

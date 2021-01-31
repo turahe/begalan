@@ -7,6 +7,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * App\Models\Section
+ *
+ * @property int $id
+ * @property int|null $course_id
+ * @property string|null $section_name
+ * @property string|null $unlock_date
+ * @property int|null $unlock_days
+ * @property int|null $sort_order
+ * @property-read \App\Models\Course|null $course
+ * @property-read object $drip
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $items
+ * @property-read int|null $items_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Section newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Section newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Section query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereSectionName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereUnlockDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereUnlockDays($value)
+ * @mixin \Eloquent
+ */
 class Section extends Model
 {
     use HasFactory;

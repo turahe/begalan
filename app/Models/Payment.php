@@ -8,6 +8,88 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Payment
+ *
+ * @property int $id
+ * @property string|null $name
+ * @property string|null $email
+ * @property int|null $user_id
+ * @property string|null $amount
+ * @property string|null $total_amount
+ * @property string|null $fees_name
+ * @property string|null $fees_amount
+ * @property string|null $fees_total
+ * @property string|null $fees_type
+ * @property string|null $payment_method
+ * @property string|null $status
+ * @property string|null $currency
+ * @property string|null $token_id
+ * @property string|null $card_last4
+ * @property string|null $card_id
+ * @property string|null $card_brand
+ * @property string|null $card_country
+ * @property string|null $card_exp_month
+ * @property string|null $card_exp_year
+ * @property string|null $client_ip
+ * @property string|null $charge_id_or_token
+ * @property string|null $payer_email
+ * @property string|null $description
+ * @property string|null $local_transaction_id
+ * @property int|null $payment_created
+ * @property string|null $bank_swift_code
+ * @property string|null $account_number
+ * @property string|null $branch_name
+ * @property string|null $branch_address
+ * @property string|null $account_name
+ * @property string|null $iban
+ * @property string|null $payment_note
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
+ * @property-read int|null $courses_count
+ * @property-read string $status_context
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAccountName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAccountNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereBankSwiftCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereBranchAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereBranchName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCardBrand($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCardCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCardExpMonth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCardExpYear($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCardId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCardLast4($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereChargeIdOrToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereClientIp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereFeesAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereFeesName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereFeesTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereFeesType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereIban($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereLocalTransactionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment wherePayerEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment wherePaymentCreated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment wherePaymentMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment wherePaymentNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereTokenId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereTotalAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Payment extends Model
 {
     /**

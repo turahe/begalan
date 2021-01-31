@@ -8,11 +8,83 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $provider_user_id
+ * @property string|null $provider
+ * @property string|null $reset_token
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Country $country
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
+ * @property-read int|null $courses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Earning[] $earnings
+ * @property-read int|null $earnings_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $enrolls
+ * @property-read int|null $enrolls_count
+ * @property-read mixed $earning
+ * @property-read string $get_photo
+ * @property-read mixed $get_rating
+ * @property-read bool $is_admin
+ * @property-read bool $is_instructor
+ * @property-read object|null $withdraw_method
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Discussion[] $instructor_discussions
+ * @property-read int|null $instructor_discussions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Media[] $medias
+ * @property-read int|null $medias_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $my_quiz_attempts
+ * @property-read int|null $my_quiz_attempts_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \App\Models\Media $photo_query
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payment[] $purchases
+ * @property-read int|null $purchases_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Review[] $reviews
+ * @property-read int|null $reviews_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Enroll[] $student_enrolls
+ * @property-read int|null $student_enrolls_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $wishlist
+ * @property-read int|null $wishlist_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Withdraw[] $withdraws
+ * @property-read int|null $withdraws_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User active()
+ * @method static \Illuminate\Database\Eloquent\Builder|User instructor()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProviderUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereResetToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasFactory;
+    use HasRoles;
 
     /**
      * @var array

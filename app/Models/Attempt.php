@@ -4,6 +4,58 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Attempt
+ *
+ * @property int $id
+ * @property int|null $course_id
+ * @property int|null $quiz_id
+ * @property int|null $user_id
+ * @property int|null $reviewer_id
+ * @property int|null $questions_limit
+ * @property int|null $total_answered
+ * @property string|null $total_scores
+ * @property string|null $earned_scores
+ * @property int|null $passing_percent
+ * @property int|null $earned_percent
+ * @property string|null $status
+ * @property int|null $quiz_gradable
+ * @property int|null $is_reviewed
+ * @property \Illuminate\Support\Carbon|null $ended_at
+ * @property string|null $reviewed_at
+ * @property int|null $passed
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Answer[] $answers
+ * @property-read int|null $answers_count
+ * @property-read \App\Models\Course|null $course
+ * @property-read string $status_html
+ * @property-read \App\Models\Content|null $quiz
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereEarnedPercent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereEarnedScores($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereEndedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereIsReviewed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt wherePassed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt wherePassingPercent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereQuestionsLimit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereQuizGradable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereQuizId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereReviewedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereReviewerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereTotalAnswered($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereTotalScores($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Attempt extends Model
 {
     /**

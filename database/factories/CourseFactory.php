@@ -26,7 +26,7 @@ class CourseFactory extends Factory
         $parent_category_id = $this->faker->randomElement(\App\Models\Category::where('category_id', 0)->pluck('id')->toArray());
         $second_category_id = $this->faker->randomElement(\App\Models\Category::where('category_id', $parent_category_id)->pluck('id')->toArray());
         $category_id = $this->faker->randomElement(\App\Models\Category::where('category_id', $second_category_id)->pluck('id')->toArray());
-        $user_id = $this->faker->randomElement(\App\Models\User::where('user_type', 'instructor')->pluck('id')->toArray());
+//        $user_id = $this->faker->randomElement(\App\Models\User::where('user_type', 'instructor')->pluck('id')->toArray());
         $price = mt_rand(60, 100) * 1000;
 
         $video = [
@@ -45,7 +45,7 @@ class CourseFactory extends Factory
         ];
 
         return [
-            'user_id' => $user_id,
+            'user_id' => 2,
             'parent_category_id'  => $parent_category_id,
             'second_category_id'  => $second_category_id,
             'category_id'  => $category_id,

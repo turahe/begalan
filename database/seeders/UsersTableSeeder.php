@@ -15,34 +15,17 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        $users = collect($this->defaultUsers)->map(function ($user) {
-            return [
+        foreach ($this->defaultUsers as $user) {
+            User::updateOrCreate([
                 'name'      => $user['name'],
                 'email'     => $user['email'],
                 'password'  => bcrypt('secret'),
-                'user_type' => $user['user_type'],
-                'email_verified_at' => now()->toDateTimeString(),
-                'active_status' => 1,
-                'company_name' => 'Circle Creative (PT. Lingkar Kreasi)',
-                'country_id' => 104,
-                'address' => 'Jalan Cibaduyut Raya No.142 Komplek Komersial Mekarwangi Square Bojongloa Kidul',
-                'city' => 'Bandung',
-                'zip_code' => '40236',
-                'postcode' => '40236',
-                'website' => 'https://circlecreative.id',
-                'gender' => $user['gender'],
-                'remember_token' => Str::random(10),
-                'created_at'  => now()->toDateTimeString(),
-                'updated_at'  => now()->toDateTimeString(),
-            ];
-        });
-        User::insert($users->toArray());
+            ])->assignRole($user['user_type']);
+        }
 
-        User::factory(100)->create([
-            'user_type' => 'student',
-            'active_status' => 1,
-        ]);
+        User::factory(100)->create()->each(function ($user) {
+            $user->assignRole('student');
+        });
     }
 
     /**
@@ -50,38 +33,26 @@ class UsersTableSeeder extends Seeder
      */
     protected $defaultUsers = [
         [
-            'name'      => 'Circle Creative',
-            'email'     => 'developer@circlecreative.id',
+            'name'      => 'Admin',
+            'email'     => 'developer@turahe.id',
             'user_type' => 'admin',
             'gender' => 'female',
         ],
         [
-            'name'      => 'Instructor Bertalenta',
-            'email'     => 'instructor@circlecreative.id',
+            'name'      => 'Instructor',
+            'email'     => 'instructor@turahe.id',
             'user_type' => 'instructor',
             'gender' => 'male',
         ],
         [
             'name'      => 'Nur Wachid',
-            'email'     => 'nur.wachid@circlecreative.id',
+            'email'     => 'nur.wachid@turahe.id',
             'user_type' => 'instructor',
             'gender' => 'male',
-        ],
-        [
-            'name'      => 'Steeve Adrian Salim',
-            'email'     => 'steeven@circlecreative.id',
-            'user_type' => 'instructor',
-            'gender' => 'male',
-        ],
-        [
-            'name'      => 'Angie Thea',
-            'email'     => 'angie@circlecreative.id',
-            'user_type' => 'instructor',
-            'gender' => 'female',
         ],
         [
             'name'      => 'Clever Student',
-            'email'     => 'student@circlecreative.id',
+            'email'     => 'student@turahe.id',
             'user_type' => 'student',
             'gender' => 'male',
         ],
