@@ -10,12 +10,10 @@ use Midtrans\Config;
 use Midtrans\Snap;
 
 /**
- * Class CartController
- * @package App\Http\Controllers
+ * Class CartController.
  */
 class CartController extends Controller
 {
-
     /**
      * @param Request $request
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -48,7 +46,7 @@ class CartController extends Controller
         session(['cart' => $cartData]);
 
         if ($request->ajax()) {
-            return ['success' => 1, 'cart_html' => view_template_part('template-part.minicart') ];
+            return ['success' => 1, 'cart_html' => view_template_part('template-part.minicart')];
         }
 
         if ($request->cart_btn === 'buy_now') {
@@ -70,7 +68,8 @@ class CartController extends Controller
             unset($cartData[$request->cart_id]);
         }
         session(['cart' => $cartData]);
-        return ['success' => 1, 'cart_html' => view_template_part('template-part.minicart') ];
+
+        return ['success' => 1, 'cart_html' => view_template_part('template-part.minicart')];
     }
 
     /**
@@ -79,6 +78,7 @@ class CartController extends Controller
     public function checkout()
     {
         $title = __('checkout');
+
         return view(theme('checkout'), compact('title'));
     }
 
@@ -86,16 +86,16 @@ class CartController extends Controller
     {
         //Set Your server key
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-// Uncomment for production environment
-// Config::$isProduction = true;
+        // Uncomment for production environment
+        // Config::$isProduction = true;
         Config::$isSanitized = Config::$is3ds = true;
 
         $payment = Payment::findOrFail($id);
 
-        $transaction_details = array(
+        $transaction_details = [
             'order_id' => $payment->local_transaction_id,
-            'gross_amount' => (int)$payment->amount, // no decimal allowed for creditcard
-        );
+            'gross_amount' => (int) $payment->amount, // no decimal allowed for creditcard
+        ];
 
         // Optional
         $user = Auth::user();
@@ -103,24 +103,21 @@ class CartController extends Controller
         $first_name = $name[0];
         $last_name = array_pop($name);
 
-        $customer_details = array(
+        $customer_details = [
             'first_name'    => $first_name,
             'last_name'     => $last_name,
             'email'         => $payment->email,
             'phone'         => $user->phone,
             'billing_address'  => isset($user->address) ? $user->address : $user->address_2,
 //            'shipping_address' => $shipping_address
-        );
-// Fill transaction details
-        $transaction = array(
+        ];
+        // Fill transaction details
+        $transaction = [
             'transaction_details' => $transaction_details,
             'customer_details' => $customer_details,
-        );
-        $token    = Snap::getSnapToken($transaction);
+        ];
+        $token = Snap::getSnapToken($transaction);
 
-
-
-
-        return view(theme('checkout-pay'), compact( 'token'));
+        return view(theme('checkout-pay'), compact('token'));
     }
 }

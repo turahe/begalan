@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use App\Models\Post;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -30,25 +32,25 @@ class PostsTableSeeder extends Seeder
         // generate page default
         Post::insert($pages->toArray());
         // generate random post
-        Post::factory( 30)->create();
+        Post::factory(30)->create();
     }
 
     protected $defaultPages = [
         [
             'title' => 'Terms',
-            'content' => 'terms.md'
+            'content' => 'terms.md',
         ],
         [
             'title' => 'Terms Cookies',
-            'content' => 'terms-cookies.md'
+            'content' => 'terms-cookies.md',
         ],
         [
             'title' => 'Terms Instructor',
-            'content' => 'terms-instructor.md'
+            'content' => 'terms-instructor.md',
         ],
         [
             'title' => 'Terms Privacy',
-            'content' => 'terms-privacy.md'
+            'content' => 'terms-privacy.md',
         ],
 
     ];

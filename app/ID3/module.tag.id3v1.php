@@ -14,7 +14,6 @@
 //                                                            ///
 /////////////////////////////////////////////////////////////////
 
-
 class getid3_id3v1 extends getid3_handler
 {
     /**
@@ -24,8 +23,9 @@ class getid3_id3v1 extends getid3_handler
     {
         $info = &$this->getid3->info;
 
-        if (!getid3_lib::intValueSupported($info['filesize'])) {
+        if (! getid3_lib::intValueSupported($info['filesize'])) {
             $this->warning('Unable to check for ID3v1 because file is larger than '.round(PHP_INT_MAX / 1073741824).'GB');
+
             return false;
         }
 
@@ -36,23 +36,23 @@ class getid3_id3v1 extends getid3_handler
         if (substr($id3v1tag, 0, 3) == 'TAG') {
             $info['avdataend'] = $info['filesize'] - 128;
 
-            $ParsedID3v1['title']   = $this->cutfield(substr($id3v1tag, 3, 30));
-            $ParsedID3v1['artist']  = $this->cutfield(substr($id3v1tag, 33, 30));
-            $ParsedID3v1['album']   = $this->cutfield(substr($id3v1tag, 63, 30));
-            $ParsedID3v1['year']    = $this->cutfield(substr($id3v1tag, 93, 4));
-            $ParsedID3v1['comment'] =                 substr($id3v1tag, 97, 30);  // can't remove nulls yet, track detection depends on them
-            $ParsedID3v1['genreid'] =             ord(substr($id3v1tag, 127, 1));
+            $ParsedID3v1['title'] = $this->cutfield(substr($id3v1tag, 3, 30));
+            $ParsedID3v1['artist'] = $this->cutfield(substr($id3v1tag, 33, 30));
+            $ParsedID3v1['album'] = $this->cutfield(substr($id3v1tag, 63, 30));
+            $ParsedID3v1['year'] = $this->cutfield(substr($id3v1tag, 93, 4));
+            $ParsedID3v1['comment'] = substr($id3v1tag, 97, 30);  // can't remove nulls yet, track detection depends on them
+            $ParsedID3v1['genreid'] = ord(substr($id3v1tag, 127, 1));
 
             // If second-last byte of comment field is null and last byte of comment field is non-null
             // then this is ID3v1.1 and the comment field is 28 bytes long and the 30th byte is the track number
             if (($id3v1tag[125] === "\x00") && ($id3v1tag[126] !== "\x00")) {
                 $ParsedID3v1['track_number'] = ord(substr($ParsedID3v1['comment'], 29, 1));
-                $ParsedID3v1['comment']      =     substr($ParsedID3v1['comment'], 0, 28);
+                $ParsedID3v1['comment'] = substr($ParsedID3v1['comment'], 0, 28);
             }
             $ParsedID3v1['comment'] = $this->cutfield($ParsedID3v1['comment']);
 
             $ParsedID3v1['genre'] = $this->LookupGenreName($ParsedID3v1['genreid']);
-            if (!empty($ParsedID3v1['genre'])) {
+            if (! empty($ParsedID3v1['genre'])) {
                 unset($ParsedID3v1['genreid']);
             }
             if (isset($ParsedID3v1['genre']) && (empty($ParsedID3v1['genre']) || ($ParsedID3v1['genre'] == 'Unknown'))) {
@@ -92,7 +92,7 @@ class getid3_id3v1 extends getid3_handler
                 $ParsedID3v1['year'],
                 (isset($ParsedID3v1['genre']) ? $this->LookupGenreID($ParsedID3v1['genre']) : false),
                 $ParsedID3v1['comment'],
-                (!empty($ParsedID3v1['track_number']) ? $ParsedID3v1['track_number'] : '')
+                (! empty($ParsedID3v1['track_number']) ? $ParsedID3v1['track_number'] : '')
             );
             $ParsedID3v1['padding_valid'] = true;
             if ($id3v1tag !== $GoodFormatID3v1tag) {
@@ -100,7 +100,7 @@ class getid3_id3v1 extends getid3_handler
                 $this->warning('Some ID3v1 fields do not use NULL characters for padding');
             }
 
-            $ParsedID3v1['tag_offset_end']   = $info['filesize'];
+            $ParsedID3v1['tag_offset_end'] = $info['filesize'];
             $ParsedID3v1['tag_offset_start'] = $ParsedID3v1['tag_offset_end'] - 128;
 
             $info['id3v1'] = $ParsedID3v1;
@@ -143,7 +143,7 @@ class getid3_id3v1 extends getid3_handler
      *
      * @return string[]
      */
-    public static function ArrayOfGenres($allowSCMPXextended=false)
+    public static function ArrayOfGenres($allowSCMPXextended = false)
     {
         static $GenreLookup = [
             0    => 'Blues',
@@ -298,7 +298,7 @@ class getid3_id3v1 extends getid3_handler
             255  => 'Unknown',
 
             'CR' => 'Cover',
-            'RX' => 'Remix'
+            'RX' => 'Remix',
         ];
 
         static $GenreLookupSCMPX = [];
@@ -325,7 +325,7 @@ class getid3_id3v1 extends getid3_handler
             //$GenreLookupSCMPX[255] = 'Japanese Anime';
         }
 
-        return ($allowSCMPXextended ? $GenreLookupSCMPX : $GenreLookup);
+        return $allowSCMPXextended ? $GenreLookupSCMPX : $GenreLookup;
     }
 
     /**
@@ -334,21 +334,22 @@ class getid3_id3v1 extends getid3_handler
      *
      * @return false|string
      */
-    public static function LookupGenreName($genreid, $allowSCMPXextended=true)
+    public static function LookupGenreName($genreid, $allowSCMPXextended = true)
     {
         switch ($genreid) {
             case 'RX':
             case 'CR':
                 break;
             default:
-                if (!is_numeric($genreid)) {
+                if (! is_numeric($genreid)) {
                     return false;
                 }
                 $genreid = intval($genreid); // to handle 3 or '3' or '03'
                 break;
         }
         $GenreLookup = self::ArrayOfGenres($allowSCMPXextended);
-        return (isset($GenreLookup[$genreid]) ? $GenreLookup[$genreid] : false);
+
+        return isset($GenreLookup[$genreid]) ? $GenreLookup[$genreid] : false;
     }
 
     /**
@@ -357,7 +358,7 @@ class getid3_id3v1 extends getid3_handler
      *
      * @return false|string
      */
-    public static function LookupGenreID($genre, $allowSCMPXextended=false)
+    public static function LookupGenreID($genre, $allowSCMPXextended = false)
     {
         $GenreLookup = self::ArrayOfGenres($allowSCMPXextended);
         $LowerCaseNoSpaceSearchTerm = strtolower(str_replace(' ', '', $genre));
@@ -366,6 +367,7 @@ class getid3_id3v1 extends getid3_handler
                 return $key;
             }
         }
+
         return false;
     }
 
@@ -379,6 +381,7 @@ class getid3_id3v1 extends getid3_handler
         if (($GenreID = self::LookupGenreID($OriginalGenre)) !== false) {
             return self::LookupGenreName($GenreID);
         }
+
         return $OriginalGenre;
     }
 
@@ -393,14 +396,14 @@ class getid3_id3v1 extends getid3_handler
      *
      * @return string
      */
-    public static function GenerateID3v1Tag($title, $artist, $album, $year, $genreid, $comment, $track='')
+    public static function GenerateID3v1Tag($title, $artist, $album, $year, $genreid, $comment, $track = '')
     {
-        $ID3v1Tag  = 'TAG';
+        $ID3v1Tag = 'TAG';
         $ID3v1Tag .= str_pad(trim(substr($title, 0, 30)), 30, "\x00", STR_PAD_RIGHT);
         $ID3v1Tag .= str_pad(trim(substr($artist, 0, 30)), 30, "\x00", STR_PAD_RIGHT);
         $ID3v1Tag .= str_pad(trim(substr($album, 0, 30)), 30, "\x00", STR_PAD_RIGHT);
         $ID3v1Tag .= str_pad(trim(substr($year, 0, 4)), 4, "\x00", STR_PAD_LEFT);
-        if (!empty($track) && ($track > 0) && ($track <= 255)) {
+        if (! empty($track) && ($track > 0) && ($track <= 255)) {
             $ID3v1Tag .= str_pad(trim(substr($comment, 0, 28)), 28, "\x00", STR_PAD_RIGHT);
             $ID3v1Tag .= "\x00";
             if (gettype($track) == 'string') {

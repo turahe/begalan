@@ -18,11 +18,10 @@ class Payment extends Model
     public const PAYMENT_CHANNELS = ['credit_card', 'mandiri_clickpay', 'cimb_clicks',
         'bca_klikbca', 'bca_klikpay', 'bri_epay', 'echannel', 'permata_va',
         'bca_va', 'bni_va', 'other_va', 'gopay', 'indomaret',
-        'danamon_online', 'akulaku'];
+        'danamon_online', 'akulaku', ];
 
     public const EXPIRY_DURATION = 7;
     public const EXPIRY_UNIT = 'days';
-
 
     public const CHALLENGE = 'challenge';
     public const SUCCESS = 'success';
@@ -31,7 +30,6 @@ class Payment extends Model
     public const DENY = 'deny';
     public const EXPIRE = 'expire';
     public const CANCEL = 'cancel';
-
 
     public const PAYMENTCODE = 'PAY';
 
@@ -64,7 +62,7 @@ class Payment extends Model
             'course_price'  => $cart_course['price'],
             'payment_id'    => $this->id,
             'status'        => $this->status,
-            'enrolled_at'   => $carbon
+            'enrolled_at'   => $carbon,
         ];
         DB::table('enrolls')->insert($data);
 
@@ -109,6 +107,7 @@ class Payment extends Model
                 }
             }
         }
+
         return $this;
     }
 
@@ -124,13 +123,13 @@ class Payment extends Model
 
         //If any fees, add it to Payment
         if ($cart->enable_charge_fees) {
-            $data['fees_name']   = $cart->fees_name;
+            $data['fees_name'] = $cart->fees_name;
             $data['fees_amount'] = $cart->fees_amount;
-            $data['fees_type']   = $cart->fees_type;
-            $data['fees_total']   = $cart->fees_total;
+            $data['fees_type'] = $cart->fees_type;
+            $data['fees_total'] = $cart->fees_total;
         }
 
-        $payment = Payment::create($data);
+        $payment = self::create($data);
         if (is_array($cart->courses) && count($cart->courses)) {
             foreach ($cart->courses as $course) {
                 $payment->do_enroll($course)->distribute_earning();
@@ -147,7 +146,6 @@ class Payment extends Model
      *
      * Update payment and update to enroll, related earnings.
      */
-
     public function save_and_sync($data = [])
     {
         if (is_array($data) && count($data)) {
@@ -175,6 +173,7 @@ class Payment extends Model
         DB::table('earnings')->where('payment_id', $this->id)->delete();
         DB::table('enrolls')->where('payment_id', $this->id)->delete();
         $this->delete();
+
         return $this;
     }
 
@@ -183,35 +182,36 @@ class Payment extends Model
      */
     public function getStatusContextAttribute()
     {
-        $statusClass = "";
-        $iclass = "";
+        $statusClass = '';
+        $iclass = '';
         switch ($this->status) {
             case 'initial':
-                $statusClass .= "secondary";
-                $iclass = "clock-o";
+                $statusClass .= 'secondary';
+                $iclass = 'clock-o';
                 break;
             case 'pending':
-                $statusClass .= "dark";
-                $iclass = "clock-o";
+                $statusClass .= 'dark';
+                $iclass = 'clock-o';
                 break;
             case 'onhold':
-                $statusClass .= "warning";
-                $iclass = "hourglass";
+                $statusClass .= 'warning';
+                $iclass = 'hourglass';
                 break;
             case 'success':
-                $statusClass .= "success";
-                $iclass = "check-circle";
+                $statusClass .= 'success';
+                $iclass = 'check-circle';
                 break;
             case 'failed':
             case 'declined':
             case 'dispute':
             case 'expired':
-                $statusClass .= "danger";
-                $iclass = "exclamation-circle";
+                $statusClass .= 'danger';
+                $iclass = 'exclamation-circle';
                 break;
         }
 
         $html = "<span class='badge payment-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$this->status}</span>";
+
         return $html;
     }
 }

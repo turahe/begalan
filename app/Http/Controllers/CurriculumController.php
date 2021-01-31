@@ -10,12 +10,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * Class CurriculumController
- * @package App\Http\Controllers
+ * Class CurriculumController.
  */
 class CurriculumController extends Controller
 {
-
     /**
      * @param Request $request
      */
@@ -52,7 +50,7 @@ class CurriculumController extends Controller
     public function newAssignment(Request $request, $course_id)
     {
         $rules = [
-            'title' => 'required'
+            'title' => 'required',
         ];
 
         $validation = Validator::make($request->input(), $rules);
@@ -64,7 +62,7 @@ class CurriculumController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
 
             return ['success' => false, 'error_msg' => $error_msg];
         }
@@ -90,15 +88,14 @@ class CurriculumController extends Controller
 
         $assignment = Content::create($data);
 
-
         /**
-         * Save Attachments if any
+         * Save Attachments if any.
          */
         $attachments = array_filter((array) $request->attachments);
         if (is_array($attachments) && count($attachments)) {
             foreach ($attachments as $media_id) {
                 $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
-                Attachment::create(['belongs_course_id' => $course_id, 'content_id' => $assignment->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash ]);
+                Attachment::create(['belongs_course_id' => $course_id, 'content_id' => $assignment->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
             }
         }
 
@@ -114,7 +111,7 @@ class CurriculumController extends Controller
     public function updateAssignment(Request $request, $course_id, $assignment_id)
     {
         $rules = [
-            'title' => 'required'
+            'title' => 'required',
         ];
         $validation = Validator::make($request->input(), $rules);
 
@@ -124,7 +121,8 @@ class CurriculumController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
+
             return ['success' => false, 'error_msg' => $error_msg];
         }
 
@@ -144,13 +142,13 @@ class CurriculumController extends Controller
         $item->update($data);
 
         /**
-         * Save Attachments if any
+         * Save Attachments if any.
          */
         $attachments = array_filter((array) $request->attachments);
         if (is_array($attachments) && count($attachments)) {
             foreach ($attachments as $media_id) {
                 $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
-                Attachment::create(['belongs_course_id' => $item->course_id, 'content_id' => $item->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash ]);
+                Attachment::create(['belongs_course_id' => $item->course_id, 'content_id' => $item->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
             }
         }
 
@@ -166,6 +164,7 @@ class CurriculumController extends Controller
     public function deleteAttachment(Request $request)
     {
         Attachment::destroy($request->attachment_id);
+
         return ['success' => true];
     }
 }

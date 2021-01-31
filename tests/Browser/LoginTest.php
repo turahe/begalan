@@ -20,8 +20,8 @@ class LoginTest extends DuskTestCase
             $browser->visit('/')
                 ->clickLink('Login')
                 ->assertSee('E-Mail Address')
-                ->type('email','developer@circlecreative.id')
-                ->type('password','secret')
+                ->type('email', 'developer@circlecreative.id')
+                ->type('password', 'secret')
                 ->press('Login')
                 ->assertSee('You are logged in!');
         });

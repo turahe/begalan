@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration
             $table->string('user_type')->nullable(); //['user', 'admin', 'support', 'sub_admin']
             $table->tinyInteger('active_status')->default(0)->nullable(); //active_status 0:pending, 1:active, 2:block;
 
-            /**
+            /*
              * Social Login Fields
              */
             $table->string('provider_user_id')->nullable();

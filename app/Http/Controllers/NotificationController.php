@@ -29,6 +29,7 @@ class NotificationController extends Controller
 
         if ($notification) {
             $notification->markAsRead();
+
             return redirect()->route($notification->data['route'], $notification->data['id']);
         }
     }
@@ -40,7 +41,7 @@ class NotificationController extends Controller
     {
         Auth::user()->unreadNotifications->markAsRead();
 
-        return response("success", 200);
+        return response('success', 200);
     }
 
     /**
@@ -56,7 +57,7 @@ class NotificationController extends Controller
 
         return redirect()
             ->back()
-            ->with('success',  trans('messages.deleted', ['model' => 'app.model.notification']));
+            ->with('success', trans('messages.deleted', ['model' => 'app.model.notification']));
     }
 
     /**
@@ -70,6 +71,6 @@ class NotificationController extends Controller
 
         return redirect()
             ->back()
-            ->with('success',  trans('messages.deleted'));
+            ->with('success', trans('messages.deleted'));
     }
 }

@@ -477,7 +477,6 @@ if (! function_exists('str_random')) {
      * @param  int  $length
      * @throws \RuntimeException
      * @return string
-     *
      */
     function str_random($length = 16)
     {
@@ -597,7 +596,7 @@ if (! function_exists('title_case')) {
         return Str::title($value);
     }
 }
-/**
+/*
  *
  * END Laravel Helper
  */

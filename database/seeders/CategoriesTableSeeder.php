@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -147,7 +149,7 @@ class CategoriesTableSeeder extends Seeder
             'step' => 1,
             'thumbnail_id' => 1,
             'icon_class' => 'fa-circle',
-        ],[
+        ], [
             'name' => 'Programming Languages',
             'category_id' => 1,
             'step' => 1,

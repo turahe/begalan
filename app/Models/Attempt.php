@@ -53,27 +53,27 @@ class Attempt extends Model
      */
     public function getStatusHtmlAttribute()
     {
-        $statusClass = "";
-        $iclass = "";
+        $statusClass = '';
+        $iclass = '';
         switch ($this->status) {
             case 'started':
-                $statusClass .= "dark";
-                $iclass = "clock-o";
+                $statusClass .= 'dark';
+                $iclass = 'clock-o';
                 break;
             case 'in_review':
-                $statusClass .= "warning";
-                $iclass = "hourglass";
+                $statusClass .= 'warning';
+                $iclass = 'hourglass';
                 break;
             case 'finished':
-                $statusClass .= "success";
-                $iclass = "check-circle";
+                $statusClass .= 'success';
+                $iclass = 'check-circle';
                 break;
         }
 
         $html = "<span class='badge payment-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$this->status}</span>";
+
         return $html;
     }
-
 
     /**
      * @param array $data

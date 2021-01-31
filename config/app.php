@@ -15,7 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    /**
+    /*
      * Showing for demo purpose
      */
     'is_demo' => env('IS_DEMO', false),
@@ -23,9 +23,7 @@ return [
     //Version
     'version' => defined('TEACHIFY_VERSION') ? TEACHIFY_VERSION : '2.3.0',
 
-
     'unique_slug' => 'teachify-lms',
-
 
     'products_api' => 'https://www.themeqx.com/wp-json/extendable/plugin-themes',
 
@@ -191,17 +189,16 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /**
+        /*
          * Extend This application by adding module
          */
 
 //        \App\Module\PluginServiceProvider::class,
 
-        /**
+        /*
          * Debugbar
          */
         Intervention\Image\ImageServiceProvider::class,
-
 
     ],
 
@@ -255,12 +252,12 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        /**
+        /*
          * Application Specific aliases
          */
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

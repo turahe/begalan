@@ -8,14 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class EarningController
- * @package App\Http\Controllers
+ * Class EarningController.
  */
 class EarningController extends Controller
 {
-
     /**
-     * Earning
+     * Earning.
      */
     public function earning()
     {
@@ -23,10 +21,10 @@ class EarningController extends Controller
         $user = Auth::user();
 
         /**
-         * Format Date Name
+         * Format Date Name.
          */
-        $start_date = date("Y-m-01");
-        $end_date = date("Y-m-t");
+        $start_date = date('Y-m-01');
+        $end_date = date('Y-m-t');
 
         $begin = new \DateTime($start_date);
         $end = new \DateTime($end_date.' + 1 day');
@@ -35,13 +33,12 @@ class EarningController extends Controller
 
         $datesPeriod = [];
         foreach ($period as $dt) {
-            $datesPeriod[$dt->format("Y-m-d")] = 0;
+            $datesPeriod[$dt->format('Y-m-d')] = 0;
         }
 
         /**
-         * Query This Month
+         * Query This Month.
          */
-
         $sql = "SELECT SUM(instructor_amount) as total_earning,
               DATE(created_at) as date_format
               from earnings
@@ -53,7 +50,6 @@ class EarningController extends Controller
 
         $total_earning = array_pluck($getEarnings, 'total_earning');
         $queried_date = array_pluck($getEarnings, 'date_format');
-
 
         $dateWiseSales = array_combine($queried_date, $total_earning);
 
@@ -67,7 +63,6 @@ class EarningController extends Controller
 
         return view(theme('dashboard.earning.index'), compact('user', 'title', 'chartData'));
     }
-
 
     /**
      * @param Request $request
@@ -84,30 +79,30 @@ class EarningController extends Controller
         $statements = $user->earnings();
 
         if (! $time_period || $time_period === 'this_month') {
-            $start_date = date("Y-m-01");
-            $end_date = date("Y-m-t");
+            $start_date = date('Y-m-01');
+            $end_date = date('Y-m-t');
         } elseif ($time_period === 'last_month') {
             $start_date = date('Y-m-01 00:00:00', strtotime('last day of last month'));
-            $end_date = date("Y-m-t 23:59:59", strtotime($start_date));
+            $end_date = date('Y-m-t 23:59:59', strtotime($start_date));
         } elseif ($time_period === 'last_week') {
-            $previous_week = strtotime("-1 week +1 day");
-            $start_date = strtotime("last sunday midnight", $previous_week);
-            $end_date = strtotime("next saturday", $start_date);
-            $start_date = date("Y-m-d 00:00:00", $start_date);
-            $end_date = date("Y-m-d 23:59:59", $end_date);
+            $previous_week = strtotime('-1 week +1 day');
+            $start_date = strtotime('last sunday midnight', $previous_week);
+            $end_date = strtotime('next saturday', $start_date);
+            $start_date = date('Y-m-d 00:00:00', $start_date);
+            $end_date = date('Y-m-d 23:59:59', $end_date);
         } elseif ($time_period === 'this_week') {
-            $start_date = date("Y-m-d 00:00:00", strtotime("last sunday midnight"));
-            $end_date = date("Y-m-d 23:59:59", strtotime("next saturday"));
+            $start_date = date('Y-m-d 00:00:00', strtotime('last sunday midnight'));
+            $end_date = date('Y-m-d 23:59:59', strtotime('next saturday'));
         } elseif ($time_period === 'this_year') {
             $year = date('Y');
         } elseif ($time_period === 'last_year') {
             $year = date('Y', strtotime('-1 year'));
         } elseif ($time_period === 'date_range') {
-            $start_date = $request->date_from." 00:00:00";
-            $end_date = $request->date_to." 23:59:59";
+            $start_date = $request->date_from.' 00:00:00';
+            $end_date = $request->date_to.' 23:59:59';
         }
 
-        /**
+        /*
          * Query Results
          */
         if ($time_period === 'this_year' || $time_period === 'last_year') {
@@ -132,10 +127,10 @@ class EarningController extends Controller
             $commission = array_sum(array_pluck($getEarnings, 'commission'));
 
             /**
-             * Format yearly
+             * Format yearly.
              */
             $emptyMonths = [];
-            for ($m=1; $m<=12; $m++) {
+            for ($m = 1; $m <= 12; $m++) {
                 $emptyMonths[date('F', mktime(0, 0, 0, $m, 1, date('Y')))] = 0;
             }
             $chartData = array_merge($emptyMonths, $monthWiseSales);
@@ -160,7 +155,7 @@ class EarningController extends Controller
 
             $datesPeriod = [];
             foreach ($period as $dt) {
-                $datesPeriod[$dt->format("Y-m-d")] = 0;
+                $datesPeriod[$dt->format('Y-m-d')] = 0;
             }
 
             $sql = "SELECT SUM(instructor_amount) as total_earning, SUM(amount) as total_amount, SUM(admin_amount) as commission,
@@ -171,7 +166,6 @@ class EarningController extends Controller
               GROUP BY date_format
               ORDER BY created_at ASC ;";
             $getEarnings = DB::select(DB::raw($sql));
-
 
             $total_earning_arr = array_pluck($getEarnings, 'total_earning');
             $queried_date = array_pluck($getEarnings, 'date_format');
@@ -198,15 +192,14 @@ class EarningController extends Controller
         return view(theme('dashboard.earning.report'), compact('user', 'title', 'page_title', 'total_amount', 'total_earning', 'commission', 'chartData', 'statements'));
     }
 
-
     /**
-     * Withdraw Balance from the instructor
-     *
+     * Withdraw Balance from the instructor.
      */
     public function withdraw()
     {
         $title = __t('withdraw');
         $user = Auth::user();
+
         return view(theme('dashboard.earning.withdraw'), compact('title', 'user'));
     }
 
@@ -253,6 +246,7 @@ class EarningController extends Controller
     {
         $title = __t('withdraw_preference');
         $user = Auth::user();
+
         return view(theme('dashboard.earning.withdraw_preference'), compact('title', 'user'));
     }
 
@@ -264,6 +258,7 @@ class EarningController extends Controller
     {
         $user = Auth::user();
         $user->update_option('withdraw_preference', $request->withdraw_preference);
+
         return back()->with('success', __t('withdraw_preference_saved'));
     }
 }

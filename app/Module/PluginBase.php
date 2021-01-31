@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Module;
 
 use Illuminate\Contracts\Foundation\Application;
@@ -14,21 +15,18 @@ abstract class PluginBase
      */
     public $name;
 
-
     /**
-     * The Plugin Slug
+     * The Plugin Slug.
      *
      * @var string
      */
-
     public $slug;
 
     /**
-     * Plugin website or landing page
+     * Plugin website or landing page.
      *
      * @var string
      */
-
     public $url;
 
     /**
@@ -39,21 +37,18 @@ abstract class PluginBase
     public $description;
 
     /**
-     * Plugin Owner name
+     * Plugin Owner name.
      *
      * @var string
      */
-
     public $author;
 
     /**
-     * Plugin owner url
+     * Plugin owner url.
      *
      * @var string
      */
-
     public $author_url;
-
 
     /**
      * The version of the plugin.
@@ -67,7 +62,6 @@ abstract class PluginBase
      *
      * This is the min version of Teachify LMS. You must have to min this version of Teachify LMS in order to use the plugin.
      */
-
     public $lms_version = '1.0.0';
 
     /**
@@ -82,12 +76,10 @@ abstract class PluginBase
      *
      * Determine if plugin is activated
      */
-
     public $activated = false;
 
-
     /**
-     * @var $this
+     * @var
      */
     private $reflector = null;
 
@@ -96,11 +88,11 @@ abstract class PluginBase
      *
      * @param $app
      */
-    public function __construct(Application $app){
+    public function __construct(Application $app)
+    {
         $this->app = $app;
 
         $this->checkPluginName();
-
 
         $this->basename = basename($this->getPluginPath());
 
@@ -117,7 +109,7 @@ abstract class PluginBase
      */
     private function checkPluginName()
     {
-        if (!$this->name || !$this->slug) {
+        if (! $this->name || ! $this->slug) {
             throw new \InvalidArgumentException('Missing Plugin name or slug.');
         }
     }
@@ -132,7 +124,7 @@ abstract class PluginBase
      */
     protected function getViewNamespace()
     {
-        return 'plugin:' . camel_case(
+        return 'plugin:'.camel_case(
             mb_substr(
                 get_called_class(),
                 strrpos(get_called_class(), '\\') + 1,
@@ -143,7 +135,7 @@ abstract class PluginBase
 
     /**
      * Add a view namespace for this plugin.
-     * Eg: view("plugin:articles::{view_name}")
+     * Eg: view("plugin:articles::{view_name}").
      *
      * @param string $path
      */
@@ -151,7 +143,7 @@ abstract class PluginBase
     {
         $this->app['view']->addNamespace(
             $this->getViewNamespace(),
-            $this->getPluginPath() . DIRECTORY_SEPARATOR . $path
+            $this->getPluginPath().DIRECTORY_SEPARATOR.$path
         );
     }
 
@@ -160,9 +152,10 @@ abstract class PluginBase
      *
      * @param string $path
      */
-    protected function enableRoutes($path = 'routes.php'){
+    protected function enableRoutes($path = 'routes.php')
+    {
         $this->app->router->group(['middleware' => 'web', 'namespace' => $this->getPluginControllerNamespace()], function ($app) use ($path) {
-            require $this->getPluginPath() . DIRECTORY_SEPARATOR . $path;
+            require $this->getPluginPath().DIRECTORY_SEPARATOR.$path;
         });
     }
 
@@ -176,7 +169,7 @@ abstract class PluginBase
     {
         $this->app->afterResolving('migrator', function ($migrator) use ($paths) {
             foreach ((array) $paths as $path) {
-                $migrator->path($this->getPluginPath() . DIRECTORY_SEPARATOR . $path);
+                $migrator->path($this->getPluginPath().DIRECTORY_SEPARATOR.$path);
             }
         });
     }
@@ -187,7 +180,7 @@ abstract class PluginBase
     public function getPluginPath()
     {
         $reflector = $this->getReflector();
-        $fileName  = $reflector->getFileName();
+        $fileName = $reflector->getFileName();
 
         return dirname($fileName);
     }
@@ -198,9 +191,9 @@ abstract class PluginBase
     protected function getPluginControllerNamespace()
     {
         $reflector = $this->getReflector();
-        $baseDir   = str_replace($reflector->getShortName(), '', $reflector->getName());
+        $baseDir = str_replace($reflector->getShortName(), '', $reflector->getName());
 
-        return $baseDir . 'Http\\Controllers';
+        return $baseDir.'Http\\Controllers';
     }
 
     /**
@@ -216,13 +209,13 @@ abstract class PluginBase
     }
 
     /**
-     * Returns a plugin view
+     * Returns a plugin view.
      *
      * @param $view
      * @return \Illuminate\View\View
      */
     protected function view($view)
     {
-        return view($this->getViewNamespace() . '::' . $view);
+        return view($this->getViewNamespace().'::'.$view);
     }
 }

@@ -24,25 +24,24 @@ class ContentFactory extends Factory
         $title = $this->faker->unique()->sentence;
         $video = [
             'source' => 'youtube',
-            'html5_video_id' => NULL,
-            'html5_video_poster_id' => NULL,
-            'source_external_url' => NULL,
+            'html5_video_id' => null,
+            'html5_video_poster_id' => null,
+            'source_external_url' => null,
             'source_youtube' => 'https://www.youtube.com/watch?v=VJNwRPLq3z8',
-            'source_vimeo' => NULL,
-            'source_embedded' => NULL,
-            'runtime' =>
-                [
+            'source_vimeo' => null,
+            'source_embedded' => null,
+            'runtime' => [
                     'hours' => '00',
-                    'mins' => mt_rand(6,10),
+                    'mins' => mt_rand(6, 10),
                     'secs' => '00',
                 ],
         ];
 
         return [
             'title' => $title,
-            'text' => join("\n\n", $this->faker->paragraphs(mt_rand(3, 6))),
+            'text' => implode("\n\n", $this->faker->paragraphs(mt_rand(3, 6))),
             'video_src' => json_encode($video),
-            'video_time' => mt_rand(6,10),
+            'video_time' => mt_rand(6, 10),
             'item_type' => $this->faker->randomElement(['lecture', 'assignment', 'quiz']),
             'is_preview' => $this->faker->boolean,
             'status' => $this->faker->boolean,

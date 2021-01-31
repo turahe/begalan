@@ -22,7 +22,7 @@ class SectionFactory extends Factory
     public function definition()
     {
         return [
-            'section_name' => $this->faker->sentence
+            'section_name' => $this->faker->sentence,
         ];
     }
 }

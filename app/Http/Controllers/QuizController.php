@@ -16,12 +16,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * Class QuizController
- * @package App\Http\Controllers
+ * Class QuizController.
  */
 class QuizController extends Controller
 {
-
     /**
      * @param $slug
      * @param $quiz_id
@@ -70,6 +68,7 @@ class QuizController extends Controller
             Attempt::create($data);
             session()->forget('current_question');
         }
+
         return ['success' => 1, 'quiz_url' => route('quiz_attempt_url', $quiz_id)];
     }
 
@@ -96,11 +95,11 @@ class QuizController extends Controller
         }
 
         /**
-         * Finished The attempt if answered equal to question limit
+         * Finished The attempt if answered equal to question limit.
          */
         $answered = Answer::whereQuizId($quiz_id)->whereUserId($user->id)->get();
         $question_count = $quiz->questions()->count();
-        $question_limits = $question_count > $attempt->questions_limit ? $attempt->questions_limi :  $question_count;
+        $question_limits = $question_count > $attempt->questions_limit ? $attempt->questions_limi : $question_count;
 
         if ($answered->count() >= $question_limits) {
             //Finished Quiz
@@ -123,7 +122,7 @@ class QuizController extends Controller
 
             return redirect($quiz->url);
         }
-        $q_number = $answered->count() +1;
+        $q_number = $answered->count() + 1;
         $title = $quiz->title;
 
         $answered_q_ids = $answered->pluck('question_id')->toArray();
@@ -199,11 +198,10 @@ class QuizController extends Controller
      *
      * Dashboard Tasks
      */
-
     public function newQuiz(Request $request, $course_id)
     {
         $rules = [
-            'title' => 'required'
+            'title' => 'required',
         ];
 
         $validation = Validator::make($request->input(), $rules);
@@ -215,7 +213,7 @@ class QuizController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
 
             return ['success' => false, 'error_msg' => $error_msg];
         }
@@ -252,7 +250,7 @@ class QuizController extends Controller
     public function updateQuiz(Request $request, $course_id, $item_id)
     {
         $rules = [
-            'title' => 'required'
+            'title' => 'required',
         ];
         $validation = Validator::make($request->input(), $rules);
 
@@ -262,7 +260,8 @@ class QuizController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
+
             return ['success' => false, 'error_msg' => $error_msg];
         }
 
@@ -299,7 +298,8 @@ class QuizController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
+
             return ['success' => false, 'error_msg' => $error_msg];
         }
 
@@ -330,16 +330,16 @@ class QuizController extends Controller
                         'title' => array_get($option, 'title'),
                         'image_id' => array_get($option, 'image_id'),
                         'd_pref' => array_get($option, 'd_pref'),
-                        'is_correct' => (int)array_get($option, 'is_correct'),
+                        'is_correct' => (int) array_get($option, 'is_correct'),
                         'sort_order' => $sort,
                     ];
                     QuestionOption::create($optionData);
                 }
             }
         }
+
         return ['success' => true, 'quiz_id' => $quiz_id];
     }
-
 
     /**
      * @param Request $request
@@ -349,6 +349,7 @@ class QuizController extends Controller
     {
         $quiz = Content::find($request->quiz_id);
         $html = view_template_part('dashboard.courses.quiz.questions', compact('quiz'));
+
         return ['success' => 1, 'html' => $html];
     }
 
@@ -360,6 +361,7 @@ class QuizController extends Controller
     {
         $question = Question::find($request->question_id);
         $html = view_template_part('dashboard.courses.quiz.edit_question', compact('question'));
+
         return ['success' => 1, 'html' => $html];
     }
 
@@ -377,7 +379,8 @@ class QuizController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
+
             return ['success' => false, 'error_msg' => $error_msg];
         }
 
@@ -404,7 +407,7 @@ class QuizController extends Controller
                     'title' => array_get($option, 'title'),
                     'image_id' => array_get($option, 'image_id'),
                     'd_pref' => array_get($option, 'd_pref'),
-                    'is_correct' => (int)array_get($option, 'is_correct'),
+                    'is_correct' => (int) array_get($option, 'is_correct'),
                     'sort_order' => $sort,
                 ];
                 if ($option_id) {
@@ -418,7 +421,6 @@ class QuizController extends Controller
 
         return ['success' => true, 'quiz_id' => $question->quiz_id];
     }
-
 
     /**
      * @param Request $request
@@ -441,7 +443,8 @@ class QuizController extends Controller
     public function next_question_sort_id($quiz_id)
     {
         $sort = (int) DB::table('questions')->where('quiz_id', $quiz_id)->max('sort_order');
-        return $sort +1;
+
+        return $sort + 1;
     }
 
     /**
@@ -451,7 +454,8 @@ class QuizController extends Controller
     public function next_question_option_sort_id($question_id)
     {
         $sort = (int) DB::table('question_options')->where('question_id', $question_id)->max('sort_order');
-        return $sort +1;
+
+        return $sort + 1;
     }
 
     /**
@@ -471,11 +475,9 @@ class QuizController extends Controller
         QuestionOption::whereId($request->option_id)->delete();
     }
 
-
     /**
-     * Dashboard Instructor review
+     * Dashboard Instructor review.
      */
-
     public function quizCourses()
     {
         $title = __t('quiz_attempts');
@@ -493,6 +495,7 @@ class QuizController extends Controller
     {
         $title = __t('quizzes');
         $course = Course::find($course_id);
+
         return view(theme('dashboard.quizzes.quizzes'), compact('title', 'course'));
     }
 
@@ -504,6 +507,7 @@ class QuizController extends Controller
     {
         $title = __t('quiz_attempts');
         $quiz = Quiz::find($quiz_id);
+
         return view(theme('dashboard.quizzes.attempts'), compact('title', 'quiz'));
     }
 
@@ -515,6 +519,7 @@ class QuizController extends Controller
     {
         $title = __t('review_attempt');
         $attempt = Attempt::find($attempt_id);
+
         return view(theme('dashboard.quizzes.attempt'), compact('title', 'attempt'));
     }
 

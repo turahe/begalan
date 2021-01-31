@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Course;
 use App\Models\Withdraw;
 use Carbon\Carbon;
@@ -10,8 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class AdminController
- * @package App\Http\Controllers
+ * Class AdminController.
  */
 class AdminController extends Controller
 {
@@ -26,10 +24,10 @@ class AdminController extends Controller
         $title = __a('dashboard');
 
         /**
-         * Format Date Name
+         * Format Date Name.
          */
-        $start_date = date("Y-m-01");
-        $end_date = date("Y-m-t");
+        $start_date = date('Y-m-01');
+        $end_date = date('Y-m-t');
 
         $begin = new \DateTime($start_date);
         $end = new \DateTime($end_date.' + 1 day');
@@ -38,13 +36,12 @@ class AdminController extends Controller
 
         $datesPeriod = [];
         foreach ($period as $dt) {
-            $datesPeriod[$dt->format("Y-m-d")] = 0;
+            $datesPeriod[$dt->format('Y-m-d')] = 0;
         }
 
         /**
-         * Query This Month
+         * Query This Month.
          */
-
         $sql = "SELECT SUM(total_amount) as total_amount,
               DATE(created_at) as date_format
               from payments
@@ -97,23 +94,28 @@ class AdminController extends Controller
             }
 
             Course::whereIn('id', $ids)->update($data);
+
             return back()->with('success', __a('bulk_action_success'));
         }
         if ($request->bulk_action_btn === 'mark_as_popular' && is_array($ids) && count($ids)) {
             Course::whereIn('id', $ids)->update(['is_popular' => 1, 'popular_added_at' => $now]);
+
             return back()->with('success', __a('bulk_action_success'));
         }
         if ($request->bulk_action_btn === 'mark_as_feature' && is_array($ids) && count($ids)) {
             Course::whereIn('id', $ids)->update(['is_featured' => 1, 'featured_at' => $now]);
+
             return back()->with('success', __a('bulk_action_success'));
         }
 
         if ($request->bulk_action_btn === 'remove_from_popular' && is_array($ids) && count($ids)) {
             Course::whereIn('id', $ids)->update(['is_popular' => null, 'popular_added_at' => null]);
+
             return back()->with('success', __a('bulk_action_success'));
         }
         if ($request->bulk_action_btn === 'remove_from_feature' && is_array($ids) && count($ids)) {
             Course::whereIn('id', $ids)->update(['is_featured' => null, 'featured_at' => null]);
+
             return back()->with('success', __a('bulk_action_success'));
         }
 
@@ -122,6 +124,7 @@ class AdminController extends Controller
             foreach ($ids as $id) {
                 Course::find($id)->delete_and_sync();
             }
+
             return back()->with('success', __a('bulk_action_success'));
         }
 
@@ -164,13 +167,14 @@ class AdminController extends Controller
 
         if ($request->bulk_action_btn === 'update_status' && $request->update_status) {
             Withdraw::whereIn('id', $request->bulk_ids)->update(['status' => $request->update_status]);
+
             return back();
         }
         if ($request->bulk_action_btn === 'delete') {
             Withdraw::whereIn('id', $request->bulk_ids)->delete();
+
             return back();
         }
-
 
         $title = __a('withdraws');
         $withdraws = Withdraw::query();

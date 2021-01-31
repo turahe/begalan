@@ -11,7 +11,6 @@ use InvalidArgumentException;
 
 /**
  * Trait HasTags.
- * @package App\Services\Tags
  */
 trait HasTags
 {

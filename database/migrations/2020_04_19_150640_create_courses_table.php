@@ -61,7 +61,6 @@ class CreateCoursesTable extends Migration
             $table->tinyInteger('is_popular')->nullable();
             $table->timestamp('popular_added_at')->nullable();
 
-
             $table->timestamp('last_updated_at')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

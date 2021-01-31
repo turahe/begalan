@@ -37,7 +37,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
     /**
      * @param $query
      * @return mixed
@@ -55,7 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $query->where('user_type', 'instructor');
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -158,6 +156,7 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
 
         $rating = DB::selectOne(DB::raw($sql));
         $rating->rating_avg = number_format($rating->rating_avg, 2);
+
         return $rating;
     }
 
@@ -208,17 +207,18 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     {
         if ($this->photo) {
             $url = media_image_uri($this->photo_query)->thumbnail;
+
             return "<img src='{$url}' class='profile-photo' alt='{$this->name}' /> ";
         }
 
         $arr = explode(' ', trim($this->name));
 
         if (count($arr) > 1) {
-            $first_char = substr($arr[0], 0, 1) ;
-            $second_char = substr($arr[1], 0, 1) ;
+            $first_char = substr($arr[0], 0, 1);
+            $second_char = substr($arr[1], 0, 1);
         } else {
-            $first_char = substr($arr[0], 0, 1) ;
-            $second_char = substr($arr[0], 1, 1) ;
+            $first_char = substr($arr[0], 0, 1);
+            $second_char = substr($arr[0], 1, 1);
         }
 
         $textPhoto = strtoupper($first_char.$second_char);
@@ -228,7 +228,6 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
 
         return $textPhoto;
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -252,7 +251,6 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
 
         return $isEnrolled;
     }
-
 
     /**
      * @param $course_id
@@ -285,6 +283,7 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
             'completed_course_id'   => $course_id,
             'completed_at'          => Carbon::now()->toDateTimeString(),
         ];
+
         return Complete::create($data);
     }
 
@@ -295,6 +294,7 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     public function is_completed_course($course_id)
     {
         $is_completed = Complete::whereCompletedCourseId($course_id)->whereUserId($this->id)->first();
+
         return $is_completed;
     }
 
@@ -313,6 +313,7 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
                 return $value;
             }
         }
+
         return $default;
     }
 
@@ -343,16 +344,15 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     public function enroll_sync()
     {
         $enrolledCourse = (array) $this->enrolls()->pluck('course_id')->all();
-        $enrolledCourse =  array_unique($enrolledCourse);
+        $enrolledCourse = array_unique($enrolledCourse);
         $this->update_option('enrolled_courses', $enrolledCourse);
 
         return $this;
     }
 
     /**
-     * Earning Related
+     * Earning Related.
      */
-
     public function getEarningAttribute()
     {
         $sales_amount = $this->earnings->sum('amount');
@@ -375,7 +375,6 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
 
         return (object) $data;
     }
-
 
     /**
      * @return object|null
@@ -413,6 +412,7 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     public function get_attempt($quiz_id)
     {
         $attempt = Attempt::where('user_id', $this->id)->where('quiz_id', $quiz_id)->first();
+
         return $attempt;
     }
 }

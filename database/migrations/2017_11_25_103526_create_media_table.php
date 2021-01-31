@@ -25,7 +25,7 @@ class CreateMediaTable extends Migration
             $table->string('mime_type')->nullable();
             $table->text('metadata')->nullable();
             $table->integer('sort_order')->default(0)->nullable();
-            ;
+
             $table->timestamps();
         });
     }

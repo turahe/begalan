@@ -60,7 +60,7 @@ class SetupDevEnvironment extends Command
     public function migrateDatabase()
     {
         $this->call('migrate:fresh', ['--seed' => true]);
-        $this->info('Test user created. Email: developer@circlecreative.id Password: secret as Admin' );
+        $this->info('Test user created. Email: developer@circlecreative.id Password: secret as Admin');
         $this->info('Test user created. Email: instructor@circlecreative.id Password: secret as Instructor');
         $this->info('Test user created. Email: student@circlecreative.id Password: secret as Student');
     }

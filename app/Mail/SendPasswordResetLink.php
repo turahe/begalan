@@ -16,8 +16,8 @@ class SendPasswordResetLink extends Mailable implements ShouldQueue
      *
      * @return void
      */
-
     public $user;
+
     public function __construct($user)
     {
         $this->user = $user;

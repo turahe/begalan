@@ -6,12 +6,10 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 
 /**
- * Class IPNController
- * @package App\Http\Controllers
+ * Class IPNController.
  */
 class IPNController extends Controller
 {
-
     /**
      * @param Request $request
      * @param $transaction_id
@@ -37,7 +35,7 @@ class IPNController extends Controller
             $payment->save_and_sync();
         }
         // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
-        header("HTTP/1.1 200 OK");
+        header('HTTP/1.1 200 OK');
     }
 
     /**
@@ -45,9 +43,9 @@ class IPNController extends Controller
      */
     public function paypal_ipn_verify()
     {
-        $paypal_action_url = "https://www.paypal.com/cgi-bin/webscr";
+        $paypal_action_url = 'https://www.paypal.com/cgi-bin/webscr';
         if (get_option('enable_paypal_sandbox')) {
-            $paypal_action_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+            $paypal_action_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
         }
 
         // STEP 1: read POST data
@@ -87,7 +85,7 @@ class IPNController extends Controller
         curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Connection: Close']);
 
-        if (!($res = curl_exec($ch))) {
+        if (! ($res = curl_exec($ch))) {
             // error_log("Got " . curl_error($ch) . " when processing IPN data");
             curl_close($ch);
             exit;
@@ -95,10 +93,10 @@ class IPNController extends Controller
         curl_close($ch);
 
         // STEP 3: Inspect IPN validation result and act accordingly
-        if (strcmp($res, "VERIFIED") == 0) {
+        if (strcmp($res, 'VERIFIED') == 0) {
             return true;
         }
-        if (strcmp($res, "INVALID") == 0) {
+        if (strcmp($res, 'INVALID') == 0) {
             return false;
         }
     }

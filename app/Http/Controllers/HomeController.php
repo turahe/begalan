@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
 /**
- * Class HomeController
- * @package App\Http\Controllers
+ * Class HomeController.
  */
 class HomeController extends Controller
 {
@@ -93,27 +92,26 @@ class HomeController extends Controller
             $courses = $courses->where('rating_value', '>=', $r->rating);
         }
 
-
-        /**
+        /*
          * Find by Video Duration
          */
         if ($r->video_duration === '0_2') {
             $durationEnd = (60 * 60 * 3) - 1; //02:59:59
             $courses = $courses->where('total_video_time', '<=', $durationEnd);
         } elseif ($r->video_duration === '3_5') {
-            $durationStart = (60 * 60 * 3) ;
-            $durationEnd = (60 * 60 * 6) -1;
+            $durationStart = (60 * 60 * 3);
+            $durationEnd = (60 * 60 * 6) - 1;
             $courses = $courses->whereBetween('total_video_time', [$durationStart, $durationEnd]);
         } elseif ($r->video_duration === '6_10') {
-            $durationStart = (60 * 60 * 6) ;
-            $durationEnd = (60 * 60 * 11) -1;
+            $durationStart = (60 * 60 * 6);
+            $durationEnd = (60 * 60 * 11) - 1;
             $courses = $courses->whereBetween('total_video_time', [$durationStart, $durationEnd]);
         } elseif ($r->video_duration === '11_20') {
-            $durationStart = (60 * 60 * 11) ;
-            $durationEnd = (60 * 60 * 21) -1;
+            $durationStart = (60 * 60 * 11);
+            $durationEnd = (60 * 60 * 21) - 1;
             $courses = $courses->whereBetween('total_video_time', [$durationStart, $durationEnd]);
         } elseif ($r->video_duration === '21') {
-            $durationStart = (60 * 60 * 21) ;
+            $durationStart = (60 * 60 * 21);
             $courses = $courses->where('total_video_time', '>=', $durationStart);
         }
 
@@ -162,7 +160,7 @@ class HomeController extends Controller
         Artisan::call('cache:clear');
         Artisan::call('optimize:clear');
         if (function_exists('exec')) {
-            exec('rm ' . storage_path('logs/*'));
+            exec('rm '.storage_path('logs/*'));
         }
         $this->rrmdir(storage_path('logs/'));
 
@@ -177,11 +175,11 @@ class HomeController extends Controller
         if (is_dir($dir)) {
             $objects = scandir($dir);
             foreach ($objects as $object) {
-                if ($object != "." && $object != "..") {
-                    if (is_dir($dir."/".$object)) {
-                        $this->rrmdir($dir."/".$object);
+                if ($object != '.' && $object != '..') {
+                    if (is_dir($dir.'/'.$object)) {
+                        $this->rrmdir($dir.'/'.$object);
                     } else {
-                        unlink($dir."/".$object);
+                        unlink($dir.'/'.$object);
                     }
                 }
             }

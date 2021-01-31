@@ -6,7 +6,6 @@ function dashboard_menu()
 
     //$menu['route_name'] = 'value';
 
-
     $user = \Illuminate\Support\Facades\Auth::user();
 
     if ($user->isInstructor()) {
@@ -30,7 +29,7 @@ function dashboard_menu()
             'earning' => [
                 'name' => __t('earnings'),
                 'icon' => '<i class="las la-comment-dollar"></i>',
-                'is_active' => request()->is('dashboard/earning*')
+                'is_active' => request()->is('dashboard/earning*'),
             ],
             'withdraw' => [
                 'name' => __t('withdraw'),
@@ -53,10 +52,10 @@ function dashboard_menu()
                 'is_active' => request()->is('dashboard/assignments*'),
             ],
             'instructor_discussions' => [
-                'name' => __t('discussions') . $pendingDiscusionBadge,
+                'name' => __t('discussions').$pendingDiscusionBadge,
                 'icon' => '<i class="las la-question-circle-o"></i>',
                 'is_active' => request()->is('dashboard/discussions*'),
-            ]
+            ],
         ]);
     }
 
@@ -100,11 +99,8 @@ function dashboard_menu()
         ];
     }
 
-
-
     return apply_filters('dashboard_menu_items', $menu);
 }
-
 
 function course_edit_navs()
 {
@@ -131,7 +127,6 @@ function course_edit_navs()
         ],
 
     ]);
-
 
     return $nav_items;
 }

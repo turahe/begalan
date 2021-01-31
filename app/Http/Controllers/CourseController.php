@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Courses\CourseStoreRequest;
 use App\Models\AssignmentSubmission;
 use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\Course;
-use App\Http\Requests\Courses\CourseStoreRequest;
 use App\Models\Review;
 use App\Models\Section;
 use Carbon\Carbon;
@@ -16,19 +16,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * Class CourseController
- * @package App\Http\Controllers
+ * Class CourseController.
  */
 class CourseController extends Controller
 {
-
     /**
      * @param string $slug
      * @return string
      *
      * View Course
      */
-
     public function view(string $slug)
     {
         $course = Course::whereSlug($slug)
@@ -57,6 +54,7 @@ class CourseController extends Controller
                 $isEnrolled = $enrolled;
             }
         }
+
         return view(theme('course'), compact('course', 'title', 'isEnrolled'));
     }
 
@@ -76,7 +74,6 @@ class CourseController extends Controller
         $isEnrolled = false;
 
         $isOpen = (bool) $lecture->is_preview;
-
 
         $user = Auth::user();
 
@@ -149,7 +146,7 @@ class CourseController extends Controller
                 complete_content($assignment, $user);
 
                 /**
-                 * Save Attachments if any
+                 * Save Attachments if any.
                  *
                  * @todo, check attachment size, if exceed, delete those attachments
                  */
@@ -157,7 +154,7 @@ class CourseController extends Controller
                 if (is_array($attachments) && count($attachments)) {
                     foreach ($attachments as $media_id) {
                         $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
-                        Attachment::create(['assignment_submission_id' => $submission->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash ]);
+                        Attachment::create(['assignment_submission_id' => $submission->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
                     }
                 }
             }
@@ -174,7 +171,6 @@ class CourseController extends Controller
 
         return redirect()->back();
     }
-
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -221,7 +217,7 @@ class CourseController extends Controller
         ];
 
         /**
-         * save video data
+         * save video data.
          */
         $video_source = $request->input('video.source');
         if ($video_source === '-1') {
@@ -253,6 +249,7 @@ class CourseController extends Controller
         }
         $categories = Category::parent()->get();
         $topics = Category::whereCategoryId($course->second_category_id)->get();
+
         return view(theme('dashboard.courses.information'), compact('title', 'course', 'categories', 'topics'));
     }
 
@@ -291,7 +288,7 @@ class CourseController extends Controller
             'level'             => $request->level,
         ];
         /**
-         * save video data
+         * save video data.
          */
         $video_source = $request->input('video.source');
         if ($video_source === '-1') {
@@ -305,6 +302,7 @@ class CourseController extends Controller
         if ($request->save === 'save_next') {
             return redirect(route('edit_course_curriculum', $course_id));
         }
+
         return redirect()->back();
     }
 
@@ -323,7 +321,6 @@ class CourseController extends Controller
         return view(theme('dashboard.courses.curriculum'), compact('title', 'course'));
     }
 
-
     /**
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -332,6 +329,7 @@ class CourseController extends Controller
     {
         $title = __t('curriculum');
         $course = Course::find($course_id);
+
         return view(theme('dashboard.courses.new_section'), compact('title', 'course'));
     }
 
@@ -351,9 +349,10 @@ class CourseController extends Controller
         Section::create(
             [
                 'course_id' => $course_id,
-                'section_name' => clean_html($request->section_name)
+                'section_name' => clean_html($request->section_name),
             ]
         );
+
         return redirect(route('edit_course_curriculum', $course_id));
     }
 
@@ -402,7 +401,7 @@ class CourseController extends Controller
     public function newLecture(Request $request, $course_id)
     {
         $rules = [
-            'title' => 'required'
+            'title' => 'required',
         ];
 
         $validation = Validator::make($request->input(), $rules);
@@ -414,7 +413,7 @@ class CourseController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
 
             return ['success' => false, 'error_msg' => $error_msg];
         }
@@ -465,7 +464,7 @@ class CourseController extends Controller
     public function updateLecture(Request $request, $course_id, $item_id)
     {
         $rules = [
-            'title' => 'required'
+            'title' => 'required',
         ];
         $validation = Validator::make($request->input(), $rules);
 
@@ -475,7 +474,8 @@ class CourseController extends Controller
             foreach ($errors as $error) {
                 $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
-            $error_msg .= "</div>";
+            $error_msg .= '</div>';
+
             return ['success' => false, 'error_msg' => $error_msg];
         }
 
@@ -490,7 +490,7 @@ class CourseController extends Controller
         ];
 
         /**
-         * save video data
+         * save video data.
          */
         $video_source = $request->input('video.source');
         if ($video_source === '-1') {
@@ -503,19 +503,18 @@ class CourseController extends Controller
         $item->save_and_sync($data);
 
         /**
-         * Save Attachments if any
+         * Save Attachments if any.
          */
         $attachments = array_filter((array) $request->attachments);
         if (is_array($attachments) && count($attachments)) {
             foreach ($attachments as $media_id) {
                 $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
-                Attachment::create(['belongs_course_id' => $item->course_id, 'content_id' => $item->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash ]);
+                Attachment::create(['belongs_course_id' => $item->course_id, 'content_id' => $item->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
             }
         }
 
         return ['success' => true];
     }
-
 
     /**
      * @param Request $request
@@ -547,6 +546,7 @@ class CourseController extends Controller
     {
         $item_id = $request->item_id;
         Content::destroy($item_id);
+
         return ['success' => true];
     }
 
@@ -636,7 +636,6 @@ class CourseController extends Controller
         return back()->with('success', __t('drip_preference_saved'));
     }
 
-
     /**
      * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -664,7 +663,7 @@ class CourseController extends Controller
             abort(404);
         }
         if ($request->publish_btn == 'publish') {
-            if (get_option("lms_settings.instructor_can_publish_course")) {
+            if (get_option('lms_settings.instructor_can_publish_course')) {
                 $course->status = 1;
             } else {
                 $course->status = 2;
@@ -678,11 +677,9 @@ class CourseController extends Controller
         return back();
     }
 
-
     /**
-     * Course Free Enroll
+     * Course Free Enroll.
      */
-
     public function freeEnroll(Request $request)
     {
         $course_id = $request->course_id;
@@ -698,7 +695,7 @@ class CourseController extends Controller
 
         if (! $isEnrolled) {
             $carbon = Carbon::now()->toDateTimeString();
-            $user->enrolls()->attach($course_id, ['status' => 'success', 'enrolled_at' => $carbon ]);
+            $user->enrolls()->attach($course_id, ['status' => 'success', 'enrolled_at' => $carbon]);
             $user->enroll_sync();
         }
 
@@ -722,7 +719,7 @@ class CourseController extends Controller
             $go_content = $content;
         }
 
-        return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id ]));
+        return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id]));
     }
 
     /**
@@ -745,11 +742,11 @@ class CourseController extends Controller
     public function attachmentDownload($hash)
     {
         $attachment = Attachment::whereHashId($hash)->first();
-        if (! $attachment ||  ! $attachment->media) {
+        if (! $attachment || ! $attachment->media) {
             abort(404);
         }
 
-        /**
+        /*
          * If Assignment Submission Attachment, download it right now
          */
         if ($attachment->assignment_submission_id) {
@@ -796,7 +793,7 @@ class CourseController extends Controller
         if ($source == 'public') {
             $path = ROOT_PATH."/uploads/{$slug_ext}";
         } elseif ($source == 's3') {
-            $path = \Illuminate\Support\Facades\Storage::disk('s3')->url("uploads/".$slug_ext);
+            $path = \Illuminate\Support\Facades\Storage::disk('s3')->url('uploads/'.$slug_ext);
         }
 
         return response()->download($path);
@@ -836,12 +833,12 @@ class CourseController extends Controller
     }
 
     /**
-     * My Courses page from Dashboard
+     * My Courses page from Dashboard.
      */
-
     public function myCourses()
     {
         $title = __t('my_courses');
+
         return view(theme('dashboard.my_courses'), compact('title'));
     }
 
@@ -851,6 +848,7 @@ class CourseController extends Controller
     public function myCoursesReviews()
     {
         $title = __t('my_courses_reviews');
+
         return view(theme('dashboard.my_courses_reviews'), compact('title'));
     }
 }

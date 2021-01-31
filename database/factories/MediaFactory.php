@@ -24,6 +24,7 @@ class MediaFactory extends Factory
     {
         $user_id = $this->faker->randomElement(\App\Models\User::pluck('id')->toArray());
         $file = $this->faker->randomElement(File::files(public_path('uploads/images/')));
+
         return [
             'user_id' => $user_id,
             'name' => $file->getFilename(),

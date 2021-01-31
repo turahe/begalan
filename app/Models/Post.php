@@ -27,8 +27,6 @@ class Post extends Model
             ->saveSlugsTo('slug');
     }
 
-
-
     /**
      * @param $query
      * @return mixed
@@ -92,27 +90,28 @@ class Post extends Model
      */
     public function getStatusContextAttribute()
     {
-        $statusClass = "";
-        $iclass = "";
+        $statusClass = '';
+        $iclass = '';
         $status = __a('pending');
         switch ($this->status) {
             case '0':
-                $statusClass .= "dark";
-                $iclass = "clock-o";
+                $statusClass .= 'dark';
+                $iclass = 'clock-o';
                 break;
             case '1':
-                $statusClass .= "success";
-                $iclass = "check-circle";
+                $statusClass .= 'success';
+                $iclass = 'check-circle';
                 $status = __a('published');
                 break;
             case '2':
-                $statusClass .= "danger";
-                $iclass = "exclamation-circle";
+                $statusClass .= 'danger';
+                $iclass = 'exclamation-circle';
                 $status = __a('unpublished');
                 break;
         }
 
         $html = "<span class='badge post-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$status}</span>";
+
         return $html;
     }
 }

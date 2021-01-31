@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Payments\PaymentUpdateRequest;
+use App\Models\Payment;
 use App\Notifications\AdminPaymentNotification;
 use App\Notifications\StudentPaymentNotification;
-use App\Models\Payment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 /**
- * Class PaymentController
- * @package App\Http\Controllers
+ * Class PaymentController.
  */
 class PaymentController extends Controller
 {
-
     /**
      * @param Request $request
      * @return RedirectResponse|View
@@ -44,6 +42,7 @@ class PaymentController extends Controller
             foreach ($ids as $id) {
                 Payment::find($id)->delete_and_sync();
             }
+
             return back()->with('success', __a('bulk_action_success'));
         }
         //END Bulk Actions
@@ -73,6 +72,7 @@ class PaymentController extends Controller
     {
         $title = __a('payment_details');
         $payment = Payment::find($id);
+
         return view('admin.payments.payment_view', compact('title', 'payment'));
     }
 
@@ -89,6 +89,7 @@ class PaymentController extends Controller
         if ($payment) {
             $payment->delete_and_sync();
         }
+
         return back();
     }
 
@@ -120,6 +121,7 @@ class PaymentController extends Controller
     public function PaymentGateways(): View
     {
         $title = __a('payment_settings');
+
         return view('admin.payments.gateways.payment_gateways', compact('title'));
     }
 
@@ -129,6 +131,7 @@ class PaymentController extends Controller
     public function PaymentSettings(): View
     {
         $title = __a('payment_settings');
+
         return view('admin.payments.gateways.payment_settings', compact('title'));
     }
 
@@ -138,6 +141,7 @@ class PaymentController extends Controller
     public function thankYou(): View
     {
         $title = __t('payment_thank_you');
+
         return view(theme('payment-thank-you'), compact('title'));
     }
 }

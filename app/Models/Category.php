@@ -70,6 +70,7 @@ class Category extends Model
             //krsort($parent_category_names);
             $category_name .= ' → '.implode(' → ', $parent_category_names);
         }
+
         return $category_name;
     }
 
@@ -79,6 +80,7 @@ class Category extends Model
     public function getCategoryNameParent()
     {
         $category_name = $this->category_name.$this->categoryNameParent();
+
         return $category_name;
     }
 
@@ -87,7 +89,7 @@ class Category extends Model
      */
     public function sub_categories()
     {
-        return $this->hasMany(Category::class, 'category_id', 'id');
+        return $this->hasMany(self::class, 'category_id', 'id');
     }
 
     /**
@@ -95,7 +97,7 @@ class Category extends Model
      */
     public function parent_category()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(self::class, 'category_id', 'id');
     }
 
     /**
@@ -104,6 +106,7 @@ class Category extends Model
     public function getBgColorAttribute()
     {
         $bg_color = '#303'.substr(md5($this->category_name), 0, 3);
+
         return $bg_color;
     }
 }

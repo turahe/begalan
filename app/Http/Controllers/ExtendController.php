@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Http;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class ExtendController
- * @package App\Http\Controllers
+ * Class ExtendController.
  */
 class ExtendController extends Controller
 {
-
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -43,12 +41,14 @@ class ExtendController extends Controller
             $active_plugins[] = $plugin;
 
             update_option('active_plugins', array_unique($active_plugins));
+
             return back()->with('success', __a('plugin_activated'));
         }
 
         if ($action === 'deactivate') {
             $active_plugins = (array) json_decode(get_option('active_plugins'), true);
             update_option('active_plugins', array_unique(array_diff($active_plugins, [$plugin])));
+
             return redirect(route('plugins'))->with('success', __a('plugin_deactivated'));
         }
     }
@@ -81,9 +81,9 @@ class ExtendController extends Controller
             $theme_info = include_once $themePath.'/ThemeInfo.php';
 
             $screenshot_url = asset('images/placeholder-image.png');
-            if (file_exists($themePath."/screenshot.png")) {
+            if (file_exists($themePath.'/screenshot.png')) {
                 $screenshot_url = asset("themes/{$directoryName}/screenshot.png");
-            } elseif (file_exists($themePath."/screenshot.jpg")) {
+            } elseif (file_exists($themePath.'/screenshot.jpg')) {
                 $screenshot_url = asset("themes/{$directoryName}/screenshot.jpg");
             }
 
@@ -104,6 +104,7 @@ class ExtendController extends Controller
     {
         $theme = $request->theme_slug;
         update_option('current_theme', $theme);
+
         return back()->with('success', __a('theme_activated'));
     }
 
@@ -131,6 +132,7 @@ class ExtendController extends Controller
                 if (array_get($request, 'success') && array_get($request, 'total') > 0) {
                     return array_get($request, 'data');
                 }
+
                 return [];
             } catch (\Exception $exception) {
                 return [];

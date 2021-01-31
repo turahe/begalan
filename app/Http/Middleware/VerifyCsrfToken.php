@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'gateway-ipn*',
-        'checkout/midtrans'
+        'checkout/midtrans',
     ];
 }

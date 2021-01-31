@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\StudentPaymentNotification;
 use App\Models\Payment;
 use App\Models\User;
-use Illuminate\Support\Facades\Notification;
-use Midtrans\Config;
+use App\Notifications\StudentPaymentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Notification;
+use Midtrans\Config;
 
 /**
- * Class GatewayController
- * @package App\Http\Controllers
+ * Class GatewayController.
  */
 class GatewayController extends Controller
 {
@@ -24,8 +22,8 @@ class GatewayController extends Controller
 
         $courses = collect($cart->courses)->map(function ($course) {
             return [
-                "title" =>  $course['title'],
-                "price" =>  $course['price'],
+                'title' =>  $course['title'],
+                'price' =>  $course['price'],
             ];
         });
 
@@ -57,9 +55,7 @@ class GatewayController extends Controller
         Notification::send($admin, new StudentPaymentNotification($payment));
 //        $request->session()->forget('cart');
 
-
         return redirect(route('checkout_payment', $payment->id));
-
     }
 
     /**
@@ -84,10 +80,10 @@ class GatewayController extends Controller
 
             //Charge from card
             $charge = Charge::create([
-                "amount"        => get_stripe_amount($amount), // amount in cents, again
-                "currency"      => $currency,
-                "source"        => $stripeToken,
-                "description"   => get_option('site_name')."'s course enrolment"
+                'amount'        => get_stripe_amount($amount), // amount in cents, again
+                'currency'      => $currency,
+                'source'        => $stripeToken,
+                'description'   => get_option('site_name')."'s course enrolment",
             ]);
 
             if ($charge->status == 'succeeded') {
@@ -137,9 +133,9 @@ class GatewayController extends Controller
                             <p>'.__t('payment_receive_successfully').'</p>
                             <a href="'.route('home').'" class="btn btn-dark">'.__t('home').'</a>
                         </div>';
+
         return $html;
     }
-
 
     /**
      * @param Request $request
@@ -192,7 +188,7 @@ class GatewayController extends Controller
         $payload = $request->getContent();
         $notification = json_decode($payload);
 
-        $validSignatureKey = hash("sha512", $notification->order_id . $notification->status_code . $notification->gross_amount . env('MIDTRANS_SERVER_KEY'));
+        $validSignatureKey = hash('sha512', $notification->order_id.$notification->status_code.$notification->gross_amount.env('MIDTRANS_SERVER_KEY'));
 
         if ($notification->signature_key != $validSignatureKey) {
             return response(['message' => 'Invalid signature'], 403);
@@ -211,7 +207,7 @@ class GatewayController extends Controller
 
         $paymentNotification = new \Midtrans\Notification();
 
-        $payment = Payment::where('local_transaction_id',$notification->order_id)->firstOrFail();
+        $payment = Payment::where('local_transaction_id', $notification->order_id)->firstOrFail();
 
         $transaction = $paymentNotification->transaction_status;
         $type = $paymentNotification->payment_type;
@@ -231,19 +227,19 @@ class GatewayController extends Controller
                     $paymentStatus = Payment::SUCCESS;
                 }
             }
-        } else if ($transaction == 'settlement' || $transaction == 'success') {
+        } elseif ($transaction == 'settlement' || $transaction == 'success') {
             // TODO set payment status in merchant's database to 'Settlement or success'
             $paymentStatus = Payment::SUCCESS;
-        } else if ($transaction == 'pending') {
+        } elseif ($transaction == 'pending') {
             // TODO set payment status in merchant's database to 'Pending'
             $paymentStatus = Payment::PENDING;
-        } else if ($transaction == 'deny') {
+        } elseif ($transaction == 'deny') {
             // TODO set payment status in merchant's database to 'Denied'
             $paymentStatus = PAYMENT::DENY;
-        } else if ($transaction == 'expire') {
+        } elseif ($transaction == 'expire') {
             // TODO set payment status in merchant's database to 'expire'
             $paymentStatus = PAYMENT::EXPIRE;
-        } else if ($transaction == 'cancel') {
+        } elseif ($transaction == 'cancel') {
             // TODO set payment status in merchant's database to 'Denied'
             $paymentStatus = PAYMENT::CANCEL;
         }
@@ -253,7 +249,7 @@ class GatewayController extends Controller
             'payment_method'        => $notification->payment_type,
             'status'                => $paymentStatus,
             'currency'              => $notification->currency,
-            'payment_created' => $notification->transaction_time
+            'payment_created' => $notification->transaction_time,
 
         ];
         //Create payment and clear it from session
@@ -264,10 +260,9 @@ class GatewayController extends Controller
 
         return response()->json([
             'success'=>'Ajax request submitted successfully',
-            'data' => $payment
+            'data' => $payment,
         ]);
     }
-
 
     /**
      * @param Request $request
@@ -310,9 +305,9 @@ class GatewayController extends Controller
         $request->session()->forget('cart');
 
         // PayPal settings
-        $paypal_action_url = "https://www.paypal.com/cgi-bin/webscr";
+        $paypal_action_url = 'https://www.paypal.com/cgi-bin/webscr';
         if (get_option('enable_paypal_sandbox')) {
-            $paypal_action_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+            $paypal_action_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
         }
 
         $paypal_email = get_option('paypal_receiver_email');
@@ -324,18 +319,19 @@ class GatewayController extends Controller
 
         $querystring = '';
         // Firstly Append paypal account to querystring
-        $querystring .= "?cmd=_xclick&business=".urlencode($paypal_email)."&";
-        $querystring .= "item_name=".urlencode($item_name)."&";
-        $querystring .= "amount=".urlencode($amount)."&";
-        $querystring .= "currency_code=".urlencode($currency)."&";
-        $querystring .= "item_number=".urlencode($payment->local_transaction_id)."&";
+        $querystring .= '?cmd=_xclick&business='.urlencode($paypal_email).'&';
+        $querystring .= 'item_name='.urlencode($item_name).'&';
+        $querystring .= 'amount='.urlencode($amount).'&';
+        $querystring .= 'currency_code='.urlencode($currency).'&';
+        $querystring .= 'item_number='.urlencode($payment->local_transaction_id).'&';
         // Append paypal return addresses
-        $querystring .= "return=".urlencode(stripslashes($return_url))."&";
-        $querystring .= "cancel_return=".urlencode(stripslashes($cancel_url))."&";
-        $querystring .= "notify_url=".urlencode($notify_url);
+        $querystring .= 'return='.urlencode(stripslashes($return_url)).'&';
+        $querystring .= 'cancel_return='.urlencode(stripslashes($cancel_url)).'&';
+        $querystring .= 'notify_url='.urlencode($notify_url);
 
         // Redirect to paypal IPN
         $URL = $paypal_action_url.$querystring;
+
         return redirect($URL);
     }
 

@@ -50,6 +50,7 @@ class Review extends Model
         $course->one_star_count = $one_star_count;
 
         $course->save();
+
         return $this;
     }
 }

@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 /**
- * Class MediaController
- * @package App\Http\Controllers
+ * Class MediaController.
  */
 class MediaController extends Controller
 {
-
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -27,7 +25,7 @@ class MediaController extends Controller
         $media_query = $user->medias();
 
         if (! empty($request->filter_name)) {
-            $media_query = $media_query->where("name", 'like', "%{$request->filter_name}%");
+            $media_query = $media_query->where('name', 'like', "%{$request->filter_name}%");
         }
 
         $media_query = $media_query->orderBy('id', 'desc')->paginate(30);
@@ -40,7 +38,6 @@ class MediaController extends Controller
      * @param Request $request
      * @return array
      */
-
     public function store(Request $request)
     {
         if (config('app.is_demo')) {
@@ -59,7 +56,7 @@ class MediaController extends Controller
                     $clientExt = $file->getClientOriginalExtension();
 
                     if (! in_array($clientExt, $allowed_file_types)) {
-                        return ['success' => false, 'msg' => $clientExt.' - '.__('admin.file_types_not_allowed') ];
+                        return ['success' => false, 'msg' => $clientExt.' - '.__('admin.file_types_not_allowed')];
                     }
 
                     $ext = '.'.$file->getClientOriginalExtension();
@@ -110,13 +107,13 @@ class MediaController extends Controller
                 }
             } catch (\Exception $e) {
                 $errorMsg = $e->getMessage();
+
                 return ['success' => false, 'msg' => $errorMsg];
             }
 
             return ['success' => true, 'msg' => __a('media_uploaded')];
         }
     }
-
 
     /**
      * @param Request $request
@@ -174,9 +171,9 @@ class MediaController extends Controller
                 }
             }
         }
+
         return ['success' => true, 'msg' => __a('media_deleted')];
     }
-
 
     /**
      * @param Request $request
@@ -193,9 +190,10 @@ class MediaController extends Controller
             $media_query = $user->medias();
         }
         if (! empty($request->q)) {
-            $media_query = $media_query->where("name", 'like', "%{$request->q}%");
+            $media_query = $media_query->where('name', 'like', "%{$request->q}%");
         }
         $medias = $media_query->orderBy('id', 'desc')->paginate(30);
+
         return view('admin.media_manager', compact('title', 'medias'));
     }
 
@@ -208,6 +206,7 @@ class MediaController extends Controller
         if ($request->media_id) {
             Media::whereId($request->media_id)->update(['title' => $request->title, 'alt_text' => $request->alt_text]);
         }
+
         return ['success' => true];
     }
 }

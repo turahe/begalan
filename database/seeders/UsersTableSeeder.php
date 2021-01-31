@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -14,7 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        $users  = collect($this->defaultUsers)->map(function ($user) {
+        $users = collect($this->defaultUsers)->map(function ($user) {
             return [
                 'name'      => $user['name'],
                 'email'     => $user['email'],
@@ -37,7 +39,7 @@ class UsersTableSeeder extends Seeder
         });
         User::insert($users->toArray());
 
-        User::factory( 100)->create([
+        User::factory(100)->create([
             'user_type' => 'student',
             'active_status' => 1,
         ]);

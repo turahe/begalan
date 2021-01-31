@@ -7,12 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
 /**
- * Class InstallationController
- * @package App\Http\Controllers
+ * Class InstallationController.
  */
 class InstallationController extends Controller
 {
-
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
@@ -22,7 +20,7 @@ class InstallationController extends Controller
             return redirect(route('home'));
         }
 
-        $title = "Installations";
+        $title = 'Installations';
 
         return view('installations.index', compact('title'));
     }
@@ -36,10 +34,10 @@ class InstallationController extends Controller
             return redirect(route('home'));
         }
 
-        $title = "Installations Step Two";
+        $title = 'Installations Step Two';
+
         return view('installations.step_two', compact('title'));
     }
-
 
     /**
      * @param Request $request
@@ -48,7 +46,7 @@ class InstallationController extends Controller
      */
     public function installationPost(Request $request)
     {
-        define('STDIN', fopen("php://stdin", "r"));
+        define('STDIN', fopen('php://stdin', 'r'));
 
         if (file_exists(base_path('.env'))) {
             return redirect(route('home'));
@@ -98,20 +96,19 @@ class InstallationController extends Controller
         $default_value['DB_USERNAME'] = $request->username;
         $default_value['DB_PASSWORD'] = $request->password."\n";
 
-        $conf = "";
+        $conf = '';
         foreach ($default_value as $convKey => $confVal) {
             $conf .= "{$convKey}={$confVal}\n";
         }
 
-        $unable_to_open = "Unable to open file! <br /> please create a <b>.env</b> file manually in your document root with below configuration, save below configuration to .env file, place it at <code>".base_path()."</code> <br /><br />";
+        $unable_to_open = 'Unable to open file! <br /> please create a <b>.env</b> file manually in your document root with below configuration, save below configuration to .env file, place it at <code>'.base_path().'</code> <br /><br />';
 
         $unable_to_open .= "<pre>{$conf}</pre>";
 
-        $open_env_file = fopen(base_path(".env"), "w") or die($unable_to_open);
+        $open_env_file = fopen(base_path('.env'), 'w') or die($unable_to_open);
         fwrite($open_env_file, $conf);
         fclose($open_env_file);
-        chmod(base_path(".env"), 0777);
-
+        chmod(base_path('.env'), 0777);
 
         return redirect(route('installation_final'));
 
@@ -141,6 +138,7 @@ class InstallationController extends Controller
         }
 
         $title = 'Installation Successful';
+
         return view('installations.successful', compact('title'));
     }
 

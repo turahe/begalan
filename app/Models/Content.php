@@ -72,7 +72,6 @@ class Content extends Model
      *
      * Get Attached Video Info
      */
-
     public function video_info($key = null)
     {
         $video_info = null;
@@ -100,6 +99,7 @@ class Content extends Model
         if ($this->item_type === 'quiz') {
             return route('single_quiz', [$this->course_id, $this->id]);
         }
+
         return null;
     }
 
@@ -124,6 +124,7 @@ class Content extends Model
         if ($seconds) {
             return seconds_to_time_format($this->runtime_seconds);
         }
+
         return false;
     }
 
@@ -142,6 +143,7 @@ class Content extends Model
             if (is_array($options) && array_get($options, $key)) {
                 return array_get($options, $key);
             }
+
             return $default;
         }
 
@@ -185,6 +187,7 @@ class Content extends Model
         if (! $user_id && Auth::check()) {
             $user_id = Auth::user()->id;
         }
+
         return $this->hasOne(AssignmentSubmission::class, 'assignment_id')->where('user_id', $user_id);
     }
 
@@ -201,8 +204,8 @@ class Content extends Model
      */
     public function previous(): HasOne
     {
-        return $this->hasOne(Content::class, 'course_id', 'course_id')
-            ->where('sort_order', $this->sort_order-1)
+        return $this->hasOne(self::class, 'course_id', 'course_id')
+            ->where('sort_order', $this->sort_order - 1)
             ->orderBy('sort_order', 'desc');
     }
 
@@ -211,8 +214,8 @@ class Content extends Model
      */
     public function next()
     {
-        return $this->hasOne(Content::class, 'course_id', 'course_id')
-            ->where('sort_order', $this->sort_order+1)
+        return $this->hasOne(self::class, 'course_id', 'course_id')
+            ->where('sort_order', $this->sort_order + 1)
             ->orderBy('sort_order', 'asc');
     }
 
@@ -223,9 +226,11 @@ class Content extends Model
     {
         if (Auth::user()) {
             $user_id = Auth::user()->id;
+
             return $this->hasOne(Complete::class)
                 ->whereUserId($user_id);
         }
+
         return false;
     }
 
@@ -235,7 +240,6 @@ class Content extends Model
      *
      * Save content and sync to all necessary place
      */
-
     public function save_and_sync($data = [])
     {
         if (is_array($data) && count($data)) {
@@ -251,9 +255,8 @@ class Content extends Model
         return $this;
     }
 
-
     /**
-     * Content Drip
+     * Content Drip.
      */
     public function enrolled_course()
     {
@@ -262,6 +265,7 @@ class Content extends Model
         }
 
         $user_id = Auth::check();
+
         return $this->hasOne(Enroll::class, 'course_id', 'course_id')
             ->where('user_id', $user_id)
             ->where('status', 'success');
@@ -279,7 +283,7 @@ class Content extends Model
             'message' => null,
         ];
 
-        /**
+        /*
          * If Section is Lock
          */
         if ($section_drip->is_lock) {
@@ -290,9 +294,8 @@ class Content extends Model
         }
 
         /**
-         * If Lock by date
+         * If Lock by date.
          */
-
         $time = Carbon::now()->timestamp;
 
         if ($this->unlock_date && strtotime($this->unlock_date) > $time) {
@@ -302,7 +305,7 @@ class Content extends Model
             $data['message'] = ' The content will become available at '.$unlock_date;
         }
 
-        /**
+        /*
          * If Lock by Days
          */
         if ($this->unlock_days && $this->unlock_days > 0) {
@@ -323,7 +326,6 @@ class Content extends Model
 
         return (object) $data;
     }
-
 
     /**
      * @return HasMany

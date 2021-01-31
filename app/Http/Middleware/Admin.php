@@ -26,7 +26,6 @@ class Admin
             return redirect(route('dashboard'))->with('error', __t('access_restricted'));
         }
 
-
         return $next($request);
     }
 }

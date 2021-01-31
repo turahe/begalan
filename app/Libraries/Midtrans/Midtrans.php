@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Libraries\Midtrans;
-
 
 use Exception;
 use Midtrans\Config;
@@ -13,7 +11,7 @@ use Midtrans\Transaction;
 class Midtrans
 {
     /**
-     * Initialize Midtrans
+     * Initialize Midtrans.
      */
     public function __construct()
     {
@@ -21,11 +19,12 @@ class Midtrans
     }
 
     /**
-     * Register all midtrans config
+     * Register all midtrans config.
      *
      * @return void
      */
-    public static function registerMidtransConfig() {
+    public static function registerMidtransConfig()
+    {
         Config::$serverKey = config('midtrans.server_key');
         Config::$clientKey = config('midtrans.client_key');
         Config::$isSanitized = config('midtrans.sanitize') == 'true';
@@ -36,18 +35,19 @@ class Midtrans
     }
 
     /**
-     * Create Snap payment page
+     * Create Snap payment page.
      *
      * @param  array $params Payment options
      * @return string Snap token.
      * @throws Exception curl error or midtrans error
      */
-    public function getSnapToken($params) {
+    public function getSnapToken($params)
+    {
         return Snap::getSnapToken($params);
     }
 
     /**
-     * Create Snap payment page, with this version returning full API response
+     * Create Snap payment page, with this version returning full API response.
      *
      * @param  array $params Payment options
      * @return object Snap response (token and redirect_url).
@@ -70,7 +70,7 @@ class Midtrans
     }
 
     /**
-     * charge alias, but returns redirect url attribute
+     * charge alias, but returns redirect url attribute.
      *
      * @param array $payloads
      */
@@ -80,7 +80,7 @@ class Midtrans
     }
 
     /**
-     * Charge alias
+     * Charge alias.
      *
      * @param array $params
      * @return mixed
@@ -91,7 +91,7 @@ class Midtrans
     }
 
     /**
-     * Capture pre-authorized transaction
+     * Capture pre-authorized transaction.
      *
      * @param string $param Order ID or transaction ID, that you want to capture
      * @return mixed
@@ -102,18 +102,19 @@ class Midtrans
     }
 
     /**
-     * Retrieve transaction status
+     * Retrieve transaction status.
      *
      * @param string $id Order ID or transaction ID
      *
      * @return mixed[]
      */
-    public function status($id) {
+    public function status($id)
+    {
         return Transaction::status($id);
     }
 
     /**
-     * Approve challenge transaction
+     * Approve challenge transaction.
      *
      * @param string $id Order ID or transaction ID
      *
@@ -125,7 +126,7 @@ class Midtrans
     }
 
     /**
-     * Cancel transaction before it's settled
+     * Cancel transaction before it's settled.
      *
      * @param string $id Order ID or transaction ID
      *
@@ -137,7 +138,7 @@ class Midtrans
     }
 
     /**
-     * Expire transaction before it's setteled
+     * Expire transaction before it's setteled.
      *
      * @param string $id Order ID or transaction ID
      *
@@ -176,32 +177,34 @@ class Midtrans
     }
 
     /**
-     * Read data from input source
+     * Read data from input source.
      *
      * @param string $input_source
      * @return string
      */
-    public function input($input_source) {
+    public function input($input_source)
+    {
         return file_get_contents($input_source);
     }
 
     /**
-     * Get incoming notification (web hook)
+     * Get incoming notification (web hook).
      *
      * @param string $input_source
      * @return Notification
      */
-    public function notification($input_source = "php://input") {
+    public function notification($input_source = 'php://input')
+    {
         return new Notification($input_source);
     }
 
     /**
-     * Get midtrans client key config value
+     * Get midtrans client key config value.
      *
      * @return string
      */
-    public function clientKey() {
+    public function clientKey()
+    {
         return config('midtrans.client_key');
     }
-
 }

@@ -16,7 +16,6 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
 
-
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->integer('user_id')->nullable(); //Who Paid
@@ -30,7 +29,7 @@ class CreatePaymentsTable extends Migration
             $table->string('fees_type', 20)->nullable();
 
             $table->string('payment_method')->nullable();
-            $table->enum('status', ['initial','pending','onhold','success','failed','declined','dispute', 'expired'])->default('initial')->nullable();
+            $table->enum('status', ['initial', 'pending', 'onhold', 'success', 'failed', 'declined', 'dispute', 'expired'])->default('initial')->nullable();
             $table->string('currency')->nullable();
             $table->string('token_id')->nullable();
 

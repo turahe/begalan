@@ -8,12 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class DiscussionController
- * @package App\Http\Controllers
+ * Class DiscussionController.
  */
 class DiscussionController extends Controller
 {
-
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -64,6 +62,7 @@ class DiscussionController extends Controller
         Discussion::create($data);
 
         $discussion->update(['replied' => 1]);
+
         return back()->with('success', 'Discussion replied');
     }
 
@@ -76,7 +75,7 @@ class DiscussionController extends Controller
     {
         $rules = [
             'title'     => 'required|max:220',
-            'message'   => 'required'
+            'message'   => 'required',
         ];
 
         $this->validate($request, $rules);

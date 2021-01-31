@@ -13,10 +13,12 @@ class Quiz extends Model
     {
         return $this->hasMany(Question::class, 'quiz_id')->with('media');
     }
+
     public function attempts()
     {
         return $this->hasMany(Attempt::class, 'quiz_id');
     }
+
     public function option($key = null, $default = null)
     {
         $options = null;
@@ -27,6 +29,7 @@ class Quiz extends Model
             if (is_array($options) && array_get($options, $key)) {
                 return array_get($options, $key);
             }
+
             return $default;
         }
 

@@ -1,8 +1,7 @@
 <?php
 
-
 /**
- * Include Laravel default helpers
+ * Include Laravel default helpers.
  */
 
 use App\Complete;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 require __DIR__.'/helpers.php';
 require __DIR__.'/theme_functions.php';
 
-/**
+/*
  * @return string
  */
 if (! function_exists('pageJsonData')) {
@@ -45,8 +44,7 @@ if (! function_exists('pageJsonData')) {
     }
 }
 
-
-/**
+/*
  * @param string $title
  * @param string $model
  * @param int $skip_id
@@ -65,9 +63,9 @@ if (! function_exists('unique_slug')) {
         $slug = str_slug($title);
 
         if (empty($slug)) {
-            $string = mb_strtolower($title, "UTF-8");;
-            $string = preg_replace("/[\/\.]/", " ", $string);
-            $string = preg_replace("/[\s-]+/", " ", $string);
+            $string = mb_strtolower($title, 'UTF-8');
+            $string = preg_replace("/[\/\.]/", ' ', $string);
+            $string = preg_replace("/[\s-]+/", ' ', $string);
             $slug = preg_replace("/[\s_]/", '-', $string);
         }
 
@@ -75,24 +73,25 @@ if (! function_exists('unique_slug')) {
         $nSlug = $slug;
         $i = 0;
 
-        $model = str_replace(' ', '', "\App\Models\ " . $model);
+        $model = str_replace(' ', '', "\App\Models\ ".$model);
 
         if ($skip_id === 0) {
             while (($model::whereSlug($nSlug)->count()) > 0) {
                 $i++;
-                $nSlug = $slug . '-' . $i;
+                $nSlug = $slug.'-'.$i;
             }
         } else {
             while (($model::whereSlug($nSlug)->where('id', '!=', $skip_id)->count()) > 0) {
                 $i++;
-                $nSlug = $slug . '-' . $i;
+                $nSlug = $slug.'-'.$i;
             }
         }
         if ($i > 0) {
-            $newSlug = substr($nSlug, 0, strlen($slug)) . '-' . $i;
+            $newSlug = substr($nSlug, 0, strlen($slug)).'-'.$i;
         } else {
             $newSlug = $slug;
         }
+
         return $newSlug;
     }
 }
@@ -104,28 +103,30 @@ if (! function_exists('next_curriculum_item_id')) {
      */
     function next_curriculum_item_id($course_id)
     {
-        $order_number = (int)DB::table('contents')
+        $order_number = (int) DB::table('contents')
             ->where('course_id', $course_id)
             ->max('sort_order');
+
         return $order_number + 1;
     }
 }
-/**
+/*
  * @return mixed
  * Return the current Disk
  */
-if (!function_exists('current_disk')) {
+if (! function_exists('current_disk')) {
     /**
      * @return \Illuminate\Contracts\Filesystem\Filesystem|\Illuminate\Filesystem\FilesystemAdapter
      */
     function current_disk()
     {
         $current_disk = \Illuminate\Support\Facades\Storage::disk(get_option('default_storage'));
+
         return $current_disk;
     }
 }
 
-/**
+/*
  * @param string $key
  * @param null $default
  * @return string
@@ -139,7 +140,7 @@ if (! function_exists('get_option')) {
     function get_option($key = '', $default = null)
     {
         $options = config('options');
-        if (!$key) {
+        if (! $key) {
             return $options;
         }
 
@@ -165,6 +166,7 @@ if (! function_exists('get_from_array')) {
                 if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
                     $value = json_decode(substr($value, 18), true);
                 }
+
                 return $value;
             }
         } else {
@@ -176,9 +178,11 @@ if (! function_exists('get_from_array')) {
                 if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
                     $value = json_decode(substr($value, 18), true);
                 }
+
                 return array_get($value, $secondKey);
             }
         }
+
         return null;
     }
 }
@@ -193,6 +197,7 @@ if (! function_exists('update_option')) {
     {
         $option = \App\Models\Option::firstOrCreate(['option_key' => $key]);
         $option->option_value = $value;
+
         return $option->save();
     }
 }
@@ -207,7 +212,7 @@ if (! function_exists('delete_option')) {
     }
 }
 
-/**
+/*
  * @param null $key
  * @return null|mixed
  *
@@ -226,11 +231,12 @@ if (! function_exists('__t')) {
         if ($text) {
             return  $text;
         }
+
         return $key;
     }
 }
 
-/**
+/*
  * @param null $key
  * @return null|array|\Illuminate\Contracts\Translation\Translator|string
  *
@@ -246,10 +252,10 @@ if (! function_exists('__a')) {
         if ($key) {
             return __("admin.{$key}");
         }
+
         return $key;
     }
 }
-
 
 if (! function_exists('get_theme')) {
     /**
@@ -269,12 +275,12 @@ if (! function_exists('get_theme')) {
             'path' => $theme_path,
             'url' => $theme_url,
         ];
-        return (object)$info;
+
+        return (object) $info;
     }
 }
 
-
-/**
+/*
  * @param null $view
  * @return string
  *
@@ -287,7 +293,7 @@ if (! function_exists('theme')) {
      */
     function theme($view = null)
     {
-        return get_theme()->view . $view;
+        return get_theme()->view.$view;
     }
 }
 
@@ -298,7 +304,7 @@ if (! function_exists('theme_asset')) {
      */
     function theme_asset($path = '')
     {
-        return get_theme()->url . '/assets/' . $path;
+        return get_theme()->url.'/assets/'.$path;
     }
 }
 
@@ -309,11 +315,11 @@ if (! function_exists('theme_url')) {
      */
     function theme_url($path = '')
     {
-        return get_theme()->url . '/' . $path;
+        return get_theme()->url.'/'.$path;
     }
 }
 
-/**
+/*
  * @param null $view
  * @param array $data
  * @param array $mergeData
@@ -333,9 +339,9 @@ if (! function_exists('view_template')) {
     {
         $view_dir = get_theme()->view;
 
-        $html = view()->make($view_dir . 'header', $data, $mergeData)->render();
-        $html .= view()->make($view_dir . $view, $data, $mergeData)->render();
-        $html .= view()->make($view_dir . 'footer', $data, $mergeData)->render();
+        $html = view()->make($view_dir.'header', $data, $mergeData)->render();
+        $html .= view()->make($view_dir.$view, $data, $mergeData)->render();
+        $html .= view()->make($view_dir.'footer', $data, $mergeData)->render();
 
         return $html;
     }
@@ -346,7 +352,7 @@ function view_dashboard_template($view = null, $data = [], $mergeData = []){
     return view_template('dashboard.index', $data, $mergeData);
 }*/
 
-/**
+/*
  * @param null $view
  * @param array $data
  * @param array $mergeData
@@ -369,7 +375,7 @@ if (! function_exists('view_template_part')) {
     }
 }
 
-/**
+/*
  * @param null $media
  * @return object
  *
@@ -383,8 +389,8 @@ if (! function_exists('media_image_uri')) {
     function media_image_uri($media = null)
     {
         $sizes = config('media.size');
-        $sizes['original'] = "Original Image";
-        $sizes['full'] = "Original Image";
+        $sizes['original'] = 'Original Image';
+        $sizes['full'] = 'Original Image';
 
         foreach ($sizes as $img_size => $name) {
             $sizes[$img_size] = asset('uploads/placeholder-image.png');
@@ -398,8 +404,8 @@ if (! function_exists('media_image_uri')) {
             if ($media) {
                 $source = get_option('default_storage');
 
-                $url_path       = null;
-                $full_url_path  = null;
+                $url_path = null;
+                $full_url_path = null;
 
                 //Getting resized images
                 foreach ($sizes as $img_size => $name) {
@@ -427,8 +433,7 @@ if (! function_exists('media_image_uri')) {
     }
 }
 
-
-/**
+/*
  * @param null $media
  * @return null|string
  *
@@ -442,7 +447,7 @@ if (! function_exists('media_file_uri')) {
      */
     function media_file_uri($media = null)
     {
-        $url_path       = null;
+        $url_path = null;
 
         if ($media) {
             if (! is_object($media) || ! $media instanceof \App\Models\Media) {
@@ -457,10 +462,10 @@ if (! function_exists('media_file_uri')) {
                 }
 
                 if ($source == 'public') {
-                    $url_path = asset("uploads/".$slug_ext);
+                    $url_path = asset('uploads/'.$slug_ext);
                 } elseif ($source == 's3') {
                     try {
-                        $url_path = \Illuminate\Support\Facades\Storage::disk('s3')->url("uploads/".$slug_ext);
+                        $url_path = \Illuminate\Support\Facades\Storage::disk('s3')->url('uploads/'.$slug_ext);
                     } catch (\Exception $exception) {
                         add_action('admin_notices', function () use ($exception) {
                             echo "<div class='alert alert-danger'> <strong>File Storage S3 Settings Error:</strong>
@@ -476,8 +481,7 @@ if (! function_exists('media_file_uri')) {
     }
 }
 
-
-/**
+/*
  * @param $media_id
  * @param bool $echo
  * @return string
@@ -516,7 +520,6 @@ if (! function_exists('image_upload_form')) {
      * @param string $current_image_id
      * @param array $preferable_size
      */
-
     function image_upload_form($input_name = 'image_id', $current_image_id = '', $preferable_size = [])
     {
         if (! $input_name) {
@@ -526,11 +529,11 @@ if (! function_exists('image_upload_form')) {
             <a href="javascript:;" data-toggle="filemanager">
                 <?php
                 $img_src = '';
-                if ($current_image_id) {
-                    $img_src = media_image_uri($current_image_id)->thumbnail;
-                } else {
-                    $img_src = asset('uploads/placeholder-image.png');
-                } ?>
+        if ($current_image_id) {
+            $img_src = media_image_uri($current_image_id)->thumbnail;
+        } else {
+            $img_src = asset('uploads/placeholder-image.png');
+        } ?>
                 <img src="<?php echo $img_src; ?>" alt="" class="img-thumbnail" />
             </a>
             <input type="hidden" name="<?php echo $input_name; ?>" class="image-input" value="<?php echo $current_image_id; ?>">
@@ -539,7 +542,7 @@ if (! function_exists('image_upload_form')) {
             if (count($preferable_size)) {
                 $width = array_get($preferable_size, 0);
                 $height = array_get($preferable_size, 1);
-                $text = __t('preferable_size') .": w-{$width}px X h-{$height}px";
+                $text = __t('preferable_size').": w-{$width}px X h-{$height}px";
                 echo "<p class='img_preferable_size_info my-2 text-info'> {$text} </p>";
             } ?>
 
@@ -548,8 +551,6 @@ if (! function_exists('image_upload_form')) {
     }
 }
 
-
-
 if (! function_exists('media_upload_form')) {
 
     /**
@@ -557,7 +558,6 @@ if (! function_exists('media_upload_form')) {
      * @param string $btn_text
      * @param string $current_media_id
      */
-
     function media_upload_form($input_name = 'media_id', $btn_text = 'Upload Media', $btn_class = null, $current_media_id = '')
     {
         if (! $input_name) {
@@ -567,8 +567,8 @@ if (! function_exists('media_upload_form')) {
         <div class="image-wrap media-btn-wrap">
             <div class="saved-media-id">
                 <?php if ($current_media_id) {
-                    echo "<p class='text-info'>Uploaded ID: <strong>{$current_media_id}</strong></p>";
-                } ?>
+            echo "<p class='text-info'>Uploaded ID: <strong>{$current_media_id}</strong></p>";
+        } ?>
             </div>
             <a href="javascript:;" class="<?php echo $btn_class; ?>" data-toggle="filemanager">
                 <?php echo $btn_text; ?>
@@ -593,7 +593,7 @@ if (! function_exists('date_time_format')) {
      */
     function date_time_format()
     {
-        return get_option('date_format') . ' ' . get_option('time_format');
+        return get_option('date_format').' '.get_option('time_format');
     }
 }
 
@@ -631,7 +631,6 @@ function price_format($amount = 0, $currency = null)
     return $show_price;
 }
 
-
 /**
  * @param int $amount
  * @return int|string
@@ -651,7 +650,6 @@ function get_amount_raw($amount = 0)
 
     return $get_price;
 }
-
 
 if (! function_exists('get_zero_decimal_currency')) {
     /**
@@ -682,7 +680,6 @@ if (! function_exists('get_zero_decimal_currency')) {
     }
 }
 
-
 if (! function_exists('get_stripe_amount')) {
     /**
      * @param int $amount
@@ -704,6 +701,7 @@ if (! function_exists('get_stripe_amount')) {
         if ($type === 'to_cents') {
             return (int) round(($amount * 100));
         }
+
         return $amount / 100;
     }
 }
@@ -713,7 +711,6 @@ if (! function_exists('get_stripe_amount')) {
  *
  * Get currencies
  */
-
 function get_currencies()
 {
     return [
@@ -880,8 +877,7 @@ function get_currencies()
     ];
 }
 
-
-/**
+/*
  * Get Currency symbol.
  *
  * @param string $currency (default: '')
@@ -894,7 +890,7 @@ if (! function_exists('get_currency_symbol')) {
      */
     function get_currency_symbol($currency = '')
     {
-        if (!$currency) {
+        if (! $currency) {
             $currency = 'USD';
         }
 
@@ -1068,12 +1064,11 @@ if (! function_exists('get_currency_symbol')) {
     }
 }
 
-
-/**
+/*
  * Form Helper
  */
 
-/**
+/*
  * @param $checked
  * @param bool $current
  * @param bool $echo
@@ -1092,7 +1087,7 @@ if (! function_exists('checked')) {
         return __checked_selected_helper($checked, $current, $echo, 'checked');
     }
 }
-/**
+/*
  * @param $selected
  * @param bool $current
  * @param bool $echo
@@ -1112,7 +1107,7 @@ if (! function_exists('selected')) {
     }
 }
 
-/**
+/*
  * @param $helper
  * @param $current
  * @param $echo
@@ -1130,7 +1125,7 @@ if (! function_exists('__checked_selected_helper')) {
      */
     function __checked_selected_helper($helper, $current, $echo, $type)
     {
-        if ((string)$helper === (string)$current) {
+        if ((string) $helper === (string) $current) {
             $result = " $type='$type'";
         } else {
             $result = '';
@@ -1144,13 +1139,11 @@ if (! function_exists('__checked_selected_helper')) {
     }
 }
 /**
- * End Form Helper
+ * End Form Helper.
  */
 
-
-
 /**
- * Retrieve metadata from a video file's ID3 tags
+ * Retrieve metadata from a video file's ID3 tags.
  *
  * @since 3.6.0
  *
@@ -1166,10 +1159,10 @@ function read_video_metadata($file)
     $metadata = [];
 
     if (! class_exists('getID3', false)) {
-        require(app_path('ID3/getid3.php'));
+        require app_path('ID3/getid3.php');
     }
 
-    $id3  = new getID3();
+    $id3 = new getID3();
     $data = $id3->analyze($file);
 
     if (isset($data['video']['lossless'])) {
@@ -1239,8 +1232,7 @@ function read_video_metadata($file)
 
     $file_format = isset($metadata['fileformat']) ? $metadata['fileformat'] : null;
 
-
-    /**
+    /*
      * Filters the array of metadata retrieved from a video.
      *
      * In core, usually this selection is what is stored.
@@ -1258,7 +1250,6 @@ function read_video_metadata($file)
         'data'  => $data,
     ];
 }
-
 
 /**
  * Parse creation date from media metadata.
@@ -1315,12 +1306,13 @@ if (! function_exists('icon_classes')) {
     function icon_classes()
     {
         $pattern = '/\.(la-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"\\\\(.+)";\s+}/';
-        $subject = file_get_contents(ROOT_PATH . '/assets/css/line-awesome.css');
+        $subject = file_get_contents(ROOT_PATH.'/assets/css/line-awesome.css');
         preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             $icons[$match[1]] = $match[2];
         }
         ksort($icons);
+
         return $icons;
     }
 }
@@ -1331,7 +1323,6 @@ if (! function_exists('icon_classes')) {
  *
  * Course levels
  */
-
 function course_levels($level = null)
 {
     $levels = [
@@ -1343,6 +1334,7 @@ function course_levels($level = null)
 
     if ($level !== null) {
         $level = (int) $level;
+
         return array_get($levels, $level);
     }
 
@@ -1356,27 +1348,26 @@ function course_levels($level = null)
 function seconds_to_time_format($seconds = 0)
 {
     if (! $seconds) {
-        return "00:00";
+        return '00:00';
     }
 
     $hours = floor($seconds / 3600);
-    $mins = floor(($seconds - $hours*3600) / 60);
-    $s = $seconds - ($hours*3600 + $mins*60);
+    $mins = floor(($seconds - $hours * 3600) / 60);
+    $s = $seconds - ($hours * 3600 + $mins * 60);
 
-    $mins = ($mins<10?"0".$mins:"".$mins);
-    $s = ($s<10?"0".$s:"".$s);
+    $mins = ($mins < 10 ? '0'.$mins : ''.$mins);
+    $s = ($s < 10 ? '0'.$s : ''.$s);
 
-    $time = ($hours>0?$hours.":":"").$mins.":".$s;
+    $time = ($hours > 0 ? $hours.':' : '').$mins.':'.$s;
+
     return $time;
 }
-
 
 if (! function_exists('cart')) {
     /**
      * @param int $course_id
      * @return null|array|mixed
      */
-
     function cart($course_id = 0)
     {
         //session()->forget('cart');
@@ -1416,12 +1407,9 @@ if (! function_exists('cart')) {
 
         $data['total_amount'] = $total_price + $fees_total + $data['unique_code'];
 
-
         return (object) $data;
     }
 }
-
-
 
 /**
  * @param string $type
@@ -1429,7 +1417,6 @@ if (! function_exists('cart')) {
  *
  * @return stripe secret key or test key
  */
-
 function get_stripe_key($type = 'publishable')
 {
     $stripe_key = '';
@@ -1457,7 +1444,6 @@ function get_stripe_key($type = 'publishable')
  *
  * Make enroll student to a course
  */
-
 function do_enroll($user_id, $course_id, $course_price, $payment_id = 0)
 {
     $carbon = Carbon::now()->toDateTimeString();
@@ -1468,7 +1454,7 @@ function do_enroll($user_id, $course_id, $course_price, $payment_id = 0)
         'course_price'  => $course_price,
         'payment_id'    => $payment_id,
         'status'        => 'success',
-        'enrolled_at'   => $carbon
+        'enrolled_at'   => $carbon,
     ];
 
     DB::table('enrolls')->insert($data);
@@ -1483,14 +1469,14 @@ if (! function_exists('complete_content')) {
      */
     function complete_content($content, $user)
     {
-        if (!$content || !$user) {
+        if (! $content || ! $user) {
             return false;
         }
 
-        if (!$content instanceof Content) {
+        if (! $content instanceof Content) {
             $content = Content::find($content);
         }
-        if (!$user instanceof \App\Models\User) {
+        if (! $user instanceof \App\Models\User) {
             $user = \App\Models\User::find($user);
         }
 
@@ -1516,7 +1502,7 @@ if (! function_exists('complete_content')) {
         $completed_count = $completes->count();
         $percent = 0;
         if ($total_contents && $completed_count) {
-            $percent = (int)number_format(($completed_count * 100) / $total_contents);
+            $percent = (int) number_format(($completed_count * 100) / $total_contents);
         }
 
         $completed_courses = (array) $user->get_option('completed_courses');
@@ -1549,7 +1535,7 @@ function switch_field($name = '', $label = '', $old_value = '')
     return $field_html;
 }
 
-/**
+/*
  * @param $course
  * @return string
  *
@@ -1575,8 +1561,9 @@ if (! function_exists('countries')) {
      */
     function countries($country_id = null)
     {
-        if (!$country_id) {
+        if (! $country_id) {
             $countries = \App\Models\Country::query()->orderBy('name', 'ASC')->get();
+
             return $countries;
         }
 
@@ -1584,7 +1571,7 @@ if (! function_exists('countries')) {
     }
 }
 
-/**
+/*
  * @param float $current_rating
  * @param bool $echo
  * @return string
@@ -1604,11 +1591,12 @@ if (! function_exists('star_rating_field')) {
         $output = '<div class="review-write-star-wrap mb-3">';
         $output .= star_rating_generator($current_rating);
         $output .= "<input type='hidden' name='rating_value' value='{$current_rating}'>";
-        $output .= "</div>";
+        $output .= '</div>';
 
         if ($echo) {
             echo $output;
         }
+
         return $output;
     }
 }
@@ -1623,22 +1611,23 @@ if (! function_exists('star_rating_generator')) {
         $output = '<div class="generated-star-rating-wrap">';
 
         for ($i = 1; $i <= 5; $i++) {
-            $intRating = (int)$current_rating;
+            $intRating = (int) $current_rating;
 
             if ($intRating >= $i) {
-                $output .= '<i class="las la-star" data-rating-value="' . $i . '"></i>';
+                $output .= '<i class="las la-star" data-rating-value="'.$i.'"></i>';
             } else {
                 $fraction = 1 - ($i - $current_rating);
                 if ($fraction > 0.69) {
-                    $output .= '<i class="las la-star" data-rating-value="' . $i . '"></i>';
+                    $output .= '<i class="las la-star" data-rating-value="'.$i.'"></i>';
                 } elseif ($fraction > 0.39) {
-                    $output .= '<i class="las la-star-half-alt" data-rating-value="' . $i . '"></i>';
+                    $output .= '<i class="las la-star-half-alt" data-rating-value="'.$i.'"></i>';
                 } else {
-                    $output .= '<i class="las la-star-o" data-rating-value="' . $i . '"></i>';
+                    $output .= '<i class="las la-star-o" data-rating-value="'.$i.'"></i>';
                 }
             }
         }
-        $output .= "</div>";
+        $output .= '</div>';
+
         return $output;
     }
 }
@@ -1655,7 +1644,7 @@ if (! function_exists('has_review')) {
     }
 }
 
-/**
+/*
  * @param string $title
  * @param string $desc
  * @param string $class
@@ -1682,6 +1671,7 @@ if (! function_exists('no_data')) {
             <h3 class='no-data-title'>{$title}</h3>
             <h5 class='no-data-subtitle'>{$desc}</h5>
         </div>";
+
         return $output;
     }
 }
@@ -1770,7 +1760,7 @@ if (! function_exists('active_withdraw_methods')) {
         $methods = withdraw_methods();
 
         foreach ($methods as $key => $method) {
-            if (!get_option("withdraw_methods.{$key}.enable")) {
+            if (! get_option("withdraw_methods.{$key}.enable")) {
                 unset($methods[$key]);
             }
         }
@@ -1782,7 +1772,7 @@ if (! function_exists('active_withdraw_methods')) {
     }
 }
 
-/**
+/*
  * @param null $type
  * @return array|mixed
  */
@@ -1807,7 +1797,7 @@ if (! function_exists('question_types')) {
         return apply_filters('questions_types', $types);
     }
 }
-/**
+/*
  * @param $value
  * @param array $protocols
  * @param array $attributes
@@ -1828,18 +1818,18 @@ if (! function_exists('linkify')) {
         // Link attributes
         $attr = '';
         foreach ($attributes as $key => $val) {
-            $attr .= ' ' . $key . '="' . htmlentities($val) . '"';
+            $attr .= ' '.$key.'="'.htmlentities($val).'"';
         }
 
         $links = [];
 
         // Extract existing links and tags
         $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i', function ($match) use (&$links) {
-            return '<' . array_push($links, $match[1]) . '>';
+            return '<'.array_push($links, $match[1]).'>';
         }, $value);
 
         // Extract text links for each protocol
-        foreach ((array)$protocols as $protocol) {
+        foreach ((array) $protocols as $protocol) {
             switch ($protocol) {
                 case 'http':
                 case 'https':
@@ -1848,22 +1838,23 @@ if (! function_exists('linkify')) {
                             $protocol = $match[1];
                         }
                         $link = $match[2] ?: $match[3];
-                        return '<' . array_push($links, "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
+
+                        return '<'.array_push($links, "<a $attr href=\"$protocol://$link\">$link</a>").'>';
                     }, $value);
                     break;
                 case 'mail':
                     $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~', function ($match) use (&$links, $attr) {
-                        return '<' . array_push($links, "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
+                        return '<'.array_push($links, "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>").'>';
                     }, $value);
                     break;
                 case 'twitter':
                     $value = preg_replace_callback('~(?<!\w)[@#](\w++)~', function ($match) use (&$links, $attr) {
-                        return '<' . array_push($links, "<a $attr href=\"https://twitter.com/" . ($match[0][0] == '@' ? '' : 'search/%23') . $match[1] . "\">{$match[0]}</a>") . '>';
+                        return '<'.array_push($links, "<a $attr href=\"https://twitter.com/".($match[0][0] == '@' ? '' : 'search/%23').$match[1]."\">{$match[0]}</a>").'>';
                     }, $value);
                     break;
                 default:
-                    $value = preg_replace_callback('~' . preg_quote($protocol, '~') . '://([^\s<]+?)(?<![\.,:])~i', function ($match) use ($protocol, &$links, $attr) {
-                        return '<' . array_push($links, "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
+                    $value = preg_replace_callback('~'.preg_quote($protocol, '~').'://([^\s<]+?)(?<![\.,:])~i', function ($match) use ($protocol, &$links, $attr) {
+                        return '<'.array_push($links, "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>").'>';
                     }, $value);
                     break;
             }
@@ -1876,7 +1867,7 @@ if (! function_exists('linkify')) {
     }
 }
 
-/**
+/*
  * @param $route
  * @return mixed
  *
@@ -1893,7 +1884,7 @@ if (! function_exists('route_has')) {
     }
 }
 
-/**
+/*
  * @param null $basename
  * @return null|bool
  *
@@ -1908,8 +1899,10 @@ if (function_exists('plugin_activated')) {
     {
         if ($basename) {
             $active_plugins = (array) json_decode(get_option('active_plugins'), true);
+
             return in_array($basename, $active_plugins);
         }
+
         return null;
     }
 }
@@ -1921,6 +1914,7 @@ if (! function_exists('get_pages')) {
     function get_pages()
     {
         $posts = Post::whereType('page')->orderBy('title', 'asc')->get();
+
         return $posts;
     }
 }
@@ -1933,7 +1927,7 @@ if (! function_exists('cookie_message_html')) {
     {
         $msg = get_option('cookie_alert.message');
 
-        $link = "<a href='" . route('post_proxy', get_option('privacy_policy_page')) . "'>" . __t('read_privacy_policy') . "</a>";
+        $link = "<a href='".route('post_proxy', get_option('privacy_policy_page'))."'>".__t('read_privacy_policy').'</a>';
         $msg = str_replace('{privacy_policy_url}', $link, $msg);
 
         return '<div class="cookie_notice_popup">
@@ -1955,21 +1949,23 @@ if (! function_exists('clean_html')) {
 
             $text = str_replace('javascript:', '', $text);
         }
+
         return $text;
     }
 }
 
-if(!function_exists('optionalGetValueOrValueIsEqual')) {
+if (! function_exists('optionalGetValueOrValueIsEqual')) {
     /**
-     * Return boolean if value is set, else return the value is equal as expected
+     * Return boolean if value is set, else return the value is equal as expected.
      *
      * @param mixed $actual
      * @param null|string|array $value
-     * @return mixed|boolean
+     * @return mixed|bool
      */
-    function optionalGetValueOrValueIsEqual($actual, $expected) {
-        if($expected) {
-            if(is_array($expected)) {
+    function optionalGetValueOrValueIsEqual($actual, $expected)
+    {
+        if ($expected) {
+            if (is_array($expected)) {
                 return in_array($actual, $expected);
             }
 

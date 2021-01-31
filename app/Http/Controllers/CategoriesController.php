@@ -7,14 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class CategoriesController
- * @package App\Http\Controllers
+ * Class CategoriesController.
  */
 class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
      */
     public function index()
     {
@@ -29,7 +27,6 @@ class CategoriesController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      */
     public function create()
     {
@@ -44,7 +41,6 @@ class CategoriesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
      */
     public function store(Request $request)
     {
@@ -54,7 +50,7 @@ class CategoriesController extends Controller
 
         $user_id = Auth::user()->id;
         $rules = [
-            'category_name' => 'required'
+            'category_name' => 'required',
         ];
         $this->validate($request, $rules);
 
@@ -80,6 +76,7 @@ class CategoriesController extends Controller
         }
 
         $is_create = Category::create($data);
+
         return back()->with('success', __a('category_created'));
     }
 
@@ -121,7 +118,7 @@ class CategoriesController extends Controller
         }
 
         $rules = [
-            'category_name' => 'required'
+            'category_name' => 'required',
         ];
         $this->validate($request, $rules);
 
@@ -159,8 +156,10 @@ class CategoriesController extends Controller
 
         if (count($request->categories)) {
             Category::whereIn('id', $request->categories)->delete();
+
             return ['success' => true];
         }
+
         return ['success' => false];
     }
 
@@ -172,22 +171,20 @@ class CategoriesController extends Controller
     {
         $topics = Category::whereCategoryId($request->category_id)->get();
 
-        $options_html = "<option value=''>".__t('select_topic')."</option>";
+        $options_html = "<option value=''>".__t('select_topic').'</option>';
         foreach ($topics as $topic) {
             $options_html .= "<option value='{$topic->id}'>{$topic->category_name}</option>";
         }
+
         return ['success' => 1, 'options_html' => $options_html];
     }
-
 
     /**
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * Show categories view
-     *
      */
-
     public function show($slug)
     {
         $category = Category::whereSlug($slug)->orWhere('id', $slug)->first();
@@ -196,6 +193,7 @@ class CategoriesController extends Controller
         }
 
         $title = $category->category_name;
+
         return view(theme('single-category'), compact('title', 'category'));
     }
 

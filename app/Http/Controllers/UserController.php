@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * Class UserController
- * @package App\Http\Controllers
+ * Class UserController.
  */
 class UserController extends Controller
 {
@@ -21,12 +20,13 @@ class UserController extends Controller
      */
     public function profile($id)
     {
-        $user =  User::find($id);
+        $user = User::find($id);
         if (! $user) {
             abort(404);
         }
 
         $title = $user->name;
+
         return view(theme('profile'), compact('user', 'title'));
     }
 
@@ -37,7 +37,7 @@ class UserController extends Controller
     public function review($id)
     {
         $review = Review::find($id);
-        $title = 'Review by '. $review->user->name;
+        $title = 'Review by '.$review->user->name;
 
         return view(theme('review'), compact('review', 'title'));
     }
@@ -66,13 +66,13 @@ class UserController extends Controller
         return $response;
     }
 
-
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function changePassword()
     {
         $title = __a('change_password');
+
         return view('admin.change_password', compact('title'));
     }
 
@@ -102,12 +102,13 @@ class UserController extends Controller
             if (Hash::check($old_password, $logged_user->password)) {
                 $logged_user->password = Hash::make($new_password);
                 $logged_user->save();
+
                 return redirect()->back()->with('success', __a('password_changed_msg'));
             }
+
             return redirect()->back()->with('error', __a('wrong_old_password'));
         }
     }
-
 
     /**
      * @param Request $request
@@ -124,6 +125,7 @@ class UserController extends Controller
         //Update
         if ($request->bulk_action_btn === 'update_status' && $request->status && is_array($ids) && count($ids)) {
             User::whereIn('id', $ids)->update(['active_status' => $request->status]);
+
             return back()->with('success', __a('bulk_action_success'));
         }
 
@@ -133,6 +135,7 @@ class UserController extends Controller
             }
 
             User::whereIn('id', $ids)->delete();
+
             return back()->with('success', __a('bulk_action_success'));
         }
 
@@ -150,7 +153,6 @@ class UserController extends Controller
         if ($request->filter_status) {
             $users = $users->where('active_status', $request->filter_status);
         }
-
 
         $title = __a('users');
         $users = $users->orderBy('id', 'desc')->paginate(100);

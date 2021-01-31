@@ -1,14 +1,11 @@
 <?php
 
-
 namespace App\Libraries;
-
 
 use Faker\Provider\Base;
 
 /**
- * Class Youtube
- * @package App\Libraries
+ * Class Youtube.
  */
 class Youtube extends Base
 {
@@ -18,7 +15,7 @@ class Youtube extends Base
     public function youtubeId()
     {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            . 'abcdefghijklmnopqrstuvwxyz_-';
+            .'abcdefghijklmnopqrstuvwxyz_-';
 
         $id = substr($this->shuffle($characters), 0, 11);
 
@@ -30,7 +27,7 @@ class Youtube extends Base
      */
     public function youtubeUri()
     {
-        return 'https://www.youtube.com/watch?v=' . $this->youtubeId();
+        return 'https://www.youtube.com/watch?v='.$this->youtubeId();
     }
 
     /**
@@ -38,7 +35,7 @@ class Youtube extends Base
      */
     public function youtubeShortUri()
     {
-        return 'https://youtu.be/' . $this->youtubeId();
+        return 'https://youtu.be/'.$this->youtubeId();
     }
 
     /**
@@ -46,7 +43,7 @@ class Youtube extends Base
      */
     public function youtubeEmbedUri()
     {
-        return 'https://www.youtube.com/embed/' . $this->youtubeId();
+        return 'https://www.youtube.com/embed/'.$this->youtubeId();
     }
 
     /**
@@ -54,9 +51,9 @@ class Youtube extends Base
      */
     public function youtubeEmbedCode()
     {
-        return '<iframe width="560" height="315" src="' . $this->youtubeEmbedUri()
-            . '" frameborder="0" gesture="media" allow="encrypted-media"'
-            . ' allowfullscreen></iframe>';
+        return '<iframe width="560" height="315" src="'.$this->youtubeEmbedUri()
+            .'" frameborder="0" gesture="media" allow="encrypted-media"'
+            .' allowfullscreen></iframe>';
     }
 
     /**
@@ -75,7 +72,7 @@ class Youtube extends Base
      */
     public function youtubeRandomUri()
     {
-        switch ($this->numberBetween(1,3)) {
+        switch ($this->numberBetween(1, 3)) {
 
             case 2:
                 return $this->youtubeShortUri();
@@ -94,5 +91,4 @@ class Youtube extends Base
                 break;
         }
     }
-
 }

@@ -23,6 +23,7 @@ class RedirectIfAuthenticated
             if ($user->isAdmin()) {
                 return redirect(route('admin'));
             }
+
             return redirect(route('dashboard'));
 
             //return redirect(RouteServiceProvider::HOME);

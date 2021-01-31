@@ -148,8 +148,9 @@ class Course extends Model
     {
         return $this->hasMany(Attachment::class, 'belongs_course_id', 'id');
     }
+
     /**
-     * Delete Event
+     * Delete Event.
      */
     public function delete_and_sync()
     {
@@ -161,11 +162,12 @@ class Course extends Model
         DB::table('completes')->where('course_id', $this->id)->delete();
         DB::table('completes')->whereCourseId('completed_course_id', $this->id)->delete();
         $this->delete();
+
         return $this;
     }
 
     /**
-     * Sync anytime With Contents
+     * Sync anytime With Contents.
      */
     public function sync_everything()
     {
@@ -218,6 +220,7 @@ class Course extends Model
             return false;
         }
         $user_id = Auth::user()->id;
+
         return $this->instructors->contains($user_id);
     }
 
@@ -254,7 +257,7 @@ class Course extends Model
      */
     public function completed_percent($user = null)
     {
-        /**
+        /*
          * If not passed user id, get user id from auth
          * if auth user is not available, return percent 0;
          */
@@ -267,7 +270,8 @@ class Course extends Model
         }
 
         $completed_course = (array) $user->get_option('completed_courses');
-        return (int) array_get($completed_course, $this->id.".percent");
+
+        return (int) array_get($completed_course, $this->id.'.percent');
 
         /*
         $total_contents = (int) Content::whereCourseId($this->id)->count();
@@ -295,6 +299,7 @@ class Course extends Model
             $newArr = explode("\n", $this->benefits);
         }
         $Arr = array_filter(array_map('trim', $newArr));
+
         return $Arr;
     }
 
@@ -311,6 +316,7 @@ class Course extends Model
             $newArr = explode("\n", $this->requirements);
         }
         $Arr = array_filter(array_map('trim', $newArr));
+
         return $Arr;
     }
 
@@ -334,7 +340,8 @@ class Course extends Model
         if (! $content) {
             return null;
         }
-        return route('single_'.$content->item_type, [$this->slug, $content->id ]);
+
+        return route('single_'.$content->item_type, [$this->slug, $content->id]);
     }
 
     /**
@@ -343,10 +350,11 @@ class Course extends Model
     public function getGetPriceAttribute()
     {
         if ($this->price_plan && $this->price_plan !== 'free' && $this->price > 0) {
-            $current_price = $this->sale_price > 0 ?  $this->sale_price : $this->price;
+            $current_price = $this->sale_price > 0 ? $this->sale_price : $this->price;
 
             return $current_price;
         }
+
         return 0;
     }
 
@@ -364,7 +372,7 @@ class Course extends Model
 
         $price_html = "<div class='price-html-wrap {$priceLocation}'>";
         if ($this->paid && $this->price > 0) {
-            $current_price = $this->sale_price > 0 ?  price_format($this->sale_price) : price_format($this->price);
+            $current_price = $this->sale_price > 0 ? price_format($this->sale_price) : price_format($this->price);
 
             if (! $originalPriceOnRight) {
                 $price_html .= " <span class='current-price'>{$current_price}</span>";
@@ -375,8 +383,8 @@ class Course extends Model
                 $price_html .= " <span class='old-price'><s>{$old_price}</s></span>";
 
                 if ($showOff) {
-                    $discount = number_format(100 - ($this->sale_price * 100   / $this->price), 2);
-                    $offText = $discount . '% ' . __t('off');
+                    $discount = number_format(100 - ($this->sale_price * 100 / $this->price), 2);
+                    $offText = $discount.'% '.__t('off');
                     $price_html .= " <span class='discount-text mr-2'>{$offText}</span>";
                 }
             }
@@ -402,21 +410,21 @@ class Course extends Model
 
         $class = $badge ? 'badge badge' : 'status-text text';
 
-        $html = "<span class='{$class}-dark'> <i class='la la-pencil-square-o'></i> ".__t('draft')."</span>";
+        $html = "<span class='{$class}-dark'> <i class='la la-pencil-square-o'></i> ".__t('draft').'</span>';
 
         switch ($status) {
             case 1:
-                $html = "<span class='{$class}-success'> <i class='la la-check-circle'></i> ".__t('published')."</span>";
+                $html = "<span class='{$class}-success'> <i class='la la-check-circle'></i> ".__t('published').'</span>';
                 break;
             case 2:
-                $html = "<span class='{$class}-info'> <i class='la la-clock-o'></i> ".__t('pending')."</span>";
+                $html = "<span class='{$class}-info'> <i class='la la-clock-o'></i> ".__t('pending').'</span>';
                 break;
             case 3:
-                $html = "<span class='{$class}-danger'> <i class='la la-ban'></i> ".__t('blocked')."</span>";
+                $html = "<span class='{$class}-danger'> <i class='la la-ban'></i> ".__t('blocked').'</span>';
 
                 break;
             case 4:
-                $html = "<span class='{$class}-warning'> <i class='la la-exclamation-circle'></i> ".__t('unpublished')."</span>";
+                $html = "<span class='{$class}-warning'> <i class='la la-exclamation-circle'></i> ".__t('unpublished').'</span>';
                 break;
         }
 
@@ -436,7 +444,6 @@ class Course extends Model
      *
      * Get Attached Video Info
      */
-
     public function video_info($key = null)
     {
         $video_info = null;
@@ -506,8 +513,8 @@ class Course extends Model
                 ],
                 1 => ['one_count'     => $this->one_star_count,
                     'percent'   => number_format($one_percent),
-                ]
-            ]
+                ],
+            ],
         ];
 
         if ($key) {
@@ -535,7 +542,6 @@ class Course extends Model
         $dripContentIds = [];
         $dripSections = $this->sections()->where('unlock_date', '!=', null)->orWhere('unlock_days', '>', 0)->get();
         $dripContents = $this->contents()->where('unlock_date', '!=', null)->orWhere('unlock_days', '>', 0)->get();
-
 
         $time = Carbon::now()->timestamp;
         $user = Auth::user();

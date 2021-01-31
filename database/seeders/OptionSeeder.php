@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class OptionSeeder extends Seeder
@@ -14,7 +16,7 @@ class OptionSeeder extends Seeder
         $bank_gateway = [
             'enable_bank_transfer' => '1',
             'bank_name' => 'BCA',
-            'bank_swift_code' => NULL,
+            'bank_swift_code' => null,
             'account_number' => '123443423',
             'branch_name' => 'KOPO',
             'branch_address' => 'Jalan kopo no 3',
@@ -34,29 +36,26 @@ class OptionSeeder extends Seeder
             'title' => 'Direct Bank Transfer',
             'description' => 'Pay via direct bank transfer to process your order',
             'instructions' => 'Please transfer your fund using following Bank Account\\r\\n\\r\\nBank Name: Bank Asia\\r\\nBranch: Mirpur circle 10\\r\\nA\\/C No: 079878765545354',
-            'gateway_save_btn' => NULL,
+            'gateway_save_btn' => null,
         ];
         $payment_gateway_cod = [
             'enabled' => '1',
             'title' => 'Cash on delivery',
             'description' => 'Pay upon delivery',
             'instructions' => 'Pay upon delivery to the delivery man',
-            'gateway_save_btn' => NULL,
+            'gateway_save_btn' => null,
         ];
         $withdraw_method = [
-            'bank_transfer' =>
-                [
+            'bank_transfer' => [
                     'enable' => '1',
                     'min_withdraw_amount' => '100',
                     'notes' => 'Please note that it takes approximately 2 to 7 days to process your withdraw via bank transfer. Sometimes it may take longer. If you do not receive withdrawal after 7 days, please contact our customer support. Updated',
                 ],
-            'echeck' =>
-                [
+            'echeck' => [
                     'enable' => '1',
                     'min_withdraw_amount' => '50',
                 ],
-            'paypal' =>
-                [
+            'paypal' => [
                     'enable' => '1',
                     'min_withdraw_amount' => '50',
                 ],
@@ -67,26 +66,22 @@ class OptionSeeder extends Seeder
             'message' => 'By using WebAcademy you accept our cookies and agree to our privacy policy, including cookie policy. {privacy_policy_url}',
         ];
         $social_login = [
-            'facebook' =>
-                [
+            'facebook' => [
                     'enable' => '1',
                     'app_id' => '292155035510814',
                     'app_secret' => 'de1a21d48afe669dda21626fdf638832',
                 ],
-            'google' =>
-                [
+            'google' => [
                     'enable' => '1',
                     'client_id' => '586033023574-3m025n2jei2eldgdqf7ic2r7rh58oj86.apps.googleusercontent.com',
                     'client_secret' => 'Pd6fUp5FFmXUt-M0Prdc2fFy',
                 ],
-            'twitter' =>
-                [
+            'twitter' => [
                     'enable' => '1',
                     'consumer_key' => 'iXy8T2reBWP42aD60rXdtUf8R',
                     'consumer_secret' => 'SEYSr2AFVaVfH56xPZerEZxBW7gGgZOE2CT8jdoq32BbuL7Zv3',
                 ],
-            'linkedin' =>
-                [
+            'linkedin' => [
                     'enable' => '1',
                     'client_id' => '86iampeb7c62rw',
                     'client_secret' => 'Gyb9naxKvOR6wM8i',
@@ -121,7 +116,7 @@ class OptionSeeder extends Seeder
             'default_timezone' => 'Asia/Jakarta',
             'date_format_custom' => 'd/m/Y',
             'time_format_custom' => 'H:i',
-            'midtrans' => 'json_encode_value_' .json_encode($midtrans),
+            'midtrans' => 'json_encode_value_'.json_encode($midtrans),
             'enable_stripe' => 0,
             'stripe_test_mode' => '1',
             'paypal_receiver_email' => 'admin@circle-creative.com',
@@ -153,11 +148,11 @@ class OptionSeeder extends Seeder
             'charge_fees_type' => 'percent',
             'enable_charge_fees' => '1',
             'enable_instructors_earning' => '1',
-            'bank_gateway' => 'json_encode_value_' .json_encode($bank_gateway),
+            'bank_gateway' => 'json_encode_value_'.json_encode($bank_gateway),
             'enable_offline_payment' => '1',
             'site_url' => url('/'),
-            'mailgun' => 'json_encode_value_' .json_encode($service['mailgun']),
-            'withdraw_methods' => 'json_encode_value_' .json_encode($withdraw_method),
+            'mailgun' => 'json_encode_value_'.json_encode($service['mailgun']),
+            'withdraw_methods' => 'json_encode_value_'.json_encode($withdraw_method),
             'lms_settings' => 'json_encode_value_{"enable_discussion":"1"}',
             'active_plugins' => '{"3":"MultiInstructor","4":"StudentsProgress"}',
             'site_logo' => null,
@@ -165,8 +160,8 @@ class OptionSeeder extends Seeder
             'privacy_policy_page' => 4,
             'about_us_page' => '3',
 
-            'cookie_alert' => 'json_encode_value_' .json_encode($cookie_alert),
-            'social_login' => 'json_encode_value_' .json_encode($social_login),
+            'cookie_alert' => 'json_encode_value_'.json_encode($cookie_alert),
+            'social_login' => 'json_encode_value_'.json_encode($social_login),
         ];
 
         $newOptions = [];

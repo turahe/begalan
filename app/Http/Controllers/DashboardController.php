@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * Class DashboardController
- * @package App\Http\Controllers
+ * Class DashboardController.
  */
 class DashboardController extends Controller
 {
@@ -27,25 +26,24 @@ class DashboardController extends Controller
         $chartData = null;
         if ($user->isInstructor) {
             /**
-             * Format Date Name
+             * Format Date Name.
              */
-            $start_date = date("Y-m-01");
-            $end_date = date("Y-m-t");
+            $start_date = date('Y-m-01');
+            $end_date = date('Y-m-t');
 
             $begin = new \DateTime($start_date);
-            $end = new \DateTime($end_date . ' + 1 day');
+            $end = new \DateTime($end_date.' + 1 day');
             $interval = \DateInterval::createFromDateString('1 day');
             $period = new \DatePeriod($begin, $interval, $end);
 
             $datesPeriod = [];
             foreach ($period as $dt) {
-                $datesPeriod[$dt->format("Y-m-d")] = 0;
+                $datesPeriod[$dt->format('Y-m-d')] = 0;
             }
 
             /**
-             * Query This Month
+             * Query This Month.
              */
-
             $sql = "SELECT SUM(instructor_amount) as total_earning,
               DATE(created_at) as date_format
               from earnings
@@ -57,7 +55,6 @@ class DashboardController extends Controller
 
             $total_earning = array_pluck($getEarnings, 'total_earning');
             $queried_date = array_pluck($getEarnings, 'date_format');
-
 
             $dateWiseSales = array_combine($queried_date, $total_earning);
 
@@ -79,6 +76,7 @@ class DashboardController extends Controller
     public function profileSettings()
     {
         $title = __t('profile_settings');
+
         return view(theme('dashboard.settings.profile'), compact('title'));
     }
 
@@ -109,6 +107,7 @@ class DashboardController extends Controller
     public function resetPassword()
     {
         $title = __t('reset_password');
+
         return view(theme('dashboard.settings.reset_password'), compact('title'));
     }
 
@@ -138,8 +137,10 @@ class DashboardController extends Controller
             if (Hash::check($old_password, $logged_user->password)) {
                 $logged_user->password = Hash::make($new_password);
                 $logged_user->save();
+
                 return redirect()->back()->with('success', __t('password_changed_msg'));
             }
+
             return redirect()->back()->with('error', __t('wrong_old_password'));
         }
     }
@@ -150,6 +151,7 @@ class DashboardController extends Controller
     public function enrolledCourses()
     {
         $title = __t('enrolled_courses');
+
         return view(theme('dashboard.enrolled_courses'), compact('title'));
     }
 
@@ -159,6 +161,7 @@ class DashboardController extends Controller
     public function myReviews()
     {
         $title = __t('my_reviews');
+
         return view(theme('dashboard.my_reviews'), compact('title'));
     }
 
@@ -168,6 +171,7 @@ class DashboardController extends Controller
     public function wishlist()
     {
         $title = __t('wishlist');
+
         return view(theme('dashboard.wishlist'), compact('title'));
     }
 
@@ -177,6 +181,7 @@ class DashboardController extends Controller
     public function purchaseHistory()
     {
         $title = __t('purchase_history');
+
         return view(theme('dashboard.purchase_history'), compact('title'));
     }
 
@@ -188,6 +193,7 @@ class DashboardController extends Controller
     {
         $title = __a('purchase_view');
         $payment = Payment::find($id);
+
         return view(theme('dashboard.purchase_view'), compact('title', 'payment'));
     }
 }

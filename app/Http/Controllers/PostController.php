@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class PostController
- * @package App\Http\Controllers
+ * Class PostController.
  */
 class PostController extends Controller
 {
@@ -23,6 +22,7 @@ class PostController extends Controller
     {
         if ($request->bulk_action_btn === 'update_status') {
             Post::query()->whereIn('id', $request->bulk_ids)->update(['status' => $request->status]);
+
             return back()->with('success', __a('bulk_action_success'));
         }
         if ($request->bulk_action_btn === 'delete') {
@@ -31,11 +31,13 @@ class PostController extends Controller
             }
 
             Post::query()->whereIn('id', $request->bulk_ids)->delete();
+
             return back()->with('success', __a('bulk_action_success'));
         }
 
         $title = __a('pages');
         $posts = Post::whereType('page')->orderBy('id', 'desc')->paginate(20);
+
         return view('admin.cms.pages', compact('title', 'posts'));
     }
 
@@ -48,6 +50,7 @@ class PostController extends Controller
     {
         if ($request->bulk_action_btn === 'update_status') {
             Post::query()->whereIn('id', $request->bulk_ids)->update(['status' => $request->status]);
+
             return back()->with('success', __a('bulk_action_success'));
         }
         if ($request->bulk_action_btn === 'delete') {
@@ -56,6 +59,7 @@ class PostController extends Controller
             }
 
             Post::query()->whereIn('id', $request->bulk_ids)->delete();
+
             return back()->with('success', __a('bulk_action_success'));
         }
 
@@ -74,7 +78,6 @@ class PostController extends Controller
 
         return view('admin.cms.post_create', compact('title'));
     }
-
 
     /**
      * @param Request $request
@@ -106,9 +109,9 @@ class PostController extends Controller
         ];
 
         Post::create($data);
+
         return redirect(route('posts'))->with('success', __a('post_has_been_created'));
     }
-
 
     /**
      * @param $id
@@ -148,9 +151,9 @@ class PostController extends Controller
         ];
 
         $page->update($data);
+
         return redirect()->back()->with('success', __a('post_has_been_updated'));
     }
-
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -158,6 +161,7 @@ class PostController extends Controller
     public function create()
     {
         $title = __a('pages');
+
         return view('admin.cms.page_create', compact('title'));
     }
 
@@ -190,6 +194,7 @@ class PostController extends Controller
         ];
 
         Post::create($data);
+
         return redirect(route('pages'))->with('success', __a('page_has_been_created'));
     }
 
@@ -201,6 +206,7 @@ class PostController extends Controller
     {
         $title = __a('edit_page');
         $post = Post::find($id);
+
         return view('admin.cms.edit_page', compact('title', 'post'));
     }
 
@@ -229,6 +235,7 @@ class PostController extends Controller
         ];
 
         $page->update($data);
+
         return redirect()->back()->with('success', __a('page_has_been_updated'));
     }
 
@@ -244,6 +251,7 @@ class PostController extends Controller
             return view('theme.error_404');
         }
         $title = $page->title;
+
         return view('theme.single_page', compact('title', 'page'));
     }
 
@@ -254,6 +262,7 @@ class PostController extends Controller
     {
         $title = __t('blog');
         $posts = Post::post()->publish()->paginate(20);
+
         return view(theme('blog'), compact('title', 'posts'));
     }
 
@@ -266,6 +275,7 @@ class PostController extends Controller
         $posts = Post::whereType('post')->whereUserId($id)->paginate(20);
         $user = User::find($id);
         $title = $user->name."'s ".trans('app.blog');
+
         return view('theme.blog', compact('title', 'posts'));
     }
 
@@ -284,6 +294,7 @@ class PostController extends Controller
         if ($post->type === 'post') {
             return view(theme('single_post'), compact('title', 'post'));
         }
+
         return view(theme('single_page'), compact('title', 'post'));
     }
 
@@ -297,6 +308,7 @@ class PostController extends Controller
         if (! $post) {
             abort(404);
         }
+
         return redirect(route('post', $post->slug));
     }
 }

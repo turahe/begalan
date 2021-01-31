@@ -1,23 +1,23 @@
 <?php
 
 // Initialize the filter globals.
-require( dirname( __FILE__ ) . '/TeachifyHook.php' );
+require dirname(__FILE__).'/TeachifyHook.php';
 
-/** @var TeachifyHook[] $teachify_filter */
+/* @var TeachifyHook[] $teachify_filter */
 global $teachify_filter, $teachify_actions, $teachify_current_filter;
 
-if ( $teachify_filter ) {
-	$teachify_filter = TeachifyHook::build_preinitialized_hooks( $teachify_filter );
+if ($teachify_filter) {
+    $teachify_filter = TeachifyHook::build_preinitialized_hooks($teachify_filter);
 } else {
-	$teachify_filter = array();
+    $teachify_filter = [];
 }
 
-if ( ! isset( $teachify_actions ) ) {
-	$teachify_actions = array();
+if (! isset($teachify_actions)) {
+    $teachify_actions = [];
 }
 
-if ( ! isset( $teachify_current_filter ) ) {
-	$teachify_current_filter = array();
+if (! isset($teachify_current_filter)) {
+    $teachify_current_filter = [];
 }
 
 /**
@@ -27,13 +27,15 @@ if ( ! isset( $teachify_current_filter ) ) {
  * @param int $accepted_args
  * @return bool
  */
-function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
-	global $teachify_filter;
-	if ( ! isset( $teachify_filter[ $tag ] ) ) {
-		$teachify_filter[ $tag ] = new TeachifyHook();
-	}
-	$teachify_filter[ $tag ]->add_filter( $tag, $function_to_add, $priority, $accepted_args );
-	return true;
+function add_filter($tag, $function_to_add, $priority = 10, $accepted_args = 1)
+{
+    global $teachify_filter;
+    if (! isset($teachify_filter[$tag])) {
+        $teachify_filter[$tag] = new TeachifyHook();
+    }
+    $teachify_filter[$tag]->add_filter($tag, $function_to_add, $priority, $accepted_args);
+
+    return true;
 }
 
 /**
@@ -41,14 +43,15 @@ function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 
  * @param bool $function_to_check
  * @return bool|int
  */
-function has_filter( $tag, $function_to_check = false ) {
-	global $teachify_filter;
+function has_filter($tag, $function_to_check = false)
+{
+    global $teachify_filter;
 
-	if ( ! isset( $teachify_filter[ $tag ] ) ) {
-		return false;
-	}
+    if (! isset($teachify_filter[$tag])) {
+        return false;
+    }
 
-	return $teachify_filter[ $tag ]->has_filter( $tag, $function_to_check );
+    return $teachify_filter[$tag]->has_filter($tag, $function_to_check);
 }
 
 /**
@@ -56,36 +59,38 @@ function has_filter( $tag, $function_to_check = false ) {
  * @param $value
  * @return mixed
  */
-function apply_filters( $tag, $value ) {
-	global $teachify_filter, $teachify_current_filter;
+function apply_filters($tag, $value)
+{
+    global $teachify_filter, $teachify_current_filter;
 
-	$args = func_get_args();
+    $args = func_get_args();
 
-	// Do 'all' actions first.
-	if ( isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-		_teachify_call_all_hook( $args );
-	}
+    // Do 'all' actions first.
+    if (isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+        _teachify_call_all_hook($args);
+    }
 
-	if ( ! isset( $teachify_filter[ $tag ] ) ) {
-		if ( isset( $teachify_filter['all'] ) ) {
-			array_pop( $teachify_current_filter );
-		}
-		return $value;
-	}
+    if (! isset($teachify_filter[$tag])) {
+        if (isset($teachify_filter['all'])) {
+            array_pop($teachify_current_filter);
+        }
 
-	if ( ! isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-	}
+        return $value;
+    }
 
-	// Don't pass the tag name to TeachifyHook.
-	array_shift( $args );
+    if (! isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+    }
 
-	$filtered = $teachify_filter[ $tag ]->apply_filters( $value, $args );
+    // Don't pass the tag name to TeachifyHook.
+    array_shift($args);
 
-	array_pop( $teachify_current_filter );
+    $filtered = $teachify_filter[$tag]->apply_filters($value, $args);
 
-	return $filtered;
+    array_pop($teachify_current_filter);
+
+    return $filtered;
 }
 
 /**
@@ -93,32 +98,34 @@ function apply_filters( $tag, $value ) {
  * @param $args
  * @return mixed
  */
-function apply_filters_ref_array( $tag, $args ) {
-	global $teachify_filter, $teachify_current_filter;
+function apply_filters_ref_array($tag, $args)
+{
+    global $teachify_filter, $teachify_current_filter;
 
-	// Do 'all' actions first
-	if ( isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-		$all_args            = func_get_args();
-		_teachify_call_all_hook( $all_args );
-	}
+    // Do 'all' actions first
+    if (isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+        $all_args = func_get_args();
+        _teachify_call_all_hook($all_args);
+    }
 
-	if ( ! isset( $teachify_filter[ $tag ] ) ) {
-		if ( isset( $teachify_filter['all'] ) ) {
-			array_pop( $teachify_current_filter );
-		}
-		return $args[0];
-	}
+    if (! isset($teachify_filter[$tag])) {
+        if (isset($teachify_filter['all'])) {
+            array_pop($teachify_current_filter);
+        }
 
-	if ( ! isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-	}
+        return $args[0];
+    }
 
-	$filtered = $teachify_filter[ $tag ]->apply_filters( $args[0], $args );
+    if (! isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+    }
 
-	array_pop( $teachify_current_filter );
+    $filtered = $teachify_filter[$tag]->apply_filters($args[0], $args);
 
-	return $filtered;
+    array_pop($teachify_current_filter);
+
+    return $filtered;
 }
 
 /**
@@ -127,18 +134,19 @@ function apply_filters_ref_array( $tag, $args ) {
  * @param int $priority
  * @return bool
  */
-function remove_filter( $tag, $function_to_remove, $priority = 10 ) {
-	global $teachify_filter;
+function remove_filter($tag, $function_to_remove, $priority = 10)
+{
+    global $teachify_filter;
 
-	$r = false;
-	if ( isset( $teachify_filter[ $tag ] ) ) {
-		$r = $teachify_filter[ $tag ]->remove_filter( $tag, $function_to_remove, $priority );
-		if ( ! $teachify_filter[ $tag ]->callbacks ) {
-			unset( $teachify_filter[ $tag ] );
-		}
-	}
+    $r = false;
+    if (isset($teachify_filter[$tag])) {
+        $r = $teachify_filter[$tag]->remove_filter($tag, $function_to_remove, $priority);
+        if (! $teachify_filter[$tag]->callbacks) {
+            unset($teachify_filter[$tag]);
+        }
+    }
 
-	return $r;
+    return $r;
 }
 
 /**
@@ -146,54 +154,60 @@ function remove_filter( $tag, $function_to_remove, $priority = 10 ) {
  * @param bool $priority
  * @return bool
  */
-function remove_all_filters( $tag, $priority = false ) {
-	global $teachify_filter;
+function remove_all_filters($tag, $priority = false)
+{
+    global $teachify_filter;
 
-	if ( isset( $teachify_filter[ $tag ] ) ) {
-		$teachify_filter[ $tag ]->remove_all_filters( $priority );
-		if ( ! $teachify_filter[ $tag ]->has_filters() ) {
-			unset( $teachify_filter[ $tag ] );
-		}
-	}
+    if (isset($teachify_filter[$tag])) {
+        $teachify_filter[$tag]->remove_all_filters($priority);
+        if (! $teachify_filter[$tag]->has_filters()) {
+            unset($teachify_filter[$tag]);
+        }
+    }
 
-	return true;
+    return true;
 }
 
 /**
  * @return mixed
  */
-function current_filter() {
-	global $teachify_current_filter;
-	return end( $teachify_current_filter );
+function current_filter()
+{
+    global $teachify_current_filter;
+
+    return end($teachify_current_filter);
 }
 
 /**
  * @return string
  */
-function current_action() {
-	return current_filter();
+function current_action()
+{
+    return current_filter();
 }
 
 /**
  * @param null $filter
  * @return bool
  */
-function doing_filter( $filter = null ) {
-	global $teachify_current_filter;
+function doing_filter($filter = null)
+{
+    global $teachify_current_filter;
 
-	if ( null === $filter ) {
-		return ! empty( $teachify_current_filter );
-	}
+    if (null === $filter) {
+        return ! empty($teachify_current_filter);
+    }
 
-	return in_array( $filter, $teachify_current_filter );
+    return in_array($filter, $teachify_current_filter);
 }
 
 /**
  * @param null $action
  * @return bool
  */
-function doing_action( $action = null ) {
-	return doing_filter( $action );
+function doing_action($action = null)
+{
+    return doing_filter($action);
 }
 
 /**
@@ -203,101 +217,107 @@ function doing_action( $action = null ) {
  * @param int $accepted_args
  * @return true
  */
-function add_action( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
-	return add_filter( $tag, $function_to_add, $priority, $accepted_args );
+function add_action($tag, $function_to_add, $priority = 10, $accepted_args = 1)
+{
+    return add_filter($tag, $function_to_add, $priority, $accepted_args);
 }
 
 /**
  * @param $tag
  * @param mixed ...$arg
  */
-function do_action( $tag, ...$arg ) {
-	global $teachify_filter, $teachify_actions, $teachify_current_filter;
+function do_action($tag, ...$arg)
+{
+    global $teachify_filter, $teachify_actions, $teachify_current_filter;
 
-	if ( ! isset( $teachify_actions[ $tag ] ) ) {
-		$teachify_actions[ $tag ] = 1;
-	} else {
-		++$teachify_actions[ $tag ];
-	}
+    if (! isset($teachify_actions[$tag])) {
+        $teachify_actions[$tag] = 1;
+    } else {
+        $teachify_actions[$tag]++;
+    }
 
-	// Do 'all' actions first
-	if ( isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-		$all_args            = func_get_args();
-		_teachify_call_all_hook( $all_args );
-	}
+    // Do 'all' actions first
+    if (isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+        $all_args = func_get_args();
+        _teachify_call_all_hook($all_args);
+    }
 
-	if ( ! isset( $teachify_filter[ $tag ] ) ) {
-		if ( isset( $teachify_filter['all'] ) ) {
-			array_pop( $teachify_current_filter );
-		}
-		return;
-	}
+    if (! isset($teachify_filter[$tag])) {
+        if (isset($teachify_filter['all'])) {
+            array_pop($teachify_current_filter);
+        }
 
-	if ( ! isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-	}
+        return;
+    }
 
-	if ( empty( $arg ) ) {
-		$arg[] = '';
-	} elseif ( is_array( $arg[0] ) && 1 === count( $arg[0] ) && isset( $arg[0][0] ) && is_object( $arg[0][0] ) ) {
-		// Backward compatibility for PHP4-style passing of `array( &$this )` as action `$arg`.
-		$arg[0] = $arg[0][0];
-	}
+    if (! isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+    }
 
-	$teachify_filter[ $tag ]->do_action( $arg );
+    if (empty($arg)) {
+        $arg[] = '';
+    } elseif (is_array($arg[0]) && 1 === count($arg[0]) && isset($arg[0][0]) && is_object($arg[0][0])) {
+        // Backward compatibility for PHP4-style passing of `array( &$this )` as action `$arg`.
+        $arg[0] = $arg[0][0];
+    }
 
-	array_pop( $teachify_current_filter );
+    $teachify_filter[$tag]->do_action($arg);
+
+    array_pop($teachify_current_filter);
 }
 
 /**
  * @param $tag
  * @return int
  */
-function did_action( $tag ) {
-	global $teachify_actions;
+function did_action($tag)
+{
+    global $teachify_actions;
 
-	if ( ! isset( $teachify_actions[ $tag ] ) ) {
-		return 0;
-	}
+    if (! isset($teachify_actions[$tag])) {
+        return 0;
+    }
 
-	return $teachify_actions[ $tag ];
+    return $teachify_actions[$tag];
 }
 
 /**
  * @param $tag
  * @param $args
  */
-function do_action_ref_array( $tag, $args ) {
-	global $teachify_filter, $teachify_actions, $teachify_current_filter;
+function do_action_ref_array($tag, $args)
+{
+    global $teachify_filter, $teachify_actions, $teachify_current_filter;
 
-	if ( ! isset( $teachify_actions[ $tag ] ) ) {
-		$teachify_actions[ $tag ] = 1;
-	} else {
-		++$teachify_actions[ $tag ];
-	}
+    if (! isset($teachify_actions[$tag])) {
+        $teachify_actions[$tag] = 1;
+    } else {
+        $teachify_actions[$tag]++;
+    }
 
-	// Do 'all' actions first
-	if ( isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-		$all_args            = func_get_args();
-		_teachify_call_all_hook( $all_args );
-	}
+    // Do 'all' actions first
+    if (isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+        $all_args = func_get_args();
+        _teachify_call_all_hook($all_args);
+    }
 
-	if ( ! isset( $teachify_filter[ $tag ] ) ) {
-		if ( isset( $teachify_filter['all'] ) ) {
-			array_pop( $teachify_current_filter );
-		}
-		return;
-	}
+    if (! isset($teachify_filter[$tag])) {
+        if (isset($teachify_filter['all'])) {
+            array_pop($teachify_current_filter);
+        }
 
-	if ( ! isset( $teachify_filter['all'] ) ) {
-		$teachify_current_filter[] = $tag;
-	}
+        return;
+    }
 
-	$teachify_filter[ $tag ]->do_action( $args );
+    if (! isset($teachify_filter['all'])) {
+        $teachify_current_filter[] = $tag;
+    }
 
-	array_pop( $teachify_current_filter );
+    $teachify_filter[$tag]->do_action($args);
+
+    array_pop($teachify_current_filter);
 }
 
 /**
@@ -305,8 +325,9 @@ function do_action_ref_array( $tag, $args ) {
  * @param bool $function_to_check
  * @return false|int
  */
-function has_action( $tag, $function_to_check = false ) {
-	return has_filter( $tag, $function_to_check );
+function has_action($tag, $function_to_check = false)
+{
+    return has_filter($tag, $function_to_check);
 }
 
 /**
@@ -315,8 +336,9 @@ function has_action( $tag, $function_to_check = false ) {
  * @param int $priority
  * @return bool
  */
-function remove_action( $tag, $function_to_remove, $priority = 10 ) {
-	return remove_filter( $tag, $function_to_remove, $priority );
+function remove_action($tag, $function_to_remove, $priority = 10)
+{
+    return remove_filter($tag, $function_to_remove, $priority);
 }
 
 /**
@@ -324,39 +346,42 @@ function remove_action( $tag, $function_to_remove, $priority = 10 ) {
  * @param bool $priority
  * @return true
  */
-function remove_all_actions( $tag, $priority = false ) {
-	return remove_all_filters( $tag, $priority );
+function remove_all_actions($tag, $priority = false)
+{
+    return remove_all_filters($tag, $priority);
 }
 
 /**
  * @param $args
  */
-function _teachify_call_all_hook( $args ) {
-	global $teachify_filter;
+function _teachify_call_all_hook($args)
+{
+    global $teachify_filter;
 
-	$teachify_filter['all']->do_all_hook( $args );
+    $teachify_filter['all']->do_all_hook($args);
 }
 
-function _teachify_filter_build_unique_id( $tag, $function, $priority ) {
-	global $teachify_filter;
-	static $filter_id_count = 0;
+function _teachify_filter_build_unique_id($tag, $function, $priority)
+{
+    global $teachify_filter;
+    static $filter_id_count = 0;
 
-	if ( is_string( $function ) ) {
-		return $function;
-	}
+    if (is_string($function)) {
+        return $function;
+    }
 
-	if ( is_object( $function ) ) {
-		// Closures are currently implemented as objects
-		$function = array( $function, '' );
-	} else {
-		$function = (array) $function;
-	}
+    if (is_object($function)) {
+        // Closures are currently implemented as objects
+        $function = [$function, ''];
+    } else {
+        $function = (array) $function;
+    }
 
-	if ( is_object( $function[0] ) ) {
-		// Object Class Calling
-		return spl_object_hash( $function[0] ) . $function[1];
-	} elseif ( is_string( $function[0] ) ) {
-		// Static Calling
-		return $function[0] . '::' . $function[1];
-	}
+    if (is_object($function[0])) {
+        // Object Class Calling
+        return spl_object_hash($function[0]).$function[1];
+    } elseif (is_string($function[0])) {
+        // Static Calling
+        return $function[0].'::'.$function[1];
+    }
 }

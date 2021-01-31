@@ -15,13 +15,14 @@ class Discussion extends Model
 
     public function replies()
     {
-        return $this->hasMany(Discussion::class)->with('user', 'user.photo_query');
+        return $this->hasMany(self::class)->with('user', 'user.photo_query');
     }
 
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
+
     public function content()
     {
         return $this->belongsTo(Content::class, 'content_id');

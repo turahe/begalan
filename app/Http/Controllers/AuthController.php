@@ -12,12 +12,10 @@ use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 
 /**
- * Class AuthController
- * @package App\Http\Controllers
+ * Class AuthController.
  */
 class AuthController extends Controller
 {
-
     /**
      * @return string
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
@@ -25,6 +23,7 @@ class AuthController extends Controller
     public function login()
     {
         $title = __t('login');
+
         return view_template('login', compact('title'));
     }
 
@@ -37,14 +36,14 @@ class AuthController extends Controller
     {
         $rules = [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ];
 
         $this->validate($request, $rules);
 
         $credential = [
             'email'     => $request->email,
-            'password'     => $request->password
+            'password'     => $request->password,
         ];
 
         if (Auth::attempt($credential, $request->remember_me)) {
@@ -57,6 +56,7 @@ class AuthController extends Controller
             if ($auth->isAdmin()) {
                 return redirect()->intended(route('admin'));
             }
+
             return redirect()->intended(route('dashboard'));
         }
 
@@ -65,7 +65,6 @@ class AuthController extends Controller
             ->withInput($request->input());
     }
 
-
     /**
      * @return string
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
@@ -73,6 +72,7 @@ class AuthController extends Controller
     public function register()
     {
         $title = __t('signup');
+
         return view_template('register', compact('title'));
     }
 
@@ -96,13 +96,14 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'user_type' => $request->user_as,
-            'active_status' => 1
+            'active_status' => 1,
         ]);
         event(new Registered($user));
 
         if ($user) {
             $this->loginPost($request);
         }
+
         return back()->with('error', __t('failed_try_again'))->withInput($request->input());
     }
 
@@ -123,6 +124,7 @@ class AuthController extends Controller
     public function logoutPost()
     {
         Auth::logout();
+
         return redirect('login');
     }
 
@@ -132,6 +134,7 @@ class AuthController extends Controller
     public function forgotPassword()
     {
         $title = __t('forgot_password');
+
         return view(theme('auth.forgot_password'), compact('title'));
     }
 
@@ -156,6 +159,7 @@ class AuthController extends Controller
 
         try {
             Mail::to($email)->send(new SendPasswordResetLink($user));
+
             return redirect()->back()->with('success', trans('passwords.sent'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -168,6 +172,7 @@ class AuthController extends Controller
     public function passwordResetForm()
     {
         $title = __t('reset_your_password');
+
         return view(theme('auth.reset_form'), compact('title'));
     }
 
@@ -201,9 +206,8 @@ class AuthController extends Controller
     }
 
     /**
-     * Social Login Settings
+     * Social Login Settings.
      */
-
     public function redirectFacebook()
     {
         return Socialite::driver('facebook')->redirect();
@@ -242,6 +246,7 @@ class AuthController extends Controller
             $socialUser = Socialite::driver('facebook')->user();
             $user = $this->getSocialUser($socialUser, 'facebook');
             auth()->login($user);
+
             return redirect()->intended(route('dashboard'));
         } catch (\Exception $e) {
             return redirect(route('login'))->with('error', $e->getMessage());
@@ -257,6 +262,7 @@ class AuthController extends Controller
             $socialUser = Socialite::driver('google')->user();
             $user = $this->getSocialUser($socialUser, 'google');
             auth()->login($user);
+
             return redirect()->intended(route('dashboard'));
         } catch (\Exception $e) {
             return redirect(route('login'))->with('error', $e->getMessage());
@@ -272,6 +278,7 @@ class AuthController extends Controller
             $socialUser = Socialite::driver('twitter')->user();
             $user = $this->getSocialUser($socialUser, 'twitter');
             auth()->login($user);
+
             return redirect()->intended(route('dashboard'));
         } catch (\Exception $e) {
             return redirect(route('login'))->with('error', $e->getMessage());
@@ -287,6 +294,7 @@ class AuthController extends Controller
             $socialUser = Socialite::driver('linkedin')->user();
             $user = $this->getSocialUser($socialUser, 'linkedin');
             auth()->login($user);
+
             return redirect()->intended(route('dashboard'));
         } catch (\Exception $e) {
             return redirect(route('login'))->with('error', $e->getMessage());

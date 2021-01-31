@@ -10,12 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class AssignmentController
- * @package App\Http\Controllers
+ * Class AssignmentController.
  */
 class AssignmentController extends Controller
 {
-
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
@@ -80,7 +78,6 @@ class AssignmentController extends Controller
      * Evaluating the quiz
      * @return \Illuminate\Http\RedirectResponse
      */
-
     public function evaluation(Request $request, $submission_id)
     {
         $submission = AssignmentSubmission::find($submission_id);
@@ -101,6 +98,7 @@ class AssignmentController extends Controller
         ];
 
         $submission->update($data);
+
         return redirect()->back();
     }
 }

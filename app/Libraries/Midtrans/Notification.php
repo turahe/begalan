@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Libraries\Midtrans;
-
 
 class Notification
 {
@@ -23,14 +21,15 @@ class Notification
     /** @var object */
     private $response;
 
-    public function __construct($input_source = "php://input")
+    public function __construct($input_source = 'php://input')
     {
         $raw_notification = optional(json_decode(Midtrans::input($input_source), true));
 
         $transactionId = $raw_notification['transaction_id'] ?: $raw_notification['order_id'];
 
-        if(!$transactionId) {
+        if (! $transactionId) {
             $this->response = null;
+
             return;
         }
 
@@ -46,7 +45,7 @@ class Notification
     }
 
     /**
-     * Get the value of response
+     * Get the value of response.
      *
      * @return object
      */
@@ -56,7 +55,7 @@ class Notification
     }
 
     /**
-     * alias of getResponse
+     * alias of getResponse.
      *
      * @return object
      */
@@ -66,7 +65,7 @@ class Notification
     }
 
     /**
-     * Get response in array
+     * Get response in array.
      *
      * @return array
      */
@@ -76,7 +75,7 @@ class Notification
     }
 
     /**
-     * toArray alias
+     * toArray alias.
      *
      * @return array
      */
@@ -86,10 +85,10 @@ class Notification
     }
 
     /**
-     * get transaction status
+     * get transaction status.
      *
      * @param null|string|array $value
-     * @return string|boolean
+     * @return string|bool
      */
     public function transactionStatus($value = null)
     {
@@ -97,24 +96,26 @@ class Notification
     }
 
     /**
-     * Return fraud status
+     * Return fraud status.
      *
      * @param null|string $value
-     * @return string|boolean
+     * @return string|bool
      */
-    public function fraud($value = null) {
+    public function fraud($value = null)
+    {
         return optionalGetValueOrValueIsEqual($this->fraud_status, $value);
     }
 
     /**
-     * set on transaction status callback
+     * set on transaction status callback.
      *
      * @param string $transactionStatus
      * @param callable $callback
      * @return self
      */
-    public function onTransactionStatus($transactionStatus, callable $callback) {
-        if($this->transactionStatus($transactionStatus)) {
+    public function onTransactionStatus($transactionStatus, callable $callback)
+    {
+        if ($this->transactionStatus($transactionStatus)) {
             ($callback)($this);
         }
 
@@ -122,13 +123,14 @@ class Notification
     }
 
     /**
-     * Set on fraud status callback
+     * Set on fraud status callback.
      *
      * @param string $fraudStatus
      * @param callable $callable
      * @return self
      */
-    public function onFraudStatus($fraudStatus, callable $callable) {
+    public function onFraudStatus($fraudStatus, callable $callable)
+    {
         if ($this->fraud($fraudStatus)) {
             ($callable)($this);
         }
@@ -137,7 +139,7 @@ class Notification
     }
 
     /**
-     * Set on pending callback
+     * Set on pending callback.
      *
      * @param callable $callable
      * @return self
@@ -148,7 +150,7 @@ class Notification
     }
 
     /**
-     * Set on success callback
+     * Set on success callback.
      *
      * @param callable $callable
      * @return self
@@ -159,7 +161,7 @@ class Notification
     }
 
     /**
-     * Set on settlement callback
+     * Set on settlement callback.
      *
      * @param callable $callable
      * @return self
@@ -170,7 +172,7 @@ class Notification
     }
 
     /**
-     * Set on expire callback
+     * Set on expire callback.
      *
      * @param callable $callable
      * @return self
@@ -181,7 +183,7 @@ class Notification
     }
 
     /**
-     * Set on capture callback
+     * Set on capture callback.
      *
      * @param callable $callable
      * @return self
@@ -192,7 +194,7 @@ class Notification
     }
 
     /**
-     * Set on authorize callback
+     * Set on authorize callback.
      *
      * @param callable $callable
      * @return self
@@ -203,7 +205,7 @@ class Notification
     }
 
     /**
-     * Set on deny callback
+     * Set on deny callback.
      *
      * @param callable $callable
      * @return self
@@ -214,7 +216,7 @@ class Notification
     }
 
     /**
-     * Set on cancel callback
+     * Set on cancel callback.
      *
      * @param callable $callable
      * @return self
@@ -225,7 +227,7 @@ class Notification
     }
 
     /**
-     * Set on refund callback
+     * Set on refund callback.
      *
      * @param callable $callable
      * @return self
@@ -236,7 +238,7 @@ class Notification
     }
 
     /**
-     * Set on partial refund callback
+     * Set on partial refund callback.
      *
      * @param callable $callable
      * @return self
@@ -247,7 +249,7 @@ class Notification
     }
 
     /**
-     * Set on chargeback callback
+     * Set on chargeback callback.
      *
      * @param callable $callable
      * @return self
@@ -258,7 +260,7 @@ class Notification
     }
 
     /**
-     * Set on partial chargeback callback
+     * Set on partial chargeback callback.
      *
      * @param callable $callable
      * @return self
@@ -269,7 +271,7 @@ class Notification
     }
 
     /**
-     * Set on failure callback
+     * Set on failure callback.
      *
      * @param callable $callable
      * @return self
@@ -278,5 +280,4 @@ class Notification
     {
         return $this->onTransactionStatus(self::TRANSACTION_STATUS_FAILURE, $callable);
     }
-
 }

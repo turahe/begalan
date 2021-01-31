@@ -41,7 +41,7 @@ class UserFactory extends Factory
             'about_me' => $this->faker->paragraph(5),
             'date_of_birth' => $this->faker->dateTimeBetween('-30 years', '-13 years'),
             'photo' => 1,
-            'job_title' => $this->faker->jobTitle
+            'job_title' => $this->faker->jobTitle,
         ];
     }
 }

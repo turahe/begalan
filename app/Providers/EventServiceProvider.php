@@ -18,8 +18,8 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         \App\Events\Student\StudentPayment::class => [
-            \App\Listeners\Admin\StudentPayment::class
-        ]
+            \App\Listeners\Admin\StudentPayment::class,
+        ],
     ];
 
     /**

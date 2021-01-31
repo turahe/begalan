@@ -31,7 +31,7 @@ class AdminPaymentNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -58,7 +58,7 @@ class AdminPaymentNotification extends Notification implements ShouldQueue
     {
         return [
             'user' => $this->details,
-            'data' => $notifiable
+            'data' => $notifiable,
         ];
     }
 
@@ -78,7 +78,7 @@ class AdminPaymentNotification extends Notification implements ShouldQueue
             'course' => $this->details['description'],
             'amount' => $this->details['amount'],
             'description' => 'admin.notifications.description',
-            'transaction_id' => $this->details['transaction_id']
+            'transaction_id' => $this->details['transaction_id'],
         ];
     }
 }

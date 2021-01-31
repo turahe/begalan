@@ -37,6 +37,7 @@ class Section extends Model
                 ->orderBy('sort_order', 'asc')
                 ->with('is_completed');
         }
+
         return $this->hasMany(Content::class)
             ->orderBy('sort_order', 'asc');
     }
@@ -60,7 +61,7 @@ class Section extends Model
             $data['message'] = ' The content will become available at '.$unlock_date;
         }
 
-        /**
+        /*
          * If Lock by Days
          */
         if ($this->unlock_days && $this->unlock_days > 0) {

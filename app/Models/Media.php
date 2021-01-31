@@ -37,9 +37,9 @@ class Media extends Model
         }
 
         if ($source == 'public') {
-            $url_path = asset("uploads/".$slug_ext);
+            $url_path = asset('uploads/'.$slug_ext);
         } elseif ($source == 's3') {
-            $url_path = \Illuminate\Support\Facades\Storage::disk('s3')->url("uploads/".$slug_ext);
+            $url_path = \Illuminate\Support\Facades\Storage::disk('s3')->url('uploads/'.$slug_ext);
         }
 
         $info = [
@@ -55,21 +55,18 @@ class Media extends Model
             'uploaded_at'   => $this->created_at->format(get_option('date_format')),
         ];
 
-
         if (substr($this->mime_type, 0, 5) !== 'image') {
             $info['thumbnail'] = $this->thumbnail;
         }
 
-
         return $info;
     }
 
-
     /**
-     * Format bytes to kb, mb, gb, tb
+     * Format bytes to kb, mb, gb, tb.
      *
-     * @param  integer $precision
-     * @return integer
+     * @param  int $precision
+     * @return int
      */
     public function formatBytes($precision = 2)
     {
@@ -80,8 +77,9 @@ class Media extends Model
             $base = log($size) / log(1024);
             $suffixes = [' bytes', ' KB', ' MB', ' GB', ' TB'];
 
-            return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
+            return round(pow(1024, $base - floor($base)), $precision).$suffixes[floor($base)];
         }
+
         return $size;
     }
 
@@ -99,6 +97,7 @@ class Media extends Model
         if (substr($this->mime_type, 0, 5) == 'video') {
             $thumbnail_url = asset('uploads/video.png');
         }
+
         return $thumbnail_url;
     }
 }

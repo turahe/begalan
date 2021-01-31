@@ -35,13 +35,11 @@ class AppServiceProvider extends ServiceProvider
 
 //        Membuat Directive Custom Untuk Format Mata Uang
 
-        Blade::directive('currency', function ( $expression ) {
+        Blade::directive('currency', function ($expression) {
             return "Rp. <?php echo number_format($expression,0,',','.'); ?>";
         });
 
 //        $this->options();
-
-
     }
 
     protected function options()
@@ -51,17 +49,17 @@ class AppServiceProvider extends ServiceProvider
                 DB::connection()->getPdo();
 
                 /**
-                 * Get option and set it to config
+                 * Get option and set it to config.
                  */
                 $options = Option::all()->pluck('option_value', 'option_key')->toArray();
                 $configs = [];
                 $configs['options'] = $options;
 
-                /**
+                /*
                  * Get option in some specific way
                  */
                 $configs['options']['allowed_file_types_arr'] = array_filter(explode(',', array_get($options, 'allowed_file_types')));
-                /**
+                /*
                  * Load language file from theme
                  */
                 $configs['lang_str'] = [];
@@ -81,21 +79,20 @@ class AppServiceProvider extends ServiceProvider
                 config($configs);
 
                 /**
-                 * Set dynamic configuration for third party services
+                 * Set dynamic configuration for third party services.
                  */
 
                 /**
-                 * Set dynamic configuration for third party services
+                 * Set dynamic configuration for third party services.
                  */
                 $amazonS3Config = [
-                    'filesystems.disks.s3' =>
-                        [
+                    'filesystems.disks.s3' => [
                             'driver' => 's3',
                             'key' => get_option('amazon_key'),
                             'secret' => get_option('amazon_secret'),
                             'region' => get_option('amazon_region'),
                             'bucket' => get_option('bucket'),
-                        ]
+                        ],
                 ];
 
                 $socialConfig['services'] = [
@@ -140,21 +137,19 @@ class AppServiceProvider extends ServiceProvider
                 config($amazonS3Config);
 
                 /**
-                 * Email from name
+                 * Email from name.
                  */
-
                 $emailConfig = [
-                    'mail.from' =>
-                        [
+                    'mail.from' => [
                             'address' => get_option('email_address'),
                             'name' => get_option('site_name'),
-                        ]
+                        ],
                 ];
                 config($emailConfig);
 
                 date_default_timezone_set(array_get($options, 'default_timezone'));
 
-                require get_theme()->path . 'functions.php';
+                require get_theme()->path.'functions.php';
             } catch (\Exception $e) {
                 //
             }

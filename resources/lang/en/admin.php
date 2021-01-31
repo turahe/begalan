@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     /*
@@ -9,7 +10,7 @@ return [
     |
     */
 
-    /**
+    /*
      * Admin panel translation
      */
     'home'                          => 'Home',

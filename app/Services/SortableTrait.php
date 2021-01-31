@@ -10,7 +10,6 @@ use InvalidArgumentException;
 
 /**
  * Trait SortableTrait.
- * @package App\Services
  */
 trait SortableTrait
 {

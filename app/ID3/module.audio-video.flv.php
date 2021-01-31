@@ -1,4 +1,5 @@
 <?php
+
 /////////////////////////////////////////////////////////////////
 /// getID3() by James Heinrich <info@getid3.org>               //
 //  available at https://github.com/JamesHeinrich/getID3       //
@@ -99,13 +100,14 @@ class getid3_flv extends getid3_handler
         $FLVheader = $this->fread(5);
 
         $info['fileformat'] = 'flv';
-        $info['flv']['header']['signature'] =                           substr($FLVheader, 0, 3);
-        $info['flv']['header']['version']   = getid3_lib::BigEndian2Int(substr($FLVheader, 3, 1));
-        $TypeFlags                          = getid3_lib::BigEndian2Int(substr($FLVheader, 4, 1));
+        $info['flv']['header']['signature'] = substr($FLVheader, 0, 3);
+        $info['flv']['header']['version'] = getid3_lib::BigEndian2Int(substr($FLVheader, 3, 1));
+        $TypeFlags = getid3_lib::BigEndian2Int(substr($FLVheader, 4, 1));
 
         if ($info['flv']['header']['signature'] != self::magic) {
             $this->error('Expecting "'.getid3_lib::PrintHexBytes(self::magic).'" at offset '.$info['avdataoffset'].', found "'.getid3_lib::PrintHexBytes($info['flv']['header']['signature']).'"');
             unset($info['flv'], $info['fileformat']);
+
             return false;
         }
 
@@ -120,19 +122,19 @@ class getid3_flv extends getid3_handler
         $Duration = 0;
         $found_video = false;
         $found_audio = false;
-        $found_meta  = false;
+        $found_meta = false;
         $found_valid_meta_playtime = false;
         $tagParseCount = 0;
         $info['flv']['framecount'] = ['total'=>0, 'audio'=>0, 'video'=>0];
         $flv_framecount = &$info['flv']['framecount'];
-        while ((($this->ftell() + 16) < $info['avdataend']) && (($tagParseCount++ <= $this->max_frames) || !$found_valid_meta_playtime)) {
+        while ((($this->ftell() + 16) < $info['avdataend']) && (($tagParseCount++ <= $this->max_frames) || ! $found_valid_meta_playtime)) {
             $ThisTagHeader = $this->fread(16);
 
             $PreviousTagLength = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 0, 4));
-            $TagType           = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 4, 1));
-            $DataLength        = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 5, 3));
-            $Timestamp         = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 8, 3));
-            $LastHeaderByte    = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 15, 1));
+            $TagType = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 4, 1));
+            $DataLength = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 5, 3));
+            $Timestamp = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 8, 3));
+            $LastHeaderByte = getid3_lib::BigEndian2Int(substr($ThisTagHeader, 15, 1));
             $NextOffset = $this->ftell() - 1 + $DataLength;
             if ($Timestamp > $Duration) {
                 $Duration = $Timestamp;
@@ -142,18 +144,18 @@ class getid3_flv extends getid3_handler
             switch ($TagType) {
                 case GETID3_FLV_TAG_AUDIO:
                     $flv_framecount['audio']++;
-                    if (!$found_audio) {
+                    if (! $found_audio) {
                         $found_audio = true;
-                        $info['flv']['audio']['audioFormat']     = ($LastHeaderByte >> 4) & 0x0F;
-                        $info['flv']['audio']['audioRate']       = ($LastHeaderByte >> 2) & 0x03;
+                        $info['flv']['audio']['audioFormat'] = ($LastHeaderByte >> 4) & 0x0F;
+                        $info['flv']['audio']['audioRate'] = ($LastHeaderByte >> 2) & 0x03;
                         $info['flv']['audio']['audioSampleSize'] = ($LastHeaderByte >> 1) & 0x01;
-                        $info['flv']['audio']['audioType']       =  $LastHeaderByte       & 0x01;
+                        $info['flv']['audio']['audioType'] = $LastHeaderByte & 0x01;
                     }
                     break;
 
                 case GETID3_FLV_TAG_VIDEO:
                     $flv_framecount['video']++;
-                    if (!$found_video) {
+                    if (! $found_video) {
                         $found_video = true;
                         $info['flv']['video']['videoCodec'] = $LastHeaderByte & 0x07;
 
@@ -165,10 +167,10 @@ class getid3_flv extends getid3_handler
                             $AVCPacketType = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 0, 1));
                             if ($AVCPacketType == H264_AVC_SEQUENCE_HEADER) {
                                 //	read AVCDecoderConfigurationRecord
-                                $configurationVersion       = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 4, 1));
-                                $AVCProfileIndication       = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 5, 1));
-                                $profile_compatibility      = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 6, 1));
-                                $lengthSizeMinusOne         = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 7, 1));
+                                $configurationVersion = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 4, 1));
+                                $AVCProfileIndication = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 5, 1));
+                                $profile_compatibility = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 6, 1));
+                                $lengthSizeMinusOne = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 7, 1));
                                 $numOfSequenceParameterSets = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 8, 1));
 
                                 if (($numOfSequenceParameterSets & 0x1F) != 0) {
@@ -244,10 +246,10 @@ class getid3_flv extends getid3_handler
                                     break;
 
                             }
-                        } elseif ($info['flv']['video']['videoCodec'] ==  GETID3_FLV_VIDEO_VP6FLV_ALPHA) {
+                        } elseif ($info['flv']['video']['videoCodec'] == GETID3_FLV_VIDEO_VP6FLV_ALPHA) {
 
                             /* contributed by schouwerwouØgmail*com */
-                            if (!isset($info['video']['resolution_x'])) { // only when meta data isn't set
+                            if (! isset($info['video']['resolution_x'])) { // only when meta data isn't set
                                 $PictureSizeEnc['x'] = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 6, 2));
                                 $PictureSizeEnc['y'] = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 7, 2));
                                 $info['video']['resolution_x'] = ($PictureSizeEnc['x'] & 0xFF) << 3;
@@ -255,7 +257,7 @@ class getid3_flv extends getid3_handler
                             }
                             /* end schouwerwouØgmail*com */
                         }
-                        if (!empty($info['video']['resolution_x']) && !empty($info['video']['resolution_y'])) {
+                        if (! empty($info['video']['resolution_x']) && ! empty($info['video']['resolution_y'])) {
                             $info['video']['pixel_aspect_ratio'] = $info['video']['resolution_x'] / $info['video']['resolution_y'];
                         }
                     }
@@ -263,7 +265,7 @@ class getid3_flv extends getid3_handler
 
                 // Meta tag
                 case GETID3_FLV_TAG_META:
-                    if (!$found_meta) {
+                    if (! $found_meta) {
                         $found_meta = true;
                         $this->fseek(-1, SEEK_CUR);
                         $datachunk = $this->fread($DataLength);
@@ -292,7 +294,7 @@ class getid3_flv extends getid3_handler
                                 }
                             }
                         }
-                        if (!empty($info['flv']['meta']['onMetaData']['duration'])) {
+                        if (! empty($info['flv']['meta']['onMetaData']['duration'])) {
                             $found_valid_meta_playtime = true;
                         }
                     }
@@ -311,22 +313,22 @@ class getid3_flv extends getid3_handler
         }
 
         if ($info['flv']['header']['hasAudio']) {
-            $info['audio']['codec']           =   self::audioFormatLookup($info['flv']['audio']['audioFormat']);
-            $info['audio']['sample_rate']     =     self::audioRateLookup($info['flv']['audio']['audioRate']);
+            $info['audio']['codec'] = self::audioFormatLookup($info['flv']['audio']['audioFormat']);
+            $info['audio']['sample_rate'] = self::audioRateLookup($info['flv']['audio']['audioRate']);
             $info['audio']['bits_per_sample'] = self::audioBitDepthLookup($info['flv']['audio']['audioSampleSize']);
 
-            $info['audio']['channels']   =  $info['flv']['audio']['audioType'] + 1; // 0=mono,1=stereo
-            $info['audio']['lossless']   = ($info['flv']['audio']['audioFormat'] ? false : true); // 0=uncompressed
+            $info['audio']['channels'] = $info['flv']['audio']['audioType'] + 1; // 0=mono,1=stereo
+            $info['audio']['lossless'] = ($info['flv']['audio']['audioFormat'] ? false : true); // 0=uncompressed
             $info['audio']['dataformat'] = 'flv';
         }
-        if (!empty($info['flv']['header']['hasVideo'])) {
-            $info['video']['codec']      = self::videoCodecLookup($info['flv']['video']['videoCodec']);
+        if (! empty($info['flv']['header']['hasVideo'])) {
+            $info['video']['codec'] = self::videoCodecLookup($info['flv']['video']['videoCodec']);
             $info['video']['dataformat'] = 'flv';
-            $info['video']['lossless']   = false;
+            $info['video']['lossless'] = false;
         }
 
         // Set information from meta
-        if (!empty($info['flv']['meta']['onMetaData']['duration'])) {
+        if (! empty($info['flv']['meta']['onMetaData']['duration'])) {
             $info['playtime_seconds'] = $info['flv']['meta']['onMetaData']['duration'];
             $info['bitrate'] = (($info['avdataend'] - $info['avdataoffset']) * 8) / $info['playtime_seconds'];
         }
@@ -336,6 +338,7 @@ class getid3_flv extends getid3_handler
         if (isset($info['flv']['meta']['onMetaData']['videocodecid'])) {
             $info['video']['codec'] = self::videoCodecLookup($info['flv']['meta']['onMetaData']['videocodecid']);
         }
+
         return true;
     }
 
@@ -364,7 +367,8 @@ class getid3_flv extends getid3_handler
             14 => 'mp3 8kHz',
             15 => 'Device-specific sound',
         ];
-        return (isset($lookup[$id]) ? $lookup[$id] : false);
+
+        return isset($lookup[$id]) ? $lookup[$id] : false;
     }
 
     /**
@@ -380,7 +384,8 @@ class getid3_flv extends getid3_handler
             2 => 22050,
             3 => 44100,
         ];
-        return (isset($lookup[$id]) ? $lookup[$id] : false);
+
+        return isset($lookup[$id]) ? $lookup[$id] : false;
     }
 
     /**
@@ -394,7 +399,8 @@ class getid3_flv extends getid3_handler
             0 =>  8,
             1 => 16,
         ];
-        return (isset($lookup[$id]) ? $lookup[$id] : false);
+
+        return isset($lookup[$id]) ? $lookup[$id] : false;
     }
 
     /**
@@ -412,7 +418,8 @@ class getid3_flv extends getid3_handler
             GETID3_FLV_VIDEO_SCREENV2     => 'Screen video v2',
             GETID3_FLV_VIDEO_H264         => 'Sorenson H.264',
         ];
-        return (isset($lookup[$id]) ? $lookup[$id] : false);
+
+        return isset($lookup[$id]) ? $lookup[$id] : false;
     }
 }
 
@@ -433,7 +440,7 @@ class AMFStream
      */
     public function __construct(&$bytes)
     {
-        $this->bytes =& $bytes;
+        $this->bytes = &$bytes;
         $this->pos = 0;
     }
 
@@ -475,6 +482,7 @@ class AMFStream
     public function readUTF()
     {
         $length = $this->readInt();
+
         return $this->read($length);
     }
 
@@ -484,6 +492,7 @@ class AMFStream
     public function readLongUTF()
     {
         $length = $this->readLong();
+
         return $this->read($length);
     }
 
@@ -496,6 +505,7 @@ class AMFStream
     {
         $val = substr($this->bytes, $this->pos, $length);
         $this->pos += $length;
+
         return $val;
     }
 
@@ -507,6 +517,7 @@ class AMFStream
         $pos = $this->pos;
         $val = $this->readByte();
         $this->pos = $pos;
+
         return $val;
     }
 
@@ -518,6 +529,7 @@ class AMFStream
         $pos = $this->pos;
         $val = $this->readInt();
         $this->pos = $pos;
+
         return $val;
     }
 
@@ -529,6 +541,7 @@ class AMFStream
         $pos = $this->pos;
         $val = $this->readLong();
         $this->pos = $pos;
+
         return $val;
     }
 
@@ -540,6 +553,7 @@ class AMFStream
         $pos = $this->pos;
         $val = $this->readDouble();
         $this->pos = $pos;
+
         return $val;
     }
 
@@ -551,6 +565,7 @@ class AMFStream
         $pos = $this->pos;
         $val = $this->readUTF();
         $this->pos = $pos;
+
         return $val;
     }
 
@@ -562,6 +577,7 @@ class AMFStream
         $pos = $this->pos;
         $val = $this->readLongUTF();
         $this->pos = $pos;
+
         return $val;
     }
 }
@@ -698,6 +714,7 @@ class AMFReader
             // Consume byte
             $this->stream->readByte();
         }
+
         return $data;
     }
 
@@ -738,6 +755,7 @@ class AMFReader
         for ($i = 0; $i < $length; $i++) {
             $data[] = $this->readData();
         }
+
         return $data;
     }
 
@@ -748,6 +766,7 @@ class AMFReader
     {
         $timestamp = $this->stream->readDouble();
         $timezone = $this->stream->readInt();
+
         return $timestamp;
     }
 
@@ -773,6 +792,7 @@ class AMFReader
     public function readTypedObject()
     {
         $className = $this->stream->readUTF();
+
         return $this->readObject();
     }
 }
@@ -839,21 +859,21 @@ class AVCSequenceParameterSetReader
             $this->skipBits(1);                                     // direct_8x8_inference_flag
             $frame_cropping_flag = $this->getBits(1);               // frame_cropping_flag
 
-            $frame_crop_left_offset   = 0;
-            $frame_crop_right_offset  = 0;
-            $frame_crop_top_offset    = 0;
+            $frame_crop_left_offset = 0;
+            $frame_crop_right_offset = 0;
+            $frame_crop_top_offset = 0;
             $frame_crop_bottom_offset = 0;
 
             if ($frame_cropping_flag) {
-                $frame_crop_left_offset   = $this->expGolombUe();   // frame_crop_left_offset
-                $frame_crop_right_offset  = $this->expGolombUe();   // frame_crop_right_offset
-                $frame_crop_top_offset    = $this->expGolombUe();   // frame_crop_top_offset
+                $frame_crop_left_offset = $this->expGolombUe();   // frame_crop_left_offset
+                $frame_crop_right_offset = $this->expGolombUe();   // frame_crop_right_offset
+                $frame_crop_top_offset = $this->expGolombUe();   // frame_crop_top_offset
                 $frame_crop_bottom_offset = $this->expGolombUe();   // frame_crop_bottom_offset
             }
             $this->skipBits(1);                                     // vui_parameters_present_flag
             // etc
 
-            $this->width  = (($pic_width_in_mbs_minus1 + 1) * 16) - ($frame_crop_left_offset * 2) - ($frame_crop_right_offset * 2);
+            $this->width = (($pic_width_in_mbs_minus1 + 1) * 16) - ($frame_crop_left_offset * 2) - ($frame_crop_right_offset * 2);
             $this->height = ((2 - $frame_mbs_only_flag) * ($pic_height_in_map_units_minus1 + 1) * 16) - ($frame_crop_top_offset * 2) - ($frame_crop_bottom_offset * 2);
         }
     }
@@ -864,7 +884,7 @@ class AVCSequenceParameterSetReader
     public function skipBits($bits)
     {
         $newBits = $this->currentBits + $bits;
-        $this->currentBytes += (int)floor($newBits / 8);
+        $this->currentBytes += (int) floor($newBits / 8);
         $this->currentBits = $newBits % 8;
     }
 
@@ -875,6 +895,7 @@ class AVCSequenceParameterSetReader
     {
         $result = (getid3_lib::BigEndian2Int(substr($this->sps, $this->currentBytes, 1)) >> (7 - $this->currentBits)) & 0x01;
         $this->skipBits(1);
+
         return $result;
     }
 
@@ -889,6 +910,7 @@ class AVCSequenceParameterSetReader
         for ($i = 0; $i < $bits; $i++) {
             $result = ($result << 1) + $this->getBit();
         }
+
         return $result;
     }
 
@@ -908,6 +930,7 @@ class AVCSequenceParameterSetReader
                 return 0;
             }
         }
+
         return (1 << $significantBits) + $this->getBits($significantBits) - 1;
     }
 
@@ -920,6 +943,7 @@ class AVCSequenceParameterSetReader
         if (($result & 0x01) == 0) {
             return -($result >> 1);
         }
+
         return ($result + 1) >> 1;
     }
 

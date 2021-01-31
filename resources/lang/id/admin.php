@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     /*
@@ -9,7 +10,7 @@ return [
     |
     */
 
-    /**
+    /*
      * Admin panel translation
      */
     'home'                          => 'Beranda',
@@ -275,6 +276,6 @@ return [
 
     'student_payment_notification' => 'Notifikasi pembayaran murid',
     'notifications' => [
-      'description' => ':name telah membeli kursus  :course dengan harga harga :amount'
+      'description' => ':name telah membeli kursus  :course dengan harga harga :amount',
     ],
 ];

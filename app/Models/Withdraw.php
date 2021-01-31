@@ -13,31 +13,31 @@ class Withdraw extends Model
         if ($value) {
             return json_decode($value, true);
         }
+
         return null;
     }
 
-
-
     public function getStatusContextAttribute()
     {
-        $statusClass = "";
-        $iclass = "";
+        $statusClass = '';
+        $iclass = '';
         switch ($this->status) {
             case 'pending':
-                $statusClass .= "dark";
-                $iclass = "clock-o";
+                $statusClass .= 'dark';
+                $iclass = 'clock-o';
                 break;
             case 'approved':
-                $statusClass .= "success";
-                $iclass = "check-circle";
+                $statusClass .= 'success';
+                $iclass = 'check-circle';
                 break;
             case 'rejected':
-                $statusClass .= "danger";
-                $iclass = "exclamation-circle";
+                $statusClass .= 'danger';
+                $iclass = 'exclamation-circle';
                 break;
         }
 
         $html = "<span class='badge withdraw-status-{$this->status} badge-{$statusClass}'> <i class='la la-{$iclass}'></i> {$this->status}</span>";
+
         return $html;
     }
 }

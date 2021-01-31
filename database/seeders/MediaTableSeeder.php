@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use App\Models\Media;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
@@ -20,10 +22,11 @@ class MediaTableSeeder extends Seeder
         $data = array_map(function ($file) {
             $mime_type = null;
             if ($file->getExtension() == 'jpeg' || $file->getExtension() == 'png' || $file->getExtension() == 'jpg') {
-                $mime_type =  'image/' .$file->getExtension();
+                $mime_type = 'image/'.$file->getExtension();
             } else {
-                $mime_type = 'video/' .$file->getExtension();
+                $mime_type = 'video/'.$file->getExtension();
             }
+
             return [
                 'user_id' => 1,
                 'name' => $file->getFilename(),

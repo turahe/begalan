@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    Mail::send('welcome', [], function($message) {
+    Mail::send('welcome', [], function ($message) {
         $message->to('sparrow.dewa@gmail.com')->subject('Testing mails');
     });
 });
@@ -22,13 +22,12 @@ Route::get('/test', function () {
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('clear', 'HomeController@clearCache')->name('clear_cache');
 
-
 //Route::get('installations', 'InstallationController@installations')->name('installations');
 //Route::get('installations/step/2', 'InstallationController@installationsTwo')->name('installations_step_two');
 //Route::post('installations/step/2', 'InstallationController@installationPost');
 //Route::get('installations/step/final', 'InstallationController@installationFinal')->name('installation_final');
 
-/**
+/*
  * Authentication
  */
 
@@ -50,7 +49,6 @@ Route::post('forgot-password/reset/{token}', 'AuthController@passwordReset');
 Route::get('profile/{id}', 'UserController@profile')->name('profile');
 Route::get('review/{id}', 'UserController@review')->name('review');
 
-
 Route::get('courses', 'HomeController@courses')->name('courses');
 Route::get('featured-courses', 'HomeController@courses')->name('featured_courses');
 Route::get('popular-courses', 'HomeController@courses')->name('popular_courses');
@@ -59,7 +57,6 @@ Route::get('courses/{slug?}', 'CourseController@view')->name('course');
 Route::get('courses/{slug}/lecture/{lecture_id}', 'CourseController@lectureView')->name('single_lecture');
 Route::get('courses/{slug}/assignment/{assignment_id}', 'CourseController@assignmentView')->name('single_assignment');
 Route::get('courses/{slug}/quiz/{quiz_id}', 'QuizController@quizView')->name('single_quiz');
-
 
 Route::get('topics', 'CategoriesController@home')->name('categories');
 Route::get('topics/{category_slug}', 'CategoriesController@show')->name('category_view');
@@ -88,9 +85,8 @@ Route::group(['prefix'=>'login'], function () {
     Route::get('linkedin/callback', 'AuthController@callbackLinkedIn')->name('linkin_callback');
 });
 
-
-Route::group(['middleware' => ['auth'] ], function () {
-// Notifications
+Route::group(['middleware' => ['auth']], function () {
+    // Notifications
     Route::get('notifications', 'NotificationController@index')->name('notifications');
     Route::get('notifications/{id}', 'NotificationController@show')->name('notifications.show');
     Route::get('notifications.markAsRead', 'NotificationController@markAllNotificationsAsRead')->name('notifications.markAllAsRead')->middleware('ajax');
@@ -102,7 +98,7 @@ Route::group(['middleware' => ['auth'] ], function () {
     Route::get('content_complete/{content_id}', 'CourseController@contentComplete')->name('content_complete');
     Route::post('courses-complete/{course_id}', 'CourseController@complete')->name('course_complete');
 
-    Route::group(['prefix' => 'checkout' ], function () {
+    Route::group(['prefix' => 'checkout'], function () {
         Route::get('/', 'CartController@checkout')->name('checkout');
         Route::get('/payment/{id}', 'CartController@payment')->name('checkout_payment');
         Route::post('bank-transfer', 'GatewayController@bankPost')->name('bank_transfer_submit');
@@ -124,44 +120,44 @@ Route::group(['middleware' => ['auth'] ], function () {
     //Route::get('quiz/answer/submit', 'QuizController@answerSubmit')->name('quiz_answer_submit');
 });
 
-/**
+/*
  * Add and remove to Cart
  */
 Route::post('add-to-cart', 'CartController@addToCart')->name('add_to_cart');
 Route::post('remove-cart', 'CartController@removeCart')->name('remove_cart');
 
-/**
+/*
  * Payment Gateway Silent Notification
  * CSRF verification skipped
  */
-Route::group(['prefix' => 'gateway-ipn' ], function () {
+Route::group(['prefix' => 'gateway-ipn'], function () {
     Route::post('stripe', 'GatewayController@stripeCharge')->name('stripe_charge');
     Route::post('midtrans', 'GatewayController@midtransCharge')->name('midtrans_submit');
     Route::any('paypal/{transaction_id?}', 'IPNController@paypalNotify')->name('paypal_notify');
 });
 
-/**
+/*
  * Users,Instructor dashboard area
  */
 
-Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], function () {
+Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
-    /**
+    /*
      * Only instructor has access in this group
      */
-    Route::group(['middleware' => ['instructor'] ], function () {
+    Route::group(['middleware' => ['instructor']], function () {
         Route::post('update-section/{id}', 'CourseController@updateSection')->name('update_section');
         Route::post('delete-section', 'CourseController@deleteSection')->name('delete_section');
 
-        Route::group(['prefix' => 'courses' ], function () {
+        Route::group(['prefix' => 'courses'], function () {
             Route::get('new', 'CourseController@create')->name('create_course');
             Route::post('new', 'CourseController@store');
 
             Route::get('{course_id}/information', 'CourseController@information')->name('edit_course_information');
             Route::post('{course_id}/information', 'CourseController@informationPost');
 
-            Route::group(['prefix' => '{course_id}/curriculum' ], function () {
+            Route::group(['prefix' => '{course_id}/curriculum'], function () {
                 Route::get('', 'CourseController@curriculum')->name('edit_course_curriculum');
                 Route::get('new-section', 'CourseController@newSection')->name('new_section');
                 Route::post('new-section', 'CourseController@newSectionPost');
@@ -172,7 +168,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], fun
                 Route::post('new-assignment', 'CurriculumController@newAssignment')->name('new_assignment');
                 Route::post('update-assignment/{id}', 'CurriculumController@updateAssignment')->name('update_assignment');
 
-                Route::group(['prefix' => 'quiz' ], function () {
+                Route::group(['prefix' => 'quiz'], function () {
                     Route::post('create', 'QuizController@newQuiz')->name('new_quiz');
                     Route::post('update/{id}', 'QuizController@updateQuiz')->name('update_quiz');
 
@@ -206,7 +202,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], fun
         Route::get('my-courses', 'CourseController@myCourses')->name('my_courses');
         Route::get('my-courses-reviews', 'CourseController@myCoursesReviews')->name('my_courses_reviews');
 
-        Route::group(['prefix' => 'courses-has-quiz' ], function () {
+        Route::group(['prefix' => 'courses-has-quiz'], function () {
             Route::get('/', 'QuizController@quizCourses')->name('courses_has_quiz');
             Route::get('quizzes/{id}', 'QuizController@quizzes')->name('courses_quizzes');
             Route::get('attempts/{quiz_id}', 'QuizController@attempts')->name('quiz_attempts');
@@ -214,7 +210,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], fun
             Route::post('attempt/{attempt_id}', 'QuizController@attemptReview');
         });
 
-        Route::group(['prefix' => 'assignments' ], function () {
+        Route::group(['prefix' => 'assignments'], function () {
             Route::get('/', 'AssignmentController@index')->name('courses_has_assignments');
             Route::get('course/{course_id}', 'AssignmentController@assignmentsByCourse')->name('courses_assignments');
             Route::get('submissions/{assignment_id}', 'AssignmentController@submissions')->name('assignment_submissions');
@@ -222,11 +218,11 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], fun
             Route::post('submission/{submission_id}', 'AssignmentController@evaluation');
         });
 
-        Route::group(['prefix' => 'earning' ], function () {
+        Route::group(['prefix' => 'earning'], function () {
             Route::get('/', 'EarningController@earning')->name('earning');
             Route::get('report', 'EarningController@earningReport')->name('earning_report');
         });
-        Route::group(['prefix' => 'withdraw' ], function () {
+        Route::group(['prefix' => 'withdraw'], function () {
             Route::get('/', 'EarningController@withdraw')->name('withdraw');
             Route::post('/', 'EarningController@withdrawPost');
 
@@ -247,7 +243,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], fun
         Route::post('delete', 'MediaController@delete')->name('delete_media');
     });
 
-    Route::group(['prefix' => 'settings' ], function () {
+    Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'DashboardController@profileSettings')->name('profile_settings');
         Route::post('/', 'DashboardController@profileSettingsPost');
 
@@ -261,19 +257,17 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified'] ], fun
 
     Route::get('my-quiz-attempts', 'QuizController@myQuizAttempts')->name('my_quiz_attempts');
 
-    Route::group(['prefix' => 'purchases' ], function () {
+    Route::group(['prefix' => 'purchases'], function () {
         Route::get('/', 'DashboardController@purchaseHistory')->name('purchase_history');
         Route::get('view/{id}', 'DashboardController@purchaseView')->name('purchase_view');
     });
 });
 
-
-/**
+/*
  * Admin Area
  */
 
-
-Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin'] ], function () {
+Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', 'AdminController@index')->name('admin');
 
     Route::group(['prefix'=>'cms'], function () {
@@ -310,12 +304,12 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin'] ], function (
         Route::get('featured', 'AdminController@featureCourses')->name('admin_featured_courses');
     });
 
-    Route::group(['prefix' => 'plugins' ], function () {
+    Route::group(['prefix' => 'plugins'], function () {
         Route::get('/', 'ExtendController@plugins')->name('plugins');
         Route::get('find', 'ExtendController@findPlugins')->name('find_plugins');
         Route::get('action', 'ExtendController@pluginAction')->name('plugin_action');
     });
-    Route::group(['prefix' => 'themes' ], function () {
+    Route::group(['prefix' => 'themes'], function () {
         Route::get('/', 'ExtendController@themes')->name('themes');
         Route::post('activate', 'ExtendController@activateTheme')->name('activate_theme');
         Route::get('find', 'ExtendController@findThemes')->name('find_themes');
@@ -354,11 +348,10 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin'] ], function (
         Route::get('create', ['as'=>'add_administrator', 'uses' => 'UserController@addAdministrator']);
         Route::post('create', ['uses' => 'UserController@storeAdministrator']);
 
-        Route::post('block-unblock', ['as'=>'administratorBlockUnblock','uses' => 'UserController@administratorBlockUnblock']);
+        Route::post('block-unblock', ['as'=>'administratorBlockUnblock', 'uses' => 'UserController@administratorBlockUnblock']);
     });
 
-
-    /**
+    /*
      * Change Password route
      */
     Route::group(['prefix' => 'account'], function () {
@@ -367,7 +360,7 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin'] ], function (
     });
 });
 
-/**
+/*
  * Single Page
  */
 //Route::get('{slug}', 'PostController@singlePage')->name('page');
@@ -376,9 +369,6 @@ Route::get('blog', 'PostController@blog')->name('blog');
 Route::get('{slug}', 'PostController@postSingle')->name('post');
 Route::get('post/{id?}', 'PostController@postProxy')->name('post_proxy');
 
-
-
 //Auth::routes();
 //
 //Route::get('/home', 'HomeController@index')->name('home');
-

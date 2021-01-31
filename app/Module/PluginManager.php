@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Module;
 
 use Symfony\Component\Finder\Finder;
@@ -35,8 +36,8 @@ class PluginManager
      */
     public function __construct($app)
     {
-        $this->app             = $app;
-        $this->pluginDirectory = $app->path() . DIRECTORY_SEPARATOR . 'Plugins';
+        $this->app = $app;
+        $this->pluginDirectory = $app->path().DIRECTORY_SEPARATOR.'Plugins';
         $this->bootPlugins();
 
         $this->registerClassLoader();
@@ -67,34 +68,33 @@ class PluginManager
     {
         $lms_version = config('app.version');
 
-
         foreach (Finder::create()->in($this->pluginDirectory)->directories()->depth(0) as $dir) {
             /** @var SplFileInfo $dir */
             $directoryName = $dir->getBasename();
 
             $pluginClass = $this->getPluginClassNameFromDirectory($directoryName);
 
-            if (!class_exists($pluginClass)) {
-                dd('Plugin ' . $directoryName . ' needs a ' . $directoryName . 'Plugin class.');
+            if (! class_exists($pluginClass)) {
+                dd('Plugin '.$directoryName.' needs a '.$directoryName.'Plugin class.');
             }
 
             try {
                 $plugin = $this->app->makeWith($pluginClass, [$this->app]);
             } catch (\ReflectionException $e) {
-                dd('Plugin ' . $directoryName . ' could not be booted: "' . $e->getMessage() . '"');
+                dd('Plugin '.$directoryName.' could not be booted: "'.$e->getMessage().'"');
                 exit;
             }
 
-            if (!($plugin instanceof PluginBase)) {
-                dd('Plugin ' . $directoryName . ' must extends the Plugin Base Class');
+            if (! ($plugin instanceof PluginBase)) {
+                dd('Plugin '.$directoryName.' must extends the Plugin Base Class');
             }
 
-            if ($plugin->activated){
-                if (version_compare($plugin->lms_version, $lms_version,'>')){
-                    add_action('admin_notices', function ()use($plugin, $lms_version){
+            if ($plugin->activated) {
+                if (version_compare($plugin->lms_version, $lms_version, '>')) {
+                    add_action('admin_notices', function () use ($plugin, $lms_version) {
                         echo "<div class='alert alert-warning d-flex'> <p class='mb-0 mr-2' style='font-size: 35px; line-height: 1'><i class='la la-info-circle'></i></p> <p class='mb-0'> Teachify LMS is running version {$lms_version} but {$plugin->name} requires at least {$plugin->lms_version}, in order to use <strong>{$plugin->name} Plugin</strong>, please update your Teachiy LMS version.  </p> </div>";
                     });
-                }else {
+                } else {
                     $plugin->boot();
                 }
             }
@@ -155,5 +155,4 @@ class PluginManager
     {
         return $this->pluginDirectory;
     }
-
 }
