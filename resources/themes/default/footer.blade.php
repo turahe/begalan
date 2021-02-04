@@ -110,13 +110,13 @@
 
 {{--<script src="{{ mix('js/manifest.js') }}"></script>--}}
 {{--<script src="{{ mix('js/vendor.js') }}"></script>--}}
-{{--<script src="{{ mix('js/app.js') }}"></script>--}}
+<script src="{{ mix('js/app.js') }}"></script>
 
 <!-- jquery latest version -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+{{--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>--}}
 {{--<script src="{{asset('assets/js/vendor/jquery-1.12.0.min.js')}}"></script>--}}
 <!-- bootstrap js -->
-<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+{{--<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>--}}
 
 @yield('page-js')
 

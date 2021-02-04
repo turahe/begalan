@@ -1306,7 +1306,7 @@ if (! function_exists('icon_classes')) {
     function icon_classes()
     {
         $pattern = '/\.(la-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"\\\\(.+)";\s+}/';
-        $subject = file_get_contents(ROOT_PATH.'/assets/css/line-awesome.css');
+        $subject = file_get_contents(public_path().'/assets/css/line-awesome.css');
         preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             $icons[$match[1]] = $match[2];

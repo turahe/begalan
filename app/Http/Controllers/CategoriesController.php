@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -13,14 +14,27 @@ class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $data['title'] = __a('category');
-        $data['categories'] = Category::whereStep(0)
-            ->with('sub_categories', 'sub_categories.sub_categories')
-            ->orderBy('category_name', 'asc')
-            ->paginate(2);
+//        $data['categories'] = Category::whereStep(0)
+//            ->with('sub_categories', 'sub_categories.sub_categories')
+//            ->orderBy('category_name', 'asc')
+//            ->paginate(2);
+
+        $data['categories'] = app(Pipeline::class)
+            ->send(Category::whereStep(0))
+            ->through([
+                \App\Http\Pipelines\QueryFilters\Type::class,
+                \App\Http\Pipelines\QueryFilters\Sort::class,
+                \App\Http\Pipelines\QueryFilters\MaxCount::class,
+            ])
+            ->thenReturn()
+            ->paginate($request->input('limit', 10));
+
 
         return view('admin.categories.categories', $data);
     }

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
@@ -142,8 +143,18 @@ class HomeController extends Controller
                 }
         }
 
-        $per_page = $r->perpage ? $r->perpage : 9;
-        $courses = $courses->paginate($per_page);
+//        $per_page = $r->perpage ? $r->perpage : 9;
+//        $courses = $courses->paginate($per_page);
+
+        $payments = app(Pipeline::class)
+            ->send(Course::query())
+            ->through([
+                \App\Http\Pipelines\QueryFilters\Search::class,
+                \App\Http\Pipelines\QueryFilters\Status::class,
+                \App\Http\Pipelines\QueryFilters\Sort::class,
+            ])
+            ->thenReturn()
+            ->paginate($r->input('limit', 9));
 
         return view('theme::courses', compact('title', 'courses', 'categories', 'topics'));
     }

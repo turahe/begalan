@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -36,7 +37,17 @@ class PostController extends Controller
         }
 
         $title = __a('pages');
-        $posts = Post::whereType('page')->orderBy('id', 'desc')->paginate(20);
+//        $posts = Post::whereType('page')->orderBy('id', 'desc')->paginate(20);
+
+        $posts = app(Pipeline::class)
+            ->send(Post::whereType('page')->orderBy('id', 'desc'))
+            ->through([
+                \App\Http\Pipelines\QueryFilters\Type::class,
+                \App\Http\Pipelines\QueryFilters\Sort::class,
+                \App\Http\Pipelines\QueryFilters\MaxCount::class,
+            ])
+            ->thenReturn()
+            ->paginate($request->input('limit', 10));
 
         return view('admin.cms.pages', compact('title', 'posts'));
     }

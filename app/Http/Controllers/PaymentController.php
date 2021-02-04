@@ -8,8 +8,9 @@ use App\Notifications\AdminPaymentNotification;
 use App\Notifications\StudentPaymentNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\View\View;
+
 
 /**
  * Class PaymentController.
@@ -18,7 +19,7 @@ class PaymentController extends Controller
 {
     /**
      * @param Request $request
-     * @return RedirectResponse|View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|RedirectResponse
      *@throws \Exception
      */
     public function index(Request $request)
@@ -48,27 +49,37 @@ class PaymentController extends Controller
         //END Bulk Actions
 
         $title = __a('payments');
+//
+//        $payments = Payment::query();
+//        if ($request->q) {
+//            $payments = $payments->where(function ($q) use ($request) {
+//                $q->where('name', 'like', "%{$request->q}%")
+//                    ->orWhere('email', 'like', "%{$request->q}%");
+//            });
+//        }
+//        if ($request->filter_status) {
+//            $payments = $payments->where('status', $request->filter_status);
+//        }
+//        $payments = $payments->orderBy('id', 'desc')->paginate(20);
 
-        $payments = Payment::query();
-        if ($request->q) {
-            $payments = $payments->where(function ($q) use ($request) {
-                $q->where('name', 'like', "%{$request->q}%")
-                    ->orWhere('email', 'like', "%{$request->q}%");
-            });
-        }
-        if ($request->filter_status) {
-            $payments = $payments->where('status', $request->filter_status);
-        }
-        $payments = $payments->orderBy('id', 'desc')->paginate(20);
+        $payments = app(Pipeline::class)
+            ->send(Payment::query())
+            ->through([
+                \App\Http\Pipelines\QueryFilters\Search::class,
+                \App\Http\Pipelines\QueryFilters\Status::class,
+                \App\Http\Pipelines\QueryFilters\Sort::class,
+            ])
+            ->thenReturn()
+            ->paginate($request->input('limit', 10));
 
         return view('admin.payments.payments', compact('title', 'payments'));
     }
 
     /**
-     * @param $id
-     * @return View
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function view(int $id): View
+    public function view(int $id)
     {
         $title = __a('payment_details');
         $payment = Payment::find($id);
@@ -116,9 +127,9 @@ class PaymentController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function PaymentGateways(): View
+    public function PaymentGateways()
     {
         $title = __a('payment_settings');
 
