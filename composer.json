@@ -1,5 +1,5 @@
 {
-    "name": "laravel/laravel",
+    "name": "turahe/webacademy",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": [
@@ -8,20 +8,24 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|8.0",
         "ext-json": "*",
+        "ext-mysqli": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.0",
-        "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
         "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "midtrans/midtrans-php": "^2.3",
+        "spatie/laravel-activitylog": "^3.16",
+        "spatie/laravel-medialibrary": "^9.4",
         "spatie/laravel-permission": "^4.0",
-        "tightenco/ziggy": "^1.0"
+        "turahe/laravel-installer": "dev-master",
+        "turahe/laravel-likeable": "dev-master",
+        "turahe/master-data": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

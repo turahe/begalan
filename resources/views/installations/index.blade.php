@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="{{theme_url('favicon.png')}}"/>
+    <link rel="shortcut icon" href="{{ asset('favicon.png')}}"/>
 
     <!-- Teachify Version -->
     <meta name="generator" content="WebAcademy v.{{config('app.version')}}" />
@@ -13,7 +13,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @if(! empty($title)) {{$title}} @else {{ get_option('site_title') }} @endif</title>
+    <title> WEbacademy </title>
 
     <!-- all css here -->
 
@@ -43,7 +43,7 @@
 
                 <div class="installations-logo">
                     <h4 class="mt-3 d-flex justify-content-center">
-                        <img src="{{asset('assets/images/logo.png')}}" />
+                        <img loading="lazy" alt="logo" src="{{asset('assets/images/logo.png')}}" />
                         <span class="ml-3">Installations Wizard</span>
                     </h4>
                 </div>
