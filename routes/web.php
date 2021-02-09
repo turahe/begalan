@@ -13,38 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {
-    Mail::send('welcome', [], function ($message) {
-        $message->to('sparrow.dewa@gmail.com')->subject('Testing mails');
-    });
-});
-
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('clear', [\App\Http\Controllers\HomeController::class, 'clearCache'])->name('clear_cache');
 
-Route::get('installations', [\App\Http\Controllers\InstallationController::class, 'installations'])->name('installations');
-Route::get('installations/step/2', [\App\Http\Controllers\InstallationController::class, 'installationsTwo'])->name('installations_step_two');
-Route::post('installations/step/2', [\App\Http\Controllers\InstallationController::class, 'installationPost']);
-Route::get('installations/step/final', [\App\Http\Controllers\InstallationController::class, 'installationFinal'])->name('installation_final');
-
-/*
- * Authentication
- */
-
-//Route::get('login', 'AuthController@login')->name('login')->middleware('guest');
-//Route::post('login', 'AuthController@loginPost');
-//Route::any('logout', 'AuthController@logoutPost')->name('logout');
-
-//Route::get('register', 'AuthController@register')->name('register')->middleware('guest');
-//Route::post('register', 'AuthController@registerPost');
-//Route::get('email/verify', 'AuthController@userVerified')->name('verification.notice');
-//Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-//Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
-//Route::get('forgot-password', 'AuthController@forgotPassword')->name('forgot_password');
-//Route::post('forgot-password', 'AuthController@sendResetToken');
-//Route::get('forgot-password/reset/{token}', 'AuthController@passwordResetForm')->name('reset_password_link');
-//Route::post('forgot-password/reset/{token}', 'AuthController@passwordReset');
 
 Route::get('profile/{id}', [\App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('review/{id}', [\App\Http\Controllers\UserController::class, 'review'])->name('review');
@@ -70,20 +41,6 @@ Route::get('attachment-download/{hash}', [\App\Http\Controllers\CourseController
 
 Route::get('payment-thank-you', [\App\Http\Controllers\PaymentController::class, 'thankYou'])->name('payment_thank_you_page');
 
-//Route::group(['prefix'=>'login'], function () {
-//    //Social login route
-//    Route::get('facebook', 'AuthController@redirectFacebook')->name('facebook_redirect');
-//    Route::get('facebook/callback', 'AuthController@callbackFacebook')->name('facebook_callback');
-//
-//    Route::get('google', 'AuthController@redirectGoogle')->name('google_redirect');
-//    Route::get('google/callback', 'AuthController@callbackGoogle')->name('google_callback');
-//
-//    Route::get('twitter', 'AuthController@redirectTwitter')->name('twitter_redirect');
-//    Route::get('twitter/callback', 'AuthController@callbackTwitter')->name('twitter_callback');
-//
-//    Route::get('linkedin', 'AuthController@redirectLinkedIn')->name('linkedin_redirect');
-//    Route::get('linkedin/callback', 'AuthController@callbackLinkedIn')->name('linkin_callback');
-//});
 
 Route::group(['middleware' => ['auth']], function () {
     // Notifications
@@ -260,84 +217,6 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified']], func
     Route::group(['prefix' => 'purchases'], function () {
         Route::get('/', [\App\Http\Controllers\DashboardController::class, 'purchaseHistory'])->name('purchase_history');
         Route::get('view/{id}', [\App\Http\Controllers\DashboardController::class, 'purchaseView'])->name('purchase_view');
-    });
-});
-
-/*
- * Admin Area
- */
-
-Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin', 'verified']], function () {
-    Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin');
-
-    Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
-    Route::resource('pages', \App\Http\Controllers\Admin\PageController::class);
-    Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
-
-    Route::group(['prefix'=>'media_manager'], function () {
-        Route::get('/', [\App\Http\Controllers\MediaController::class, 'mediaManager'])->name('media_manager');
-        Route::post('media-update', [\App\Http\Controllers\MediaController::class, 'mediaManagerUpdate'])->name('media_update');
-    });
-
-    Route::group(['prefix'=>'courses'], function () {
-        Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'adminCourses'])->name('admin_courses');
-        Route::get('popular', [\App\Http\Controllers\Admin\AdminController::class, 'popularCourses'])->name('admin_popular_courses');
-        Route::get('featured', [\App\Http\Controllers\Admin\AdminController::class, 'featureCourses'])->name('admin_featured_courses');
-    });
-
-//    Route::group(['prefix' => 'plugins'], function () {
-//        Route::get('/', 'ExtendController@plugins')->name('plugins');
-//        Route::get('find', 'ExtendController@findPlugins')->name('find_plugins');
-//        Route::get('action', 'ExtendController@pluginAction')->name('plugin_action');
-//    });
-//    Route::group(['prefix' => 'themes'], function () {
-//        Route::get('/', 'ExtendController@themes')->name('themes');
-//        Route::post('activate', 'ExtendController@activateTheme')->name('activate_theme');
-//        Route::get('find', 'ExtendController@findThemes')->name('find_themes');
-//    });
-
-    Route::group(['prefix'=>'settings'], function () {
-        Route::get('theme-settings', [\App\Http\Controllers\Admin\SettingsController::class, 'ThemeSettings'])->name('theme_settings');
-        Route::get('invoice-settings', [\App\Http\Controllers\Admin\SettingsController::class, 'invoiceSettings'])->name('invoice_settings');
-        Route::get('general', [\App\Http\Controllers\Admin\SettingsController::class, 'GeneralSettings'])->name('general_settings');
-        Route::get('lms-settings', [\App\Http\Controllers\Admin\SettingsController::class, 'LMSSettings'])->name('lms_settings');
-
-        Route::get('social', [\App\Http\Controllers\Admin\SettingsController::class, 'SocialSettings'])->name('social_settings');
-        //Save settings / options
-        Route::post('save-settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('save_settings');
-        Route::get('payment', [\App\Http\Controllers\PaymentController::class, 'PaymentSettings'])->name('payment_settings');
-        Route::get('storage', [\App\Http\Controllers\Admin\SettingsController::class, 'StorageSettings'])->name('storage_settings');
-    });
-
-    Route::get('gateways', [\App\Http\Controllers\PaymentController::class, 'PaymentGateways'])->name('payment_gateways');
-    Route::get('withdraw', [\App\Http\Controllers\Admin\SettingsController::class, 'withdraw'])->name('withdraw_settings');
-
-    Route::group(['prefix'=>'payments'], function () {
-        Route::get('/', [\App\Http\Controllers\PaymentController::class, 'index'])->name('payments');
-        Route::get('view/{id}', [\App\Http\Controllers\PaymentController::class, 'view'])->name('payment_view');
-        Route::get('delete/{id}', [\App\Http\Controllers\PaymentController::class, 'delete'])->name('payment_delete');
-
-        Route::post('update-status/{id}', [\App\Http\Controllers\PaymentController::class, 'updateStatus'])->name('update_status');
-    });
-
-    Route::group(['prefix'=>'withdraws'], function () {
-        Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'withdrawsRequests'])->name('withdraws');
-    });
-
-    Route::group(['prefix'=>'users'], function () {
-        Route::get('/', ['as'=>'users', 'uses' => [\App\Http\Controllers\UserController::class, 'users']]);
-//        Route::get('create', ['as'=>'add_administrator', 'uses' => 'UserController@addAdministrator']);
-//        Route::post('create', ['uses' => 'UserController@storeAdministrator']);
-
-//        Route::post('block-unblock', ['as'=>'administratorBlockUnblock', 'uses' => 'UserController@administratorBlockUnblock']);
-    });
-
-    /*
-     * Change Password route
-     */
-    Route::group(['prefix' => 'account'], function () {
-        Route::get('change-password', [\App\Http\Controllers\UserController::class, 'changePassword'])->name('change_password');
-        Route::post('change-password', [\App\Http\Controllers\UserController::class, 'changePasswordPost']);
     });
 });
 
