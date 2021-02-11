@@ -31,21 +31,14 @@ class CategoriesController extends Controller
     }
 
     /**
-     * @param $slug
+     * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * Show categories view
      */
-    public function show($slug)
+    public function show(Category $category)
     {
-        $category = Category::whereSlug($slug)->orWhere('id', $slug)->first();
-        if (! $category) {
-            abort(404);
-        }
-
-        $title = $category->category_name;
-
-        return view('theme::single-category', compact('title', 'category'));
+        return view('theme::single-category', compact('category'));
     }
 
     /**

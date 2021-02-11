@@ -1,17 +1,12 @@
-@php
-    $categories = \App\Models\Category::whereStep(0)->with('sub_categories')->orderBy('category_name', 'asc')->get();
-@endphp
-
-        <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{get_option('enable_rtl')? 'rtl' : 'auto'}}">
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}" dir="{{ config('global.enable_rtl')? 'rtl' : 'auto'}}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('favicon.png')}}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>  @if( ! empty($title)) {{ $title }}
-        | {{get_option('site_title')}}  @else {{get_option('site_title')}} @endif </title>
+    <title>  {{ $title ?? '' }} | {{ config('app.name') }} </title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 @yield('page-css')
 
@@ -27,9 +22,9 @@
         window.pageData = @json(pageJsonData());
         /* ]]> */
     </script>
-{{--    @routes--}}
+    {{--    @routes--}}
 </head>
-<body class="{{get_option('enable_rtl')? 'rtl' : ''}}">
+<body class="{{ config('global.enable_rtl')? 'rtl' : ''}}">
 
 <div class="main-navbar-wrap">
 
@@ -38,15 +33,8 @@
 
         <div class="container">
             <a class="navbar-brand site-main-logo" href="{{route('home')}}">
-                @php
-                    $logoUrl = media_file_uri(get_option('site_logo'));
-                @endphp
 
-                @if($logoUrl)
-                    <img src="{{media_file_uri(get_option('site_logo'))}}" alt="{{get_option('site_title')}}"/>
-                @else
-                    <img src="{{asset('assets/images/logo.png')}}" alt="{{get_option('site_title')}}"/>
-                @endif
+                <img src="{{asset('assets/images/logo.png')}}" alt="{{ config('app.name')}}"/>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbarContent"
                     aria-controls="mainNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,20 +46,20 @@
                     <li class="nav-item nav-categories-item">
                         <a class="nav-link browse-categories-nav-link" href="{{route('categories')}}">
                             <i class="las la-th-large"></i>
-                            @lang('categories')
+                            @lang('front_end.categories')
                         </a>
 
                         <div class="categories-menu">
                             <ul class="categories-ul-first">
                                 <li>
                                     <a href="{{route('categories')}}">
-                                        <i class="las la-th-list"></i> @lang('all_categories')
+                                        <i class="las la-th-list"></i> @lang('front_end.all_categories')
                                     </a>
                                 </li>
                                 @foreach($categories as $category)
                                     <li>
-                                        <a href="{{route('category_view', $category->slug)}}">
-                                            <i class="las {{$category->icon_class}}"></i> {{$category->category_name}}
+                                        <a href="{{ $category->url }}">
+                                            <i class="las {{$category->icon_class}}"></i> {{$category->name}}
 
                                             @if($category->sub_categories->count())
                                                 <i class="las la-angle-right"></i>
@@ -81,7 +69,7 @@
                                             <ul class="level-sub">
                                                 @foreach($category->sub_categories as $subCategory)
                                                     <li>
-                                                        <a href="{{route('category_view', $subCategory->slug)}}">{{$subCategory->category_name}}</a>
+                                                        <a href="{{ $subCategory->slug }}">{{$subCategory->name}}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -140,7 +128,7 @@
                                     <small>{{$auth_user->email}}</small>
                                 </div>
 
-                                @include('default.dashboard.sidebar-menu')
+                                @include('theme::dashboard.sidebar-menu')
                             </div>
                         </li>
                     @endif

@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
-use App\Option;
+use App\Models\Category;
+use App\Models\Option;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,11 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        if ($this->app->isLocal()) {
-//            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-//            $this->app->register(TelescopeServiceProvider::class);
-//            $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
-//        }
+        if ($this->app->isLocal()) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
+        }
     }
 
     /**
@@ -34,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();
+
+        View::share('categories', Category::parent()->get());
 
 //        Membuat Directive Custom Untuk Format Mata Uang
 

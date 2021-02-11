@@ -35,7 +35,7 @@ $gridClass = $grid_class ? $grid_class : 'col-md-3';
                     </span>
                     @if($course->category)
                         <span>
-                            <i class="las la-folder"></i> in <a href="{{route('category_view', $course->category->slug)}}">{{$course->category->category_name}}</a>
+                            <i class="las la-folder"></i> in <a href="{{ $course->category->url }}">{{$course->category->name}}</a>
                         </span>
                     @endif
                 </p>

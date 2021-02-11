@@ -2,55 +2,68 @@
 
 namespace App\Models;
 
+use App\Contracts\Sortable;
 use App\Services\Slug\HasSlug;
 use App\Services\Slug\SlugOptions;
+use App\Services\SortableTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Category.
+ * App\Models\Category
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $category_name
- * @property string|null $slug
- * @property int|null $category_id
- * @property int|null $thumbnail_id
- * @property string|null $icon_class
- * @property int $step
- * @property int|null $status
+ * @property string $name
+ * @property string $slug
+ * @property int|null $parent_id
+ * @property int|null $order_column
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
  * @property-read int|null $courses_count
  * @property-read string $bg_color
+ * @property-read string $url
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @property-read Category|null $parent_category
  * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $sub_categories
  * @property-read int|null $sub_categories_count
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category ordered(string $direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|Category parent()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereCategoryName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereIconClass($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereOrderColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereStep($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereThumbnailId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin \Eloquent
  */
-class Category extends Model
+class Category extends Model implements HasMedia, Sortable
 {
     use HasSlug;
+    use HasFactory;
+    use SoftDeletes;
+    use SortableTrait;
+    use InteractsWithMedia;
     /**
      * @var array
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+    ];
 
     /**
      * @return SlugOptions
@@ -59,8 +72,18 @@ class Category extends Model
     {
         // TODO: Implement getSlugOptions() method.
         return SlugOptions::create()
-            ->generateSlugsFrom('category_name')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+    /**
+     * Generate url category by
+     * call category->url.
+     *
+     * @return string
+     */
+    public function getUrlAttribute(): string
+    {
+        return route('category.view', $this);
     }
 
     /**
@@ -69,23 +92,22 @@ class Category extends Model
      */
     public function scopeParent($query)
     {
-        return $query->where('category_id', 0)->orWhere('category_id', null);
+        return $query->where('parent_id', 0)->orWhere('parent_id', null);
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function courses()
     {
-        $foreignKey = 'category_id';
-        if (! $this->step) {
+        $foreignKey = 'parent_id';
+        if (! $this->parent_id) {
             $foreignKey = 'parent_category_id';
-        } elseif ($this->step == 1) {
+        } elseif ($this->parent_id == 1) {
             $foreignKey = 'second_category_id';
         }
 
         return $this->hasMany(Course::class, $foreignKey)
-            ->publish()
             ->orderBy('created_at', 'desc');
     }
 
@@ -94,7 +116,7 @@ class Category extends Model
      */
     public function categoryNameParent()
     {
-        $parent_id = $this->category_id;
+        $parent_id = $this->parent_id;
         $category_name = '';
 
         if ($parent_id) {
@@ -102,7 +124,7 @@ class Category extends Model
             while ($parent_id) {
                 $category = DB::table('categories')->whereId($parent_id)->first();
                 $parent_id = $category->category_id;
-                $parent_category_names[] = $category->category_name;
+                $parent_category_names[] = $category->name;
             }
             //krsort($parent_category_names);
             $category_name .= ' → '.implode(' → ', $parent_category_names);
@@ -116,7 +138,7 @@ class Category extends Model
      */
     public function getCategoryNameParent()
     {
-        $category_name = $this->category_name.$this->categoryNameParent();
+        $category_name = $this->name.$this->categoryNameParent();
 
         return $category_name;
     }
@@ -126,7 +148,7 @@ class Category extends Model
      */
     public function sub_categories()
     {
-        return $this->hasMany(self::class, 'category_id', 'id');
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
     /**
@@ -134,7 +156,7 @@ class Category extends Model
      */
     public function parent_category()
     {
-        return $this->belongsTo(self::class, 'category_id', 'id');
+        return $this->belongsTo(self::class, 'parent_id', 'id');
     }
 
     /**

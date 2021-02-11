@@ -15,15 +15,16 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('category_name')->nullable();
-            $table->string('slug')->nullable();
-            $table->unsignedBigInteger('category_id')->default(0)->nullable();
-            $table->unsignedBigInteger('thumbnail_id')->nullable();
-            $table->string('icon_class')->nullable();
-            $table->tinyInteger('step')->default(0);
-            $table->tinyInteger('status')->default(1)->nullable(); //1= enable, 2=disable
+            $table->string('name');
+            $table->string('slug');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('order_column')->nullable();
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('categories', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('categories');
         });
     }
 

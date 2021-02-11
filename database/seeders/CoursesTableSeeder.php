@@ -13,10 +13,17 @@ class CoursesTableSeeder extends Seeder
      * Run the database seeders.
      *
      * @return void
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */
     public function run()
     {
         Course::factory(35)->create()->each(function (Course $course) {
+            $course->addMedia(storage_path('app/seeder/posts/img/'))
+                ->preservingOriginal()
+                ->withResponsiveImages()
+                ->toMediaCollection();
+
             Section::factory(10)->make()->each(function (Section $section) use ($course) {
                 $course->sections()->save($section);
 

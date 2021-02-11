@@ -6,9 +6,11 @@ use App\Services\Slug\HasSlug;
 use App\Services\Slug\SlugOptions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Post.
+ * App\Models\Post
  *
  * @property int $id
  * @property int|null $user_id
@@ -23,9 +25,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\User|null $author
  * @property-read string $published_time
  * @property-read string $status_context
- * @property-read object $thumbnail_url
  * @property-read string $url
- * @property-read \App\Models\Media|null $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post post()
@@ -43,9 +45,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
  * @mixin \Eloquent
  */
-class Post extends Model
+class Post extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
     use HasSlug;
     /**
      * @var array
@@ -103,22 +106,6 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function media()
-    {
-        return $this->belongsTo(Media::class, 'feature_image');
-    }
-
-    /**
-     * @return object
-     */
-    public function getThumbnailUrlAttribute()
-    {
-        return media_image_uri($this->media);
     }
 
     /**

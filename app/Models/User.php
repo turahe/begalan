@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\Models\User.
+ * App\Models\User
  *
  * @property int $id
  * @property string $name
@@ -24,7 +26,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Country $country
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
  * @property-read int|null $courses_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Earning[] $earnings
@@ -39,15 +40,14 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read object|null $withdraw_method
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Discussion[] $instructor_discussions
  * @property-read int|null $instructor_discussions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Media[] $medias
- * @property-read int|null $medias_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $my_quiz_attempts
  * @property-read int|null $my_quiz_attempts_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read int|null $permissions_count
- * @property-read \App\Models\Media $photo_query
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payment[] $purchases
  * @property-read int|null $purchases_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Review[] $reviews
@@ -80,9 +80,10 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
     use Notifiable;
+    use InteractsWithMedia;
     use HasFactory;
     use HasRoles;
 
@@ -125,14 +126,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeInstructor($query)
     {
         return $query->where('user_type', 'instructor');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function medias()
-    {
-        return $this->hasMany(Media::class);
     }
 
     /**
@@ -198,15 +191,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Payment::class)->orderBy('created_at', 'desc');
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function country()
-    {
-        return $this->belongsTo(Country::class, 'country_id');
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -262,43 +246,6 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     public function getIsInstructorAttribute()
     {
         return $this->isInstructor();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function photo_query()
-    {
-        return $this->belongsTo(Media::class, 'photo');
-    }
-
-    /**
-     * @return string
-     */
-    public function getGetPhotoAttribute()
-    {
-        if ($this->photo) {
-            $url = media_image_uri($this->photo_query)->thumbnail;
-
-            return "<img src='{$url}' class='profile-photo' alt='{$this->name}' /> ";
-        }
-
-        $arr = explode(' ', trim($this->name));
-
-        if (count($arr) > 1) {
-            $first_char = substr($arr[0], 0, 1);
-            $second_char = substr($arr[1], 0, 1);
-        } else {
-            $first_char = substr($arr[0], 0, 1);
-            $second_char = substr($arr[0], 1, 1);
-        }
-
-        $textPhoto = strtoupper($first_char.$second_char);
-
-        $bg_color = '#'.substr(md5($textPhoto), 0, 6);
-        $textPhoto = "<span class='profile-text-photo' style='background-color: {$bg_color}; color: #fff8e5'>{$textPhoto}</span>";
-
-        return $textPhoto;
     }
 
     /**

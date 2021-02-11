@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Content.
+ * App\Models\Content
  *
  * @property int $id
  * @property int|null $user_id
@@ -34,8 +36,6 @@ use Illuminate\Support\Facades\Auth;
  * @property int|null $unlock_days
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attachment[] $attachments
- * @property-read int|null $attachments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $attempts
  * @property-read int|null $attempts_count
  * @property-read \App\Models\Course|null $course
@@ -46,6 +46,8 @@ use Illuminate\Support\Facades\Auth;
  * @property-read false|string $runtime
  * @property-read float|int $runtime_seconds
  * @property-read null|string $url
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @property-read Content|null $next
  * @property-read Content|null $previous
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
@@ -77,9 +79,10 @@ use Illuminate\Support\Facades\Auth;
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereVideoTime($value)
  * @mixin \Eloquent
  */
-class Content extends Model
+class Content extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
     use HasSlug;
     /**
      * @var array
@@ -213,14 +216,6 @@ class Content extends Model
         }
 
         return $options;
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function attachments(): HasMany
-    {
-        return $this->hasMany(Attachment::class);
     }
 
     /**

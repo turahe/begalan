@@ -23,9 +23,9 @@ class CourseFactory extends Factory
     {
         $this->faker->addProvider(new \App\Libraries\Youtube($this->faker));
         $thumbnail_id = $this->faker->randomElement(\App\Models\Media::pluck('id')->toArray());
-        $parent_category_id = $this->faker->randomElement(\App\Models\Category::where('category_id', 0)->pluck('id')->toArray());
-        $second_category_id = $this->faker->randomElement(\App\Models\Category::where('category_id', $parent_category_id)->pluck('id')->toArray());
-        $category_id = $this->faker->randomElement(\App\Models\Category::where('category_id', $second_category_id)->pluck('id')->toArray());
+        $parent_category_id = $this->faker->randomElement(\App\Models\Category::where('parent_id', null)->pluck('id')->toArray());
+        $second_category_id = $this->faker->randomElement(\App\Models\Category::where('parent_id', $parent_category_id)->pluck('id')->toArray());
+        $category_id = $this->faker->randomElement(\App\Models\Category::where('parent_id', $second_category_id)->pluck('id')->toArray());
 //        $user_id = $this->faker->randomElement(\App\Models\User::where('user_type', 'instructor')->pluck('id')->toArray());
         $price = mt_rand(60, 100) * 1000;
 

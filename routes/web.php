@@ -30,7 +30,7 @@ Route::get('courses/{slug}/assignment/{assignment_id}', [\App\Http\Controllers\C
 Route::get('courses/{slug}/quiz/{quiz_id}', [\App\Http\Controllers\QuizController::class, 'quizView'])->name('single_quiz');
 
 Route::get('topics', [\App\Http\Controllers\CategoriesController::class, 'home'])->name('categories');
-Route::get('topics/{category_slug}', [\App\Http\Controllers\CategoriesController::class, 'show'])->name('category_view');
+Route::get('topics/{category}', [\App\Http\Controllers\CategoriesController::class, 'show'])->name('category.view');
 //Get Topics Dropdown for course creation category select
 Route::post('get-topic-options', [\App\Http\Controllers\CategoriesController::class, 'getTopicOptions'])->name('get_topic_options');
 
@@ -235,4 +235,4 @@ Route::get('post/{id?}', [\App\Http\Controllers\PostController::class, 'postProx
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

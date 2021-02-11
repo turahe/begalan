@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class,
             UsersTableSeeder::class,
             OptionSeeder::class,
-            MediaTableSeeder::class,
+//            MediaTableSeeder::class,
             CategoriesTableSeeder::class,
             CoursesTableSeeder::class,
             PostsTableSeeder::class,

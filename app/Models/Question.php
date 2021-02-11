@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Question.
+ * App\Models\Question
  *
  * @property int $id
  * @property int|null $user_id
@@ -16,7 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $score
  * @property int|null $sort_order
  * @property-read mixed $image_url
- * @property-read \App\Models\Media|null $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\QuestionOption[] $options
  * @property-read int|null $options_count
  * @method static \Illuminate\Database\Eloquent\Builder|Question newModelQuery()
@@ -32,15 +35,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereUserId($value)
  * @mixin \Eloquent
  */
-class Question extends Model
+class Question extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     protected $guarded = [];
     public $timestamps = false;
 
-    public function media()
-    {
-        return $this->belongsTo(Media::class, 'image_id');
-    }
+
 
     public function options()
     {

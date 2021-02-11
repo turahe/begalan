@@ -7,11 +7,15 @@ use App\Services\Slug\SlugOptions;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Course.
+ * App\Models\Course
  *
  * @property int $id
  * @property int|null $user_id
@@ -64,8 +68,6 @@ use Illuminate\Support\Facades\DB;
  * @property-read \App\Models\Category|null $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $contents
  * @property-read int|null $contents_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attachment[] $contents_attachments
- * @property-read int|null $contents_attachments_count
  * @property-read null|array $benefits_arr
  * @property-read null|string $continue_url
  * @property-read array[] $drip_items
@@ -74,13 +76,13 @@ use Illuminate\Support\Facades\DB;
  * @property-read bool $i_am_instructor
  * @property-read bool $paid
  * @property-read null|array $requirements_arr
- * @property-read mixed $thumbnail_url
  * @property-read string $url
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $instructors
  * @property-read int|null $instructors_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $lectures
  * @property-read int|null $lectures_count
- * @property-read \App\Models\Media|null $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $quiz_attempts
  * @property-read int|null $quiz_attempts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $quizzes
@@ -138,9 +140,10 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Course whereVideoSrc($value)
  * @mixin \Eloquent
  */
-class Course extends Model
+class Course extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
     use HasSlug;
     /**
      * @var array
@@ -194,51 +197,53 @@ class Course extends Model
      */
     public function students()
     {
-        return $this->belongsToMany(User::class, 'enrolls')->where('status', 'success')->withPivot('enrolled_at');
+        return $this->belongsToMany(User::class, 'enrolls')
+            ->where('status', 'success')
+            ->withPivot('enrolled_at');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function sections()
+    public function sections(): HasMany
     {
         return $this->hasMany(Section::class)->orderBy('sort_order', 'asc');
     }
 
     /**
-     * @return mixed
+     * @return HasMany
      */
-    public function lectures()
+    public function lectures(): HasMany
     {
-        return $this->hasMany(Content::class)->whereItemType('lecture');
+        return $this->hasMany(Content::class)->where('item_type', 'lecture');
     }
 
     /**
-     * @return mixed
+     * @return HasMany
      */
-    public function assignments()
+    public function assignments(): HasMany
     {
-        return $this->hasMany(Content::class)->whereItemType('assignment');
+        return $this->hasMany(Content::class)->where('item_type', 'assignment');
     }
 
     /**
-     * @return mixed
+     * @return HasMany
      */
-    public function quizzes()
+    public function quizzes(): HasMany
     {
-        return $this->hasMany(Content::class)->whereItemType('quiz');
+        return $this->hasMany(Content::class)->where('item_type', 'quiz');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function quiz_attempts()
     {
@@ -246,7 +251,7 @@ class Course extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function assignment_submissions()
     {
@@ -254,27 +259,20 @@ class Course extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function assignment_submissions_waiting()
     {
-        return $this->hasMany(AssignmentSubmission::class)->where('is_evaluated', '<', 1);
+        return $this->hasMany(AssignmentSubmission::class)
+            ->where('is_evaluated', '<', 1);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function contents()
+    public function contents(): HasMany
     {
         return $this->hasMany(Content::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function contents_attachments()
-    {
-        return $this->hasMany(Attachment::class, 'belongs_course_id', 'id');
     }
 
     /**
@@ -285,7 +283,7 @@ class Course extends Model
         DB::table('course_user')->where('course_id', $this->id)->delete();
         $this->sections()->delete();
         $this->contents()->delete(); //Delete lecture, assignments, quiz
-        $this->contents_attachments()->delete();
+//        $this->contents_attachments()->delete();
         $this->assignment_submissions()->delete();
         DB::table('completes')->where('course_id', $this->id)->delete();
         DB::table('completes')->whereCourseId('completed_course_id', $this->id)->delete();
@@ -299,7 +297,6 @@ class Course extends Model
      */
     public function sync_everything()
     {
-        $now = Carbon::now()->toDateTimeString();
 
         $course = $this;
         $course_runtime = $course->lectures->sum('video_time');
@@ -311,16 +308,8 @@ class Course extends Model
         $course->total_lectures = $total_lectures;
         $course->total_assignments = $total_assignments;
         $course->total_quiz = $total_quiz;
-        $course->last_updated_at = $now;
+        $course->last_updated_at = now()->toDateTimeString();
         $course->save();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function media()
-    {
-        return $this->belongsTo(Media::class, 'thumbnail_id');
     }
 
     /**
@@ -329,14 +318,6 @@ class Course extends Model
     public function getUrlAttribute()
     {
         return route('course', $this->slug);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getThumbnailUrlAttribute()
-    {
-        return media_image_uri($this->media)->image_sm;
     }
 
     /**
@@ -394,7 +375,7 @@ class Course extends Model
             $user = Auth::user();
         }
         if (! $user instanceof User) {
-            $user = \App\User::find($user);
+            $user = User::find($user);
         }
 
         $completed_course = (array) $user->get_option('completed_courses');
@@ -457,8 +438,7 @@ class Course extends Model
             return null;
         }
 
-        $user_id = Auth::user()->id;
-        $completed_ids = Complete::whereUserId($user_id)->whereCourseId($this->id)->pluck('content_id')->toArray();
+        $completed_ids = Complete::whereUserId(Auth::id())->whereCourseId($this->id)->pluck('content_id')->toArray();
 
         $content = Content::whereCourseId($this->id)->whereNotIn('id', $completed_ids)->orderBy('sort_order', 'asc')->first();
 

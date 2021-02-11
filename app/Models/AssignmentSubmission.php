@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Models\AssignmentSubmission.
@@ -45,9 +47,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  */
-class AssignmentSubmission extends Model
+class AssignmentSubmission extends Model implements HasMedia
 {
+    use InteractsWithMedia;
     /**
      * @var array
      */
@@ -60,16 +65,9 @@ class AssignmentSubmission extends Model
         'evaluated_at' => 'datetime',
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function attachments(): HasMany
-    {
-        return $this->hasMany(Attachment::class);
-    }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function student(): BelongsTo
     {
@@ -77,7 +75,7 @@ class AssignmentSubmission extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function assignment(): BelongsTo
     {
@@ -85,7 +83,7 @@ class AssignmentSubmission extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function course(): BelongsTo
     {
@@ -93,7 +91,7 @@ class AssignmentSubmission extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function instructor(): BelongsTo
     {

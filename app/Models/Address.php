@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Master\City;
+use App\Models\Master\Country;
 use App\Models\Master\District;
 use App\Models\Master\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,6 +56,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Address withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Address withoutTrashed()
  * @mixin \Eloquent
+ * @property-read City $city
+ * @property-read \App\Models\Country $country
+ * @property-read District|null $district
+ * @property-read State $state
+ * @property-read \App\Models\User $user
  */
 class Address extends Model
 {

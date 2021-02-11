@@ -1,4 +1,6 @@
-@extends('layouts.theme')
+@extends('theme::layouts.theme', [
+    'title' => 'Home page'
+])
 
 
 @section('content')
@@ -190,7 +192,7 @@
                         <div class="col-lg-4 mb-4">
                             <div class="home-blog-card">
                                 <a href="{{$post->url}}">
-                                    <img src="{{$post->thumbnail_url->image_md}}" alt="{{$post->title}}"
+                                    <img src="{{$post->getFirstMediaUrl()}}" alt="{{$post->title}}"
                                          class="img-fluid">
                                 </a>
                                 <div class="excerpt px-4">
