@@ -22,13 +22,11 @@ class PostFactory extends Factory
     public function definition()
     {
         $title = $this->faker->unique()->sentence;
-        $image = $this->faker->randomElement(\App\Models\Media::pluck('id')->toArray());
 
         return [
             'user_id' => 1,
             'title' => $title,
             'post_content' => implode("\n\n", $this->faker->paragraphs(mt_rand(3, 6))),
-            'feature_image' => $image,
             'type' => $this->faker->randomElement(['post', 'page']),
             'status' => $this->faker->boolean,
         ];

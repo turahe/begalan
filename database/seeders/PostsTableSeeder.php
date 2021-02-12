@@ -68,7 +68,6 @@ class PostsTableSeeder extends Seeder
 
             return $markdown->convertToHtml($text);
         } catch (\Exception $exception) {
-            $exception->getMessage();
         }
     }
 }
