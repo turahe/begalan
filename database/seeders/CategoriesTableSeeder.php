@@ -12,11 +12,21 @@ class CategoriesTableSeeder extends Seeder
      * Run the database seeders.
      *
      * @return void
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */
     public function run()
     {
         foreach ($this->defaultCategories as $category) {
-            Category::updateOrCreate($category);
+
+            $category = Category::updateOrCreate($category);
+            if (app()->environment('staging')) {
+                $category->addMedia(storage_path('app/seeds/images/'.mt_rand(1, 20).'.jpg'))
+                    ->preservingOriginal()
+                    ->withResponsiveImages()
+                    ->toMediaCollection();
+            }
+
         }
     }
 

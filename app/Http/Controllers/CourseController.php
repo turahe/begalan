@@ -29,8 +29,13 @@ class CourseController extends Controller
     public function view(string $slug)
     {
         $course = Course::whereSlug($slug)
-            ->with('sections', 'sections.items', 'sections.items.attachments')
+            ->with('sections', 'sections.items', 'sections.items.media')
             ->first();
+
+//        dd($course->media->count());
+//        $lectures_count = $course->lectures->count();
+//        $assignments_count = $course->assignments->count();
+//        $attachments_count = $course->media->count();
 
         if (! $course) {
             abort(404);

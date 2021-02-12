@@ -1,4 +1,6 @@
-@extends('layouts.theme')
+@extends('theme::layouts.theme', [
+    'title' => $course->title
+])
 
 @section('content')
 
@@ -115,7 +117,7 @@
                                     @php
                                         $lectures_count = $course->lectures->count();
                                         $assignments_count = $course->assignments->count();
-                                        $attachments_count = $course->contents_attachments->count();
+                                        $attachments_count = $course->media->count();
                                     @endphp
 
                                     <ul>
@@ -232,7 +234,7 @@
                                                             @endif
                                                         </span>
 
-                                                        @if($item->attachments->count())
+                                                        @if($item->media->count())
                                                             <span class="section-item-attachments mr-3" data-toggle="tooltip" title="{{__t('dl_resource_available')}}">
                                                                 <i class="las la-paperclip"></i>
                                                             </span>

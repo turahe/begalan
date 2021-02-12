@@ -48,14 +48,6 @@ class CreateCoursesTable extends Migration
             $table->tinyInteger('total_assignments')->default(0)->nullable();
             $table->tinyInteger('total_quiz')->default(0)->nullable();
 
-            $table->decimal('rating_value', 3)->default(0)->nullable();
-            $table->tinyInteger('rating_count')->default(0)->nullable();
-            $table->tinyInteger('five_star_count')->default(0)->nullable();
-            $table->tinyInteger('four_star_count')->default(0)->nullable();
-            $table->tinyInteger('three_star_count')->default(0)->nullable();
-            $table->tinyInteger('two_star_count')->default(0)->nullable();
-            $table->tinyInteger('one_star_count')->default(0)->nullable();
-
             $table->tinyInteger('is_featured')->nullable();
             $table->timestamp('featured_at')->nullable();
             $table->tinyInteger('is_popular')->nullable();
@@ -63,6 +55,7 @@ class CreateCoursesTable extends Migration
 
             $table->timestamp('last_updated_at')->nullable();
             $table->timestamp('published_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

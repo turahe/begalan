@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();
 
-        View::share('categories', Category::parent()->get());
+        View::share('categories', Category::with('sub_categories')->parent()->get());
 
 //        Membuat Directive Custom Untuk Format Mata Uang
 
