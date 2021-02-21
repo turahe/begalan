@@ -8,38 +8,38 @@
             <dd> {{get_option('bank_gateway.bank_name') }}</dd>
         </dl>
         <dl class="param mb-2 col-sm-6">
-            <dt>{{__t('account_number')}}: </dt>
+            <dt>@lang('theme.account_number')}}: </dt>
             <dd> {{get_option('bank_gateway.account_number') }} </dd>
         </dl>
         <dl class="param mb-2 col-sm-6">
-            <dt>{{__t('branch_name')}}</dt>
+            <dt>@lang('theme.branch_name')}}</dt>
             <dd>{{get_option('bank_gateway.branch_name') }}</dd>
         </dl>
 
         <dl class="param mb-2 col-sm-6">
-            <dt>{{__t('branch_address')}}</dt>
+            <dt>@lang('theme.branch_address')}}</dt>
             <dd>{{get_option('bank_gateway.branch_address') }}</dd>
         </dl>
 
         <dl class="param mb-2 col-sm-6">
-            <dt>{{__t('account_name')}}</dt>
+            <dt>@lang('theme.account_name')}}</dt>
             <dd>{{get_option('bank_gateway.account_name') }}</dd>
         </dl>
 
         <dl class="param mb-2 col-sm-6">
-            <dt>{{__t('iban')}}: </dt>
+            <dt>@lang('theme.iban')}}: </dt>
             <dd> {{get_option('bank_gateway.iban') }}</dd>
         </dl>
 
         <dl class="param mb-2 col-sm-6">
-            <dt>{{__t('bank_swift_code')}}: </dt>
+            <dt>@lang('theme.bank_swift_code')}}: </dt>
             <dd> {{get_option('bank_gateway.bank_swift_code') }}</dd>
         </dl>
     </div>
 
     <div class="alert alert-warning mt-2 mb-3 border p-4">
         <h5 class="alert-heading"><strong>Note:</strong> Write above Bank information, you need to pay at this bank account manually. </h5>
-        <p class="text-muted">{{__t('bank_payment_instruction')}}</p>
+        <p class="text-muted">@lang('theme.bank_payment_instruction')}}</p>
     </div>
 
     <div class="row">
@@ -51,21 +51,21 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="bank_swift_code"> {{__t('bank_swift_code')}} </label>
+                            <label for="bank_swift_code"> @lang('theme.bank_swift_code')}} </label>
                             <input type="text" class="form-control" id="bank_swift_code" value="{{ old('bank_swift_code') }}" name="bank_swift_code">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="account_number"> {{__t('account_number')}} </label>
+                            <label for="account_number"> @lang('theme.account_number')}} </label>
                             <input type="text" class="form-control" id="account_number" value="{{ old('account_number') }}" name="account_number" required/>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="branch_name"> {{__t('branch_name')}} </label>
+                            <label for="branch_name"> @lang('theme.branch_name')}} </label>
                             <input type="text" class="form-control" id="branch_name" value="{{ old('branch_name') }}" name="branch_name" >
 
                         </div>
@@ -73,14 +73,14 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="branch_address"> {{__t('branch_address')}} </label>
+                            <label for="branch_address"> @lang('theme.branch_address')}} </label>
                             <input type="text" class="form-control" id="branch_address" value="{{ old('branch_address') }}" name="branch_address" required/>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="account_name" >{{__t('account_name')}} </label>
+                            <label for="account_name" >@lang('theme.account_name')}} </label>
 
                             <input type="text" class="form-control" id="account_name" value="{{ old('account_name') }}" name="account_name" required />
 
@@ -89,7 +89,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="iban" >{{__t('iban')}}</label>
+                            <label for="iban" >@lang('theme.iban')}}</label>
                             <input type="text" class="form-control" id="iban" value="{{ old('iban') }}" name="iban">
                         </div>
                     </div>

@@ -46,8 +46,6 @@ class CategoriesController extends Controller
      */
     public function home()
     {
-        $title = __t('topics');
-
         return view('theme::categories', compact('title'));
     }
 }

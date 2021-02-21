@@ -2,9 +2,9 @@
 
 @if($hasGateways)
     <div class="section-payment-methods-wrap">
-        <h4>{{__t('payment_information')}}</h4>
+        <h4>@lang('theme.payment_information')}}</h4>
 
-        <p class="text-muted"> <i class="las la-lock"></i> {{__t('payment_secure_text')}}</p>
+        <p class="text-muted"> <i class="las la-lock"></i> @lang('theme.payment_secure_text')}}</p>
 
         <div class="checkout-section checkout-payment-methods-wrap bg-white p-4 mt-3">
 
@@ -81,7 +81,7 @@
                                 <div id="card-errors" class="text-danger mb-3" role="alert"></div>
 
                                 <button type="submit" class="btn btn-purple" id="stripe-payment-form-btn">
-                                    <span class="enroll-course-btn-text mr-4 border-right pr-4">{{__t('enroll_in_course')}}</span>
+                                    <span class="enroll-course-btn-text mr-4 border-right pr-4">@lang('theme.enroll_in_course')}}</span>
                                     <span class="enroll-course-btn-price">{!! price_format($cart->total_amount) !!}</span>
                                 </button>
                             </form>

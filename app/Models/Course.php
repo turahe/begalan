@@ -374,7 +374,7 @@ class Course extends Model implements HasMedia, LikeableContract
 
                 if ($showOff) {
                     $discount = number_format(100 - ($this->sale_price * 100 / $this->price), 2);
-                    $offText = $discount.'% '.__t('off');
+                    $offText = $discount.'% '.__('theme.off');
                     $price_html .= " <span class='discount-text mr-2'>{$offText}</span>";
                 }
             }
@@ -383,7 +383,7 @@ class Course extends Model implements HasMedia, LikeableContract
                 $price_html .= " <span class='current-price'>{$current_price}</span>";
             }
         } else {
-            $price_html .= '<span class="free-text mr-2">'.__t('free').'</span>';
+            $price_html .= '<span class="free-text mr-2">'.__('theme.free').'</span>';
         }
         $price_html .= '</div>';
 
@@ -400,21 +400,21 @@ class Course extends Model implements HasMedia, LikeableContract
 
         $class = $badge ? 'badge badge' : 'status-text text';
 
-        $html = "<span class='{$class}-dark'> <i class='la la-pencil-square-o'></i> ".__t('draft').'</span>';
+        $html = "<span class='{$class}-dark'> <i class='la la-pencil-square-o'></i> ".__('theme.draft').'</span>';
 
         switch ($status) {
             case 1:
-                $html = "<span class='{$class}-success'> <i class='la la-check-circle'></i> ".__t('published').'</span>';
+                $html = "<span class='{$class}-success'> <i class='la la-check-circle'></i> ".__('theme.published').'</span>';
                 break;
             case 2:
-                $html = "<span class='{$class}-info'> <i class='la la-clock-o'></i> ".__t('pending').'</span>';
+                $html = "<span class='{$class}-info'> <i class='la la-clock-o'></i> ".__('theme.pending').'</span>';
                 break;
             case 3:
-                $html = "<span class='{$class}-danger'> <i class='la la-ban'></i> ".__t('blocked').'</span>';
+                $html = "<span class='{$class}-danger'> <i class='la la-ban'></i> ".__('theme.blocked').'</span>';
 
                 break;
             case 4:
-                $html = "<span class='{$class}-warning'> <i class='la la-exclamation-circle'></i> ".__t('unpublished').'</span>';
+                $html = "<span class='{$class}-warning'> <i class='la la-exclamation-circle'></i> ".__('theme.unpublished').'</span>';
                 break;
         }
 

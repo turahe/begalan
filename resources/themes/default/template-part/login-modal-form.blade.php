@@ -4,7 +4,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="las la-sign-in"></i> {{__t('login')}} </h5>
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="las la-sign-in"></i>
+                    @lang('theme.login')
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,7 +23,7 @@
                     <input type="hidden" name="_request_from" value="login_modal">
 
                     <div class="form-group">
-                        <label>{{ __('E-Mail Address') }}</label>
+                        <label>@lang('theme.E-Mail Address')</label>
 
                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
@@ -32,7 +35,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>{{ __('Password') }}</label>
+                        <label>@lang('theme.Password')</label>
                         <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                         @if ($errors->has('password'))
@@ -45,18 +48,19 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
+                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                @lang('theme.Remember Me')
                             </label>
                         </div>
                     </div>
 
                     <div class="form-group mb-0">
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Login') }}
+                            @lang('theme.Login')
                         </button>
 
                         <a class="btn btn-link" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
+                            @lang('theme.Forgot Your Password?')
                         </a>
                     </div>
                 </form>

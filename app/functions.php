@@ -4,14 +4,9 @@
  * Include Laravel default helpers.
  */
 
-use App\Complete;
-use App\Content;
-use App\Post;
-use App\Review;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-require __DIR__.'/helpers.php';
 require __DIR__.'/theme_functions.php';
 
 /*
@@ -161,7 +156,7 @@ if (! function_exists('get_from_array')) {
     function get_from_array($key = null, $arr = [])
     {
         if (strpos($key, '.') === false) {
-            $value = array_get($arr, $key);
+            $value = Arr::get($arr, $key);
             if ($value) {
                 if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
                     $value = json_decode(substr($value, 18), true);
@@ -173,13 +168,13 @@ if (! function_exists('get_from_array')) {
             $firstKey = substr($key, 0, strpos($key, '.'));
             $secondKey = substr($key, strpos($key, '.') + 1);
 
-            $value = array_get($arr, $firstKey);
+            $value = Arr::get($arr, $firstKey);
             if ($value) {
                 if (is_string($value) && substr($value, 0, 18) === 'json_encode_value_') {
                     $value = json_decode(substr($value, 18), true);
                 }
 
-                return array_get($value, $secondKey);
+                return Arr::get($value, $secondKey);
             }
         }
 
@@ -218,23 +213,23 @@ if (! function_exists('delete_option')) {
  *
  * return theme translation from theme directory
  */
-if (! function_exists('__t')) {
-    /**
-     * @param null $key
-     * @return array|mixed|null
-     */
-    function __t($key = null)
-    {
-        $language = config('lang_str');
-        $text = array_get($language, $key);
-
-        if ($text) {
-            return  $text;
-        }
-
-        return $key;
-    }
-}
+//if (! function_exists('__')) {
+//    /**
+//     * @param null $key
+//     * @return array|mixed|null
+//     */
+//    function __($key = null)
+//    {
+//        $language = config('lang_str');
+//        $text = Arr::get($language, $key);
+//
+//        if ($text) {
+//            return  $text;
+//        }
+//
+//        return $key;
+//    }
+//}
 
 /*
  * @param null $key
@@ -1150,16 +1145,16 @@ if (! function_exists('icon_classes')) {
 function course_levels($level = null)
 {
     $levels = [
-        1 => __t('beginner'),
-        2 => __t('intermediate'),
-        3 => __t('expert'),
-        0 => __t('all_level'),
+        1 => __('theme.beginner'),
+        2 => __('theme.intermediate'),
+        3 => __('theme.expert'),
+        0 => __('theme.all_level'),
     ];
 
     if ($level !== null) {
         $level = (int) $level;
 
-        return array_get($levels, $level);
+        return Arr::get($levels, $level);
     }
 
     return apply_filters('course_levels', $levels);
@@ -1198,7 +1193,7 @@ if (! function_exists('cart')) {
         $data = (array) session('cart');
 
         if ($course_id) {
-            return array_get($data, $course_id);
+            return Arr::get($data, $course_id);
         }
 
         $total_price = array_sum(array_column(array_values($data), 'price'));
@@ -1374,7 +1369,7 @@ if (! function_exists('course_card')) {
      */
     function course_card($course, $grid_class = null)
     {
-        return view('default.template-part.course-loop', compact('course', 'grid_class'));
+        return view('theme::template-part.course-loop', compact('course', 'grid_class'));
     }
 }
 
@@ -1485,8 +1480,8 @@ if (! function_exists('no_data')) {
      */
     function no_data($title = '', $desc = '', $class = null)
     {
-        $title = $title ? $title : __t('nothing_here');
-        $desc = $desc ? $desc : __t('nothing_here_desc');
+        $title = $title ? $title : __('nothing_here');
+        $desc = $desc ? $desc : __('nothing_here_desc');
         $class = $class ? $class : 'my-4 pb-4';
         $no_data_img = asset('assets/images/no-data.png');
 
@@ -1589,7 +1584,7 @@ if (! function_exists('active_withdraw_methods')) {
             }
         }
         if ($method_key) {
-            return array_get($methods, $method_key);
+            return Arr::get($methods, $method_key);
         }
 
         return $methods;
@@ -1608,14 +1603,14 @@ if (! function_exists('question_types')) {
     function question_types($type = null)
     {
         $types = [
-            'radio' => __t('single_choice'),
-            'checkbox' => __t('multiple_choice'),
-            'text' => __t('single_line_text'),
-            'textarea' => __t('multi_line_text'),
+            'radio' => __('single_choice'),
+            'checkbox' => __('multiple_choice'),
+            'text' => __('single_line_text'),
+            'textarea' => __('multi_line_text'),
         ];
 
         if ($type) {
-            return array_get($types, $type);
+            return Arr::get($types, $type);
         }
 
         return apply_filters('questions_types', $types);
@@ -1751,7 +1746,7 @@ if (! function_exists('cookie_message_html')) {
     {
         $msg = get_option('cookie_alert.message');
 
-        $link = "<a href='".route('post_proxy', get_option('privacy_policy_page'))."'>".__t('read_privacy_policy').'</a>';
+        $link = "<a href='".route('post_proxy', get_option('privacy_policy_page'))."'>".__('read_privacy_policy').'</a>';
         $msg = str_replace('{privacy_policy_url}', $link, $msg);
 
         return '<div class="cookie_notice_popup">
@@ -1802,7 +1797,7 @@ if (! function_exists('optionalGetValueOrValueIsEqual')) {
 
 function generateBreadcrumb($category)
 {
-    $homeUrl = "<li class='breadcrumb-item'><a href='".route('home')."'><i class='la la-home'></i>  ".__t('home')."</a></li><li class='breadcrumb-item'><a href='".route('categories')."'>".__t('topics').'</a></li>';
+    $homeUrl = "<li class='breadcrumb-item'><a href='".route('home')."'><i class='la la-home'></i>  ".__('home')."</a></li><li class='breadcrumb-item'><a href='".route('categories')."'>".__('topics').'</a></li>';
 
     $breadCumb = "<ol class='breadcrumb mb-0'>".$homeUrl;
 

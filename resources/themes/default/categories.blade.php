@@ -1,8 +1,8 @@
-@extends('layouts.theme')
+@extends('theme::layouts.theme')
 
 @php
-    $categories = \App\Models\Category::parent()->whereStatus(1)->get();
-    $categoriesWithCourses = \App\Models\Category::parent()->has('courses')->whereStatus(1)->get();
+    $categories = \App\Models\Category::where('parent_id', null)->get();
+    $categoriesWithCourses = \App\Models\Category::where('parent_id', null)->has('courses')->get();
 @endphp
 
 @section('content')

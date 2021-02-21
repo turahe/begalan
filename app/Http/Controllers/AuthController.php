@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 /**
@@ -22,8 +23,6 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $title = __t('login');
-
         return view('theme::auth.login', compact('title'));
     }
 
@@ -71,8 +70,6 @@ class AuthController extends Controller
      */
     public function register()
     {
-        $title = __t('signup');
-
         return view('theme::auth.register', compact('title'));
     }
 
@@ -133,8 +130,6 @@ class AuthController extends Controller
      */
     public function forgotPassword()
     {
-        $title = __t('forgot_password');
-
         return view('theme::auth.forgot_password', compact('title'));
     }
 
@@ -154,7 +149,7 @@ class AuthController extends Controller
             return back()->with('error', __t('email_not_found'));
         }
 
-        $user->reset_token = str_random(32);
+        $user->reset_token = Str::random(32);
         $user->save();
 
         try {
@@ -171,8 +166,6 @@ class AuthController extends Controller
      */
     public function passwordResetForm()
     {
-        $title = __t('reset_your_password');
-
         return view('theme::auth.reset_form', compact('title'));
     }
 
@@ -184,9 +177,6 @@ class AuthController extends Controller
      */
     public function passwordReset(Request $request, $token)
     {
-        if (config('app.is_demo')) {
-            return redirect()->back()->with('error', 'This feature has been disable for demo');
-        }
         $rules = [
             'password'  => 'required|confirmed',
             'password_confirmation'  => 'required',

@@ -1,4 +1,4 @@
-@extends('layouts.theme', [
+@extends('theme::layouts.theme', [
     'title' => __('front.checkout_pay')
 ])
 

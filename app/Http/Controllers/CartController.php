@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Midtrans\Config;
 use Midtrans\Snap;
 
@@ -33,7 +35,7 @@ class CartController extends Controller
 
         $cartData = (array) session('cart');
         $cartData[$course->id] = [
-            'hash'              => str_random(),
+            'hash'              => Str::random(),
             'course_id'         => $course->id,
             'title'             => $course->title,
             'price'             => $course->get_price,
@@ -64,7 +66,7 @@ class CartController extends Controller
     public function removeCart(Request $request)
     {
         $cartData = (array) session('cart');
-        if (array_get($cartData, $request->cart_id)) {
+        if (Arr::get($cartData, $request->cart_id)) {
             unset($cartData[$request->cart_id]);
         }
         session(['cart' => $cartData]);

@@ -16,18 +16,6 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
-     * Showing for demo purpose
-     */
-    'is_demo' => env('IS_DEMO', false),
-
-    //Version
-    'version' => defined('TEACHIFY_VERSION') ? TEACHIFY_VERSION : '2.3.0',
-
-    'unique_slug' => 'teachify-lms',
-
-    'products_api' => 'https://www.themeqx.com/wp-json/extendable/plugin-themes',
-
-    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
@@ -51,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', true),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +52,7 @@ return [
     |
     */
 
-    //'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -92,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'id',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'id',
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -113,12 +101,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | This locale will be used by the Faker PHP library when generating fake
-    | data for your database seeders. For example, this will be used to get
+    | data for your database seeds. For example, this will be used to get
     | localized telephone numbers, street address information and more.
     |
     */
 
-    'faker_locale' => 'id_ID',
+    'faker_locale' => 'en_US',
 
     /*
     |--------------------------------------------------------------------------
@@ -131,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'base64:ncl0ff7LnuMWRtndahBiGKYDfkHSviLSFQiwgdWtS1A='),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -193,11 +181,6 @@ return [
 
 //        \App\Module\PluginServiceProvider::class,
 
-        /*
-         * Debugbar
-         */
-        Intervention\Image\ImageServiceProvider::class,
-
     ],
 
     /*
@@ -249,13 +232,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
-        /*
-         * Application Specific aliases
-         */
-
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

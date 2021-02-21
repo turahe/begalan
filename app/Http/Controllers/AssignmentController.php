@@ -21,11 +21,9 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-        $title = __t('assignments');
-        $user = Auth::user();
-        $courses = $user->courses()->has('assignments')->get();
+        $courses = Auth::user()->courses()->has('assignments')->get();
 
-        return view('theme::dashboard.assignments.index', compact('title', 'courses'));
+        return view('theme::dashboard.assignments.index', compact( 'courses'));
     }
 
     /**
@@ -36,11 +34,10 @@ class AssignmentController extends Controller
      */
     public function assignmentsByCourse($course_id)
     {
-        $title = __t('assignments');
         $course = Course::find($course_id);
         $assignments = $course->assignments()->with('submissions')->paginate(50);
 
-        return view('theme::dashboard.assignments.assignments', compact('title', 'course', 'assignments'));
+        return view('theme::dashboard.assignments.assignments', compact('course', 'assignments'));
     }
 
     /**
@@ -49,7 +46,6 @@ class AssignmentController extends Controller
      */
     public function submissions($assignment_id)
     {
-        $title = __('assignment_submissions');
         $assignment = Content::find($assignment_id);
         $submissions = $assignment->submissions()->paginate(50);
 
@@ -64,7 +60,6 @@ class AssignmentController extends Controller
      */
     public function submission($submission_id)
     {
-        $title = __t('submission');
         $submission = AssignmentSubmission::find($submission_id);
 
         return view('theme::dashboard.assignments.submission', compact('title', 'submission'));
@@ -86,7 +81,7 @@ class AssignmentController extends Controller
         $rules = ['give_numbers' => "required|numeric|max:{$max_number}"];
         $this->validate($request, $rules);
 
-        $user_id = Auth::user()->id;
+        $user_id = Auth::id();
         $time_now = Carbon::now()->toDateTimeString();
 
         $data = [

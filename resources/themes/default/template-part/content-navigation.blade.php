@@ -9,7 +9,7 @@
 
 <div class="lecture-header d-flex">
     <div class="lecture-header-left d-flex">
-        <a href="{{route('course', $course->slug)}}" class="back-to-curriculum" data-toggle="tooltip" title="{{__t('go_to_course')}}">
+        <a href="{{route('course', $course->slug)}}" class="back-to-curriculum" data-toggle="tooltip" title="@lang('theme.go_to_course')}}">
             <i class="las la-angle-left"></i>
         </a>
 
@@ -18,7 +18,7 @@
         @if($auth_user && ! $auth_user->is_completed_course($course->id))
             <form action="{{route('course_complete', $course->id)}}" method="post" class="ml-auto">
                 @csrf
-                <button type="submit" href="javascript:;" class="nav-icon-complete-course btn btn-success ml-auto" data-toggle="tooltip" title="{{__t('complete_course')}}" >
+                <button type="submit" href="javascript:;" class="nav-icon-complete-course btn btn-success ml-auto" data-toggle="tooltip" title="@lang('theme.complete_course')}}" >
                     <i class="las la-check-circle"></i>
                 </button>
             </form>
@@ -31,12 +31,12 @@
 
                 <span class="nav-text">
                     <i class="las la-arrow-left"></i>
-                    {{__t('previous')}} {{__t($previous->item_type)}}
+                    @lang('theme.previous')}} @lang($theme.previous->item_type)}}
                 </span>
             </a>
         @else
             <a class="nav-btn disabled" id="lecture_previous_button">
-                <span class="nav-text"><i class="las la-arrow-left"></i>{{__t('previous')}}</span>
+                <span class="nav-text"><i class="las la-arrow-left"></i>@lang('theme.previous')}}</span>
             </a>
         @endif
 
@@ -45,9 +45,9 @@
                 <a class="nav-btn" href="{{route('content_complete', $content->id )}}" id="lecture_complete_button">
                     <span class="nav-text">
                         @if($is_completed)
-                            {{__t('next')}} {{$next ? __t($next->item_type) : ''}}
+                            @lang('theme.next')}} {{$next ? __t($next->item_type) : ''}}
                         @else
-                            {{__t('complete_continue')}}
+                            @lang('theme.complete_continue')}}
                         @endif
 
                         <i class="las la-arrow-right"></i>
@@ -55,7 +55,7 @@
                 </a>
             @else
                 <a class="nav-btn" href="{{route('single_'.$next->item_type, [$course->slug, $next->id ] )}}" id="lecture_complete_button">
-                    <span class="nav-text">{{__t('next')}} {{$next ? __t($next->item_type) : ''}} <i class="las la-arrow-right"></i></span>
+                    <span class="nav-text">@lang('theme.next')}} {{$next ? __t($next->item_type) : ''}} <i class="las la-arrow-right"></i></span>
 
                 </a>
             @endif
@@ -64,16 +64,16 @@
             @if($content->item_type === 'lecture')
                 @if($is_completed)
                     <a class="nav-btn disabled" id="lecture_complete_button">
-                        <span class="nav-text">{{__t('complete')}} </span>
+                        <span class="nav-text">@lang('theme.complete')}} </span>
                     </a>
                 @else
                     <a class="nav-btn" href="{{route('content_complete', $content->id)}}" id="lecture_complete_button">
-                        <span class="nav-text"> <i class="las la-check-circle"></i> {{__t('complete')}} </span>
+                        <span class="nav-text"> <i class="las la-check-circle"></i> @lang('theme.complete')}} </span>
                     </a>
                 @endif
             @else
                 <a class="nav-btn disabled" id="lecture_complete_button">
-                    <span class="nav-text">{{__t('next')}} <i class="las la-arrow-right"></i></span>
+                    <span class="nav-text">@lang('theme.next')}} <i class="las la-arrow-right"></i></span>
                 </a>
             @endif
 

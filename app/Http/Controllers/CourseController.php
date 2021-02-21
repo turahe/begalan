@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Courses\CourseStoreRequest;
 use App\Models\AssignmentSubmission;
-use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\Course;
@@ -381,12 +380,10 @@ class CourseController extends Controller
     /**
      * @param Request $request
      * @return array|bool[]
+     * @throws \Exception
      */
     public function deleteSection(Request $request)
     {
-        if (config('app.is_demo')) {
-            return ['success' => false, 'msg' => __t('demo_restriction')];
-        }
 
         $section = Section::find($request->section_id);
         $course = $section->course;
@@ -450,6 +447,7 @@ class CourseController extends Controller
     /**
      * @param Request $request
      * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function loadContents(Request $request)
     {

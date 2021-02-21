@@ -12,9 +12,9 @@
                 <div class="col-md-12 col-lg-6">
 
                     <div class="hero-left-wrap">
-                        <h1 class="hero-title mb-4">@lang('hero_title')</h1>
+                        <h1 class="hero-title mb-4">@lang('theme.hero_title')</h1>
                         <p class="hero-subtitle  mb-4">
-                            @lang('hero_subtitle')
+                            @lang('theme.hero_subtitle')
                         </p>
                         <a href="{{route('categories')}}" class="btn btn-theme-primary btn-lg">Browse Course</a>
                     </div>
@@ -81,14 +81,14 @@
                     <div class="col-md-12">
                         <div class="section-header-wrap">
                             <h3 class="section-title">
-                                @lang('featured_courses')
+                                @lang('theme.featured_courses')
 
                                 <a href="{{route('featured_courses')}}" class="btn btn-link float-right">
                                     <i
-                                            class="las la-bookmark"></i> @lang('all_featured_courses')</a>
+                                            class="las la-bookmark"></i> @lang('theme.all_featured_courses')</a>
                             </h3>
 
-                            <p class="section-subtitle">@lang('featured_courses_desc')}}</p>
+                            <p class="section-subtitle">@lang('theme.featured_courses_desc')}}</p>
                         </div>
                     </div>
                 </div>
@@ -124,19 +124,24 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-header-wrap">
-                            <h3 class="section-title">@lang('popular_courses')
+                            <h3 class="section-title">@lang('theme.popular_courses')
 
-                                <a href="{{route('popular_courses')}}" class="btn btn-link float-right"><i
-                                            class="las la-bolt"></i> @lang('all_popular_courses')</a>
+                                <a href="{{route('popular_courses')}}" class="btn btn-link float-right">
+                                    <i class="las la-bolt"></i>
+                                    @lang('theme.all_popular_courses')
+                                </a>
                             </h3>
-                            <p class="section-subtitle">@lang('popular_courses_desc')</p>
+                            <p class="section-subtitle">
+                                @lang('theme.popular_courses_desc')
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="popular-courses-cards-wrap mt-3">
                     <div class="row">
                         @foreach($featured_courses as $course)
-                            {!! course_card($course) !!}
+
+                            @include('theme::template-part.course-loop', ['course' => $course])
                         @endforeach
                     </div>
                 </div>
@@ -151,12 +156,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-header-wrap">
-                            <h3 class="section-title">@lang('new_arrival')
+                            <h3 class="section-title">@lang('theme.new_arrival')
 
-                                <a href="{{route('courses')}}" class="btn btn-link float-right"><i
-                                            class="las la-list"></i> @lang('all_courses')</a>
+                                <a href="{{route('courses')}}" class="btn btn-link float-right">
+                                    <i
+                                            class="las la-list"></i>
+                                    @lang('theme.all_courses')
+                                </a>
                             </h3>
-                            <p class="section-subtitle">@lang('new_arrival_desc')</p>
+                            <p class="section-subtitle">
+                                @lang('theme.new_arrival_desc')
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -180,8 +190,8 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="section-header-wrap">
-                            <h3 class="section-title">@lang('latest_blog_text')</h3>
-                            <p class="section-subtitle">@lang('latest_blog_desc')</p>
+                            <h3 class="section-title">@lang('theme.latest_blog_text')</h3>
+                            <p class="section-subtitle">@lang('theme.latest_blog_desc')</p>
                         </div>
                     </div>
                 </div>
@@ -293,7 +303,9 @@
                         <p>Earn new skills and enroll to the new courses. Continuous learning is only key to keep your
                             self up-to-date with modern technology.
                         </p>
-                        <a href="{{route('courses')}}" class="btn btn-theme-primary">@lang('find_new_courses')</a>
+                        <a href="{{route('courses')}}" class="btn btn-theme-primary">
+                            @lang('theme.find_new_courses')
+                        </a>
                     </div>
 
                 </div>
