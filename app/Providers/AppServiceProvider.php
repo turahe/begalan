@@ -36,15 +36,16 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();
 
-        View::share('categories', Category::with('sub_categories')->parent()->get());
-
+        $filename = storage_path('installed');
+        if (file_exists($filename)) {
+            View::share('categories', Category::with('sub_categories')->parent()->get());
+        }
 //        Membuat Directive Custom Untuk Format Mata Uang
 
         Blade::directive('currency', function ($expression) {
             return "Rp. <?php echo number_format($expression,0,',','.'); ?>";
         });
         $this->themes();
-
     }
 
     /**
@@ -56,5 +57,4 @@ class AppServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom($views, 'theme');
     }
-
 }

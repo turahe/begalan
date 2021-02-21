@@ -4,7 +4,6 @@ namespace App\Http\Pipelines\QueryFilters;
 
 /**
  * Class MaxCount.
- * @package App\Http\Pipelines\QueryFilters
  */
 class MaxCount extends Filter
 {

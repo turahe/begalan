@@ -4,7 +4,6 @@ namespace App\Http\Pipelines\QueryFilters;
 
 /**
  * Class Brand.
- * @package App\Http\Pipelines\QueryFilters
  */
 class Brand extends Filter
 {

@@ -65,7 +65,6 @@ class AssignmentSubmission extends Model implements HasMedia
         'evaluated_at' => 'datetime',
     ];
 
-
     /**
      * @return BelongsTo
      */

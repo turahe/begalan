@@ -101,6 +101,7 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         $page->delete();
+
         return  redirect()->back()->with('success', 'Page success delete');
     }
 }

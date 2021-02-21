@@ -17,7 +17,6 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-
         $categories = app(Pipeline::class)
             ->send(Category::whereStep(0))
             ->through([
@@ -27,7 +26,6 @@ class CategoryController extends Controller
             ])
             ->thenReturn()
             ->paginate($request->input('limit', 10));
-
 
         return view('admin.categories.categories', compact('categories'));
     }
@@ -115,6 +113,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+
         return redirect()->back()->with('success', 'success delete data');
     }
 }

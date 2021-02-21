@@ -4,7 +4,6 @@ namespace App\Http\Pipelines\QueryFilters;
 
 /**
  * Class Published.
- * @package App\Http\Pipelines\QueryFilters
  */
 class Published extends Filter
 {

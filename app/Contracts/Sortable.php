@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Interface Sortable.
- * @package App\Contracts
  */
 interface Sortable
 {

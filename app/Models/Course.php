@@ -179,7 +179,6 @@ class Course extends Model implements HasMedia, LikeableContract
      */
     public function sync_everything()
     {
-
         $course = $this;
         $course_runtime = $course->lectures->sum('video_time');
         $total_lectures = $course->lectures->count();

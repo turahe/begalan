@@ -7,7 +7,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Question
+ * App\Models\Question.
  *
  * @property int $id
  * @property int|null $user_id
@@ -41,8 +41,6 @@ class Question extends Model implements HasMedia
 
     protected $guarded = [];
     public $timestamps = false;
-
-
 
     public function options()
     {

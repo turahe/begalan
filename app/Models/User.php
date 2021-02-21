@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\Models\User
+ * App\Models\User.
  *
  * @property int $id
  * @property string $name
@@ -191,6 +191,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     {
         return $this->hasMany(Payment::class)->orderBy('created_at', 'desc');
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

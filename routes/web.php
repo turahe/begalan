@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('clear', [\App\Http\Controllers\HomeController::class, 'clearCache'])->name('clear_cache');
 
-
 Route::get('profile/{id}', [\App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('review/{id}', [\App\Http\Controllers\UserController::class, 'review'])->name('review');
 
@@ -40,7 +39,6 @@ Route::post('courses/free-enroll', [\App\Http\Controllers\CourseController::clas
 Route::get('attachment-download/{hash}', [\App\Http\Controllers\CourseController::class, 'attachmentDownload'])->name('attachment_download');
 
 Route::get('payment-thank-you', [\App\Http\Controllers\PaymentController::class, 'thankYou'])->name('payment_thank_you_page');
-
 
 Route::group(['middleware' => ['auth']], function () {
     // Notifications

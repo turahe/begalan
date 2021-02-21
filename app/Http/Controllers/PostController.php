@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class PostController extends Controller
 {
-
     /**
      * @param $slug
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View

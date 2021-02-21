@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 
 /**
- * Class UserController
- * @package App\Http\Controllers\Admin
+ * Class UserController.
  */
 class UserController extends Controller
 {
@@ -53,6 +52,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         User::create($request->all());
+
         return redirect()->back()->with('success', 'user was delete');
     }
 
@@ -88,6 +88,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->all());
+
         return redirect()->back()->with('success', 'user was delete');
     }
 
@@ -101,6 +102,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return redirect()->back()->with('success', 'user was delete');
     }
 }

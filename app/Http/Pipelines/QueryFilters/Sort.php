@@ -4,7 +4,6 @@ namespace App\Http\Pipelines\QueryFilters;
 
 /**
  * Class Sort.
- * @package App\Http\Pipelines\QueryFilters
  */
 class Sort extends Filter
 {

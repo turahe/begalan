@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Category
+ * App\Models\Category.
  *
  * @property int $id
  * @property string $name
@@ -75,6 +75,7 @@ class Category extends Model implements HasMedia, Sortable
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
     /**
      * Generate url category by
      * call category->url.

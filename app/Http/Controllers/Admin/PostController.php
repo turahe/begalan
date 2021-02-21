@@ -87,6 +87,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $post->update($request->all());
+
         return  redirect()->back()->with('success', 'Post success delete');
     }
 
@@ -100,6 +101,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
         return  redirect()->back()->with('success', 'Post success delete');
     }
 }

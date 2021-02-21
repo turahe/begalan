@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Content
+ * App\Models\Content.
  *
  * @property int $id
  * @property int|null $user_id

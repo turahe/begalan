@@ -44,7 +44,7 @@ class HomeController extends Controller
 
         $posts = Post::post()->publish()->take(3)->get();
 
-        return view('theme::index', compact( 'new_courses', 'featured_courses', 'popular_courses', 'posts'));
+        return view('theme::index', compact('new_courses', 'featured_courses', 'popular_courses', 'posts'));
     }
 
     /**

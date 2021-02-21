@@ -18,7 +18,6 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         foreach ($this->defaultCategories as $category) {
-
             $category = Category::updateOrCreate($category);
             if (app()->environment('staging')) {
                 $category->addMedia(storage_path('app/seeds/images/'.mt_rand(1, 20).'.jpg'))
@@ -26,7 +25,6 @@ class CategoriesTableSeeder extends Seeder
                     ->withResponsiveImages()
                     ->toMediaCollection();
             }
-
         }
     }
 

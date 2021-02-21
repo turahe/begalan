@@ -23,7 +23,7 @@ class AssignmentController extends Controller
     {
         $courses = Auth::user()->courses()->has('assignments')->get();
 
-        return view('theme::dashboard.assignments.index', compact( 'courses'));
+        return view('theme::dashboard.assignments.index', compact('courses'));
     }
 
     /**

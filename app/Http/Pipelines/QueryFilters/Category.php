@@ -4,7 +4,6 @@ namespace App\Http\Pipelines\QueryFilters;
 
 /**
  * Class Category.
- * @package App\Http\Pipelines\QueryFilters
  */
 class Category extends Filter
 {

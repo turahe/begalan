@@ -384,7 +384,6 @@ class CourseController extends Controller
      */
     public function deleteSection(Request $request)
     {
-
         $section = Section::find($request->section_id);
         $course = $section->course;
 

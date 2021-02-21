@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Notification;
 
-
 /**
  * Class PaymentController.
  */

@@ -4,7 +4,6 @@ namespace App\Http\Pipelines\QueryFilters;
 
 /**
  * Class Active.
- * @package App\Http\Pipelines\QueryFilters
  */
 class Active extends Filter
 {

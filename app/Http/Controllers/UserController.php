@@ -109,5 +109,4 @@ class UserController extends Controller
             return redirect()->back()->with('error', __a('wrong_old_password'));
         }
     }
-
 }

@@ -4,7 +4,6 @@ namespace App\Http\Pipelines\QueryFilters;
 
 /**
  * Class Shop.
- * @package App\Http\Pipelines\QueryFilters
  */
 class Shop extends Filter
 {

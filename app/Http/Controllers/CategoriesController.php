@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class CategoriesController extends Controller
 {
-
-
     /**
      * @param Request $request
      * @return array

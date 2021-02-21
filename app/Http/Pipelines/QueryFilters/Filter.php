@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 
 /**
  * Class Filter.
- * @package App\Http\Pipelines\QueryFilters
  */
 abstract class Filter
 {
