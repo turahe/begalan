@@ -22,11 +22,11 @@ class CreateMasterDistrictsTable extends Migration
             $table->boolean('status')->default(false);
             $table->timestamps();
         });
-//        Schema::table('tm_districts', function (Blueprint $table) {
-//            $table->foreign('city_id')
-//                ->references('id')->on('tm_cities')
-//                ->onDelete('cascade');
-//        });
+        Schema::table('tm_districts', function (Blueprint $table) {
+            $table->foreign('city_id')
+                ->references('id')->on('tm_cities')
+                ->onDelete('cascade');
+        });
     }
 
     /**

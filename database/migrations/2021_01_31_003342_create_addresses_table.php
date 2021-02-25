@@ -35,9 +35,12 @@ class CreateAddressesTable extends Migration
         });
 
         Schema::table('addresses', function (Blueprint $table) {
-            $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('tm_countries')->onDelete('cascade');
+            $table->foreign('state_id')->references('id')->on('tm_states')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('tm_cities')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('tm_districts')->onDelete('set null');
+            $table->foreign('village_id')->references('id')->on('tm_villages')->onDelete('set null');
         });
     }
 

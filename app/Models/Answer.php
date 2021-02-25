@@ -36,17 +36,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Answer extends Model
 {
-    /**
-     * @var array
-     */
-    protected $guarded = [];
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function question(): BelongsTo
     {

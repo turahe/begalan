@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Models\QuestionOption.
@@ -25,9 +28,23 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|QuestionOption whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|QuestionOption whereTitle($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \App\Models\Question $question
+ * @method static \Illuminate\Database\Eloquent\Builder|QuestionOption whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|QuestionOption whereUpdatedAt($value)
  */
-class QuestionOption extends Model
+class QuestionOption extends Model implements HasMedia
 {
-    protected $guarded = [];
-    public $timestamps = false;
+    use InteractsWithMedia;
+
+    /**
+     * @return BelongsTo
+     */
+    public function question(): BelongsTo
+    {
+        return $this->belongsTo(Question::class, 'question_id');
+    }
 }

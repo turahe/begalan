@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use App\Contracts\Sortable;
+use App\Services\SortableTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -30,31 +34,35 @@ use Illuminate\Support\Facades\Auth;
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereUnlockDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereUnlockDays($value)
  * @mixin \Eloquent
+ * @property string $name
+ * @property int $order_column
+ * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Section ordered(string $direction = 'asc')
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereOrderColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereUpdatedAt($value)
  */
-class Section extends Model
+class Section extends Model implements Sortable
 {
+    use SortableTrait;
     use HasFactory;
-    /**
-     * @var array
-     */
-    protected $guarded = [];
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function course()
+    public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function items()
+    public function items(): HasMany
     {
         if (Auth::check()) {
             return $this->hasMany(Content::class)

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Arr;
 
 /**
  * App\Models\Quiz.
@@ -54,6 +56,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz whereVideoSrc($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz whereVideoTime($value)
  * @mixin \Eloquent
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Quiz whereDeletedAt($value)
  */
 class Quiz extends Model
 {
@@ -67,17 +71,17 @@ class Quiz extends Model
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function questions()
+    public function questions(): HasMany
     {
         return $this->hasMany(Question::class, 'quiz_id')->with('media');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function attempts()
+    public function attempts(): HasMany
     {
         return $this->hasMany(Attempt::class, 'quiz_id');
     }
@@ -94,8 +98,8 @@ class Quiz extends Model
             $options = json_decode($this->options, true);
         }
         if ($key) {
-            if (is_array($options) && array_get($options, $key)) {
-                return array_get($options, $key);
+            if (is_array($options) && Arr::get($options, $key)) {
+                return Arr::get($options, $key);
             }
 
             return $default;

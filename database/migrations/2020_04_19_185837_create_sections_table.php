@@ -15,11 +15,17 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id')->nullable();
-            $table->string('section_name')->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->string('name');
             $table->timestamp('unlock_date')->nullable();
             $table->tinyInteger('unlock_days')->nullable();
-            $table->tinyInteger('sort_order')->default(0)->nullable();
+            $table->unsignedBigInteger('order_column');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::table('sections', function (Blueprint $table) {
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 

@@ -15,14 +15,13 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-
-            $table->integer('user_id')->nullable();
-            $table->integer('quiz_id')->nullable();
-            $table->string('title')->nullable();
-            $table->integer('image_id')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('quiz_id');
+            $table->string('title');
             $table->string('type', 20)->nullable();
             $table->decimal('score', 5, 1)->nullable();
-            $table->integer('sort_order')->nullable();
+            $table->unsignedBigInteger('order_column')->nullable();
+            $table->timestamps();
         });
     }
 

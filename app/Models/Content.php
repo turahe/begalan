@@ -10,19 +10,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Content.
+ * App\Models\Content
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $course_id
- * @property int|null $section_id
- * @property string|null $title
- * @property string|null $slug
+ * @property int $user_id
+ * @property int $course_id
+ * @property int $section_id
+ * @property string $title
+ * @property string $slug
  * @property string|null $text
  * @property string|null $video_src
  * @property int|null $video_time
@@ -34,11 +35,12 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property int|null $quiz_gradable
  * @property string|null $unlock_date
  * @property int|null $unlock_days
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $attempts
  * @property-read int|null $attempts_count
- * @property-read \App\Models\Course|null $course
+ * @property-read \App\Models\Course $course
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Discussion[] $discussions
  * @property-read int|null $discussions_count
  * @property-read object $drip
@@ -52,14 +54,16 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read Content|null $previous
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
  * @property-read int|null $questions_count
- * @property-read \App\Models\Section|null $section
+ * @property-read \App\Models\Section $section
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssignmentSubmission[] $submissions
  * @property-read int|null $submissions_count
  * @method static \Illuminate\Database\Eloquent\Builder|Content newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Content newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Content onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Content query()
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereCourseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereIsPreview($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereItemType($value)
@@ -77,12 +81,15 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereVideoSrc($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereVideoTime($value)
+ * @method static \Illuminate\Database\Query\Builder|Content withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Content withoutTrashed()
  * @mixin \Eloquent
  */
 class Content extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
+    use SoftDeletes;
     use HasSlug;
     /**
      * @var array

@@ -15,7 +15,7 @@ class CreateOptionsTable extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->string('option_key', 50)->nullable();
+            $table->string('option_key', 50);
             $table->text('option_value')->nullable();
         });
     }

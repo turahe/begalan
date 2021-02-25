@@ -15,11 +15,17 @@ class CreateCompletesTable extends Migration
     {
         Schema::create('completes', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            $table->integer('completed_course_id')->nullable();
-            $table->integer('course_id')->nullable();
-            $table->integer('content_id')->nullable();
-            $table->timestamp('completed_at');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('completed_course_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('content_id');
+            $table->timestamps();
+        });
+
+        Schema::table('completes', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');
         });
     }
 

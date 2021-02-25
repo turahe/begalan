@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Attempt.
@@ -59,41 +61,36 @@ use Illuminate\Database\Eloquent\Model;
 class Attempt extends Model
 {
     /**
-     * @var array
-     */
-    protected $guarded = [];
-
-    /**
      * @var string[]
      */
     protected $dates = ['ended_at'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function answers()
+    public function answers(): HasMany
     {
         return $this->hasMany(Answer::class)->with('question');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function quiz()
+    public function quiz(): BelongsTo
     {
         return $this->belongsTo(Content::class, 'quiz_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function course()
     {

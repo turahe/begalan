@@ -2,7 +2,12 @@
 
 namespace App\Models;
 
+use App\Contracts\Sortable;
+use App\Services\SortableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -34,24 +39,73 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereUserId($value)
  * @mixin \Eloquent
+ * @property int|null $order_column
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Quiz $quiz
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Question ordered(string $direction = 'asc')
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereOrderColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Question whereUpdatedAt($value)
  */
-class Question extends Model implements HasMedia
+class Question extends Model implements HasMedia, Sortable
 {
     use InteractsWithMedia;
+    use SortableTrait;
 
-    protected $guarded = [];
-    public $timestamps = false;
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'quiz_id',
+        'title',
+        'type',
+        'score',
+    ];
 
-    public function options()
+    /**
+     * @return HasMany
+     */
+    public function options(): HasMany
     {
-        return $this->hasMany(QuestionOption::class)->orderBy('sort_order', 'asc');
+        return $this->hasMany(QuestionOption::class)->orderBy('order_column', 'asc');
     }
 
-    public function getImageUrlAttribute()
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
     {
-        return media_image_uri($this->media);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function quiz(): BelongsTo
+    {
+        return $this->belongsTo(Quiz::class, 'quiz_id');
+    }
+
+    /**
+     * Get image url of question.
+     *
+     * @return string
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if ($this->hasMedia()) {
+            return $this->getFirstMediaUrl();
+        }
+
+        return Storage::url('image/not-found.jpg');
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function delete_sync()
     {
         $this->options()->delete();

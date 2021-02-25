@@ -1,13 +1,9 @@
-<?php
-$gridClass = $grid_class ? $grid_class : 'col-md-3';
-?>
-
-<div class="{{$gridClass}} course-card-grid-wrap ">
+<div class="col-md-3 course-card-grid-wrap ">
     <div class="course-card mb-5">
 
         <div class="course-card-img-wrap">
             <a href="{{route('course', $course->slug)}}">
-                <img src="{{$course->thumbnail_url}}" class="img-fluid" />
+                {{ $course->getFirstMedia() }}
             </a>
 
             <button class="course-card-add-wish btn btn-link btn-sm p-0" data-course-id="{{$course->id}}">

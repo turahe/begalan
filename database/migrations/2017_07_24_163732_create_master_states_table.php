@@ -27,11 +27,11 @@ class CreateMasterStatesTable extends Migration
             $table->timestamps();
         });
 
-//        Schema::table('tm_states', function (Blueprint $table) {
-//            $table->foreign('country_id')
-//                ->references('id')->on('tm_countries')
-//                ->onDelete('cascade');
-//        });
+        Schema::table('tm_states', function (Blueprint $table) {
+            $table->foreign('country_id')
+                ->references('id')->on('tm_countries')
+                ->onDelete('cascade');
+        });
     }
 
     /**

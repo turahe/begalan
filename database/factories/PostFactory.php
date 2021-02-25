@@ -25,8 +25,9 @@ class PostFactory extends Factory
 
         return [
             'user_id' => 1,
+            'category_id' => 1,
             'title' => $title,
-            'post_content' => implode("\n\n", $this->faker->paragraphs(mt_rand(3, 6))),
+            'content' => implode("\n\n", $this->faker->paragraphs(mt_rand(3, 6))),
             'type' => $this->faker->randomElement(['post', 'page']),
             'status' => $this->faker->boolean,
         ];

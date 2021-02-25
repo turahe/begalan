@@ -9,13 +9,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\AssignmentSubmission.
+ * App\Models\AssignmentSubmission
  *
  * @property int $id
- * @property int|null $user_id
- * @property int|null $course_id
- * @property int|null $assignment_id
- * @property int|null $instructor_id
+ * @property int $user_id
+ * @property int $course_id
+ * @property int $assignment_id
+ * @property int $instructor_id
  * @property string|null $text_submission
  * @property string|null $earned_numbers
  * @property string|null $instructors_note
@@ -24,12 +24,12 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property \Illuminate\Support\Carbon|null $evaluated_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Content|null $assignment
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attachment[] $attachments
- * @property-read int|null $attachments_count
- * @property-read \App\Models\Course|null $course
- * @property-read \App\Models\User|null $instructor
- * @property-read \App\Models\User|null $student
+ * @property-read \App\Models\Content $assignment
+ * @property-read \App\Models\Course $course
+ * @property-read \App\Models\User $instructor
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \App\Models\User $student
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission query()
@@ -47,8 +47,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission whereUserId($value)
  * @mixin \Eloquent
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
- * @property-read int|null $media_count
  */
 class AssignmentSubmission extends Model implements HasMedia
 {

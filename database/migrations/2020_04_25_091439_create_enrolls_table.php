@@ -15,12 +15,18 @@ class CreateEnrollsTable extends Migration
     {
         Schema::create('enrolls', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id')->default(0)->nullable();
-            $table->integer('user_id')->default(0)->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('user_id');
             $table->decimal('course_price', 16)->nullable();
             $table->integer('payment_id')->default(0)->nullable();
             $table->string('status', 30)->default('pending')->nullable();
-            $table->timestamp('enrolled_at')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::table('enrolls', function (Blueprint $table) {
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -15,10 +15,10 @@ class CreateAssignmentSubmissionsTable extends Migration
     {
         Schema::create('assignment_submissions', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            $table->integer('course_id')->nullable();
-            $table->integer('assignment_id')->nullable();
-            $table->integer('instructor_id')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('assignment_id');
+            $table->unsignedBigInteger('instructor_id');
             $table->longText('text_submission')->nullable();
             $table->decimal('earned_numbers')->nullable();
             $table->text('instructors_note')->nullable();

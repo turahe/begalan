@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
 
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->integer('user_id')->nullable(); //Who Paid
+            $table->unsignedBigInteger('user_id'); //Who Paid
             $table->decimal('amount')->nullable();
 
             $table->decimal('total_amount')->nullable();
@@ -59,6 +59,10 @@ class CreatePaymentsTable extends Migration
             $table->text('payment_note')->nullable(); //Use for Offline Payment, or others
 
             $table->timestamps();
+        });
+
+        Schema::table('payments', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

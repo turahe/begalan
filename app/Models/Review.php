@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Services\Rateable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Review.
@@ -31,26 +33,33 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUserId($value)
  * @mixin \Eloquent
+ * @property-read mixed $average_rating
+ * @property-read mixed $sum_rating
+ * @property-read mixed $user_average_rating
+ * @property-read mixed $user_sum_rating
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Rate[] $ratings
+ * @property-read int|null $ratings_count
  */
 class Review extends Model
 {
+    use Rateable;
     /**
      * @var array
      */
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function course()
+    public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->with('photo_query');
     }

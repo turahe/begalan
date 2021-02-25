@@ -174,7 +174,7 @@
                 <div class="popular-courses-cards-wrap mt-3">
                     <div class="row">
                         @foreach($new_courses as $course)
-                            {!! course_card($course) !!}
+                            @include('theme::template-part.course-loop', ['course' => $course])
                         @endforeach
                     </div>
                 </div>
@@ -202,8 +202,7 @@
                         <div class="col-lg-4 mb-4">
                             <div class="home-blog-card">
                                 <a href="{{$post->url}}">
-                                    <img src="{{$post->getFirstMediaUrl()}}" alt="{{$post->title}}"
-                                         class="img-fluid">
+                                    {{ $post->getFirstMedia() }}
                                 </a>
                                 <div class="excerpt px-4">
                                     <h2><a href="{{$post->url}}">{{$post->title}}</a></h2>
@@ -214,7 +213,7 @@
                                             {{$post->author->name}}
                                         </a>
                                     </span>
-                                        <span>&nbsp;<i
+                                        <span><i
                                                     class="las la-calendar"></i>&nbsp; {{$post->published_time}}</span>
                                     </div>
                                     <p class="mt-4">

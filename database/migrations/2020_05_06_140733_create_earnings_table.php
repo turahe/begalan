@@ -15,11 +15,11 @@ class CreateEarningsTable extends Migration
     {
         Schema::create('earnings', function (Blueprint $table) {
             $table->id();
-            $table->integer('instructor_id')->nullable();
-            $table->integer('course_id')->nullable();
-            $table->integer('payment_id')->nullable();
+            $table->unsignedBigInteger('instructor_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('payment_id');
             $table->string('payment_status')->nullable();
-            $table->decimal('amount', 16)->nullable();
+            $table->decimal('amount', 16);
             $table->decimal('instructor_amount', 16)->nullable();
             $table->decimal('admin_amount', 16)->nullable();
 
@@ -27,6 +27,12 @@ class CreateEarningsTable extends Migration
             $table->decimal('admin_share', 16)->nullable();
 
             $table->timestamps();
+        });
+
+        Schema::table('earnings', function (Blueprint $table) {
+            $table->foreign('instructor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
         });
     }
 

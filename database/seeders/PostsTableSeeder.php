@@ -16,23 +16,30 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        \Schema::disableForeignKeyConstraints();
+        Post::truncate();
+
         $pages = collect($this->defaultPages)->map(function ($page) {
             return  [
                 'user_id' => 1,
+                'category_id' => 1,
                 'title' => $page['title'],
-                'slug' => Str::slug($page['title']),
-                'post_content' => $this->markdown(file_get_contents(storage_path("app/data/{$page['content']}"))),
-                'feature_image' => null,
+                'content' => $page['content'],
                 'type' => 'page',
                 'status' => 1,
-                'created_at' => now()->toDateTimeString(),
-                'updated_at' => now()->toDateTimeString(),
             ];
         });
         // generate page default
-        Post::insert($pages->toArray());
+        foreach ($pages as $page) {
+            Post::updateOrCreate($page);
+        }
         // generate random post
-        Post::factory(30)->create();
+        Post::factory(30)->create()->each(function (Post $post) {
+            $post->addMedia(storage_path('app/seeds/images/'.mt_rand(1, 20).'.jpg'))
+                ->preservingOriginal()
+                ->withResponsiveImages()
+                ->toMediaCollection();
+        });
     }
 
     protected $defaultPages = [

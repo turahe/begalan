@@ -5,8 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -79,6 +83,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereResetToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
  */
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
@@ -129,23 +135,23 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function courses()
+    public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class)->orderBy('created_at', 'desc');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function reviews()
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function get_reviews()
     {
@@ -153,49 +159,49 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function instructor_discussions()
+    public function instructor_discussions(): BelongsToMany
     {
         return $this->belongsToMany(Discussion::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id')->with('user', 'user.photo_query')->where('discussion_id', 0);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function wishlist()
+    public function wishlist(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'wishlists');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function earnings()
+    public function earnings(): HasMany
     {
         return $this->hasMany(Earning::class, 'instructor_id')->where('payment_status', 'success');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function withdraws()
+    public function withdraws(): HasMany
     {
         return $this->hasMany(Withdraw::class)->orderBy('created_at', 'desc');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function purchases()
+    public function purchases(): HasMany
     {
         return $this->hasMany(Payment::class)->orderBy('created_at', 'desc');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function my_quiz_attempts()
+    public function my_quiz_attempts(): HasMany
     {
         return $this->hasMany(Attempt::class);
     }
@@ -218,41 +224,9 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
     /**
-     * @return bool
+     * @return BelongsToMany
      */
-    public function isAdmin()
-    {
-        return $this->user_type === 'admin';
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsAdminAttribute()
-    {
-        return $this->isAdmin();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInstructor()
-    {
-        return $this->user_type === 'instructor' || $this->isAdmin();
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsInstructorAttribute()
-    {
-        return $this->isInstructor();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function enrolls()
+    public function enrolls(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'enrolls')->wherePivot('status', '=', 'success');
     }
@@ -402,19 +376,19 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     public function getWithdrawMethodAttribute()
     {
         $method = $this->get_option('withdraw_preference');
-        $method_key = array_get($method, 'method');
+        $method_key = Arr::get($method, 'method');
 
-        if (! array_get($method, 'method')) {
+        if (! Arr::get($method, 'method')) {
             return null;
         }
 
         $saved_method = active_withdraw_methods($method_key);
         $saved_method['method_key'] = $method_key;
-        $form_fields = array_get($saved_method, 'form_fields');
+        $form_fields = Arr::get($saved_method, 'form_fields');
 
         if (is_array($form_fields) && count($form_fields)) {
             foreach ($form_fields as $form_key => $form_value) {
-                $form_value['value'] = array_get($method, $method_key.'.'.$form_key);
+                $form_value['value'] = Arr::get($method, $method_key.'.'.$form_key);
                 $form_fields[$form_key] = $form_value;
             }
         }

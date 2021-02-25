@@ -25,11 +25,11 @@ class CreateMasterCitiesTable extends Migration
             $table->timestamps();
         });
 
-//        Schema::table('tm_cities', function (Blueprint $table) {
-//            $table->foreign('state_id')
-//                ->references('id')->on('tm_states')
-//                ->onDelete('cascade');
-//        });
+        Schema::table('tm_cities', function (Blueprint $table) {
+            $table->foreign('state_id')
+                ->references('id')->on('tm_states')
+                ->onDelete('cascade');
+        });
     }
 
     /**

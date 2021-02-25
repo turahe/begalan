@@ -21,9 +21,7 @@ class CourseFactory extends Factory
      */
     public function definition()
     {
-        $parent_category_id = $this->faker->randomElement(\App\Models\Category::where('parent_id', null)->pluck('id')->toArray());
-        $second_category_id = $this->faker->randomElement(\App\Models\Category::where('parent_id', $parent_category_id)->pluck('id')->toArray());
-        $category_id = $this->faker->randomElement(\App\Models\Category::where('parent_id', $second_category_id)->pluck('id')->toArray());
+        $category_id = $this->faker->randomElement(\App\Models\Category::pluck('id')->toArray());
         $price = mt_rand(60, 100) * 1000;
 
         $video = [
@@ -43,8 +41,6 @@ class CourseFactory extends Factory
 
         return [
             'user_id' => 2,
-            'parent_category_id'  => $parent_category_id,
-            'second_category_id'  => $second_category_id,
             'category_id'  => $category_id,
             'title'  => $this->faker->sentence,
             'short_description'  => $this->faker->paragraph,
@@ -69,7 +65,6 @@ class CourseFactory extends Factory
             'featured_at'  => $this->faker->dateTimeBetween('-3 month', 'now'),
             'is_popular'  => 1,
             'popular_added_at'  => $this->faker->dateTimeBetween('-3 month', 'now'),
-            'last_updated_at'  => $this->faker->dateTimeBetween('-3 month', 'now'),
             'published_at'  => $this->faker->dateTimeBetween('-3 month', 'now'),
         ];
     }

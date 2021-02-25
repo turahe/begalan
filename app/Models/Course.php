@@ -19,6 +19,138 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Turahe\Likeable\Traits\Likeable;
 
+/**
+ * App\Models\Course
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $category_id
+ * @property string $title
+ * @property string $slug
+ * @property string|null $short_description
+ * @property string|null $description
+ * @property string|null $benefits
+ * @property string|null $requirements
+ * @property string|null $price_plan
+ * @property string|null $price
+ * @property string|null $sale_price
+ * @property int $level
+ * @property int|null $status
+ * @property int|null $is_presale
+ * @property string|null $launch_at
+ * @property int|null $thumbnail_id
+ * @property string|null $video_src
+ * @property int|null $total_video_time
+ * @property int|null $require_enroll
+ * @property int|null $require_login
+ * @property int|null $total_lectures
+ * @property int|null $total_assignments
+ * @property int|null $total_quiz
+ * @property int|null $is_featured
+ * @property string|null $featured_at
+ * @property int|null $is_popular
+ * @property string|null $popular_added_at
+ * @property string|null $published_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssignmentSubmission[] $assignment_submissions
+ * @property-read int|null $assignment_submissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssignmentSubmission[] $assignment_submissions_waiting
+ * @property-read int|null $assignment_submissions_waiting_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $assignments
+ * @property-read int|null $assignments_count
+ * @property-read \App\Models\User $author
+ * @property-read \App\Models\Category $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $contents
+ * @property-read int|null $contents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Turahe\Likeable\Models\Like[] $dislikes
+ * @property-read int $dislikes_count
+ * @property-read \Turahe\Likeable\Models\LikeCounter|null $dislikesCounter
+ * @property-read mixed $average_rating
+ * @property-read null|array $benefits_arr
+ * @property-read null|string $continue_url
+ * @property-read bool $disliked
+ * @property-read array[] $drip_items
+ * @property-read bool $free
+ * @property-read null|int|string $get_price
+ * @property-read bool $i_am_instructor
+ * @property-read bool $liked
+ * @property-read int|null $likes_count
+ * @property-read int $likes_diff_dislikes_count
+ * @property-read bool $paid
+ * @property-read null|array $requirements_arr
+ * @property-read mixed $sum_rating
+ * @property-read string $url
+ * @property-read mixed $user_average_rating
+ * @property-read mixed $user_sum_rating
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $instructors
+ * @property-read int|null $instructors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $lectures
+ * @property-read int|null $lectures_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Turahe\Likeable\Models\Like[] $likes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Turahe\Likeable\Models\Like[] $likesAndDislikes
+ * @property-read int|null $likes_and_dislikes_count
+ * @property-read \Turahe\Likeable\Models\LikeCounter|null $likesCounter
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Attempt[] $quiz_attempts
+ * @property-read int|null $quiz_attempts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $quizzes
+ * @property-read int|null $quizzes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Review[] $reviews
+ * @property-read int|null $reviews_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Section[] $sections
+ * @property-read int|null $sections_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $students
+ * @property-read int|null $students_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Course newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Course onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course orderByDislikesCount($direction = 'desc')
+ * @method static \Illuminate\Database\Eloquent\Builder|Course orderByLikesCount($direction = 'desc')
+ * @method static \Illuminate\Database\Eloquent\Builder|Course publish()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereBenefits($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereDislikedBy($userId = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereFeaturedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereIsFeatured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereIsPopular($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereIsPresale($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereLaunchAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereLikedBy($userId = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePopularAddedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePricePlan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course wherePublishedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRequireEnroll($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRequireLogin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereRequirements($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereSalePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereThumbnailId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalAssignments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalLectures($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalQuiz($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereTotalVideoTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Course whereVideoSrc($value)
+ * @method static \Illuminate\Database\Query\Builder|Course withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Course withoutTrashed()
+ * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Rate[] $ratings
+ * @property-read int|null $ratings_count
+ */
 class Course extends Model implements HasMedia, LikeableContract
 {
     use HasFactory;

@@ -15,10 +15,10 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->integer('quiz_id')->nullable();
-            $table->integer('question_id')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->integer('attempt_id')->nullable();
+            $table->integer('quiz_id');
+            $table->integer('question_id');
+            $table->integer('user_id');
+            $table->integer('attempt_id');
             $table->text('answer')->nullable();
             $table->string('q_type', 20)->nullable(); //Question Type
             $table->decimal('q_score', 5, 1)->nullable(); //Question Score

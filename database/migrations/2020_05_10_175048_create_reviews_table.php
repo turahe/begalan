@@ -15,13 +15,17 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            $table->integer('course_id')->nullable();
-            $table->integer('review_id')->default(0)->nullable();
-            $table->text('review')->nullable();
-            $table->tinyInteger('rating')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('review_id')->nullable();
+            $table->text('review');
             $table->tinyInteger('status')->default(1)->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 

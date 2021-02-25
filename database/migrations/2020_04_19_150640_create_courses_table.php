@@ -15,13 +15,11 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            $table->integer('parent_category_id')->nullable();
-            $table->integer('second_category_id')->nullable();
-            $table->integer('category_id')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
 
-            $table->string('title')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->string('short_description')->nullable();
             $table->longText('description')->nullable();
 
@@ -37,12 +35,12 @@ class CreateCoursesTable extends Migration
 
             $table->tinyInteger('is_presale')->default(0)->nullable();
             $table->timestamp('launch_at')->nullable();
-            $table->integer('thumbnail_id')->nullable();
+            $table->unsignedBigInteger('thumbnail_id')->nullable();
             $table->text('video_src')->nullable();
-            $table->integer('total_video_time')->nullable();
+            $table->unsignedBigInteger('total_video_time')->nullable();
 
-            $table->integer('require_enroll')->default(1)->nullable(); //if free
-            $table->integer('require_login')->default(1)->nullable(); // if free
+            $table->unsignedBigInteger('require_enroll')->default(1)->nullable(); //if free
+            $table->unsignedBigInteger('require_login')->default(1)->nullable(); // if free
 
             $table->tinyInteger('total_lectures')->default(0)->nullable();
             $table->tinyInteger('total_assignments')->default(0)->nullable();
@@ -53,10 +51,14 @@ class CreateCoursesTable extends Migration
             $table->tinyInteger('is_popular')->nullable();
             $table->timestamp('popular_added_at')->nullable();
 
-            $table->timestamp('last_updated_at')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('courses', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

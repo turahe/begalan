@@ -15,9 +15,9 @@ class CreateAttemptsTable extends Migration
     {
         Schema::create('attempts', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id')->nullable();
-            $table->integer('quiz_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('quiz_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('reviewer_id')->nullable();
             $table->integer('questions_limit')->nullable();
             $table->integer('total_answered')->nullable();

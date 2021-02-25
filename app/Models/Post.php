@@ -6,23 +6,25 @@ use App\Services\Slug\HasSlug;
 use App\Services\Slug\SlugOptions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Post.
+ * App\Models\Post
  *
  * @property int $id
- * @property int|null $user_id
- * @property string|null $title
- * @property string|null $slug
- * @property string|null $post_content
- * @property int|null $feature_image
+ * @property int $user_id
+ * @property int $category_id
+ * @property string $title
+ * @property string $slug
+ * @property string $content
  * @property string|null $type
  * @property string|null $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User|null $author
+ * @property-read \App\Models\User $author
+ * @property-read \App\Models\Category $category
  * @property-read string $published_time
  * @property-read string $status_context
  * @property-read string $url
@@ -33,10 +35,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Post post()
  * @method static \Illuminate\Database\Eloquent\Builder|Post publish()
  * @method static \Illuminate\Database\Eloquent\Builder|Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereFeatureImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post wherePostContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereTitle($value)
@@ -50,10 +52,6 @@ class Post extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use HasSlug;
-    /**
-     * @var array
-     */
-    protected $guarded = [];
 
     /**
      * @return SlugOptions
@@ -87,31 +85,39 @@ class Post extends Model implements HasMedia
     /**
      * @return string
      */
-    public function getPublishedTimeAttribute()
+    public function getPublishedTimeAttribute(): string
     {
-        return $this->created_at->format(date_time_format());
+        return $this->created_at->format(config('global.date_format').' '.config('global.time_format'));
     }
 
     /**
      * @return string
      */
-    public function getUrlAttribute()
+    public function getUrlAttribute(): string
     {
         return route('post', $this->slug);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    /**
      * @return string
      */
-    public function getStatusContextAttribute()
+    public function getStatusContextAttribute(): string
     {
         $statusClass = '';
         $iclass = '';

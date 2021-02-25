@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Option extends Model
 {
-    protected $guarded = [];
     public $timestamps = false;
+
+    protected $casts = [
+        'option_value' => 'array'
+    ];
 }

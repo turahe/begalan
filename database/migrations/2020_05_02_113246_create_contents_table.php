@@ -15,11 +15,11 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            $table->integer('course_id')->nullable();
-            $table->integer('section_id')->nullable();
-            $table->string('title')->nullable();
-            $table->string('slug')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('section_id');
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('text')->nullable();
             $table->text('video_src')->nullable();
             $table->integer('video_time')->nullable();
@@ -31,7 +31,14 @@ class CreateContentsTable extends Migration
             $table->tinyInteger('quiz_gradable')->nullable();
             $table->timestamp('unlock_date')->nullable();
             $table->tinyInteger('unlock_days')->nullable();
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('contents', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
         });
     }
 
