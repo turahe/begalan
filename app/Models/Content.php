@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\Content
+ * App\Models\Content.
  *
  * @property int $id
  * @property int $user_id
@@ -154,7 +155,7 @@ class Content extends Model implements HasMedia
             $video_info = json_decode($this->video_src, true);
         }
         if ($key && is_array($video_info)) {
-            return array_get($video_info, $key);
+            return Arr::get($video_info, $key);
         }
 
         return $video_info;
@@ -215,8 +216,8 @@ class Content extends Model implements HasMedia
             $options = json_decode($this->options, true);
         }
         if ($key) {
-            if (is_array($options) && array_get($options, $key)) {
-                return array_get($options, $key);
+            if (is_array($options) && Arr::get($options, $key)) {
+                return Arr::get($options, $key);
             }
 
             return $default;

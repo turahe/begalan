@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * App\Models\AssignmentSubmission
+ * App\Models\AssignmentSubmission.
  *
  * @property int $id
  * @property int $user_id

@@ -14,14 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('clear', [\App\Http\Controllers\HomeController::class, 'clearCache'])->name('clear_cache');
 
 Route::get('profile/{id}', [\App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('review/{id}', [\App\Http\Controllers\UserController::class, 'review'])->name('review');
 
 Route::get('courses', [\App\Http\Controllers\HomeController::class, 'courses'])->name('courses');
-Route::get('featured-courses', [\App\Http\Controllers\HomeController::class, 'courses'])->name('featured_courses');
-Route::get('popular-courses', [\App\Http\Controllers\HomeController::class, 'courses'])->name('popular_courses');
 
 Route::get('courses/{slug?}', [\App\Http\Controllers\CourseController::class, 'view'])->name('course');
 Route::get('courses/{slug}/lecture/{lecture_id}', [\App\Http\Controllers\CourseController::class, 'lectureView'])->name('single_lecture');

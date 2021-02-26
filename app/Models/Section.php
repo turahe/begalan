@@ -106,7 +106,7 @@ class Section extends Model implements Sortable
                 $now = Carbon::now();
 
                 if ($unlock_date->gt($now)) {
-                    $diffDays = $unlock_date->diffInDays($now);
+                    $diffDays = $unlock_date->diffInDays(now());
                     $data['is_lock'] = true;
                     $data['message'] = "The content will become available in {$diffDays} days";
                 }

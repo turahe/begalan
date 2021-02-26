@@ -66,6 +66,18 @@ class Category extends Model implements HasMedia, Sortable
     ];
 
     /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        if (request()->expectsJson()) {
+            return 'id';
+        }
+
+        return 'slug';
+    }
+
+    /**
      * @return SlugOptions
      */
     public function getSlugOptions(): SlugOptions
@@ -101,14 +113,7 @@ class Category extends Model implements HasMedia, Sortable
      */
     public function courses()
     {
-        $foreignKey = 'parent_id';
-        if (! $this->parent_id) {
-            $foreignKey = 'parent_category_id';
-        } elseif ($this->parent_id == 1) {
-            $foreignKey = 'second_category_id';
-        }
-
-        return $this->hasMany(Course::class, $foreignKey)
+        return $this->hasMany(Course::class, 'category_id')
             ->orderBy('created_at', 'desc');
     }
 

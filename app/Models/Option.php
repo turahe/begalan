@@ -23,6 +23,6 @@ class Option extends Model
     public $timestamps = false;
 
     protected $casts = [
-        'option_value' => 'array'
+        'option_value' => 'array',
     ];
 }

@@ -41,14 +41,12 @@
                     <div class="footer-widget-wrap link-widget-wrap">
 
                         <ul class="footer-links">
-                            <li><a href="{{route('home')}}">@lang('home')</a></li>
-                            <li><a href="{{route('dashboard')}}">@lang('dashboard')</a></li>
-                            <li><a href="{{route('courses')}}">@lang('courses')</a></li>
-                            <li><a href="{{route('popular_courses')}}">@lang('popular_courses')</a></li>
-                            <li><a href="{{route('featured_courses')}}">@lang('featured_courses')</a></li>
-                            <li><a href="{{route('blog')}}">@lang('blog')</a></li>
-                            <li><a href="{{route('post_proxy')}}">@lang('about_us')</a></li>
-                            <li><a href="{{route('register')}}">@lang('signup')</a></li>
+                            <li><a href="{{route('home')}}">@lang('theme.home')</a></li>
+                            <li><a href="{{route('dashboard')}}">@lang('theme.dashboard')</a></li>
+                            <li><a href="{{route('courses')}}">@lang('theme.courses')</a></li>
+                            <li><a href="{{route('blog')}}">@lang('theme.blog')</a></li>
+                            <li><a href="{{route('post_proxy')}}">@lang('theme.about_us')</a></li>
+                            <li><a href="{{route('register')}}">@lang('theme.signup')</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
 

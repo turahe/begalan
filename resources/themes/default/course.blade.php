@@ -25,12 +25,12 @@
 
                         <p>
                             <span class="created-by mr-3">
-                                <i class="las la-user"></i> {{__t('created_by')}} {{$course->author->name}}
+                                <i class="las la-user"></i> @lang('theme.created_by') {{$course->author->name}}
                             </span>
 
                             <span class="last-updated-at">
                                 <i class="las la-clock"></i>
-                                {{__t('last_updated')}} {{$course->last_updated_at->format(date_time_format())}}
+                                @lang('theme.last_updated') {{$course->last_updated_at }}
                             </span>
                         </p>
 
@@ -82,7 +82,7 @@
                                 <form action="{{route('free_enroll')}}" class="course-free-enroll" method="post">
                                     @csrf
                                     <input type="hidden" name="course_id" value="{{$course->id}}">
-                                    <button type="submit" class="btn btn-warning btn-lg btn-block">{{__t('enroll_now')}}</button>
+                                    <button type="submit" class="btn btn-warning btn-lg btn-block">@lang('theme.enroll_now')</button>
                                 </form>
                             @endif
                         @endif
@@ -112,7 +112,7 @@
                             <div class="col-md-6">
 
                                 <div class="course-whats-included-box course-widget p-4">
-                                    <h4 class="mb-4">{{__t('whats_included')}}</h4>
+                                    <h4 class="mb-4">@lang('theme.whats_included')</h4>
 
                                     @php
                                         $lectures_count = $course->lectures->count();
@@ -122,12 +122,14 @@
 
                                     <ul>
                                         @if($course->total_video_time)
-                                            <li> <i class="las la-video"></i> {{seconds_to_time_format($course->total_video_time)}} {{__t('on_demand_video')}} </li>
+                                            <li> <i class="las la-video"></i>
+                                                {{seconds_to_time_format($course->total_video_time)}} @lang('theme.on_demand_video')
+                                            </li>
                                         @endif
 
-                                        <li> <i class="las la-book"></i> {{$lectures_count}} {{__t('lectures')}} </li>
+                                        <li> <i class="las la-book"></i> {{$lectures_count}} @lang('theme.lectures') </li>
                                         @if($assignments_count)
-                                            <li> <i class="las la-tasks"></i> {{$assignments_count}} {{__t('assignments')}}</li>
+                                            <li> <i class="las la-tasks"></i> {{$assignments_count}} @lang('theme.assignments')</li>
                                         @endif
                                         @if($attachments_count)
                                             <li> <i class="las la-file-download"></i> {{$attachments_count}} downloadable resources </li>
@@ -143,9 +145,9 @@
                             <div class="col-md-6">
 
                                 @if($course->video_info())
-                                    @include('default.video-player', ['model' => $course, 'video_caption' => __t('preview')])
+                                    @include('default.video-player', ['model' => $course, 'video_caption' => __('theme.preview')])
                                 @else
-                                    <img src="{{media_image_uri($course->thumbnail_id)->image_md}}" class="img-fluid" />
+                                    {{ $course->getFirstMediaUrl() }}
                                 @endif
 
 
@@ -158,7 +160,7 @@
 
                     @if($course->benefits_arr)
                         <div class="course-widget mb-4 p-4">
-                            <h4 class="mb-4">{{__t('what_learn')}}</h4>
+                            <h4 class="mb-4">@lang('theme.what_learn')</h4>
 
                             <div class="content-expand-wrap">
                                 <div class="content-expand-inner">
@@ -178,14 +180,14 @@
                     @if($course->sections->count())
 
                         <div class="course-curriculum-header d-flex mt-5">
-                            <h4 class="mb-4 course-curriculum-title flex-grow-1">{{__t('course_curriculum')}}</h4>
+                            <h4 class="mb-4 course-curriculum-title flex-grow-1">@lang('theme.course_curriculum')</h4>
 
                             <p id="expand-collapse-all-sections">
                                 <a href="javascript:;" data-action="expand">Expand all</a>
                                 <a href="javascript:;" data-action="collapse" style="display: none;">Collapse all</a>
                             </p>
 
-                            <p class="ml-3 course-total-lectures-info">{{$course->total_lectures}} {{__t('lectures')}}</p>
+                            <p class="ml-3 course-total-lectures-info">{{$course->total_lectures}} @lang('theme.lectures')</p>
                             <p class="ml-3 mr-3 course-runtime-info">{{seconds_to_time_format($course->total_video_time)}}</p>
                         </div>
 
@@ -204,7 +206,7 @@
                                         </span>
 
                                         <span class="course-section-lecture-count">
-                                            {{$section->items->count()}} {{__t('lectures')}}
+                                            {{$section->items->count()}} @lang('theme.lectures')
                                         </span>
                                     </div>
 
@@ -229,13 +231,13 @@
                                                         <span class="section-item-preview flex-grow-1">
                                                             @if($item->is_preview)
                                                                 <a href="{{route('single_lecture', [$course->slug, $item->id ] )}}">
-                                                                 <i class="las la-eye"></i> {{__t('preview')}}
+                                                                 <i class="las la-eye"></i> @lang('theme.preview')
                                                              </a>
                                                             @endif
                                                         </span>
 
                                                         @if($item->media->count())
-                                                            <span class="section-item-attachments mr-3" data-toggle="tooltip" title="{{__t('dl_resource_available')}}">
+                                                            <span class="section-item-attachments mr-3" data-toggle="tooltip" title="@lang('theme.dl_resource_available')">
                                                                 <i class="las la-paperclip"></i>
                                                             </span>
                                                         @endif
@@ -258,7 +260,7 @@
                     @endif
 
                     @if($course->requirements_arr)
-                        <h4 class="mb-4">{{__t('requirements')}}</h4>
+                        <h4 class="mb-4">@lang('theme.requirements')</h4>
 
                         <div class="course-widget mb-4 p-4">
                             <ul class="benefits-items row">
@@ -274,7 +276,7 @@
 
                     @if($course->description)
                         <div class="course-description mt-4 mb-5">
-                            <h4 class="mb-4 course-description-title">{{__t('description')}}</h4>
+                            <h4 class="mb-4 course-description-title">@lang('theme.description')</h4>
 
                             <div class="content-expand-wrap">
                                 <div class="content-expand-inner">
@@ -287,7 +289,7 @@
 
                     <div id="course-instructors-wrap" class="my-5">
 
-                        <h4 class="mb-4">{{__t('instructors')}}</h4>
+                        <h4 class="mb-4">@lang('theme.instructors')</h4>
 
                         @foreach($course->instructors as $instructor)
                             @php
@@ -314,15 +316,15 @@
 
                                     <p class="instructor-stat-value mb-1">
                                         <i class="las la-play-circle"></i>
-                                        <strong>{{$courses_count}}</strong> {{__t('courses')}}
+                                        <strong>{{$courses_count}}</strong> @lang('theme.courses')
                                     </p>
                                     <p class="instructor-stat-value mb-1">
                                         <i class="las la-user-circle"></i>
-                                        <strong>{{$students_count}}</strong> {{__t('students')}}
+                                        <strong>{{$students_count}}</strong> @lang('theme.students')
                                     </p>
                                     <p class="instructor-stat-value mb-1">
                                         <i class="las la-comments"></i>
-                                        <strong>{{$instructor_rating->rating_count}} </strong> {{__t('reviews')}}
+                                        <strong>{{$instructor_rating->rating_count}} </strong> @lang('theme.reviews')
                                     </p>
                                 </div>
 
@@ -355,14 +357,14 @@
 
                     @if($course->reviews->count())
                         <div id="course-ratings-wrap">
-                            <h4 class="mb-4">{{__t('student_feedback')}}</h4>
+                            <h4 class="mb-4">@lang('theme.student_feedback')</h4>
 
                             <div id="course-rating-stats-wrap" class="my-4 d-flex">
                                 <div class="rating-stats-avg mr-5">
                                     <p class="rating-avg-big m-0">{{$course->rating_value}}</p>
                                     {!! star_rating_generator($course->rating_value) !!}
                                     <p class="number-of-reviews mt-3">
-                                        {{sprintf(__t('from_amount_reviews'), $course->rating_count)}}
+                                        {{sprintf(__('from_amount_reviews'), $course->rating_count)}}
                                     </p>
                                 </div>
 
@@ -370,13 +372,13 @@
                                     @foreach($course->get_ratings('stats') as $rateKey => $rating)
                                         <div class="rating-percent-wrap d-flex">
                                             <div class="star-rating-bar-bg">
-                                                <div class="star-rating-bar-fill" style="width: {{array_get($rating, 'percent')}}%"></div>
+                                                <div class="star-rating-bar-fill" style="width: {{Arr::get($rating, 'percent')}}%"></div>
                                             </div>
 
                                             <div class="star-rating-percent-wrap">
                                                 {!! star_rating_generator($rateKey) !!}
                                             </div>
-                                            <p class="rating-percent-text m-0">{{array_get($rating, 'percent')}}%</p>
+                                            <p class="rating-percent-text m-0">{{Arr::get($rating, 'percent')}}%</p>
                                         </div>
                                     @endforeach
                                 </div>

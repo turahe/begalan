@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Complete
+ * App\Models\Complete.
  *
  * @property int $id
  * @property int $user_id
@@ -29,5 +29,4 @@ use Illuminate\Database\Eloquent\Model;
 class Complete extends Model
 {
     protected $dates = ['completed_at'];
-
 }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Address
+ * App\Models\Address.
  *
  * @property int $id
  * @property int $user_id

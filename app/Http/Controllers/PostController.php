@@ -34,10 +34,9 @@ class PostController extends Controller
      */
     public function blog()
     {
-        $title = __t('blog');
         $posts = Post::post()->publish()->paginate(20);
 
-        return view('theme::blog', compact('title', 'posts'));
+        return view('theme::blog', compact('posts'));
     }
 
     /**

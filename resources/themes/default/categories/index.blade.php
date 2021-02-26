@@ -1,9 +1,6 @@
-@extends('theme::layouts.theme')
-
-@php
-    $categories = \App\Models\Category::where('parent_id', null)->get();
-    $categoriesWithCourses = \App\Models\Category::where('parent_id', null)->has('courses')->get();
-@endphp
+@extends('theme::layouts.theme', [
+    'title' => 'Topics'
+])
 
 @section('content')
 
@@ -15,14 +12,14 @@
                         <ol class='breadcrumb mb-0'>
                             <li class='breadcrumb-item'>
                                 <a href='{{route('home')}}'>
-                                    <i class='la la-home'></i>  {{__t('home')}}
+                                    <i class='la la-home'></i>  @lang('theme.home')
                                 </a>
                             </li>
 
-                            <li class='breadcrumb-item active'>{{__t('topics')}}</li>
+                            <li class='breadcrumb-item active'>@lang('theme.topics')</li>
                         </ol>
                     </nav>
-                    <h1 class="mb-3">{{__t('topics')}}</h1>
+                    <h1 class="mb-3">@lang('theme.topics')</h1>
                 </div>
             </div>
         </div>
@@ -39,8 +36,8 @@
                     <div class="col-md-4">
                         <div class="category-item-name">
 
-                            <a href="{{route('category_view', $category->slug)}}" style="background-color: {{$category->bg_color}};" class="py-4 d-block text-center text-white mb-3 ">
-                                <i class="las {{$category->icon_class}}"></i> {{$category->category_name}}
+                            <a href="{{route('category.view', $category->slug)}}" style="background-color: {{$category->bg_color}};" class="py-4 d-block text-center text-white mb-3 ">
+                                <i class="las {{$category->icon_class}}"></i> {{$category->name}}
                             </a>
                         </div>
                     </div>
@@ -53,16 +50,16 @@
     </div>
 
 
-    @if($categoriesWithCourses->count())
+    @if($categories->count())
         <div class="categories-courses-wrapper">
             <div class="container">
-                @foreach($categoriesWithCourses as $category)
+                @foreach($categories as $category)
                     <div class="row">
                         <div class="col-md-12">
                             <div class="section-header-wrap">
-                                <h4 class="section-title"> <span class="text-muted">{{__t('new_arrival_in')}}</span>
-                                    <a href="{{route('category_view', $category->id)}}">
-                                        <i class="las {{$category->icon_class}}"></i> {{$category->category_name}}
+                                <h4 class="section-title"> <span class="text-muted">@lang('theme.new_arrival_in')</span>
+                                    <a href="{{ $category->url }}">
+                                        <i class="las {{$category->icon_class}}"></i> {{$category->name}}
                                     </a>
                                 </h4>
                             </div>
@@ -72,7 +69,7 @@
                     <div class="category-courses-cards-wrap mt-3">
                         <div class="row">
                             @foreach($category->courses()->take(4)->get() as $course)
-                                {!! course_card($course) !!}
+                                @include('theme::template-part.course-loop', ['course' => $course]);
                             @endforeach
                         </div>
                     </div>

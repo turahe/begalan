@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
@@ -20,7 +21,7 @@ use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Turahe\Likeable\Traits\Likeable;
 
 /**
- * App\Models\Course
+ * App\Models\Course.
  *
  * @property int $id
  * @property int $user_id
@@ -98,6 +99,8 @@ use Turahe\Likeable\Traits\Likeable;
  * @property-read int|null $quiz_attempts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $quizzes
  * @property-read int|null $quizzes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Rate[] $ratings
+ * @property-read int|null $ratings_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Review[] $reviews
  * @property-read int|null $reviews_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Section[] $sections
@@ -148,8 +151,6 @@ use Turahe\Likeable\Traits\Likeable;
  * @method static \Illuminate\Database\Query\Builder|Course withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Course withoutTrashed()
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Rate[] $ratings
- * @property-read int|null $ratings_count
  */
 class Course extends Model implements HasMedia, LikeableContract
 {
@@ -203,7 +204,7 @@ class Course extends Model implements HasMedia, LikeableContract
      */
     public function instructors(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withPivot('added_at');
+        return $this->belongsToMany(User::class);
     }
 
     /**
@@ -229,7 +230,7 @@ class Course extends Model implements HasMedia, LikeableContract
      */
     public function sections(): HasMany
     {
-        return $this->hasMany(Section::class)->orderBy('sort_order', 'asc');
+        return $this->hasMany(Section::class)->orderBy('order_column', 'asc');
     }
 
     /**
@@ -393,7 +394,7 @@ class Course extends Model implements HasMedia, LikeableContract
 
         $completed_course = (array) $user->get_option('completed_courses');
 
-        return (int) array_get($completed_course, $this->id.'.percent');
+        return (int) Arr::get($completed_course, $this->id.'.percent');
 
         /*
         $total_contents = (int) Content::whereCourseId($this->id)->count();
@@ -453,10 +454,10 @@ class Course extends Model implements HasMedia, LikeableContract
 
         $completed_ids = Complete::whereUserId(Auth::id())->whereCourseId($this->id)->pluck('content_id')->toArray();
 
-        $content = Content::whereCourseId($this->id)->whereNotIn('id', $completed_ids)->orderBy('sort_order', 'asc')->first();
+        $content = Content::whereCourseId($this->id)->whereNotIn('id', $completed_ids)->orderBy('order_column', 'asc')->first();
 
         if (! $content) {
-            $content = Content::whereCourseId($this->id)->orderBy('sort_order', 'asc')->first();
+            $content = Content::whereCourseId($this->id)->orderBy('order_column', 'asc')->first();
         }
         if (! $content) {
             return null;
@@ -572,7 +573,7 @@ class Course extends Model implements HasMedia, LikeableContract
             $video_info = json_decode($this->video_src, true);
         }
         if ($key && is_array($video_info)) {
-            return array_get($video_info, $key);
+            return Arr::get($video_info, $key);
         }
 
         return $video_info;
@@ -639,7 +640,7 @@ class Course extends Model implements HasMedia, LikeableContract
         ];
 
         if ($key) {
-            return array_get($ratings, $key);
+            return Arr::get($ratings, $key);
         }
 
         return $ratings;

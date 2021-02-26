@@ -1805,7 +1805,7 @@ function generateBreadcrumb($category)
 
     while ($category->parent_category) {
         $category = $category->parent_category;
-        $currentName = "<li class='breadcrumb-item'><a href='".route('category_view', $category->slug)."'>{$category->category_name}</a></li>";
+        $currentName = "<li class='breadcrumb-item'><a href='".route('category.view', $category->slug)."'>{$category->category_name}</a></li>";
 
         $html = $currentName.' '.$html;
     }

@@ -12,13 +12,13 @@
                         {!! generateBreadcrumb($category) !!}
                     </nav>
 
-                    <h1 class="mb-3">{{$category->category_name}}</h1>
+                    <h1 class="mb-3">{{$category->name}}</h1>
 
                     @if($category->sub_categories->count())
 
                         <div class="sub-categories-link-wrapper">
                             @foreach($category->sub_categories as $subCat)
-                                <a href="{{route('category_view', $subCat->slug)}}" class="btn btn-sm btn-warning mb-2" > {{$subCat->category_name}} </a>
+                                <a href="{{ $subCat->url }}" class="btn btn-sm btn-warning mb-2" > {{$subCat->name}} </a>
                             @endforeach
                         </div>
                     @endif
@@ -48,7 +48,7 @@
                 <div class="popular-courses-cards-wrap mt-3">
                     <div class="row">
                         @foreach($courses as $course)
-                            {!! course_card($course) !!}
+                            @include('theme::template-part.course-loop', ['course' => $course])
                         @endforeach
                     </div>
                 </div>

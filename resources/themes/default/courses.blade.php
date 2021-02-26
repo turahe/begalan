@@ -18,21 +18,21 @@
                         <ol class='breadcrumb mb-0'>
                             <li class='breadcrumb-item'>
                                 <a href='{{route('home')}}'>
-                                    <i class='la la-home'></i> {{__t('home')}}
+                                    <i class='la la-home'></i> @lang('theme.home')
                                 </a>
                             </li>
                             @if($path === 'courses')
-                                <li class='breadcrumb-item active'> {{__t('courses')}}</li>
+                                <li class='breadcrumb-item active'> @lang('theme.courses')</li>
                             @elseif($path === 'popular-courses')
                                 <li class='breadcrumb-item active'><i
-                                            class="las la-bolt"></i> {{__t('popular_courses')}}</li>
+                                            class="las la-bolt"></i> @lang('theme.popular_courses')</li>
                             @elseif($path === 'featured-courses')
                                 <li class='breadcrumb-item active'><i
-                                            class="las la-bookmark"></i> {{__t('featured_courses')}}</li>
+                                            class="las la-bookmark"></i> @lang('theme.featured_courses')</li>
                             @endif
                         </ol>
                     </nav>
-                    <h1 class="mb-3">@lang('front_end.courses')</h1>
+                    <h1 class="mb-3">@lang('theme.courses')</h1>
                 </div>
 
             </div>
@@ -70,15 +70,17 @@
 
                                 <div class="course-filter-form-group box-shadow p-3 mb-4">
                                     <div class="form-group">
-                                        <h4 class="mb-3">{{__t('category')}}</h4>
+                                        <h4 class="mb-3">@lang('theme.category')</h4>
 
                                         <select name="category" id="course_category" class="form-control select2">
-                                            <option value="">{{__t('select_category')}}</option>
+                                            <option value="">@lang('theme.select_category')</option>
                                             @foreach($categories as $category)
-                                                <optgroup label="{{$category->category_name}}">
+                                                <optgroup label="{{$category->name}}">
                                                     @if($category->sub_categories->count())
                                                         @foreach($category->sub_categories as $sub_category)
-                                                            <option value="{{$sub_category->id}}" {{selected($sub_category->id, $old_cat_id)}} >{{$sub_category->category_name}}</option>
+                                                            <option value="{{$sub_category->id}}" {{selected($sub_category->id, $old_cat_id)}} >
+                                                                {{$sub_category->name}}
+                                                            </option>
                                                         @endforeach
                                                     @endif
                                                 </optgroup>
@@ -88,14 +90,14 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <h4 class="mb-3">{{__t('topic')}} <span class="show-loader"></span></h4>
+                                        <h4 class="mb-3">@lang('theme.topic') <span class="show-loader"></span></h4>
 
                                         <select name="topic" id="course_topic" class="form-control select2">
-                                            <option value="">{{__t('select_topic')}}</option>
+                                            <option value="">@lang('theme.select_topic')</option>
 
                                             @foreach($topics as $topic)
                                                 <option value="{{$topic->id}}" {{selected($topic->id, $old_topic_id)}}>
-                                                    {{$topic->category_name}}
+                                                    {{$topic->name}}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -107,7 +109,7 @@
 
                             <div class="course-filter-form-group box-shadow p-3 mb-4">
                                 <div class="form-group">
-                                    <h4 class="mb-3">{{__t('course_level')}}</h4>
+                                    <h4 class="mb-3">@lang('theme.course_level')</h4>
                                     @foreach(course_levels() as $key => $level)
                                         <label class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="level[]"
@@ -120,18 +122,18 @@
 
                             <div class="course-filter-form-group box-shadow p-3 mb-4">
                                 <div class="form-group">
-                                    <h4 class="mb-3">{{__t('price')}}</h4>
+                                    <h4 class="mb-3">@lang('theme.price')</h4>
 
                                     <label class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" name="price[]"
                                                value="paid" {{in_array('paid', $old_price) ? 'checked="checked"' : '' }} >
-                                        <span class="custom-control-label">{{__t('paid')}}</span>
+                                        <span class="custom-control-label">@lang('theme.paid')}}</span>
                                     </label>
 
                                     <label class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" name="price[]"
                                                value="free" {{in_array('free', $old_price) ? 'checked="checked"' : '' }}>
-                                        <span class="custom-control-label">{{__t('free')}}</span>
+                                        <span class="custom-control-label">@lang('theme.free')</span>
                                     </label>
 
                                 </div>
@@ -139,7 +141,7 @@
 
                             <div class="course-filter-form-group box-shadow p-3 mb-4">
                                 <div class="form-group">
-                                    <h4 class="mb-3">{{__t('ratings')}}</h4>
+                                    <h4 class="mb-3">@lang('theme.ratings')</h4>
                                     <div class="filter-form-by-rating-field-wrap">
                                         <label class="d-flex">
                                             <input type="radio" name="rating" value="4.5"
@@ -180,32 +182,32 @@
 
                             <div class="course-filter-form-group box-shadow p-3 mb-4">
                                 <div class="form-group">
-                                    <h4 class="mb-3">{{__t('video_duration')}}</h4>
+                                    <h4 class="mb-3">@lang('theme.video_duration')</h4>
 
                                     <label class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="video_duration"
                                                value="0_2" {{checked('0_2', request('video_duration'))}} >
-                                        <span class="custom-control-label">{{__t('0_2_hours')}}</span>
+                                        <span class="custom-control-label">@lang('theme.0_2_hours')</span>
                                     </label>
                                     <label class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="video_duration"
                                                value="3_5" {{checked('3_5', request('video_duration'))}} >
-                                        <span class="custom-control-label">{{__t('3_5_hours')}}</span>
+                                        <span class="custom-control-label">@lang('theme.3_5_hours')</span>
                                     </label>
                                     <label class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="video_duration"
                                                value="6_10" {{checked('6_10', request('video_duration'))}} >
-                                        <span class="custom-control-label">{{__t('6_10_hours')}}</span>
+                                        <span class="custom-control-label">@lang('theme.6_10_hours')</span>
                                     </label>
                                     <label class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="video_duration"
                                                value="11_20" {{checked('11_20', request('video_duration'))}} >
-                                        <span class="custom-control-label">{{__t('11_20_hours')}}</span>
+                                        <span class="custom-control-label">@lang('theme.11_20_hours')</span>
                                     </label>
                                     <label class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="video_duration"
                                                value="21" {{checked('21', request('video_duration'))}} >
-                                        <span class="custom-control-label">{{__t('21_hours')}}</span>
+                                        <span class="custom-control-label">@lang('theme.21_hours')</span>
                                     </label>
 
                                 </div>
@@ -224,7 +226,7 @@
                             <div class="form-group mr-2">
                                 <button type="button" id="hide-course-filter-sidebar" class="btn btn-outline-dark">
                                     <i class="las la-filter"></i>
-                                    Filter {{count(array_except(array_filter(request()->input()), 'q'))}}
+                                    {{--                                    Filter {{count(\Arr::except (array_filter(request()->input()), 'q'))}}--}}
                                 </button>
                             </div>
 

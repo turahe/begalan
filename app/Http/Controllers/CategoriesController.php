@@ -36,7 +36,7 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
-        return view('theme::single-category', compact('category'));
+        return view('theme::categories.show', compact('category'));
     }
 
     /**
@@ -44,6 +44,8 @@ class CategoriesController extends Controller
      */
     public function home()
     {
-        return view('theme::categories', compact('title'));
+        $categories = Category::where('parent_id', null)->get();
+
+        return view('theme::categories.index', compact('categories'));
     }
 }

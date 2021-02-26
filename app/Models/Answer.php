@@ -36,7 +36,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Answer extends Model
 {
-
     /**
      * @return BelongsTo
      */

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\Enroll
+ * App\Models\Enroll.
  *
  * @property int $id
  * @property int $course_id

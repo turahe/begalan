@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Discussion
+ * App\Models\Discussion.
  *
  * @property int $id
  * @property int|null $course_id

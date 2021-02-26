@@ -6,7 +6,6 @@ class Search extends Filter
 {
     protected function applyFilters($builder)
     {
-        return $builder->where('name', 'like', request($this->filterName()))
-            ->orWhere('email', 'like', request($this->filterName()));
+        return $builder->where('title', 'like', '%'.request($this->filterName()).'%');
     }
 }
