@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,8 +20,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $title = __t('dashboard');
-
         $user = Auth::user();
 
         $chartData = null;
@@ -67,7 +66,7 @@ class DashboardController extends Controller
             }
         }
 
-        return view('theme::dashboard.dashboard', compact('title', 'chartData'));
+        return view('theme::dashboard.dashboard', compact('chartData'));
     }
 
     /**
@@ -75,9 +74,7 @@ class DashboardController extends Controller
      */
     public function profileSettings()
     {
-        $title = __t('profile_settings');
-
-        return view('theme::dashboard.settings.profile', compact('title'));
+        return view('theme::dashboard.settings.profile');
     }
 
     /**
@@ -93,12 +90,12 @@ class DashboardController extends Controller
         ];
         $this->validate($request, $rules);
 
-        $input = array_except($request->input(), ['_token', 'social']);
+        $input = Arr::except($request->input(), ['_token', 'social']);
         $user = Auth::user();
         $user->update($input);
         $user->update_option('social', $request->social);
 
-        return back()->with('success', __t('success'));
+        return back()->with('success', __('success'));
     }
 
     /**
@@ -106,9 +103,8 @@ class DashboardController extends Controller
      */
     public function resetPassword()
     {
-        $title = __t('reset_password');
 
-        return view('theme::dashboard.settings.reset_password', compact('title'));
+        return view('theme::dashboard.settings.reset_password');
     }
 
     /**
@@ -138,10 +134,10 @@ class DashboardController extends Controller
                 $logged_user->password = Hash::make($new_password);
                 $logged_user->save();
 
-                return redirect()->back()->with('success', __t('password_changed_msg'));
+                return redirect()->back()->with('success', __('password_changed_msg'));
             }
 
-            return redirect()->back()->with('error', __t('wrong_old_password'));
+            return redirect()->back()->with('error', __('wrong_old_password'));
         }
     }
 
@@ -150,7 +146,7 @@ class DashboardController extends Controller
      */
     public function enrolledCourses()
     {
-        $title = __t('enrolled_courses');
+        $title = __('enrolled_courses');
 
         return view('theme::dashboard.enrolled_courses', compact('title'));
     }
@@ -160,7 +156,7 @@ class DashboardController extends Controller
      */
     public function myReviews()
     {
-        $title = __t('my_reviews');
+        $title = __('my_reviews');
 
         return view('theme::dashboard.my_reviews', compact('title'));
     }
@@ -170,7 +166,7 @@ class DashboardController extends Controller
      */
     public function wishlist()
     {
-        $title = __t('wishlist');
+        $title = __('wishlist');
 
         return view('theme::dashboard.wishlist', compact('title'));
     }
@@ -180,7 +176,7 @@ class DashboardController extends Controller
      */
     public function purchaseHistory()
     {
-        $title = __t('purchase_history');
+        $title = __('purchase_history');
 
         return view('theme::dashboard.purchase_history', compact('title'));
     }

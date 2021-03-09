@@ -31,6 +31,7 @@ class CourseController extends Controller
             ->with('sections', 'sections.items', 'sections.items.media')
             ->first();
 
+
 //        dd($course->media->count());
 //        $lectures_count = $course->lectures->count();
 //        $assignments_count = $course->assignments->count();

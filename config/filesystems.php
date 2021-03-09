@@ -64,6 +64,23 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+        'do_spaces' => [
+            'driver' => 's3',
+            'key' => env('DO_SPACES_KEY'),
+            'secret' => env('DO_SPACES_SECRET'),
+            'endpoint' => env('DO_SPACES_ENDPOINT'),
+            'region' => env('DO_SPACES_REGION'),
+            'bucket' => env('DO_SPACES_BUCKET'),
+        ],
+
+        'vultr' => [
+            'driver' => 's3',
+            'key'=> env('VULTR_ACCESS_KEY'),
+            'secret' => env('VULTR_SECRET_KEY'),
+            'region' => env('VULTR_REGION'),
+            'bucket' => env('VULTR_BUCKET'),
+            'endpoint' => env('VULTR_ENDPOINT'),
+        ],
 
     ],
 

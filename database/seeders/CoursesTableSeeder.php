@@ -19,6 +19,7 @@ class CoursesTableSeeder extends Seeder
     public function run()
     {
         Course::factory(15)->create()->each(function (Course $course) {
+            \Storage::putFile();
             $course->addMedia(storage_path('app/seeds/images/'.mt_rand(1, 20).'.jpg'))
                 ->preservingOriginal()
                 ->withResponsiveImages()

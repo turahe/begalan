@@ -7,13 +7,11 @@
 
     <link rel="shortcut icon" href="{{theme_url('favicon.png')}}"/>
 
-    <!-- Teachify Version -->
-    <meta name="generator" content="WebAcademy v.{{config('app.version')}}" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @if(! empty($title)) {{$title}} @else {{ get_option('site_title') }} @endif</title>
+    <title> {{ $title }}</title>
 
     <!-- all css here -->
 
@@ -21,7 +19,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/line-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
-    <link href="{{ asset('assets/plugins/select2-4.0.3/css/select2.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2-4.0.3/css/select2.css') }}" rel="stylesheet"/>
 
     @yield('page-css')
 
@@ -38,36 +36,33 @@
 <nav class="navbar navbar-expand-lg navbar-light dashboard-top-nav">
     <div class="dashboard-top-navbar-brand">
         <a class="navbar-brand" href="{{route('home')}}">
-            @php
-                $logoUrl = media_file_uri(get_option('site_logo'));
-            @endphp
 
-            @if($logoUrl)
-                <img src="{{media_file_uri(get_option('site_logo'))}}" alt="{{get_option('site_title')}}" />
-            @else
-                <img src="{{asset('assets/images/logo.png')}}" alt="{{get_option('site_title')}}" />
-            @endif
+            <img src="{{asset('assets/images/logo.png')}}" alt="{{get_option('site_title')}}"/>
         </a>
     </div>
 
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav dashboard-navbar-icons mx-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{route('dashboard')}}" data-toggle="tooltip" data-original-title="{{__a('dashboard')}}">
+                <a class="nav-link" href="{{route('dashboard')}}" data-toggle="tooltip"
+                   data-original-title="@lang('admin.dashboard')}}">
                     <i class="las la-dashboard"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('home')}}" target="_blank" data-toggle="tooltip" data-original-title="{{__a('site_home')}}">
+                <a class="nav-link" href="{{route('home')}}" target="_blank" data-toggle="tooltip"
+                   data-original-title="@lang('admin.site_home')}}">
                     <i class="las la-home"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('payments')}}" data-toggle="tooltip" data-original-title="{{__a('payments')}}">
+                <a class="nav-link" href="{{route('admin.payments')}}" data-toggle="tooltip"
+                   data-original-title="@lang('admin.payments')}}">
                     <i class="las la-file-invoice-dollar"></i>
                 </a>
             </li>
@@ -90,28 +85,32 @@
                     </div>
                 </div>
                 <!-- Dropdown - Alerts -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                     aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">
                         Alerts Center
                     </h6>
                     @foreach(Auth::user()->unreadNotifications as $notification)
-                    <a class="dropdown-item d-flex align-items-center" href="{{ route('notifications.show', $notification->id) }}">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-primary">
-                                <i class="las la-file-alt text-white"></i>
+                        <a class="dropdown-item d-flex align-items-center"
+                           href="{{ route('notifications.show', $notification->id) }}">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-primary">
+                                    <i class="las la-file-alt text-white"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">{{ $notification->created_at->diffForHumans() }}</div>
-                            <span class="font-weight-bold">{{ __('admin.' . snake_case(class_basename($notification->type))) }}</span>
-                        </div>
-                    </a>
+                            <div>
+                                <div class="small text-gray-500">{{ $notification->created_at->diffForHumans() }}</div>
+                                <span class="font-weight-bold">{{ __('admin.' . snake_case(class_basename($notification->type))) }}</span>
+                            </div>
+                        </a>
                     @endforeach
-                    <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifications') }}">Show All Alerts</a>
+                    <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifications') }}">Show
+                        All Alerts</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle nav-user-profile">
+                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                   class="nav-link dropdown-toggle nav-user-profile">
                     {!! $auth_user->get_photo !!}
                     <span class="user-name">{{$auth_user->name}}</span>
                 </a>
@@ -137,8 +136,6 @@
 
 
 </nav>
-
-
 
 
 <div class="dashboard-wrap">
@@ -167,7 +164,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="m-0"><a href="https://circlecreative.id" target="_blank">WebAcademy</a> Version {{config('app.version')}}</p>
+                                <p class="m-0"><a href="https://circlecreative.id" target="_blank">WebAcademy</a>
+                                    Version {{config('app.version')}}</p>
                             </div>
                         </div>
                     </div>
@@ -189,7 +187,7 @@
 <script src="{{ asset('assets/plugins/select2-4.0.3/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/admin.js') }}"></script>
 <script>
-    var toastr_options = {closeButton : true};
+    var toastr_options = {closeButton: true};
 </script>
 @yield('page-js')
 

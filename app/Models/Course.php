@@ -15,8 +15,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Turahe\Likeable\Traits\Likeable;
 
@@ -180,6 +182,26 @@ class Course extends Model implements HasMedia, LikeableContract
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('cover')
+            ->width(240)
+            ->height(135)
+            ->sharpen(10)
+            ->optimize();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverAttribute(): string
+    {
+        if ($this->hasMedia()) {
+            return $this->getFirstTemporaryUrl(Carbon::now()->days(2), 'default', 'cover');
+        }
+        return Storage::disk('local')->url('not-found.jpg');
     }
 
     /**

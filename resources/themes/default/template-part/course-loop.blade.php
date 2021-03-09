@@ -3,7 +3,7 @@
 
         <div class="course-card-img-wrap">
             <a href="{{route('course', $course->slug)}}">
-                {{ $course->getFirstMedia() }}
+                <img class="img-fluid" src="{{ $course->cover }}" alt="{{ $course->title }}">
             </a>
 
             <button class="course-card-add-wish btn btn-link btn-sm p-0" data-course-id="{{$course->id}}">

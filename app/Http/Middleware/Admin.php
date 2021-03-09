@@ -21,7 +21,7 @@ class Admin
         }
 
         if (! Auth::user()->hasAnyRole('admin', 'instructor')) {
-            return redirect(route('dashboard'))->with('error', __t('access_restricted'));
+            return redirect(route('dashboard'))->with('error', __('access_restricted'));
         }
 
         return $next($request);

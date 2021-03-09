@@ -27,7 +27,7 @@
         </div>
         <div class="mini-cart-total-wrap pt-4">
             <a href="{{route('notifications')}}" class="btn btn-block btn-info">
-                {{__t('all_notifications')}}
+                @lang('theme.all_notifications')
             </a>
         </div>
     </div>

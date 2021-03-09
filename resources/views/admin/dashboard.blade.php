@@ -1,4 +1,6 @@
-@extends('layouts.admin')
+@extends('layouts.admin', [
+    'title' => 'Dashboard'
+])
 
 @section('content')
 
@@ -11,7 +13,7 @@
     $lectureCount = \App\Models\Content::whereItemType('lecture')->count();
     $quizCount = \App\Models\Content::whereItemType('quiz')->count();
     $assignmentCount = \App\Models\Content::whereItemType('assignment')->count();
-    $questionCount = \App\Models\Discussion::whereDiscussionId(0)->count();
+    $questionCount = \App\Models\Discussion::whereParentId(0)->count();
     $totalEnrol = \App\Models\Enroll::whereStatus('success')->count();
     $totalReview = \App\Models\Review::count();
     $totalAmount = \App\Models\Payment::whereStatus('success')->sum('amount');
@@ -30,7 +32,7 @@
                 </div>
 
                 <div class="card-info">
-                    <div class="text-value"><h4>{{$userCount}}</h4></div>
+                    <div class="text-value"><h4>{{ \App\Models\User::count() }}</h4></div>
                     <div>Users</div>
                 </div>
             </div>

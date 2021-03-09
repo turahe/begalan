@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin');
+Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
 
 Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
 Route::resource('pages', \App\Http\Controllers\Admin\PageController::class);

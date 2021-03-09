@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Withdraw;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -22,8 +23,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $title = __a('dashboard');
-
         /**
          * Format Date Name.
          */
@@ -52,8 +51,8 @@ class AdminController extends Controller
               ORDER BY created_at ASC ;";
         $getEarnings = DB::select(DB::raw($sql));
 
-        $total_amount = array_pluck($getEarnings, 'total_amount');
-        $queried_date = array_pluck($getEarnings, 'date_format');
+        $total_amount = Arr::pluck($getEarnings, 'total_amount');
+        $queried_date = Arr::pluck($getEarnings, 'date_format');
 
         $dateWiseSales = array_combine($queried_date, $total_amount);
 
@@ -66,7 +65,7 @@ class AdminController extends Controller
             $chartData[$formatDate] = $salesCount ? $salesCount : 0;
         }
 
-        return view('admin.dashboard', compact('title', 'chartData'));
+        return view('admin.dashboard', compact('chartData'));
     }
 
     /**

@@ -8,8 +8,8 @@
 
     @if(is_array($menus) && count($menus))
         @foreach($menus as $key => $instructor_menu)
-            <li class="{{array_get($instructor_menu, 'is_active') ? 'active' : ''}}">
-                <a href="{{route($key)}}"> {!! array_get($instructor_menu, 'icon') !!} {!! array_get($instructor_menu, 'name') !!} </a>
+            <li class="{{Arr::get($instructor_menu, 'is_active') ? 'active' : ''}}">
+                <a href="{{route($key)}}"> {!! Arr::get($instructor_menu, 'icon') !!} {!! Arr::get($instructor_menu, 'name') !!} </a>
             </li>
         @endforeach
     @endif

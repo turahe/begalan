@@ -1,15 +1,8 @@
-@extends('theme::dashboard.layout')
+@extends('theme::dashboard.layout', [
+    'title' => 'Dashboard'
+])
 
 @section('content')
-    @php
-        $user_id = $auth_user->id;
-
-        $enrolledCount = \App\Models\Enroll::whereUserId($user_id)->whereStatus('success')->count();
-        $wishListed = \Illuminate\Support\Facades\DB::table('wishlists')->whereUserId($user_id)->count();
-
-        $myReviewsCount = \App\Models\Review::whereUserId($user_id)->count();
-        $purchases = $auth_user->purchases()->take(10)->get();
-    @endphp
 
     <div class="row">
         <div class="col-lg-4 col-md-6">
@@ -19,7 +12,7 @@
                 </div>
 
                 <div class="card-info">
-                    <div class="text-value"><h4>{{$enrolledCount}}</h4></div>
+                    <div class="text-value"><h4>{{ Auth::user()->enrolls_count }}</h4></div>
                     <div>Courses Enrolled</div>
                 </div>
             </div>
@@ -32,7 +25,7 @@
                 </div>
 
                 <div class="card-info">
-                    <div class="text-value"><h4>{{$wishListed}}</h4></div>
+                    <div class="text-value"><h4>{{ Auth::user()->wishlist_count }}</h4></div>
                     <div>In Wishlist</div>
                 </div>
             </div>
@@ -45,7 +38,7 @@
                 </div>
 
                 <div class="card-info">
-                    <div class="text-value"><h4>{{$myReviewsCount}}</h4></div>
+                    <div class="text-value"><h4>{{ Auth::user()->reviews_count }}</h4></div>
                     <div>My Reviews</div>
                 </div>
             </div>
@@ -61,17 +54,17 @@
         </div>
     @endif
 
-    @if($purchases->count() > 0)
-        <h4 class="my-4"> {{sprintf(__t('my_last_purchases'), $purchases->count())}} </h4>
+    @if(Auth::user()->purchases_count > 0)
+        <h4 class="my-4"> {{sprintf(__('my_last_purchases'), $purchases->count())}} </h4>
 
         <table class="table table-striped table-bordered">
 
             <tr>
                 <th>#</th>
-                <th>{{__a('amount')}}</th>
-                <th>{{__a('method')}}</th>
-                <th>{{__a('time')}}</th>
-                <th>{{__a('status')}}</th>
+                <th>@lang('admin.amount')</th>
+                <th>@lang('admin.method')</th>
+                <th>@lang('admin.time')</th>
+                <th>@lang('admin.status')</th>
                 <th>#</th>
             </tr>
 

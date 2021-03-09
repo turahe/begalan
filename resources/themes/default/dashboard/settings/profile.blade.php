@@ -1,4 +1,6 @@
-@extends('theme::dashboard.layout')
+@extends('theme::dashboard.layout', [
+    'title' => 'Profile'
+])
 
 @section('content')
 
@@ -25,7 +27,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-6 {{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label>{{__t('name')}}</label>
+                        <label>@lang('theme.name')}}</label>
                         <input type="tel" class="form-control" name="name" value="{{$user->name}}" >
                         @if ($errors->has('name'))
                             <span class="invalid-feedback"><strong>{{ $errors->first('name') }}</strong></span>
@@ -33,7 +35,7 @@
                     </div>
 
                     <div class="form-group col-md-6 {{ $errors->has('job_title') ? ' has-error' : '' }}">
-                        <label>{{__t('job_title')}}</label>
+                        <label>@lang('theme.job_title')}}</label>
                         <input type="text" class="form-control" name="job_title" value="{{$user->job_title}}">
                         @if ($errors->has('job_title'))
                             <span class="invalid-feedback"><strong>{{ $errors->first('job_title') }}</strong></span>
@@ -43,32 +45,32 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label>{{__t('phone')}}</label>
+                        <label>@lang('theme.phone')}}</label>
                         <input type="text" class="form-control" name="phone" value="{{$user->phone}}">
                     </div>
                     <div class="form-group col-md-4">
-                        <label>{{__t('address')}}</label>
+                        <label>@lang('theme.address')}}</label>
                         <input type="text" class="form-control" name="address" value="{{$user->address}}" >
                     </div>
                     <div class="form-group col-md-4">
-                        <label>{{__t('address_2')}}</label>
+                        <label>@lang('theme.address_2')}}</label>
                         <input type="text" class="form-control" name="address_2" value="{{$user->address_2}}" >
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>{{__t('city')}}</label>
+                        <label>@lang('theme.city')</label>
                         <input type="text" class="form-control" name="city" value="{{$user->city}}">
                     </div>
 
                     <div class="form-group col-md-2">
-                        <label>{{__t('zip')}}</label>
+                        <label>@lang('theme.zip')</label>
                         <input type="text" class="form-control" name="zip_code" value="{{$user->zip_code}}">
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label for="inputState">{{__t('country')}}</label>
+                        <label for="inputState">@lang('theme.country')</label>
 
                         <select  class="form-control" name="country_id">
                             <option value="">Choose...</option>
@@ -79,13 +81,13 @@
                     </div>
 
                     <div class="form-group col-md-9">
-                        <label>{{__t('about_me')}}</label>
+                        <label>@lang('theme.about_me')</label>
                         <textarea class="form-control" name="about_me" rows="5">{{$user->about_me}}</textarea>
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label>{{__t('profile_photo')}}</label>
-                        {!! image_upload_form('photo', $user->photo) !!}
+                        <label>@lang('theme.profile_photo')}}</label>
+{{--                        {!! image_upload_form('photo', $user->photo) !!}--}}
                     </div>
 
                 </div>
