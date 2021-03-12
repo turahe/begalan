@@ -27,101 +27,72 @@ class CourseController extends Controller
      */
     public function view(string $slug)
     {
-        try {
-            $course = Course::whereSlug($slug)
-                ->with('sections', 'sections.items', 'sections.items.media')
-                ->first();
+        $course = Course::whereSlug($slug)
+            ->with('sections', 'sections.items', 'sections.items.media')
+            ->first();
 
-
-//        dd($course->media->count());
-//        $lectures_count = $course->lectures->count();
-//        $assignments_count = $course->assignments->count();
-//        $attachments_count = $course->media->count();
-
-            if (! $course) {
-                abort(404);
-            }
-
-            $user = Auth::user();
-
-            if ($course->status != 1) {
-                if (! $user || ! $user->isInstructorInCourse($course->id)) {
-                    abort(404);
-                }
-            }
-            $title = $course->title;
-
-            $isEnrolled = false;
-            if (Auth::check()) {
-                $user = Auth::user();
-
-                $enrolled = $user->isEnrolled($course->id);
-                if ($enrolled) {
-                    $isEnrolled = $enrolled;
-                }
-            }
-
-            return view('theme::course', compact('course', 'title', 'isEnrolled'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        if (! $course) {
+            abort(404);
         }
 
+        if ($course->status != 1) {
+            if (! Auth::user() || ! Auth::user()->isInstructorInCourse($course->id)) {
+                abort(404);
+            }
+        }
+        $isEnrolled = false;
+        if (Auth::check()) {
+            $enrolled = Auth::user()->isEnrolled($course->id);
+            if ($enrolled) {
+                $isEnrolled = $enrolled;
+            }
+        }
+
+        return view('theme::course', compact('course', 'isEnrolled'));
     }
 
     /**
      * @param $slug
-     * @param $lecture_id
+     * @param Content $content
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * View lecture in full width mode.
      */
-    public function lectureView($slug, $lecture_id)
+    public function lectureView($slug, Content $content)
     {
-        try {
-            $lecture = Content::find($lecture_id);
-            $course = $lecture->course;
-            $title = $lecture->title;
+        $course = $content->course;
+        $title = $content->title;
 
-            $isEnrolled = false;
+        $isEnrolled = false;
 
-            $isOpen = (bool) $lecture->is_preview;
+        $isOpen = (bool) $content->is_preview;
 
-            $user = Auth::user();
-
-            if ($course->paid && $user) {
-                $isEnrolled = $user->isEnrolled($course->id);
-                if ($course->paid && $isEnrolled) {
+        if ($content->course->paid && Auth::user()) {
+            $isEnrolled = Auth::user()->isEnrolled($content->course->id);
+            if ($content->course->paid && $isEnrolled) {
+                $isOpen = true;
+            }
+        } elseif ($content->course->free) {
+            if ($content->course->require_enroll && Auth::user()) {
+                $isEnrolled = Auth::user()->isEnrolled($content->course->id);
+                if ($isEnrolled) {
                     $isOpen = true;
                 }
-            } elseif ($course->free) {
-                if ($course->require_enroll && $user) {
-                    $isEnrolled = $user->isEnrolled($course->id);
-                    if ($isEnrolled) {
-                        $isOpen = true;
-                    }
-                } elseif ($course->require_login) {
-                    if ($user) {
-                        $isOpen = true;
-                    }
-                } else {
+            } elseif ($content->course->require_login) {
+                if (Auth::user()) {
                     $isOpen = true;
                 }
+            } else {
+                $isOpen = true;
             }
-
-            if ($lecture->drip->is_lock) {
-                $isOpen = false;
-            }
-
-            return view('theme::lecture', compact('course', 'title', 'isEnrolled', 'lecture', 'isOpen'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
         }
 
+        if ($content->drip->is_lock) {
+            $isOpen = false;
+        }
+        $lecture = $content;
+
+        return view('theme::lecture', compact('course', 'title', 'isEnrolled', 'lecture', 'isOpen'));
     }
 
     /**
@@ -131,24 +102,18 @@ class CourseController extends Controller
      */
     public function assignmentView($slug, $assignment_id)
     {
-        try {
-            $assignment = Content::find($assignment_id);
-            $course = $assignment->course;
-            $title = $assignment->title;
-            $has_submission = $assignment->has_submission;
+        $assignment = Content::find($assignment_id);
+        $course = $assignment->course;
+        $title = $assignment->title;
+        $has_submission = $assignment->has_submission;
 
-            $isEnrolled = false;
-            if (Auth::check()) {
-                $user = Auth::user();
-                $isEnrolled = $user->isEnrolled($course->id);
-            }
-
-            return view('theme::assignment', compact('course', 'title', 'isEnrolled', 'assignment', 'has_submission'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $isEnrolled = false;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $isEnrolled = $user->isEnrolled($course->id);
         }
 
+        return view('theme::assignment', compact('course', 'title', 'isEnrolled', 'assignment', 'has_submission'));
     }
 
     /**
@@ -159,48 +124,43 @@ class CourseController extends Controller
      */
     public function assignmentSubmitting(Request $request, $slug, $assignment_id)
     {
-        try {
-            $user = Auth::user();
-            $user_id = $user->id;
-            $assignment = Content::find($assignment_id);
+        $user = Auth::user();
+        $user_id = $user->id;
+        $assignment = Content::find($assignment_id);
 
-            $submission = $assignment->has_submission;
-            if ($submission) {
-                if ($submission->status === 'submitting') {
-                    $submission->text_submission = clean_html($request->assignment_text);
-                    $submission->status = 'submitted';
-                    $submission->save();
-                    complete_content($assignment, $user);
+        $submission = $assignment->has_submission;
+        if ($submission) {
+            if ($submission->status === 'submitting') {
+                $submission->text_submission = clean_html($request->assignment_text);
+                $submission->status = 'submitted';
+                $submission->save();
+                complete_content($assignment, $user);
 
-                    /**
-                     * Save Attachments if any.
-                     *
-                     * @todo, check attachment size, if exceed, delete those attachments
-                     */
-                    $attachments = array_filter((array) $request->assignment_attachments);
-                    if (is_array($attachments) && count($attachments)) {
-                        foreach ($attachments as $media_id) {
-                            $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
-                            Attachment::create(['assignment_submission_id' => $submission->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
-                        }
+                /**
+                 * Save Attachments if any.
+                 *
+                 * @todo, check attachment size, if exceed, delete those attachments
+                 */
+                $attachments = array_filter((array) $request->assignment_attachments);
+                if (is_array($attachments) && count($attachments)) {
+                    foreach ($attachments as $media_id) {
+                        $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
+                        Attachment::create(['assignment_submission_id' => $submission->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
                     }
                 }
-            } else {
-                $course = $assignment->course;
-                $data = [
-                    'user_id' => $user_id,
-                    'course_id' => $course->id,
-                    'assignment_id' => $assignment_id,
-                    'status' => 'submitting',
-                ];
-                AssignmentSubmission::create($data);
             }
-
-            return redirect()->back();
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        } else {
+            $course = $assignment->course;
+            $data = [
+                'user_id' => $user_id,
+                'course_id' => $course->id,
+                'assignment_id' => $assignment_id,
+                'status' => 'submitting',
+            ];
+            AssignmentSubmission::create($data);
         }
+
+        return redirect()->back();
     }
 
     /**
@@ -208,15 +168,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        try {
-            $title = __t('create_new_course');
-            $categories = Category::parent()->with('sub_categories')->get();
+        $categories = Category::parent()->with('sub_categories')->get();
 
-            return view('theme::dashboard.courses.create_course', compact('title', 'categories'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return view('theme::dashboard.courses.create_course', compact('title', 'categories'));
     }
 
     /**
@@ -225,56 +179,49 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $rules = [
-                'title' => 'required',
-                'category_id' => 'required',
-                'topic_id' => 'required',
-            ];
+        $this->validate($request, [
+            'title' => 'required',
+            'category_id' => 'required',
+            'topic_id' => 'required',
+        ]);
 
-            $this->validate($request, $rules);
+        $user_id = Auth::user()->id;
+        $slug = unique_slug($request->title);
+        $now = Carbon::now()->toDateTimeString();
 
-            $user_id = Auth::user()->id;
-            $slug = unique_slug($request->title);
-            $now = Carbon::now()->toDateTimeString();
+        $category = Category::find($request->category_id);
+        $data = [
+            'user_id' => $user_id,
+            'title' => clean_html($request->title),
+            'slug' => $slug,
+            'short_description' => clean_html($request->short_description),
+            'price_plan' => 'free',
+            'category_id' => $request->topic_id,
+            'parent_category_id' => $category->category_id,
+            'second_category_id' => $category->id,
+            'thumbnail_id' => $request->thumbnail_id,
+            'level' => $request->level,
+            'last_updated_at' => $now,
+        ];
 
-            $category = Category::find($request->category_id);
-            $data = [
-                'user_id' => $user_id,
-                'title'             => clean_html($request->title),
-                'slug'              => $slug,
-                'short_description' => clean_html($request->short_description),
-                'price_plan'        => 'free',
-                'category_id'       => $request->topic_id,
-                'parent_category_id' => $category->category_id,
-                'second_category_id' => $category->id,
-                'thumbnail_id'      => $request->thumbnail_id,
-                'level'             => $request->level,
-                'last_updated_at'   => $now,
-            ];
-
-            /**
-             * save video data.
-             */
-            $video_source = $request->input('video.source');
-            if ($video_source === '-1') {
-                $data['video_src'] = null;
-            } else {
-                $data['video_src'] = json_encode($request->video);
-            }
-
-            $course = Course::create($data);
-
-            $now = Carbon::now()->toDateTimeString();
-            if ($course) {
-                $course->instructors()->attach($user_id, ['added_at' => $now]);
-            }
-
-            return redirect(route('edit_course_information', $course->id));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        /**
+         * save video data.
+         */
+        $video_source = $request->input('video.source');
+        if ($video_source === '-1') {
+            $data['video_src'] = null;
+        } else {
+            $data['video_src'] = json_encode($request->video);
         }
+
+        $course = Course::create($data);
+
+        $now = Carbon::now()->toDateTimeString();
+        if ($course) {
+            $course->instructors()->attach($user_id, ['added_at' => $now]);
+        }
+
+        return redirect(route('edit_course_information', $course->id));
     }
 
     /**
@@ -283,78 +230,67 @@ class CourseController extends Controller
      */
     public function information($course_id)
     {
-        try {
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-            $categories = Category::parent()->get();
-            $topics = Category::whereCategoryId($course->second_category_id)->get();
-
-            return view('theme::dashboard.courses.information', compact( 'course', 'categories', 'topics'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
         }
+        $categories = Category::parent()->get();
+        $topics = Category::whereCategoryId($course->second_category_id)->get();
 
+        return view('theme::dashboard.courses.information', compact('course', 'categories', 'topics'));
     }
 
     /**
      * @param Request $request
      * @param $course_id
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function informationPost(Request $request, $course_id)
     {
-        try {
-            $rules = [
-                'title'             => 'required|max:120',
-                'short_description' => 'max:220',
-                'category_id'       => 'required',
+        $rules = [
+            'title' => 'required|max:120',
+            'short_description' => 'max:220',
+            'category_id' => 'required',
 //            'topic_id'       => 'required',
-            ];
-            $this->validate($request, $rules);
+        ];
+        $this->validate($request, $rules);
 
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-            $category = Category::find($request->category_id);
-
-            $data = [
-                'title'             => clean_html($request->title),
-                'short_description' => clean_html($request->short_description),
-                'description'       => clean_html($request->description),
-                'benefits'          => clean_html($request->benefits),
-                'requirements'      => clean_html($request->requirements),
-                'thumbnail_id'      => $request->thumbnail_id,
-                'category_id'       => $request->topic_id,
-                'parent_category_id' => $category->category_id,
-                'second_category_id' => $category->id,
-                'level'             => $request->level,
-            ];
-            /**
-             * save video data.
-             */
-            $video_source = $request->input('video.source');
-            if ($video_source === '-1') {
-                $data['video_src'] = null;
-            } else {
-                $data['video_src'] = json_encode($request->video);
-            }
-
-            $course->update($data);
-
-            if ($request->save === 'save_next') {
-                return redirect(route('edit_course_curriculum', $course_id));
-            }
-
-            return redirect()->back();
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
         }
+        $category = Category::find($request->category_id);
+
+        $data = [
+            'title' => clean_html($request->title),
+            'short_description' => clean_html($request->short_description),
+            'description' => clean_html($request->description),
+            'benefits' => clean_html($request->benefits),
+            'requirements' => clean_html($request->requirements),
+            'thumbnail_id' => $request->thumbnail_id,
+            'category_id' => $request->topic_id,
+            'parent_category_id' => $category->category_id,
+            'second_category_id' => $category->id,
+            'level' => $request->level,
+        ];
+        /**
+         * save video data.
+         */
+        $video_source = $request->input('video.source');
+        if ($video_source === '-1') {
+            $data['video_src'] = null;
+        } else {
+            $data['video_src'] = json_encode($request->video);
+        }
+
+        $course->update($data);
+
+        if ($request->save === 'save_next') {
+            return redirect(route('edit_course_curriculum', $course_id));
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -363,17 +299,12 @@ class CourseController extends Controller
      */
     public function curriculum($course_id)
     {
-        try {
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-
-            return view('theme::dashboard.courses.curriculum', compact('course'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
         }
+
+        return view('theme::dashboard.courses.curriculum', compact('course'));
     }
 
     /**
@@ -382,42 +313,29 @@ class CourseController extends Controller
      */
     public function newSection($course_id)
     {
-        try {
-            $course = Course::find($course_id);
+        $course = Course::find($course_id);
 
-            return view('theme::dashboard.courses.new_section', compact('title', 'course'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return view('theme::dashboard.courses.new_section', compact('title', 'course'));
     }
 
     /**
      * @param Request $request
      * @param $course_id
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function newSectionPost(Request $request, $course_id)
     {
-        try {
-            $rules = [
-                'section_name' => 'required',
-            ];
-            $this->validate($request, $rules);
+        $this->validate($request, [
+            'section_name' => 'required',
+        ]);
 
-            Section::create(
-                [
-                    'course_id' => $course_id,
-                    'section_name' => clean_html($request->section_name),
-                ]
-            );
+        Section::create([
+            'course_id' => $course_id,
+            'section_name' => clean_html($request->section_name),
+        ]);
 
-            return redirect(route('edit_course_curriculum', $course_id));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return redirect(route('edit_course_curriculum', $course_id));
     }
 
     /**
@@ -429,17 +347,12 @@ class CourseController extends Controller
      */
     public function updateSection(Request $request, $id)
     {
-        try {
-            $rules = [
-                'section_name' => 'required',
-            ];
-            $this->validate($request, $rules);
+        $rules = [
+            'section_name' => 'required',
+        ];
+        $this->validate($request, $rules);
 
-            Section::whereId($id)->update(['section_name' => clean_html($request->section_name)]);
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        Section::whereId($id)->update(['section_name' => clean_html($request->section_name)]);
     }
 
     /**
@@ -449,19 +362,14 @@ class CourseController extends Controller
      */
     public function deleteSection(Request $request)
     {
-        try {
-            $section = Section::find($request->section_id);
-            $course = $section->course;
+        $section = Section::find($request->section_id);
+        $course = $section->course;
 
-            Content::query()->where('section_id', $request->section_id)->delete();
-            $section->delete();
-            $course->sync_everything();
+        Content::query()->where('section_id', $request->section_id)->delete();
+        $section->delete();
+        $course->sync_everything();
 
-            return ['success' => true];
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return ['success' => true];
     }
 
     /**
@@ -471,51 +379,46 @@ class CourseController extends Controller
      */
     public function newLecture(Request $request, $course_id)
     {
-        try {
-            $rules = [
-                'title' => 'required',
-            ];
+        $rules = [
+            'title' => 'required',
+        ];
 
-            $validation = Validator::make($request->input(), $rules);
+        $validation = Validator::make($request->input(), $rules);
 
-            if ($validation->fails()) {
-                $errors = $validation->errors()->toArray();
+        if ($validation->fails()) {
+            $errors = $validation->errors()->toArray();
 
-                $error_msg = "<div class='alert alert-danger mb-3'>";
-                foreach ($errors as $error) {
-                    $error_msg .= "<p class='m-0'>{$error[0]}</p>";
-                }
-                $error_msg .= '</div>';
-
-                return ['success' => false, 'error_msg' => $error_msg];
+            $error_msg = "<div class='alert alert-danger mb-3'>";
+            foreach ($errors as $error) {
+                $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
+            $error_msg .= '</div>';
 
-            $user_id = Auth::user()->id;
-
-            $lesson_slug = unique_slug($request->title, 'Content');
-            $sort_order = next_curriculum_item_id($course_id);
-
-            $data = [
-                'user_id'       => $user_id,
-                'course_id'     => $course_id,
-                'section_id'    => $request->section_id,
-                'title'         => clean_html($request->title),
-                'slug'          => $lesson_slug,
-                'text'          => clean_html($request->description),
-                'item_type'     => 'lecture',
-                'status'        => 1,
-                'sort_order'   => $sort_order,
-                'is_preview'    => $request->is_preview,
-            ];
-
-            $lecture = Content::create($data);
-            $lecture->save_and_sync();
-
-            return ['success' => true, 'item_id' => $lecture->id];
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+            return ['success' => false, 'error_msg' => $error_msg];
         }
+
+        $user_id = Auth::user()->id;
+
+        $lesson_slug = unique_slug($request->title, 'Content');
+        $sort_order = next_curriculum_item_id($course_id);
+
+        $data = [
+            'user_id' => $user_id,
+            'course_id' => $course_id,
+            'section_id' => $request->section_id,
+            'title' => clean_html($request->title),
+            'slug' => $lesson_slug,
+            'text' => clean_html($request->description),
+            'item_type' => 'lecture',
+            'status' => 1,
+            'sort_order' => $sort_order,
+            'is_preview' => $request->is_preview,
+        ];
+
+        $lecture = Content::create($data);
+        $lecture->save_and_sync();
+
+        return ['success' => true, 'item_id' => $lecture->id];
     }
 
     /**
@@ -525,16 +428,11 @@ class CourseController extends Controller
      */
     public function loadContents(Request $request)
     {
-        try {
-            $section = Section::find($request->section_id);
+        $section = Section::find($request->section_id);
 
-            $html = view_template_part('dashboard.courses.section-items', compact('section'));
+        $html = view_template_part('dashboard.courses.section-items', compact('section'));
 
-            return ['success' => true, 'html' => $html];
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return ['success' => true, 'html' => $html];
     }
 
     /**
@@ -545,62 +443,57 @@ class CourseController extends Controller
      */
     public function updateLecture(Request $request, $course_id, $item_id)
     {
-        try {
-            $rules = [
-                'title' => 'required',
-            ];
-            $validation = Validator::make($request->input(), $rules);
+        $rules = [
+            'title' => 'required',
+        ];
+        $validation = Validator::make($request->input(), $rules);
 
-            if ($validation->fails()) {
-                $errors = $validation->errors()->toArray();
-                $error_msg = "<div class='alert alert-danger mb-3'>";
-                foreach ($errors as $error) {
-                    $error_msg .= "<p class='m-0'>{$error[0]}</p>";
-                }
-                $error_msg .= '</div>';
-
-                return ['success' => false, 'error_msg' => $error_msg];
+        if ($validation->fails()) {
+            $errors = $validation->errors()->toArray();
+            $error_msg = "<div class='alert alert-danger mb-3'>";
+            foreach ($errors as $error) {
+                $error_msg .= "<p class='m-0'>{$error[0]}</p>";
             }
+            $error_msg .= '</div>';
 
-            $user_id = Auth::user()->id;
-
-            $lesson_slug = unique_slug($request->title, 'Content', $item_id);
-            $data = [
-                'title'         => clean_html($request->title),
-                'slug'          => $lesson_slug,
-                'text'          => clean_html($request->description),
-                'is_preview'    => clean_html($request->is_preview),
-            ];
-
-            /**
-             * save video data.
-             */
-            $video_source = $request->input('video.source');
-            if ($video_source === '-1') {
-                $data['video_src'] = null;
-            } else {
-                $data['video_src'] = json_encode($request->video);
-            }
-
-            $item = Content::find($item_id);
-            $item->save_and_sync($data);
-
-            /**
-             * Save Attachments if any.
-             */
-            $attachments = array_filter((array) $request->attachments);
-            if (is_array($attachments) && count($attachments)) {
-                foreach ($attachments as $media_id) {
-                    $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
-                    Attachment::create(['belongs_course_id' => $item->course_id, 'content_id' => $item->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
-                }
-            }
-
-            return ['success' => true];
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+            return ['success' => false, 'error_msg' => $error_msg];
         }
+
+        $user_id = Auth::user()->id;
+
+        $lesson_slug = unique_slug($request->title, 'Content', $item_id);
+        $data = [
+            'title' => clean_html($request->title),
+            'slug' => $lesson_slug,
+            'text' => clean_html($request->description),
+            'is_preview' => clean_html($request->is_preview),
+        ];
+
+        /**
+         * save video data.
+         */
+        $video_source = $request->input('video.source');
+        if ($video_source === '-1') {
+            $data['video_src'] = null;
+        } else {
+            $data['video_src'] = json_encode($request->video);
+        }
+
+        $item = Content::find($item_id);
+        $item->save_and_sync($data);
+
+        /**
+         * Save Attachments if any.
+         */
+        $attachments = array_filter((array) $request->attachments);
+        if (is_array($attachments) && count($attachments)) {
+            foreach ($attachments as $media_id) {
+                $hash = strtolower(str_random(13).substr(time(), 4).str_random(13));
+                Attachment::create(['belongs_course_id' => $item->course_id, 'content_id' => $item->id, 'user_id' => $user_id, 'media_id' => $media_id, 'hash_id' => $hash]);
+            }
+        }
+
+        return ['success' => true];
     }
 
     /**
@@ -609,25 +502,20 @@ class CourseController extends Controller
      */
     public function editItem(Request $request)
     {
-        try {
-            $item_id = $request->item_id;
-            $item = Content::find($item_id);
+        $item_id = $request->item_id;
+        $item = Content::find($item_id);
 
-            $form_html = '';
+        $form_html = '';
 
-            if ($item->item_type === 'lecture') {
-                $form_html = view_template_part('dashboard.courses.edit_lecture_form', compact('item'));
-            } elseif ($item->item_type === 'quiz') {
-                $form_html = view_template_part('dashboard.courses.quiz.edit_quiz', compact('item'));
-            } elseif ($item->item_type === 'assignment') {
-                $form_html = view_template_part('dashboard.courses.edit_assignment_form', compact('item'));
-            }
-
-            return ['success' => true, 'form_html' => $form_html];
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        if ($item->item_type === 'lecture') {
+            $form_html = view_template_part('dashboard.courses.edit_lecture_form', compact('item'));
+        } elseif ($item->item_type === 'quiz') {
+            $form_html = view_template_part('dashboard.courses.quiz.edit_quiz', compact('item'));
+        } elseif ($item->item_type === 'assignment') {
+            $form_html = view_template_part('dashboard.courses.edit_assignment_form', compact('item'));
         }
+
+        return ['success' => true, 'form_html' => $form_html];
     }
 
     /**
@@ -636,15 +524,10 @@ class CourseController extends Controller
      */
     public function deleteItem(Request $request)
     {
-        try {
-            $item_id = $request->item_id;
-            Content::destroy($item_id);
+        $item_id = $request->item_id;
+        Content::destroy($item_id);
 
-            return ['success' => true];
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return ['success' => true];
     }
 
     /**
@@ -653,58 +536,48 @@ class CourseController extends Controller
      */
     public function pricing($course_id)
     {
-        try {
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-
-            return view('theme::dashboard.courses.pricing', compact('title', 'course'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
         }
+
+        return view('theme::dashboard.courses.pricing', compact('title', 'course'));
     }
 
     /**
      * @param Request $request
      * @param $course_id
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function pricingSet(Request $request, $course_id)
     {
-        try {
-            if ($request->price_plan == 'paid') {
-                $rules = [
-                    'price' => 'required|numeric',
-                ];
-                if ($request->sale_price) {
-                    $rules['sale_price'] = 'numeric';
-                }
-                $this->validate($request, $rules);
-            }
-
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-
-            $data = [
-                'price_plan'        => $request->price_plan,
-                'price'             => clean_html($request->price),
-                'sale_price'        => clean_html($request->sale_price),
-                'require_login'     => $request->require_login,
-                'require_enroll'    => $request->require_enroll,
+        if ($request->price_plan == 'paid') {
+            $rules = [
+                'price' => 'required|numeric',
             ];
-
-            $course->update($data);
-
-            return back();
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+            if ($request->sale_price) {
+                $rules['sale_price'] = 'numeric';
+            }
+            $this->validate($request, $rules);
         }
+
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
+        }
+
+        $data = [
+            'price_plan' => $request->price_plan,
+            'price' => clean_html($request->price),
+            'sale_price' => clean_html($request->sale_price),
+            'require_login' => $request->require_login,
+            'require_enroll' => $request->require_enroll,
+        ];
+
+        $course->update($data);
+
+        return back();
     }
 
     /**
@@ -713,17 +586,12 @@ class CourseController extends Controller
      */
     public function drip($course_id)
     {
-        try {
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-
-            return view('theme::dashboard.courses.drip', compact('title', 'course'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
         }
+
+        return view('theme::dashboard.courses.drip', compact('title', 'course'));
     }
 
     /**
@@ -733,22 +601,17 @@ class CourseController extends Controller
      */
     public function dripPost(Request $request, $course_id)
     {
-        try {
-            $sections = $request->section;
-            foreach ($sections as $sectionId => $section) {
-                Section::whereId($sectionId)->update(array_except($section, 'content'));
+        $sections = $request->section;
+        foreach ($sections as $sectionId => $section) {
+            Section::whereId($sectionId)->update(array_except($section, 'content'));
 
-                $contents = array_get($section, 'content');
-                foreach ($contents as $contentId => $content) {
-                    Content::whereId($contentId)->update(array_except($content, 'content'));
-                }
+            $contents = array_get($section, 'content');
+            foreach ($contents as $contentId => $content) {
+                Content::whereId($contentId)->update(array_except($content, 'content'));
             }
-
-            return back()->with('success', __t('drip_preference_saved'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
         }
+
+        return back()->with('success', __t('drip_preference_saved'));
     }
 
     /**
@@ -757,17 +620,12 @@ class CourseController extends Controller
      */
     public function publish($course_id)
     {
-        try {
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-
-            return view('theme::dashboard.courses.publish', compact('course'));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
         }
+
+        return view('theme::dashboard.courses.publish', compact('course'));
     }
 
     /**
@@ -777,28 +635,23 @@ class CourseController extends Controller
      */
     public function publishPost(Request $request, $course_id)
     {
-        try {
-            $course = Course::find($course_id);
-            if (! $course || ! $course->i_am_instructor) {
-                abort(404);
-            }
-            if ($request->publish_btn == 'publish') {
-                if (get_option('lms_settings.instructor_can_publish_course')) {
-                    $course->status = 1;
-                } else {
-                    $course->status = 2;
-                }
-            } elseif ($request->publish_btn == 'unpublish') {
-                $course->status = 4;
-            }
-
-            $course->save();
-
-            return back();
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $course = Course::find($course_id);
+        if (! $course || ! $course->i_am_instructor) {
+            abort(404);
         }
+        if ($request->publish_btn == 'publish') {
+            if (get_option('lms_settings.instructor_can_publish_course')) {
+                $course->status = 1;
+            } else {
+                $course->status = 2;
+            }
+        } elseif ($request->publish_btn == 'unpublish') {
+            $course->status = 4;
+        }
+
+        $course->save();
+
+        return back();
     }
 
     /**
@@ -808,29 +661,24 @@ class CourseController extends Controller
      */
     public function freeEnroll(Request $request)
     {
-        try {
-            $course_id = $request->course_id;
+        $course_id = $request->course_id;
 
-            if (! Auth::check()) {
-                return redirect(route('login'));
-            }
-
-            $user = Auth::user();
-            $course = Course::find($course_id);
-
-            $isEnrolled = $user->isEnrolled($course_id);
-
-            if (! $isEnrolled) {
-                $carbon = Carbon::now()->toDateTimeString();
-                $user->enrolls()->attach($course_id, ['status' => 'success', 'enrolled_at' => $carbon]);
-                $user->enroll_sync();
-            }
-
-            return redirect(route('course', $course->slug));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        if (! Auth::check()) {
+            return redirect(route('login'));
         }
+
+        $user = Auth::user();
+        $course = Course::find($course_id);
+
+        $isEnrolled = $user->isEnrolled($course_id);
+
+        if (! $isEnrolled) {
+            $carbon = Carbon::now()->toDateTimeString();
+            $user->enrolls()->attach($course_id, ['status' => 'success', 'enrolled_at' => $carbon]);
+            $user->enroll_sync();
+        }
+
+        return redirect(route('course', $course->slug));
     }
 
     /**
@@ -840,22 +688,17 @@ class CourseController extends Controller
      */
     public function contentComplete($content_id)
     {
-        try {
-            $content = Content::find($content_id);
-            $user = Auth::user();
+        $content = Content::find($content_id);
+        $user = Auth::user();
 
-            complete_content($content, $user);
+        complete_content($content, $user);
 
-            $go_content = $content->next;
-            if (! $go_content) {
-                $go_content = $content;
-            }
-
-            return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id]));
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        $go_content = $content->next;
+        if (! $go_content) {
+            $go_content = $content;
         }
+
+        return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id]));
     }
 
     /**
@@ -865,15 +708,10 @@ class CourseController extends Controller
      */
     public function complete(Request $request, $course_id)
     {
-        try {
-            $user = Auth::user();
-            $user->complete_course($course_id);
+        $user = Auth::user();
+        $user->complete_course($course_id);
 
-            return back();
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return back();
     }
 
     /**
@@ -882,44 +720,39 @@ class CourseController extends Controller
      */
     public function attachmentDownload($hash)
     {
-        try {
-            $attachment = Attachment::whereHashId($hash)->first();
-            if (! $attachment || ! $attachment->media) {
-                abort(404);
-            }
+        $attachment = Attachment::whereHashId($hash)->first();
+        if (! $attachment || ! $attachment->media) {
+            abort(404);
+        }
 
-            /*
-             * If Assignment Submission Attachment, download it right now
-             */
-            if ($attachment->assignment_submission_id) {
-                if (Auth::check()) {
-                    return $this->forceDownload($attachment->media);
-                }
-                abort(404);
-            }
-
-            $item = $attachment->belongs_item;
-
-            if ($item && $item->item_type === 'lecture' && $item->is_preview) {
+        /*
+         * If Assignment Submission Attachment, download it right now
+         */
+        if ($attachment->assignment_submission_id) {
+            if (Auth::check()) {
                 return $this->forceDownload($attachment->media);
             }
-
-            if (! Auth::check()) {
-                abort(404);
-            }
-            $user = Auth::user();
-
-            $course = $attachment->course;
-
-            if (! $user->isEnrolled($course->id)) {
-                abort(404);
-            }
-
-            return $this->forceDownload($attachment->media);
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+            abort(404);
         }
+
+        $item = $attachment->belongs_item;
+
+        if ($item && $item->item_type === 'lecture' && $item->is_preview) {
+            return $this->forceDownload($attachment->media);
+        }
+
+        if (! Auth::check()) {
+            abort(404);
+        }
+        $user = Auth::user();
+
+        $course = $attachment->course;
+
+        if (! $user->isEnrolled($course->id)) {
+            abort(404);
+        }
+
+        return $this->forceDownload($attachment->media);
     }
 
     /**
@@ -928,26 +761,21 @@ class CourseController extends Controller
      */
     public function forceDownload($media)
     {
-        try {
-            $source = get_option('default_storage');
-            $slug_ext = $media->slug_ext;
+        $source = get_option('default_storage');
+        $slug_ext = $media->slug_ext;
 
-            if (substr($media->mime_type, 0, 5) == 'image') {
-                $slug_ext = 'images/'.$slug_ext;
-            }
-
-            $path = '';
-            if ($source == 'public') {
-                $path = ROOT_PATH."/uploads/{$slug_ext}";
-            } elseif ($source == 's3') {
-                $path = \Illuminate\Support\Facades\Storage::disk('s3')->url('uploads/'.$slug_ext);
-            }
-
-            return response()->download($path);
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
+        if (substr($media->mime_type, 0, 5) == 'image') {
+            $slug_ext = 'images/'.$slug_ext;
         }
+
+        $path = '';
+        if ($source == 'public') {
+            $path = ROOT_PATH."/uploads/{$slug_ext}";
+        } elseif ($source == 's3') {
+            $path = \Illuminate\Support\Facades\Storage::disk('s3')->url('uploads/'.$slug_ext);
+        }
+
+        return response()->download($path);
     }
 
     /**
@@ -957,35 +785,30 @@ class CourseController extends Controller
      */
     public function writeReview(Request $request, $id)
     {
-        try {
-            if ($request->rating_value < 1) {
-                return back();
-            }
-            if (! $id) {
-                $id = $request->course_id;
-            }
-
-            $user = Auth::user();
-
-            $data = [
-                'user_id'       => $user->id,
-                'course_id'     => $id,
-                'review'        => clean_html($request->review),
-                'rating'        => $request->rating_value,
-                'status'        => 1,
-            ];
-
-            $review = has_review($user->id, $id);
-            if (! $review) {
-                $review = Review::create($data);
-            }
-            $review->save_and_sync($data);
-
+        if ($request->rating_value < 1) {
             return back();
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
         }
+        if (! $id) {
+            $id = $request->course_id;
+        }
+
+        $user = Auth::user();
+
+        $data = [
+            'user_id' => $user->id,
+            'course_id' => $id,
+            'review' => clean_html($request->review),
+            'rating' => $request->rating_value,
+            'status' => 1,
+        ];
+
+        $review = has_review($user->id, $id);
+        if (! $review) {
+            $review = Review::create($data);
+        }
+        $review->save_and_sync($data);
+
+        return back();
     }
 
     /**
@@ -993,12 +816,7 @@ class CourseController extends Controller
      */
     public function myCourses()
     {
-        try {
-            return view('theme::dashboard.my_courses');
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return view('theme::dashboard.my_courses');
     }
 
     /**
@@ -1006,11 +824,6 @@ class CourseController extends Controller
      */
     public function myCoursesReviews()
     {
-        try {
-            return view('theme::dashboard.my_courses_reviews');
-        }catch (\Exception $e){
-            \Log::channel('slack')->critical($e->getMessage());
-            abort(500);
-        }
+        return view('theme::dashboard.my_courses_reviews');
     }
 }

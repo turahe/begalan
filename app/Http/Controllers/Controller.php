@@ -16,13 +16,13 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * Controller constructor.
+     * get formatting error from Exception.
+     *
+     * @param mixed $e
+     * @return string
      */
-    public function __construct()
+    public function eMessage($e): string
     {
-        view()->composer('*', function ($view) {
-            $auth_user = Auth::user();
-            $view->with(['auth_user' => $auth_user]);
-        });
+        return $e->getCode().': '.$e->getMessage().' : '.$e->getFile().' : '.$e->getLine().' : '.request()->ip().' : '.request()->url();
     }
 }

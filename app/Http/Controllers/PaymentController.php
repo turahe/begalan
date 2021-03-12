@@ -75,15 +75,12 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param Payment $payment
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function view(int $id)
+    public function show(Payment $payment)
     {
-        $title = __a('payment_details');
-        $payment = Payment::find($id);
-
-        return view('admin.payments.payment_view', compact('title', 'payment'));
+        return view('admin.payments.payment_view', compact('payment'));
     }
 
     /**
@@ -105,18 +102,15 @@ class PaymentController extends Controller
 
     /**
      * @param PaymentUpdateRequest $request
-     * @param int $id
+     * @param Payment $payment
      * @return RedirectResponse
      *
      * Update the payment status, and it's related data
      */
-    public function updateStatus(PaymentUpdateRequest $request, int $id): RedirectResponse
+    public function updateStatus(PaymentUpdateRequest $request, Payment $payment): RedirectResponse
     {
-        $payment = Payment::find($id);
-        if ($payment) {
-            $payment->status = $request->status;
-            $payment->save_and_sync();
-        }
+        $payment->status = $request->status;
+        $payment->save_and_sync();
 
         $user = $payment->user;
 
@@ -140,9 +134,7 @@ class PaymentController extends Controller
      */
     public function PaymentSettings()
     {
-        $title = __a('payment_settings');
-
-        return view('admin.payments.gateways.payment_settings', compact('title'));
+        return view('admin.payments.gateways.payment_settings');
     }
 
     /**

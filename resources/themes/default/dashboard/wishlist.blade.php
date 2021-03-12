@@ -2,7 +2,7 @@
 @section('content')
 
     @php
-        $courses = $auth_user->wishlist()->publish()->get();
+        $courses = auth()->user()->wishlist()->publish()->get();
     @endphp
 
     @if($courses->count())

@@ -7,7 +7,7 @@
             </a>
 
             <button class="course-card-add-wish btn btn-link btn-sm p-0" data-course-id="{{$course->id}}">
-                @if($auth_user && in_array($course->id, $auth_user->get_option('wishlists', []) ))
+                @if(auth()->user() && in_array($course->id, auth()->user()->get_option('wishlists', []) ))
                     <i class="la la-heart"></i>
                 @else
                     <i class="la la-heart-o"></i>
@@ -53,7 +53,7 @@
                     {!! $course->price_html(false, false) !!}
 
                     <div class="course-card-btn-wrap">
-                        @if($auth_user && in_array($course->id, $auth_user->get_option('enrolled_courses', []) ))
+                        @if(auth()->user() && in_array($course->id, auth()->user()->get_option('enrolled_courses', []) ))
                             <a href="{{route('course', $course->slug)}}">@lang('theme.enrolled')</a>
                         @else
                             @php($in_cart = cart($course->id))

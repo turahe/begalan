@@ -117,6 +117,20 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     ];
 
     /**
+     * Get gravatar based username.
+     *
+     * @return string
+     */
+    public function getAvatarAttribute(): string
+    {
+        if ($this->hasMedia()) {
+            return $this->getFirstMediaUrl('default', 'x-small');
+        }
+
+        return 'https://avatars.dicebear.com/v2/initials/'.preg_replace('/[^a-z0-9 _.-]+/i', '', $this->name).'.svg';
+    }
+
+    /**
      * @param $query
      * @return mixed
      */
@@ -228,7 +242,8 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
      */
     public function enrolls(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class, 'enrolls')->wherePivot('status', '=', 'success');
+        return $this->belongsToMany(Course::class, 'enrolls')
+            ->wherePivot('status', '=', 'success');
     }
 
     /**
@@ -241,7 +256,9 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
             return false;
         }
 
-        $isEnrolled = DB::table('enrolls')->whereUserId($this->id)->whereCourseId($course_id)->whereStatus('success')->orderBy('enrolled_at', 'desc')->first();
+        $isEnrolled = DB::table('enrolls')->whereUserId($this->id)
+            ->whereCourseId($course_id)->whereStatus('success')
+            ->orderBy('created_at', 'desc')->first();
 
         return $isEnrolled;
     }

@@ -16,8 +16,7 @@
     <!-- all css here -->
 
     <!-- bootstrap v4.3.1 css -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/line-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
     <link href="{{ asset('assets/plugins/select2-4.0.3/css/select2.css') }}" rel="stylesheet"/>
 
@@ -111,8 +110,8 @@
             <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                    class="nav-link dropdown-toggle nav-user-profile">
-                    {!! $auth_user->get_photo !!}
-                    <span class="user-name">{{$auth_user->name}}</span>
+                    {!! auth()->user()->get_photo !!}
+                    <span class="user-name">{{auth()->user()->name}}</span>
                 </a>
 
                 <div role="menu" class="dropdown-menu">

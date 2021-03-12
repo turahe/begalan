@@ -75,7 +75,7 @@
             <li> <a href="{{route('admin.withdraws')}}">
                     <i class="las la-wallet"></i> @lang('admin.withdraws')</a>  </li>
 
-            <li> <a href="{{ route('admin.users') }}"><i class="las la-users"></i> @lang('admin.users')</a>  </li>
+            <li> <a href="{{ route('admin.users.index') }}"><i class="las la-users"></i> @lang('admin.users.index')</a>  </li>
 
             <li> <a href="{{route('admin.change_password')}}"><i class="las la-lock"></i> @lang('admin.change_password')</a>  </li>
 

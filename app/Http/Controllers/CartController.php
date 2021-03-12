@@ -35,16 +35,16 @@ class CartController extends Controller
 
         $cartData = (array) session('cart');
         $cartData[$course->id] = [
-            'hash'              => Str::random(),
-            'course_id'         => $course->id,
-            'title'             => $course->title,
-            'price'             => $course->get_price,
-            'original_price'    => $course->price,
-            'price_plan'        => $course->price_plan,
-            'course_url'        => route('course', $course->slug),
-            'thumbnail'      => media_image_uri($course->thumbnail_id)->thumbnail,
-            'price_html'      => $course->price_html(false),
-        ];
+                'hash'              => Str::random(),
+                'course_id'         => $course->id,
+                'title'             => $course->title,
+                'price'             => $course->get_price,
+                'original_price'    => $course->price,
+                'price_plan'        => $course->price_plan,
+                'course_url'        => route('course', $course->slug),
+                'thumbnail'      => media_image_uri($course->thumbnail_id)->thumbnail,
+                'price_html'      => $course->price_html(false),
+            ];
         session(['cart' => $cartData]);
 
         if ($request->ajax()) {
@@ -79,9 +79,7 @@ class CartController extends Controller
      */
     public function checkout()
     {
-        $title = __('checkout');
-
-        return view('theme::checkout', compact('title'));
+        return view('theme::checkout');
     }
 
     public function payment($id)
@@ -95,9 +93,9 @@ class CartController extends Controller
         $payment = Payment::findOrFail($id);
 
         $transaction_details = [
-            'order_id' => $payment->local_transaction_id,
-            'gross_amount' => (int) $payment->amount, // no decimal allowed for creditcard
-        ];
+                'order_id' => $payment->local_transaction_id,
+                'gross_amount' => (int) $payment->amount, // no decimal allowed for creditcard
+            ];
 
         // Optional
         $user = Auth::user();
@@ -106,18 +104,18 @@ class CartController extends Controller
         $last_name = array_pop($name);
 
         $customer_details = [
-            'first_name'    => $first_name,
-            'last_name'     => $last_name,
-            'email'         => $payment->email,
-            'phone'         => $user->phone,
-            'billing_address'  => isset($user->address) ? $user->address : $user->address_2,
+                'first_name'    => $first_name,
+                'last_name'     => $last_name,
+                'email'         => $payment->email,
+                'phone'         => $user->phone,
+                'billing_address'  => isset($user->address) ? $user->address : $user->address_2,
 //            'shipping_address' => $shipping_address
-        ];
+            ];
         // Fill transaction details
         $transaction = [
-            'transaction_details' => $transaction_details,
-            'customer_details' => $customer_details,
-        ];
+                'transaction_details' => $transaction_details,
+                'customer_details' => $customer_details,
+            ];
         $token = Snap::getSnapToken($transaction);
 
         return view('theme::checkout-pay', compact('token'));

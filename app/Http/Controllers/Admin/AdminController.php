@@ -160,11 +160,6 @@ class AdminController extends Controller
      */
     public function withdrawsRequests(Request $request)
     {
-        if ($request->bulk_action_btn) {
-            if (config('app.is_demo')) {
-                return back()->with('error', __a('demo_restriction'));
-            }
-        }
 
         if ($request->bulk_action_btn === 'update_status' && $request->update_status) {
             Withdraw::whereIn('id', $request->bulk_ids)->update(['status' => $request->update_status]);
@@ -177,19 +172,19 @@ class AdminController extends Controller
             return back();
         }
 
-        $title = __a('withdraws');
         $withdraws = Withdraw::query();
 
-        if ($request->status) {
-            if ($request->status !== 'all') {
-                $withdraws = $withdraws->where('status', $request->status);
-            }
-        } else {
-            $withdraws = $withdraws->where('status', 'pending');
-        }
+
+//        if ($request->status) {
+//            if ($request->status !== 'all') {
+//                $withdraws = $withdraws->where('status', $request->status);
+//            }
+//        } else {
+//            $withdraws = $withdraws->where('status', 'pending');
+//        }
 
         $withdraws = $withdraws->orderBy('created_at', 'desc')->paginate(50);
 
-        return view('admin.withdraws', compact('title', 'withdraws'));
+        return view('admin.withdraws', compact('withdraws'));
     }
 }

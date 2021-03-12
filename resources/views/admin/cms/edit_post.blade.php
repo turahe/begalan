@@ -1,14 +1,13 @@
-@extends('layouts.admin')
+@extends('layouts.app', [
+    'title' => 'Edit post'
+])
 
-@section('page-header-right')
-    <a href="{{route('create_post')}}" class="btn btn-success mr-3" data-toggle="tooltip" title="{{__a('create_new_post')}}">
-        <i class="las la-plus-circle"></i> {{__a('create_new_post')}} </a>
-
-    <a href="{{route('posts')}}" class="btn btn-info" data-toggle="tooltip" title="{{__a('all_posts')}}"> <i class="las la-list"></i> {{__a('all_posts')}} </a>
-
-@endsection
 
 @section('content')
+    <a href="{{route('admin.posts.create')}}" class="btn btn-success mr-3" data-toggle="tooltip" title="{{__a('create_new_post')}}">
+        <i class="las la-plus-circle"></i> {{__a('create_new_post')}} </a>
+
+    <a href="{{route('admin.posts.index')}}" class="btn btn-info" data-toggle="tooltip" title="{{__a('all_posts')}}"> <i class="las la-list"></i> {{__a('all_posts')}} </a>
 
     <div class="row">
         <div class="col-sm-12">
@@ -23,16 +22,16 @@
                     </div>
                 </div>
 
-                <div class="form-group row {{ $errors->has('post_content')? 'has-error':'' }}">
+                <div class="form-group row {{ $errors->has('content')? 'has-error':'' }}">
                     <div class="col-sm-12">
-                        <textarea name="post_content" id="post_content" class="form-control">{!!  old('post_content')? old('post_content'): $post->post_content !!}</textarea>
-                        {!! $errors->has('post_content')? '<p class="help-block">'.$errors->first('post_content').'</p>':'' !!}
+                        <textarea name="content" id="content" class="form-control">{!!  old('content')? old('content'): $post->content !!}</textarea>
+                        {!! $errors->has('content')? '<p class="help-block">'.$errors->first('content').'</p>':'' !!}
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        {!! image_upload_form('feature_image', $post->feature_image) !!}
+{{--                        {!! image_upload_form('feature_image', $post->feature_image) !!}--}}
                     </div>
                 </div>
 
@@ -55,6 +54,6 @@
     <script>
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
-        CKEDITOR.replace( 'post_content' );
+        CKEDITOR.replace( 'content' );
     </script>
 @endsection

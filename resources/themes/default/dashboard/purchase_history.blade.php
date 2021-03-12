@@ -3,7 +3,7 @@
 @section('content')
 
     @php
-        $purchases = $auth_user->purchases()->paginate(50);
+        $purchases = auth()->user()->purchases()->paginate(50);
     @endphp
 
     @if($purchases->count() > 0)
@@ -13,10 +13,10 @@
 
             <tr>
                 <th>#</th>
-                <th>{{__a('amount')}}</th>
-                <th>{{__a('method')}}</th>
-                <th>{{__a('time')}}</th>
-                <th>{{__a('status')}}</th>
+                <th>@lang('admin.amount')}}</th>
+                <th>@lang('admin.method')}}</th>
+                <th>@lang('admin.time')}}</th>
+                <th>@lang('admin.status')}}</th>
                 <th>#</th>
             </tr>
 

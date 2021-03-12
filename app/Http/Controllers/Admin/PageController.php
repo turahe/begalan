@@ -19,7 +19,7 @@ class PageController extends Controller
     {
         $data = Page::where('type', '=', 'page');
 
-        $posts = app(Pipeline::class)
+        $pages = app(Pipeline::class)
             ->send($data)
             ->through([
                 \App\Http\Pipelines\QueryFilters\Type::class,
@@ -29,7 +29,7 @@ class PageController extends Controller
             ->thenReturn()
             ->paginate($request->input('limit', 10));
 
-        return view('admin.cms.posts', compact('posts'));
+        return view('admin.cms.pages', compact('pages'));
     }
 
     /**
@@ -39,7 +39,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('admin.cms.page_create', compact('title'));
+        return view('admin.cms.page_create');
     }
 
     /**
@@ -74,7 +74,7 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('admin.cms.edit_page', compact('title', 'page'));
+        return view('admin.cms.edit_page', compact('page'));
     }
 
     /**

@@ -7,10 +7,10 @@
 
     @php do_action('lecture_single_after_course_title', $course, $content); @endphp
 
-    @if($auth_user)
+    @if(auth()->user())
         @php
             $drip_items = $course->drip_items;
-            $review = has_review($auth_user->id, $course->id);
+            $review = \App\Models\Review::whereUserId(auth()->id())->whereCourseId($course->id)->first(); //has_review(auth()->id(), $course->id);
             $completed_percent = $course->completed_percent();
         @endphp
 
@@ -25,7 +25,7 @@
                 <span class="percentage">
                     {{$completed_percent}}%
                 </span>
-                    {{__t('complete')}}
+                    @lang('theme.complete')}}
                 </p>
                 @if($completed_percent >= 10)
                     <a href="#" class="text-center d-block write-review-text" data-toggle="modal" data-target="#writeReviewModal">
@@ -51,7 +51,7 @@
                     <span class="section-name flex-grow-1 ml-2 d-flex">
                         <strong class="flex-grow-1">{{$section->section_name}}</strong>
 
-                        @if($auth_user && in_array($section->id, $drip_items['sections']))
+                        @if(auth()->user() && in_array($section->id, $drip_items['sections']))
                             <i class="las la-lock pt-1"></i>
                         @endif
                     </span>
@@ -64,7 +64,7 @@
 
                                 @php
                                     $is_completed = false;
-                                    if ($auth_user && $item->is_completed){
+                                    if (auth()->user() && $item->is_completed){
                                         $is_completed = true;
                                     }
                                     $runTime = $item->runtime;
@@ -73,7 +73,7 @@
                                 <div class="sidebar-section-item {{$item->id == $content->id? 'active' : ''}} {{$is_completed? 'completed' : ''}}">
                                     <div class="section-item-title border-bottom">
 
-                                        <a href="{{route('single_'.$item->item_type, [$course->slug, $item->id ] )}}" class="p-2 d-flex" @if($is_completed) data-toggle="tooltip" title="{{__t('completed')}}" @endif>
+                                        <a href="{{route('single_'.$item->item_type, [$course->slug, $item->id ] )}}" class="p-2 d-flex" @if($is_completed) data-toggle="tooltip" title="@lang('theme.completed')}}" @endif>
                                             <span class="lecture-status-icon border-right pr-1">
                                                 @if($is_completed)
                                                     <i class="las la-check-circle text-success"></i>
@@ -87,14 +87,13 @@
                                                 {{$item->title}} {!! $runTime ? "<small>($runTime)</small>" : "" !!}
                                                 </span>
 
-                                                @if($auth_user)
+                                                @if(auth()->user())
                                                     @if(in_array($section->id, $drip_items['sections']))
                                                         <span><i class="las la-lock pt-1"></i></span>
                                                     @elseif(in_array($item->id, $drip_items['contents']))
                                                         <span><i class="las la-lock pt-1"></i></span>
                                                     @endif
                                                 @endif
-
                                             </div>
                                         </a>
 
@@ -118,7 +117,7 @@
 
 
 
-@if($auth_user)
+@if(auth()->user())
     <div class="modal fade" id="writeReviewModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -151,18 +150,18 @@
                     </div>
                     <div class="review-modal-footer">
                         <p class="review-modal-nofity-text">
-                            <i class="las la-globe"></i> Your review will be posted publicly. Under <strong>{{$auth_user->name}}</strong>
+                            <i class="las la-globe"></i> Your review will be posted publicly. Under <strong>{{auth()->user()->name}}</strong>
                         </p>
 
                         <button type="submit" class="btn btn-theme-primary">
                             <i class="las la-comment"></i>
                             @if($review)
-                                {{__t('update_review')}}
+                                @lang('theme.update_review')
                             @else
-                                {{__t('write_review')}}
+                                @lang('theme.write_review')
                             @endif
                         </button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__t('cancel')}}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('theme.cancel')</button>
                     </div>
                 </form>
             </div>

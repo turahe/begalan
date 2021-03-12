@@ -10,11 +10,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 @yield('page-css')
 
-<!-- style css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
-
-    <!-- modernizr css -->
-    <script src="{{asset('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css')}}">
 
 
     <script type="text/javascript">
@@ -118,14 +114,14 @@
                         <li class="nav-item main-nav-right-menu nav-item-user-profile">
                             <a class="nav-link profile-dropdown-toogle" href="javascript:;">
                                 <span class="top-nav-user-name">
-                                    {!! $auth_user->get_photo !!}
+                                    {!! auth()->user()->get_photo !!}
                                 </span>
                             </a>
                             <div class="profile-dropdown-menu pt-0">
 
                                 <div class="profile-dropdown-userinfo bg-light p-3">
-                                    <p class="m-0">{{ $auth_user->name }}</p>
-                                    <small>{{$auth_user->email}}</small>
+                                    <p class="m-0">{{ auth()->user()->name }}</p>
+                                    <small>{{auth()->user()->email}}</small>
                                 </div>
 
                                 @include('theme::dashboard.sidebar-menu')

@@ -1,14 +1,13 @@
-@extends('layouts.admin')
+@extends('layouts.app', [
+    'title' => 'Payment details'
+])
 
-@section('page-header-right')
-    <a href="{{route('payments')}}" data-toggle="tooltip" title="{{__a('payments')}}">
+
+@section('content')
+    <a href="{{route('admin.payments.index')}}" data-toggle="tooltip" title="{{__a('payments')}}">
         <i class="las la-arrow-circle-left"></i>
         {{__a('back_to_payments')}}
     </a>
-@endsection
-
-@section('content')
-
     <table class="table table-striped table-bordered table-sm">
         @foreach($payment->toArray() as $col_name => $col_value)
             @if(trim($col_value))
@@ -38,9 +37,9 @@
             <table class="table table-bordered bg-white">
 
                 <tr>
-                    <th>{{__t('thumbnail')}}</th>
-                    <th>{{__t('title')}}</th>
-                    <th>{{__t('price')}}</th>
+                    <th>@lang('admin.thumbnail')}}</th>
+                    <th>@lang('admin.title')}}</th>
+                    <th>@lang('admin.price')}}</th>
                     <th>#</th>
                 </tr>
 
@@ -61,10 +60,10 @@
                                     $assignments_count = $course->assignments->count();
                                 @endphp
 
-                                <span class="course-list-lecture-count">{{$lectures_count}} {{__t('lectures')}}</span>
+                                <span class="course-list-lecture-count">{{$lectures_count}} @lang('admin.lectures')}}</span>
 
                                 @if($assignments_count)
-                                    , <span class="course-list-assignment-count">{{$assignments_count}} {{__t('assignments')}}</span>
+                                    , <span class="course-list-assignment-count">{{$assignments_count}} @lang('admin.assignments')}}</span>
                                 @endif
                             </p>
                         </td>
@@ -75,11 +74,11 @@
                             @if($course->status == 1)
                                 <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank">
                                     <i class="las la-eye"></i>
-                                    {{__t('view')}}
+                                    @lang('admin.view')
                                 </a>
                             @else
                                 <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-purple mt-2" target="_blank">
-                                    <i class="las la-eye"></i> {{__t('preview')}} </a>
+                                    <i class="las la-eye"></i> @lang('admin.preview') </a>
                             @endif
 
                         </td>
@@ -99,7 +98,7 @@
 
 
 
-    <form action="{{route('update_status', $payment->id)}}" class="form-inline" method="post">
+    <form action="{{route('admin.payments.update', $payment)}}" class="form-inline" method="post">
         @csrf
         <div class="status-update-form-wrap d-flex p-3 bg-light">
             <span class="mr-2">Update Payment Status</span>

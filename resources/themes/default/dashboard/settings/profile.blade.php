@@ -18,7 +18,7 @@
             @csrf
 
             @php
-                $user = $auth_user;
+                $user = auth()->user();
                 $countries = \App\Models\Master\Country::query()->orderBy('name', 'ASC')->get();
             @endphp
 

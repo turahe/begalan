@@ -4,19 +4,15 @@
 
 @section('content')
 
-    @php
-        $contine_url = $course->continue_url;
-    @endphp
-
     <div class="page-header-jumborton py-5">
 
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="page-header-left">
-                        <h1>{{clean_html($course->title)}}</h1>
+                        <h1>{{ $course->title }}</h1>
                         @if($course->short_description)
-                            <p class="page-header-subtitle m-0">{{clean_html($course->short_description)}}</p>
+                            <p class="page-header-subtitle m-0">{{ $course->short_description }}</p>
                         @endif
 
                         <p class="mt-3 course-head-meta-wrap">
@@ -44,7 +40,7 @@
                         @if( $isEnrolled)
                             <p class="text-muted"><strong>Enrolled At</strong> : {{date('F d, Y', strtotime($isEnrolled->enrolled_at))}} </p>
 
-                            <a href="{{$contine_url}}" class="btn btn-info btn-lg btn-block"><i class="las la-play-circle"></i> Continue course</a>
+                            <a href="{{$course->continue_url}}" class="btn btn-info btn-lg btn-block"><i class="las la-play-circle"></i> Continue course</a>
 
                         @else
                             @if($course->paid)

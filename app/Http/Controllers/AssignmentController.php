@@ -68,10 +68,10 @@ class AssignmentController extends Controller
     /**
      * @param Request $request
      * @param $submission_id
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      *
      * Evaluating the quiz
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function evaluation(Request $request, $submission_id)
     {

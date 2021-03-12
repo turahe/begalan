@@ -103,7 +103,6 @@ class DashboardController extends Controller
      */
     public function resetPassword()
     {
-
         return view('theme::dashboard.settings.reset_password');
     }
 

@@ -9,22 +9,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>  @if( ! empty($title)) {{ $title }} @else {{ get_option('site_title') }} @endif </title>
-
-    <!-- all css here -->
-    <!-- google-font css -->
-{{--<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">--}}
-<!-- bootstrap v3.3.6 css -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/line-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
 @yield('page-css')
-
-<!-- style css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
-
-    <!-- modernizr css -->
-    <script src="{{asset('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
-
 
     <script type="text/javascript">
         /* <![CDATA[ */

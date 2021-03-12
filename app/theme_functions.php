@@ -93,7 +93,7 @@ function dashboard_menu()
     ]);
 
     if (auth()->user()->hasRole('admin')) {
-        $menu['admin'] = [
+        $menu['admin.dashboard'] = [
             'name' => __('admin.go_to_admin'),
             'icon' => '<i class="las la-cogs"></i>',
         ];

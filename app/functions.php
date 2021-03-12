@@ -4,6 +4,7 @@
  * Include Laravel default helpers.
  */
 
+use App\Models\Review;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 

@@ -1,17 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.app', [
+    'title' => 'withdraws'
+])
 
-
-@section('page-header-right')
-
-    <a href="{{route('withdraws')}}" class="btn btn-dark ml-2" > <i class="las la-clock-o"></i> Pending</a>
-    <a href="{{route('withdraws', ['status' => 'success'])}}" class="btn btn-success ml-2" > <i class="las la-check-circle"></i> Success</a>
-    <a href="{{route('withdraws', ['status' => 'rejected'])}}" class="btn btn-warning ml-2" > <i class="las la-exclamation-circle"></i> Rejected</a>
-    <a href="{{route('withdraws', ['status' => 'all'])}}" class="btn btn-light ml-2" > <i class="las la-th-list"></i> All</a>
-
-@endsection
 
 @section('content')
 
+    <a href="{{route('admin.withdraws')}}" class="btn btn-dark ml-2" > <i class="las la-clock-o"></i> Pending</a>
+    <a href="{{route('admin.withdraws', ['status' => 'success'])}}" class="btn btn-success ml-2" > <i class="las la-check-circle"></i> Success</a>
+    <a href="{{route('admin.withdraws', ['status' => 'rejected'])}}" class="btn btn-warning ml-2" > <i class="las la-exclamation-circle"></i> Rejected</a>
+    <a href="{{route('admin.withdraws', ['status' => 'all'])}}" class="btn btn-light ml-2" > <i class="las la-th-list"></i> All</a>
     <div class="withdraws-list-wrap">
 
         <form action="" method="get">
@@ -63,16 +60,16 @@
                             </td>
                             <td>
                                 <h6 class="mb-4">Amount: <strong>{!! price_format($withdraw->amount) !!}</strong> {!! $withdraw->status_context !!} </h6>
-                                <h6>Method: <strong>{{array_get($withdraw->method_data, 'method_name')}}</strong></h6>
+                                <h6>Method: <strong>{{Arr::get($withdraw->method_data, 'method_name')}}</strong></h6>
 
 
                             </td>
 
                             <td>
 
-                                @if(is_array(array_get($withdraw->method_data, 'form_fields')))
-                                    @foreach(array_get($withdraw->method_data, 'form_fields') as $field)
-                                        <p class="mb-0"> {{array_get($field, 'label')}} : <strong>{!! array_get($field, 'value') !!}</strong></p>
+                                @if(is_array(Arr::get($withdraw->method_data, 'form_fields')))
+                                    @foreach(Arr::get($withdraw->method_data, 'form_fields') as $field)
+                                        <p class="mb-0"> {{Arr::get($field, 'label')}} : <strong>{!! Arr::get($field, 'value') !!}</strong></p>
                                     @endforeach
                                 @endif
 
@@ -80,7 +77,7 @@
 
                             </td>
 
-                            <td>{{$withdraw->created_at->format(date_time_format())}}</td>
+                            <td>{{$withdraw->created_at }}</td>
                         </tr>
 
                     @endforeach

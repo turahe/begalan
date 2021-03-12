@@ -2,7 +2,7 @@
     $previous = $content->previous;
     $next = $content->next;
     $is_completed = false;
-    if ($auth_user && $content->is_completed){
+    if (auth()->user() && $content->is_completed){
         $is_completed = true;
     }
 @endphp
@@ -15,7 +15,7 @@
 
         <a href="javascript:;" class="nav-icon-list d-sm-block d-md-none d-lg-none"><i class="las la-list"></i> </a>
 
-        @if($auth_user && ! $auth_user->is_completed_course($course->id))
+        @if(auth()->user() && ! auth()->user()->is_completed_course($course->id))
             <form action="{{route('course_complete', $course->id)}}" method="post" class="ml-auto">
                 @csrf
                 <button type="submit" href="javascript:;" class="nav-icon-complete-course btn btn-success ml-auto" data-toggle="tooltip" title="@lang('theme.complete_course')}}" >
@@ -31,7 +31,7 @@
 
                 <span class="nav-text">
                     <i class="las la-arrow-left"></i>
-                    @lang('theme.previous')}} @lang($theme.previous->item_type)}}
+                    @lang('theme.previous')}} @lang($theme. $previous->item_type)
                 </span>
             </a>
         @else

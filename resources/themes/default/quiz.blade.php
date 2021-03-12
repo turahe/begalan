@@ -1,4 +1,4 @@
-@extends('theme::layout-full')
+@extends('theme::layouts.layout-full')
 
 @section('content')
 
@@ -66,7 +66,7 @@
                                     <strong><i class="las la-clock"></i> End time:</strong> {{$attempt->ended_at->format(date_time_format())}},
                                     <span class="text-info">
                     <strong><i class="las la-clock"></i> Time Required:</strong>
-                    {{$attempt->ended_at->diffInMinutes($attempt->created_at)}} {{__t('minutes')}}
+                    {{$attempt->ended_at->diffInMinutes($attempt->created_at)}} @lang('theme.minutes')}}
                 </span>
                                 </p>
                             </div>
@@ -231,10 +231,10 @@
                     <div class="lecture-lock-icon mb-4">
                         <i class="las la-lock"></i>
                     </div>
-                    <h4 class="lecture-lock-title mb-4">{{__t('content_locked')}}</h4>
+                    <h4 class="lecture-lock-title mb-4">@lang('theme.content_locked')}}</h4>
                     @if( ! auth()->check())
                         <p class="lecture-lock-desc mb-4">
-                            {!! sprintf(__t('if_enrolled_login_text'), '<a href="'.route('login').'" class="open_login_modal">', '</a>') !!}
+                            {!! sprintf(__('theme.if_enrolled_login_text'), '<a href="'.route('login').'" class="open_login_modal">', '</a>') !!}
                         </p>
                     @endif
                     <a href="{{route('course', $course->slug)}}" class="btn btn-theme-primary btn-lg">Enroll in Course to Unlock</a>

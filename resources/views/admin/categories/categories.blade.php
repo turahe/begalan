@@ -1,15 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.app', [
+    'title' => 'All categories'
+])
 
-@section('page-header-right')
-    <a href="{{route('category_create')}}" class=" ml-1 btn btn-primary btn-xl" data-toggle="tooltip" title="@lang('admin.category_add')">
+
+@section('content')
+
+    <a href="{{route('admin.categories.create')}}" class=" ml-1 btn btn-primary btn-xl" data-toggle="tooltip" title="@lang('admin.category_add')">
         <i class="las la-plus"></i>
     </a>
     <a href="#" class="ml-1 btn btn-danger btn_delete" data-toggle="tooltip" title="@lang('admin.delete')">
         <i class="la la-trash-o"></i>
     </a>
-@endsection
-
-@section('content')
 
     <div class="row">
         <div class="col-md-12">
@@ -20,7 +21,7 @@
                         <thead>
                         <tr>
                             <td><input id="category_check_all" type="checkbox" /></td>
-                            <td>@lang('admin.category_name')</td>
+                            <td>@lang('admin.name')</td>
                             <td>@lang('admin.thumb')</td>
                             <td>@lang('admin.action')</td>
                         </tr>
@@ -78,7 +79,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '{{route('delete_category')}}',
+                    url: '{{route('admin.categories.destroy', $category)}}',
                     data: { categories: checked_values, _token: pageData.csrf_token},
                     success: function(data){
                         if (data.success){

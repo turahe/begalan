@@ -2,17 +2,17 @@
 
 @section('content')
 
-    @if($auth_user->enrolls->count())
+    @if(auth()->user()->enrolls_count)
         <table class="table table-bordered bg-white">
 
             <tr>
-                <th>{{__t('thumbnail')}}</th>
-                <th>{{__t('title')}}</th>
-                <th>{{__t('price')}}</th>
+                <th>@lang('theme.thumbnail')}}</th>
+                <th>@lang('theme.title')}}</th>
+                <th>@lang('theme.price')}}</th>
                 <th>#</th>
             </tr>
 
-            @foreach($auth_user->enrolls as $course)
+            @foreach(auth()->user()->enrolls as $course)
                 <tr>
                     <td>
                         <img src="{{$course->thumbnail_url}}" width="80" />
@@ -30,14 +30,14 @@
                             $quizzes_count = $course->quizzes->count();
                             @endphp
 
-                            <span class="course-list-lecture-count">{{$lectures_count}} {{__t('lectures')}}</span>
+                            <span class="course-list-lecture-count">{{$lectures_count}} @lang('theme.lectures')}}</span>
 
                             @if($assignments_count)
-                                , <span class="course-list-assignment-count">{{$assignments_count}} {{__t('assignments')}}</span>
+                                , <span class="course-list-assignment-count">{{$assignments_count}} @lang('theme.assignments')}}</span>
                             @endif
 
                             @if($quizzes_count)
-                                , <span class="course-list-assignment-count">{{$quizzes_count}} {{__t('quizzes')}}</span>
+                                , <span class="course-list-assignment-count">{{$quizzes_count}} @lang('theme.quizzes')}}</span>
                             @endif
 
                         </p>
@@ -46,7 +46,7 @@
 
                     <td>
                         @if($course->status == 1)
-                            <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank"><i class="las la-eye"></i> {{__t('view')}} </a>
+                            <a href="{{route('course', $course->slug)}}" class="btn btn-sm btn-primary mt-2" target="_blank"><i class="las la-eye"></i> @lang('theme.view')}} </a>
                         @endif
                     </td>
                 </tr>

@@ -1,13 +1,13 @@
-@extends('layouts.admin')
+@extends('layouts.app', [
+    'title' => 'Payments'
+])
 
-@section('page-header-right')
+
+
+@section('content')
     @if(count(request()->input()))
         <a href="{{route('payments')}}"> <i class="las la-arrow-circle-left"></i> {{__a('reset_filter')}}  </a>
     @endif
-@endsection
-
-@section('content')
-
     <form method="get">
 
         <div class="row">
@@ -83,21 +83,20 @@
                             </label>
                         </td>
                         <td>
-                            <a href="{!!route('payment_view', $payment->id)!!}">
+                            <a href="{!!route('admin.payments.show', $payment)!!}">
                                 {!!$payment->name!!} <br />
                                 <small>{!!$payment->email!!}</small>
                             </a>
                         </td>
 
                         <td>
-                            {!!price_format($payment->amount)!!}
+                            {!! $payment->amount !!}
                         </td>
                         <td>{!!ucwords(str_replace('_', ' ', $payment->payment_method))!!}</td>
 
                         <td>
                             <small>
-                                {!!$payment->created_at->format(get_option('date_format'))!!} <br />
-                                {!!$payment->created_at->format(get_option('time_format'))!!}
+                                {!!$payment->created_at !!}
                             </small>
                         </td>
 
@@ -111,8 +110,8 @@
                                 <span class="text-warning" data-toggle="tooltip" title="{!!$payment->status!!}"><i class="fa fa-exclamation-circle"></i> </span>
                             @endif
 
-                            <a href="{!!route('payment_view', $payment->id)!!}" class="btn btn-info"><i class="las la-eye"></i> </a>
-                            <a href="{!!route('payment_delete', $payment->id)!!}" class="btn btn-danger delete_confirm"><i class="las la-trash"></i> </a>
+                            <a href="{!!route('admin.payments.show', $payment)!!}" class="btn btn-info"><i class="las la-eye"></i> </a>
+                            <a href="{!!route('admin.payments.destroy', $payment)!!}" class="btn btn-danger delete_confirm"><i class="las la-trash"></i> </a>
                         </td>
 
                     </tr>

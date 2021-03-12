@@ -201,6 +201,7 @@ class Course extends Model implements HasMedia, LikeableContract
         if ($this->hasMedia()) {
             return $this->getFirstTemporaryUrl(Carbon::now()->days(2), 'default', 'cover');
         }
+
         return Storage::disk('local')->url('not-found.jpg');
     }
 

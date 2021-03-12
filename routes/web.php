@@ -21,7 +21,7 @@ Route::get('review/{id}', [\App\Http\Controllers\UserController::class, 'review'
 Route::get('courses', [\App\Http\Controllers\HomeController::class, 'courses'])->name('courses');
 
 Route::get('courses/{slug?}', [\App\Http\Controllers\CourseController::class, 'view'])->name('course');
-Route::get('courses/{slug}/lecture/{lecture_id}', [\App\Http\Controllers\CourseController::class, 'lectureView'])->name('single_lecture');
+Route::get('courses/{slug}/lecture/{content}', [\App\Http\Controllers\CourseController::class, 'lectureView'])->name('single_lecture');
 Route::get('courses/{slug}/assignment/{assignment_id}', [\App\Http\Controllers\CourseController::class, 'assignmentView'])->name('single_assignment');
 Route::get('courses/{slug}/quiz/{quiz_id}', [\App\Http\Controllers\QuizController::class, 'quizView'])->name('single_quiz');
 

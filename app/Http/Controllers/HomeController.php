@@ -44,20 +44,20 @@ class HomeController extends Controller
         $courses = $courses->publish();
 
         $courses = app(Pipeline::class)
-            ->send($courses)
-            ->through([
-                \App\Http\Pipelines\QueryFilters\Featured::class,
-                \App\Http\Pipelines\QueryFilters\Popular::class,
-                \App\Http\Pipelines\QueryFilters\Duration::class,
-                \App\Http\Pipelines\QueryFilters\Search::class,
-                \App\Http\Pipelines\QueryFilters\Status::class,
-                \App\Http\Pipelines\QueryFilters\Topic::class,
-                \App\Http\Pipelines\QueryFilters\Sort::class,
-                \App\Http\Pipelines\QueryFilters\Price::class,
-                \App\Http\Pipelines\QueryFilters\Rating::class,
-            ])
-            ->thenReturn()
-            ->paginate($request->input('limit', 12));
+                ->send($courses)
+                ->through([
+                    \App\Http\Pipelines\QueryFilters\Featured::class,
+                    \App\Http\Pipelines\QueryFilters\Popular::class,
+                    \App\Http\Pipelines\QueryFilters\Duration::class,
+                    \App\Http\Pipelines\QueryFilters\Search::class,
+                    \App\Http\Pipelines\QueryFilters\Status::class,
+                    \App\Http\Pipelines\QueryFilters\Topic::class,
+                    \App\Http\Pipelines\QueryFilters\Sort::class,
+                    \App\Http\Pipelines\QueryFilters\Price::class,
+                    \App\Http\Pipelines\QueryFilters\Rating::class,
+                ])
+                ->thenReturn()
+                ->paginate($request->input('limit', 12));
 
         return view('theme::courses', compact('courses', 'categories', 'topics'));
     }

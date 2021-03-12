@@ -30,7 +30,7 @@ class UserController extends Controller
             ->thenReturn()
             ->paginate($request->input('limit', 10));
 
-        return view('admin.users.index', compact('title', 'users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -64,7 +64,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.users.index', compact('user'));
+        return view('admin.users.profile', compact('user'));
     }
 
     /**

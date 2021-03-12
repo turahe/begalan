@@ -1,4 +1,4 @@
-@extends('theme::default.layout-full')
+@extends('theme::layouts.layout-full')
 
 @section('content')
 
@@ -21,9 +21,9 @@
                     {!! clean_html($lecture->text) !!}
                 </div>
 
-                @if($lecture->attachments->count())
+                @if($lecture->media->count())
                     <div class="lecture-attachments border p-3 mt-5">
-                        <h5 class="lecture-attachments-title mb-3">{{__t('downloadable_materials')}}</h5>
+                        <h5 class="lecture-attachments-title mb-3">@lang('theme.downloadable_materials')</h5>
                         @foreach($lecture->attachments as $attachment)
                             @if($attachment->media)
                                 <a href="{{route('attachment_download', $attachment->hash_id)}}" class="lecture-attachment mb-2 d-block">
@@ -45,7 +45,7 @@
                     <div class="lecture-lock-icon mb-4">
                         <i class="las la-lock"></i>
                     </div>
-                    <h4 class="lecture-lock-title mb-4">{{__t('lecture_content_locked')}}</h4>
+                    <h4 class="lecture-lock-title mb-4">@lang('theme.lecture_content_locked')</h4>
 
                     @if( ! auth()->check())
                         <p class="lecture-lock-desc mb-4">

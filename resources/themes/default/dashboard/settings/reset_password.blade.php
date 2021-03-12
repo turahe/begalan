@@ -3,8 +3,8 @@
 @section('content')
 
     <div class="dashboard-inline-submenu-wrap mb-4 border-bottom">
-        <a href="{{route('profile_settings')}}" class="">{{__t('profile_settings')}}</a>
-        <a href="{{route('profile_reset_password')}}" class="active">{{__t('reset_password')}}</a>
+        <a href="{{route('profile_settings')}}" class="">@lang('theme.profile_settings')}}</a>
+        <a href="{{route('profile_reset_password')}}" class="active">@lang('theme.reset_password')}}</a>
     </div>
 
 
@@ -18,7 +18,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-12 {{form_error($errors, 'old_password')->class}}">
-                        <label>{{__t('old_password')}}</label>
+                        <label>@lang('theme.old_password')}}</label>
                         <input type="tel" class="form-control" name="old_password" >
                         {!! form_error($errors, 'old_password')->message !!}
                     </div>
@@ -27,13 +27,13 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-6 {{form_error($errors, 'new_password')->class}}">
-                        <label>{{__t('new_password')}}</label>
+                        <label>@lang('theme.new_password')}}</label>
                         <input type="tel" class="form-control" name="new_password" >
                         {!! form_error($errors, 'new_password')->message !!}
                     </div>
 
                     <div class="form-group col-md-6 {{form_error($errors, 'new_password_confirmation')->class}}">
-                        <label>{{__t('new_password_confirmation')}}</label>
+                        <label>@lang('theme.new_password_confirmation')}}</label>
                         <input type="tel" class="form-control" name="new_password_confirmation" >
                         {!! form_error($errors, 'new_password_confirmation')->message !!}
                     </div>

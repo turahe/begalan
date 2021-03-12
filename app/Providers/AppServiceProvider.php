@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function themes()
     {
-        $views = resource_path('themes/'.config('global.current_theme', env('APP_THEME')));
+        $views = resource_path('themes/'.config('app.theme', 'default'));
 
         $this->loadViewsFrom($views, 'theme');
     }

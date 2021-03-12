@@ -206,7 +206,6 @@ class QuizController extends Controller
             'title' => 'required',
         ]);
 
-
         $sort_order = next_curriculum_item_id($course_id);
 
         $data = [

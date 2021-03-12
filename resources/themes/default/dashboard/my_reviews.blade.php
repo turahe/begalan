@@ -3,7 +3,7 @@
 @section('content')
 
     @php
-    $reviews = $auth_user->reviews()->with('course')->orderBy('created_at', 'desc')->get();
+    $reviews = auth()->user()->reviews()->with('course')->orderBy('created_at', 'desc')->get();
     @endphp
 
     @if($reviews->count())

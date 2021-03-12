@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = app(Pipeline::class)
-            ->send(Category::whereStep(0))
+            ->send(Category::where('parent_id', null))
             ->through([
                 \App\Http\Pipelines\QueryFilters\Type::class,
                 \App\Http\Pipelines\QueryFilters\Sort::class,
@@ -37,9 +37,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $data['title'] = __a('category');
-        $data['sub_title'] = __a('category_create');
-        $data['categories'] = Category::whereStep(0)->with('sub_categories')->orderBy('category_name', 'asc')->get();
+        $data['categories'] = Category::where('parent_id', null)
+            ->with('sub_categories')
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('admin.categories.category_add', $data);
     }
@@ -71,20 +72,15 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Category $category
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::find($id);
-
-        $data['title'] = __a('category_edit');
         $data['category'] = $category;
-        $data['categories'] = Category::whereStep(0)->with('sub_categories')->orderBy('category_name', 'asc')->where('id', '!=', $id)->get();
-
-        if (! $category) {
-            abort(404);
-        }
+        $data['categories'] = Category::where('parent_id', null)
+            ->with('sub_categories')->orderBy('name', 'asc')
+            ->where('id', '!=', $category->id)->get();
 
         return view('admin.categories.category_edit', $data);
     }

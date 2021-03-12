@@ -46,27 +46,25 @@ Route::group(['prefix' => 'settings'], function () {
 Route::get('gateways', [\App\Http\Controllers\PaymentController::class, 'PaymentGateways'])->name('payment_gateways');
 Route::get('withdraw', [\App\Http\Controllers\Admin\SettingsController::class, 'withdraw'])->name('withdraw_settings');
 
-Route::group(['prefix' => 'payments'], function () {
-    Route::get('/', [\App\Http\Controllers\PaymentController::class, 'index'])->name('payments');
-    Route::get('view/{id}', [\App\Http\Controllers\PaymentController::class, 'view'])->name('payment_view');
-    Route::get('delete/{id}', [\App\Http\Controllers\PaymentController::class, 'delete'])->name('payment_delete');
+//Route::group(['prefix' => 'payments'], function () {
+Route::resource('payments', \App\Http\Controllers\PaymentController::class);
+//    Route::get('view/{id}', [\App\Http\Controllers\PaymentController::class, 'view'])->name('payment_view');
+//    Route::get('delete/{id}', [\App\Http\Controllers\PaymentController::class, 'delete'])->name('payment_delete');
 
-    Route::post('update-status/{id}', [\App\Http\Controllers\PaymentController::class, 'updateStatus'])->name('update_status');
-});
+//    Route::post('update-status/{id}', [\App\Http\Controllers\PaymentController::class, 'updateStatus'])->name('update_status');
+//});
 
-Route::group(['prefix' => 'withdraws'], function () {
-    Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'withdrawsRequests'])->name('withdraws');
-});
+Route::get('withdraws', [\App\Http\Controllers\Admin\AdminController::class, 'withdrawsRequests'])->name('withdraws');
 
 Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/', ['as' => 'users', 'uses' => [\App\Http\Controllers\UserController::class, 'users']]);
+//Route::group(['prefix' => 'users'], function () {
+//    Route::get('/', ['as' => 'users', 'uses' => [\App\Http\Controllers\UserController::class, 'users']]);
 //        Route::get('create', ['as'=>'add_administrator', 'uses' => 'UserController@addAdministrator']);
 //        Route::post('create', ['uses' => 'UserController@storeAdministrator']);
 
 //        Route::post('block-unblock', ['as'=>'administratorBlockUnblock', 'uses' => 'UserController@administratorBlockUnblock']);
-});
+//});
 
 /*
  * Change Password route
