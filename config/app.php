@@ -13,8 +13,11 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Web Academy'),
+    'unique_id' => env('APP_ID', null),
     'theme' => env('APP_THEME', 'default'),
+    'deploy_branch' => env('APP_DEPLOY_BRANCH', 'master'),
+    'deploy_secret' => env('APP_DEPLOY_KEY', 'secret'),
 
     /*
     |--------------------------------------------------------------------------

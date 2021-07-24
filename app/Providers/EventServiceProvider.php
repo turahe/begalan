@@ -16,10 +16,6 @@ class EventServiceProvider extends ServiceProvider
         \Illuminate\Auth\Events\Registered::class => [
             \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
         ],
-
-        \App\Events\Student\StudentPayment::class => [
-            \App\Listeners\Admin\StudentPayment::class,
-        ],
     ];
 
     /**

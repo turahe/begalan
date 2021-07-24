@@ -1,4 +1,12 @@
 <?php
+/*
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @modified    1/30/21, 3:18 PM
+ * @author         Nur Wachid
+ * @copyright      Copyright (c) 2021.
+ */
 
 namespace App\Console\Commands;
 
@@ -41,6 +49,9 @@ class SetupProductionEnvironment extends Command
 
         $this->migrateDatabase();
         $this->generateKey();
+        $this->createPassportKeys();
+        $this->createPassportClientPassword();
+        $this->createPassportClientPersonal();
 
         $this->info('Everything is done, congratulations! 🥳🥳🥳');
     }
@@ -59,9 +70,39 @@ class SetupProductionEnvironment extends Command
     public function migrateDatabase()
     {
         $this->call('migrate:fresh');
-        $this->call('db:seed', ['--class' => 'UsersTableSeeder']);
-        $this->info('Test user created. Email: developer@circlecreative.id Password: secret as Admin');
-        $this->info('Test user created. Email: instructor@circlecreative.id Password: secret as Instructor');
-        $this->info('Test user created. Email: student@circlecreative.id Password: secret as Student');
+    }
+
+    /**
+     * Create Passport Encryption keys.
+     */
+    public function createPassportKeys()
+    {
+        $this->call('passport:keys', [
+            '--force' => true,
+        ]);
+    }
+
+    /**
+     * Create Password grant client.
+     */
+    public function createPassportClientPassword()
+    {
+        $this->call('passport:client', [
+            '--password' => true,
+            '--name'     => 'turahe',
+        ]);
+
+        $this->alert('Please copy these first password grant Client ID & Client secret above to your /.env file.');
+    }
+
+    /**
+     * Create Personal access client.
+     */
+    public function createPassportClientPersonal()
+    {
+        $this->call('passport:client', [
+            '--personal' => true,
+            '--name'     => 'shared',
+        ]);
     }
 }
