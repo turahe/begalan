@@ -15,10 +15,15 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->unsignedBigInteger('order_column')->nullable();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('order_column');
+            $table->string('layout')->default('default');
+            $table->string('type')->comment('by default is product, blog, page');
+            $table->unsignedBigInteger('record_left')->nullable();
+            $table->unsignedBigInteger('record_right')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -17,6 +17,7 @@ class CreateOptionsTable extends Migration
             $table->id();
             $table->string('option_key', 50);
             $table->text('option_value')->nullable();
+            $table->timestamps();
         });
     }
 
