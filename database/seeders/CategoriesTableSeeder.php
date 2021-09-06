@@ -33,943 +33,943 @@ class CategoriesTableSeeder extends Seeder
      */
     protected $defaultCategories = [
         [
-            'name' => 'Development',
+            'title' => 'Development',
             'parent_id' => null,
         ],
         [
-            'name' => 'Business',
+            'title' => 'Business',
             'parent_id' => null,
         ],
         [
-            'name' => 'Finance & Accounting',
+            'title' => 'Finance & Accounting',
             'parent_id' => null,
         ],
         [
-            'name' => 'IT & Software',
+            'title' => 'IT & Software',
             'parent_id' => null,
         ],
         [
-            'name' => 'Office Productivity',
+            'title' => 'Office Productivity',
             'parent_id' => null,
         ],
         [
-            'name' => 'Personal Development',
+            'title' => 'Personal Development',
             'parent_id' => null,
         ],
         [
-            'name' => 'Design',
+            'title' => 'Design',
             'parent_id' => null,
         ],
         [
-            'name' => 'Marketing',
+            'title' => 'Marketing',
             'parent_id' => null,
         ],
         [
-            'name' => 'LifeStyle',
+            'title' => 'LifeStyle',
             'parent_id' => null,
         ],
         [
-            'name' => 'Photography',
+            'title' => 'Photography',
             'parent_id' => null,
         ],
         [
-            'name' => 'Health & Fitness',
+            'title' => 'Health & Fitness',
             'parent_id' => null,
         ],
         [
-            'name' => 'Music',
+            'title' => 'Music',
             'parent_id' => null,
         ],
         [
-            'name' => 'Teaching & Academics',
+            'title' => 'Teaching & Academics',
             'parent_id' => null,
         ],
         [
-            'name' => 'Web Development',
+            'title' => 'Web Development',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Data Science',
+            'title' => 'Data Science',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Mobile Apps',
+            'title' => 'Mobile Apps',
             'parent_id' => 1,
         ], [
-            'name' => 'Programming Languages',
+            'title' => 'Programming Languages',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Game Development',
+            'title' => 'Game Development',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Databases',
+            'title' => 'Databases',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Software Testing',
+            'title' => 'Software Testing',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Software Engineering',
+            'title' => 'Software Engineering',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Development Tools',
+            'title' => 'Development Tools',
             'parent_id' => 1,
         ],
         [
-            'name' => 'E-Commerce',
+            'title' => 'E-Commerce',
             'parent_id' => 1,
         ],
         [
-            'name' => 'Finance',
+            'title' => 'Finance',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Entrepreneurship',
+            'title' => 'Entrepreneurship',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Management',
+            'title' => 'Management',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Sales',
+            'title' => 'Sales',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Strategy',
+            'title' => 'Strategy',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Operations',
+            'title' => 'Operations',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Project Management',
+            'title' => 'Project Management',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Business Law',
+            'title' => 'Business Law',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Data & Analytics',
+            'title' => 'Data & Analytics',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Home Business',
+            'title' => 'Home Business',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Human Resources',
+            'title' => 'Human Resources',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Industry',
+            'title' => 'Industry',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Home Business',
+            'title' => 'Home Business',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Media',
+            'title' => 'Media',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Real Estate',
+            'title' => 'Real Estate',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 2,
         ],
         [
-            'name' => 'Accounting & Bookkeeping',
+            'title' => 'Accounting & Bookkeeping',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Compliance',
+            'title' => 'Compliance',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Cryptocurrency & Blockchain',
+            'title' => 'Cryptocurrency & Blockchain',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Economics',
+            'title' => 'Economics',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Finance',
+            'title' => 'Finance',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Finance Cert & Exam Prep',
+            'title' => 'Finance Cert & Exam Prep',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Financial Modeling & Analysis',
+            'title' => 'Financial Modeling & Analysis',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Investing & Trading',
+            'title' => 'Investing & Trading',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Money Management Tool',
+            'title' => 'Money Management Tool',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Taxes',
+            'title' => 'Taxes',
             'parent_id' => 3,
         ],
         [
-            'name' => 'Other Finance Economics',
+            'title' => 'Other Finance Economics',
             'parent_id' => 3,
         ],
         [
-            'name' => 'IT Certification',
+            'title' => 'IT Certification',
             'parent_id' => 4,
         ],
         [
-            'name' => 'Network & Security',
+            'title' => 'Network & Security',
             'parent_id' => 4,
         ],
         [
-            'name' => 'Hardware',
+            'title' => 'Hardware',
             'parent_id' => 4,
         ],
         [
-            'name' => 'Operation Systems',
+            'title' => 'Operation Systems',
             'parent_id' => 4,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 4,
         ],
         [
-            'name' => 'Microsoft',
+            'title' => 'Microsoft',
             'parent_id' => 5,
         ],
         [
-            'name' => 'Apple',
+            'title' => 'Apple',
             'parent_id' => 5,
         ],
         [
-            'name' => 'Google',
+            'title' => 'Google',
             'parent_id' => 5,
         ],
         [
-            'name' => 'SAP',
+            'title' => 'SAP',
             'parent_id' => 5,
         ],
         [
-            'name' => 'Oracle',
+            'title' => 'Oracle',
             'parent_id' => 5,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 5,
         ],
         [
-            'name' => 'Personal Transformation',
+            'title' => 'Personal Transformation',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Productivity',
+            'title' => 'Productivity',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Leadership',
+            'title' => 'Leadership',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Personal Finance',
+            'title' => 'Personal Finance',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Career Development',
+            'title' => 'Career Development',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Parenting & Relationships',
+            'title' => 'Parenting & Relationships',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Happiness',
+            'title' => 'Happiness',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Religion & Spirituality',
+            'title' => 'Religion & Spirituality',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Personal Br& Building',
+            'title' => 'Personal Br& Building',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Creativity',
+            'title' => 'Creativity',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Influence',
+            'title' => 'Influence',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Self Esteem',
+            'title' => 'Self Esteem',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Stress Management',
+            'title' => 'Stress Management',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Memory & Study Skills',
+            'title' => 'Memory & Study Skills',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Motivation',
+            'title' => 'Motivation',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 6,
         ],
         [
-            'name' => 'Web Design',
+            'title' => 'Web Design',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Graphic Design',
+            'title' => 'Graphic Design',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Design Tools',
+            'title' => 'Design Tools',
             'parent_id' => 7,
         ],
         [
-            'name' => 'User Experience',
+            'title' => 'User Experience',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Game Design',
+            'title' => 'Game Design',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Design Thinking',
+            'title' => 'Design Thinking',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 7,
         ],
         [
-            'name' => '3D & Animation',
+            'title' => '3D & Animation',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Fashion',
+            'title' => 'Fashion',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Architecture Design',
+            'title' => 'Architecture Design',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Interior Design',
+            'title' => 'Interior Design',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 7,
         ],
         [
-            'name' => 'Marketing',
+            'title' => 'Marketing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Digital Marketing',
+            'title' => 'Digital Marketing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Search Engine Optimization',
+            'title' => 'Search Engine Optimization',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Social Media Marketing',
+            'title' => 'Social Media Marketing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Br&ing',
+            'title' => 'Br&ing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Marketing Fundamental',
+            'title' => 'Marketing Fundamental',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Analytics & Automation',
+            'title' => 'Analytics & Automation',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Public Relation',
+            'title' => 'Public Relation',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Advertising',
+            'title' => 'Advertising',
             'parent_id' => 8,
         ],
 
         [
-            'name' => 'Video & Mobile Marketing',
+            'title' => 'Video & Mobile Marketing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Content Marketing',
+            'title' => 'Content Marketing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Growth Hacking',
+            'title' => 'Growth Hacking',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Affiliate Marketing',
+            'title' => 'Affiliate Marketing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Product Marketing',
+            'title' => 'Product Marketing',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 8,
         ],
         [
-            'name' => 'Arts & Crafts',
+            'title' => 'Arts & Crafts',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Food & Beverage',
+            'title' => 'Food & Beverage',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Beauty & Make up',
+            'title' => 'Beauty & Make up',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Travel',
+            'title' => 'Travel',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Gaming',
+            'title' => 'Gaming',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Home Improvement',
+            'title' => 'Home Improvement',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Pet Care & Training',
+            'title' => 'Pet Care & Training',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 9,
         ],
         [
-            'name' => 'Digital Photography',
+            'title' => 'Digital Photography',
             'parent_id' => 10,
         ],
         [
-            'name' => 'Photography Fundamental',
+            'title' => 'Photography Fundamental',
             'parent_id' => 10,
         ],
         [
-            'name' => 'Portrait',
+            'title' => 'Portrait',
             'parent_id' => 10,
         ],
         [
-            'name' => 'Photography Tools',
+            'title' => 'Photography Tools',
             'parent_id' => 10,
         ],
         [
-            'name' => 'Commercial Photography',
+            'title' => 'Commercial Photography',
             'parent_id' => 10,
         ],
         [
-            'name' => 'Video Design',
+            'title' => 'Video Design',
             'parent_id' => 10,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 10,
         ],
         [
-            'name' => 'Fitness',
+            'title' => 'Fitness',
             'parent_id' => 11,
         ],
         [
-            'name' => 'General Health',
+            'title' => 'General Health',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Sports',
+            'title' => 'Sports',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Nutrition',
+            'title' => 'Nutrition',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Yoga',
+            'title' => 'Yoga',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Mental Health',
+            'title' => 'Mental Health',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Dieting',
+            'title' => 'Dieting',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Self Defense',
+            'title' => 'Self Defense',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Safety & First Aid',
+            'title' => 'Safety & First Aid',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Dance',
+            'title' => 'Dance',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Mediation',
+            'title' => 'Mediation',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 11,
         ],
         [
-            'name' => 'Instruments',
+            'title' => 'Instruments',
             'parent_id' => 12,
         ],
         [
-            'name' => 'Production',
+            'title' => 'Production',
             'parent_id' => 12,
         ],
         [
-            'name' => 'Music Fundamental',
+            'title' => 'Music Fundamental',
             'parent_id' => 12,
         ],
         [
-            'name' => 'Vocal',
+            'title' => 'Vocal',
             'parent_id' => 12,
         ],
         [
-            'name' => 'Music Techniques',
+            'title' => 'Music Techniques',
             'parent_id' => 12,
         ],
         [
-            'name' => 'Music Software',
+            'title' => 'Music Software',
             'parent_id' => 12,
         ],
         [
-            'name' => 'Other',
+            'title' => 'Other',
             'parent_id' => 12,
         ],
         [
-            'name' => 'Engineering',
+            'title' => 'Engineering',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Humanities',
+            'title' => 'Humanities',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Math',
+            'title' => 'Math',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Science',
+            'title' => 'Science',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Online Education',
+            'title' => 'Online Education',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Social Science',
+            'title' => 'Social Science',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Language',
+            'title' => 'Language',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Teacher Training',
+            'title' => 'Teacher Training',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Test Prep',
+            'title' => 'Test Prep',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Other Teaching & Academics',
+            'title' => 'Other Teaching & Academics',
             'parent_id' => 13,
         ],
         [
-            'name' => 'Javascript',
+            'title' => 'Javascript',
             'parent_id' => 14,
         ],
         [
-            'name' => 'React',
+            'title' => 'React',
             'parent_id' => 14,
         ],
         [
-            'name' => 'Angular',
+            'title' => 'Angular',
             'parent_id' => 14,
         ],
         [
-            'name' => 'CSS',
+            'title' => 'CSS',
             'parent_id' => 14,
         ],
         [
-            'name' => 'PHP',
+            'title' => 'PHP',
             'parent_id' => 14,
         ],
         [
-            'name' => 'NodeJs',
+            'title' => 'NodeJs',
             'parent_id' => 14,
         ],
         [
-            'name' => 'Python',
+            'title' => 'Python',
             'parent_id' => 14,
         ],
         [
-            'name' => 'Wordpress',
+            'title' => 'Wordpress',
             'parent_id' => 14,
         ],
         [
-            'name' => 'Laravel',
+            'title' => 'Laravel',
             'parent_id' => 14,
         ],
         [
-            'name' => 'O2system',
+            'title' => 'O2system',
             'parent_id' => 14,
         ],
         [
-            'name' => 'Codeigniter',
+            'title' => 'Codeigniter',
             'parent_id' => 14,
         ],
         [
-            'name' => 'YII2',
+            'title' => 'YII2',
             'parent_id' => 14,
         ],
         [
-            'name' => 'Python',
+            'title' => 'Python',
             'parent_id' => 15,
         ],
         [
-            'name' => 'Machine Learning',
+            'title' => 'Machine Learning',
             'parent_id' => 15,
         ],
         [
-            'name' => 'Deep Learning',
+            'title' => 'Deep Learning',
             'parent_id' => 15,
         ],
         [
-            'name' => 'Data Analysis',
+            'title' => 'Data Analysis',
             'parent_id' => 15,
         ],
         [
-            'name' => 'Artificial Intelligence',
+            'title' => 'Artificial Intelligence',
             'parent_id' => 15,
         ],
         [
-            'name' => 'R',
+            'title' => 'R',
             'parent_id' => 15,
         ],
         [
-            'name' => 'Tensor Flow',
+            'title' => 'Tensor Flow',
             'parent_id' => 15,
         ],
         [
-            'name' => 'Neural Network',
+            'title' => 'Neural Network',
             'parent_id' => 15,
         ],
         [
-            'name' => 'Google Flutter',
+            'title' => 'Google Flutter',
             'parent_id' => 16,
         ],
         [
-            'name' => 'Android Development',
+            'title' => 'Android Development',
             'parent_id' => 16,
         ],
         [
-            'name' => 'IOS Development',
+            'title' => 'IOS Development',
             'parent_id' => 16,
         ],
         [
-            'name' => 'Swift',
+            'title' => 'Swift',
             'parent_id' => 16,
         ],
         [
-            'name' => 'React Native',
+            'title' => 'React Native',
             'parent_id' => 16,
         ],
         [
-            'name' => 'Dart Programing Language',
+            'title' => 'Dart Programing Language',
             'parent_id' => 16,
         ],
         [
-            'name' => 'Mobile Development',
+            'title' => 'Mobile Development',
             'parent_id' => 16,
         ],
         [
-            'name' => 'Kotlin',
+            'title' => 'Kotlin',
             'parent_id' => 16,
         ],
         [
-            'name' => 'Redux Framework',
+            'title' => 'Redux Framework',
             'parent_id' => 16,
         ],
         [
-            'name' => 'Python',
+            'title' => 'Python',
             'parent_id' => 17,
         ],
         [
-            'name' => 'Java',
+            'title' => 'Java',
             'parent_id' => 17,
         ],
         [
-            'name' => 'C#',
+            'title' => 'C#',
             'parent_id' => 17,
         ],
         [
-            'name' => 'C/C++',
+            'title' => 'C/C++',
             'parent_id' => 17,
         ],
         [
-            'name' => 'React',
+            'title' => 'React',
             'parent_id' => 17,
         ],
         [
-            'name' => 'Javascript',
+            'title' => 'Javascript',
             'parent_id' => 17,
         ],
         [
-            'name' => 'PHP',
+            'title' => 'PHP',
             'parent_id' => 17,
         ],
         [
-            'name' => 'Unity',
+            'title' => 'Unity',
             'parent_id' => 18,
         ],
         [
-            'name' => 'Game Development Fundamental',
+            'title' => 'Game Development Fundamental',
             'parent_id' => 18,
         ],
         [
-            'name' => 'Unreal Engine',
+            'title' => 'Unreal Engine',
             'parent_id' => 18,
         ],
         [
-            'name' => '3D Game Development',
+            'title' => '3D Game Development',
             'parent_id' => 18,
         ],
         [
-            'name' => 'C++',
+            'title' => 'C++',
             'parent_id' => 18,
         ],
         [
-            'name' => '2D Game Development',
+            'title' => '2D Game Development',
             'parent_id' => 18,
         ],
         [
-            'name' => 'Unreal Engine Blueprint',
+            'title' => 'Unreal Engine Blueprint',
             'parent_id' => 18,
         ],
         [
-            'name' => 'Blender',
+            'title' => 'Blender',
             'parent_id' => 18,
         ],
         [
-            'name' => 'SQL',
+            'title' => 'SQL',
             'parent_id' => 19,
         ],
         [
-            'name' => 'MySQL',
+            'title' => 'MySQL',
             'parent_id' => 19,
         ],
         [
-            'name' => 'Oracle SQL',
+            'title' => 'Oracle SQL',
             'parent_id' => 19,
         ],
         [
-            'name' => 'Oracle Certification',
+            'title' => 'Oracle Certification',
             'parent_id' => 19,
         ],
         [
-            'name' => 'Mongo DB',
+            'title' => 'Mongo DB',
             'parent_id' => 19,
         ],
         [
-            'name' => 'Apache Kafka',
+            'title' => 'Apache Kafka',
             'parent_id' => 19,
         ],
         [
-            'name' => 'SQL Server',
+            'title' => 'SQL Server',
             'parent_id' => 19,
         ],
         [
-            'name' => 'Database Management',
+            'title' => 'Database Management',
             'parent_id' => 19,
         ],
         [
-            'name' => 'PostgreSQL',
+            'title' => 'PostgreSQL',
             'parent_id' => 19,
         ],
         [
-            'name' => 'Selenium WebDriver',
+            'title' => 'Selenium WebDriver',
             'parent_id' => 20,
         ],
         [
-            'name' => 'Java',
+            'title' => 'Java',
             'parent_id' => 20,
         ],
         [
-            'name' => 'Selenium Testing Framework',
+            'title' => 'Selenium Testing Framework',
             'parent_id' => 20,
         ],
         [
-            'name' => 'Automation Testing',
+            'title' => 'Automation Testing',
             'parent_id' => 20,
         ],
         [
-            'name' => 'API Testing',
+            'title' => 'API Testing',
             'parent_id' => 20,
         ],
         [
-            'name' => 'Rest Assured',
+            'title' => 'Rest Assured',
             'parent_id' => 20,
         ],
         [
-            'name' => 'Appium',
+            'title' => 'Appium',
             'parent_id' => 20,
         ],
         [
-            'name' => 'Quality Assurance',
+            'title' => 'Quality Assurance',
             'parent_id' => 20,
         ],
         [
-            'name' => 'AWS Certification Developer - Associate',
+            'title' => 'AWS Certification Developer - Associate',
             'parent_id' => 21,
         ],
         [
-            'name' => 'AWS Certification',
+            'title' => 'AWS Certification',
             'parent_id' => 22,
         ],
         [
-            'name' => 'Coding Interview',
+            'title' => 'Coding Interview',
             'parent_id' => 21,
         ],
         [
-            'name' => 'Kubernetes',
+            'title' => 'Kubernetes',
             'parent_id' => 21,
         ],
         [
-            'name' => 'Certification Kubernetes Application Developer (CKAD)',
+            'title' => 'Certification Kubernetes Application Developer (CKAD)',
             'parent_id' => 21,
         ],
         [
-            'name' => 'MicroService',
+            'title' => 'MicroService',
             'parent_id' => 21,
         ],
         [
-            'name' => 'Python',
+            'title' => 'Python',
             'parent_id' => 21,
         ],
         [
-            'name' => 'Agile',
+            'title' => 'Agile',
             'parent_id' => 21,
         ],
         [
-            'name' => 'Professional Scrum Master',
+            'title' => 'Professional Scrum Master',
             'parent_id' => 21,
         ],
         [
-            'name' => 'Docker',
+            'title' => 'Docker',
             'parent_id' => 22,
         ],
         [
-            'name' => 'Kubernetes',
+            'title' => 'Kubernetes',
             'parent_id' => 22,
         ],
         [
-            'name' => 'Git',
+            'title' => 'Git',
             'parent_id' => 22,
         ],
         [
-            'name' => 'DevOps',
+            'title' => 'DevOps',
             'parent_id' => 22,
         ],
         [
-            'name' => 'Jenkins',
+            'title' => 'Jenkins',
             'parent_id' => 22,
         ],
         [
-            'name' => 'AWS Certification',
+            'title' => 'AWS Certification',
             'parent_id' => 22,
         ],
         [
-            'name' => 'AWS Certification Developer - Associate',
+            'title' => 'AWS Certification Developer - Associate',
             'parent_id' => 22,
         ],
         [
-            'name' => 'Jira',
+            'title' => 'Jira',
             'parent_id' => 22,
         ],
         [
-            'name' => 'NodeJs',
+            'title' => 'NodeJs',
             'parent_id' => 22,
         ],
         [
-            'name' => '.NET',
+            'title' => '.NET',
             'parent_id' => 23,
         ],
         [
-            'name' => 'Shopify',
+            'title' => 'Shopify',
             'parent_id' => 23,
         ],
         [
-            'name' => 'WooCommerce',
+            'title' => 'WooCommerce',
             'parent_id' => 23,
         ],
         [
-            'name' => 'Wordpress',
+            'title' => 'Wordpress',
             'parent_id' => 23,
         ],
         [
-            'name' => 'Wordpress for Ecommerce',
+            'title' => 'Wordpress for Ecommerce',
             'parent_id' => 23,
         ],
         [
-            'name' => 'Magento',
+            'title' => 'Magento',
             'parent_id' => 23,
         ],
         [
-            'name' => 'Membership Website',
+            'title' => 'Membership Website',
             'parent_id' => 23,
         ],
         [
-            'name' => 'Dropshipping',
+            'title' => 'Dropshipping',
             'parent_id' => 23,
         ],
     ];

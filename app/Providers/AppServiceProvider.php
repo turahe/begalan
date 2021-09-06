@@ -37,9 +37,9 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         $filename = storage_path('installed');
-        if (file_exists($filename)) {
+        if (file_exists($filename) && Schema::hasTable('categories')) {
             View::share('categories', Category::with('sub_categories')->parent()->get());
-        }
+        };
 //        Membuat Directive Custom Untuk Format Mata Uang
 
         Blade::directive('currency', function ($expression) {
