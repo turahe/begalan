@@ -15,8 +15,6 @@ class OrderReceived extends Mailable implements ShouldQueue
 
     /**
      * Create a new message instance.
-     *
-     * @param $order
      */
     public function __construct($order)
     {

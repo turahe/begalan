@@ -14,7 +14,6 @@ class EmailVerificationTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @param $user
      * @return string
      */
     protected function validVerificationVerifyRoute($user)
@@ -26,7 +25,6 @@ class EmailVerificationTest extends TestCase
     }
 
     /**
-     * @param $user
      * @return string
      */
     protected function invalidVerificationVerifyRoute($user)

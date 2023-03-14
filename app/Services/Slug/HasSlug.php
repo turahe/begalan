@@ -7,14 +7,8 @@ use Illuminate\Support\Str;
 
 trait HasSlug
 {
-    /**
-     * @var SlugOptions
-     */
     protected SlugOptions $slugOptions;
 
-    /**
-     * @return SlugOptions
-     */
     abstract public function getSlugOptions(): SlugOptions;
 
     public function generateSlug()
@@ -87,9 +81,6 @@ trait HasSlug
         $this->$slugField = $slug;
     }
 
-    /**
-     * @return string
-     */
     protected function generateNonUniqueSlug(): string
     {
         $slugField = $this->slugOptions->slugField;
@@ -101,9 +92,6 @@ trait HasSlug
         return Str::slug($this->getSlugSourceString(), $this->slugOptions->slugSeparator, $this->slugOptions->slugLanguage);
     }
 
-    /**
-     * @return bool
-     */
     protected function hasCustomSlugBeenUsed(): bool
     {
         $slugField = $this->slugOptions->slugField;
@@ -111,9 +99,6 @@ trait HasSlug
         return $this->getOriginal($slugField) != $this->$slugField;
     }
 
-    /**
-     * @return string
-     */
     protected function getSlugSourceString(): string
     {
         if (is_callable($this->slugOptions->generateSlugFrom)) {
@@ -129,18 +114,11 @@ trait HasSlug
         return $this->generateSubstring($slugSourceString);
     }
 
-    /**
-     * @return string
-     */
     protected function getSlugSourceStringFromCallable(): string
     {
         return call_user_func($this->slugOptions->generateSlugFrom, $this);
     }
 
-    /**
-     * @param string $slug
-     * @return string
-     */
     protected function makeSlugUnique(string $slug): string
     {
         $originalSlug = $slug;
@@ -153,10 +131,6 @@ trait HasSlug
         return $slug;
     }
 
-    /**
-     * @param string $slug
-     * @return bool
-     */
     protected function otherRecordExistsWithSlug(string $slug): bool
     {
         $query = static::where($this->slugOptions->slugField, $slug)
@@ -173,9 +147,6 @@ trait HasSlug
         return $query->exists();
     }
 
-    /**
-     * @return bool
-     */
     protected function usesSoftDeletes(): bool
     {
         return (bool) in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($this));
@@ -202,7 +173,7 @@ trait HasSlug
     /**
      * Helper function to handle multi-bytes strings if the module mb_substr is present,
      * default to substr otherwise.
-     * @param $slugSourceString
+     *
      * @return false|string
      */
     protected function generateSubstring($slugSourceString)

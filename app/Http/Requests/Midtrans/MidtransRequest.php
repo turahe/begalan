@@ -25,11 +25,11 @@ class MidtransRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'name'                  => Auth::user()->name,
-            'email'                 => Auth::user()->email,
-            'user_id'               => Auth::id(),
-            'payment_method'        => 'midtrans',
-            'status'                => 'initial',
+            'name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'user_id' => Auth::id(),
+            'payment_method' => 'midtrans',
+            'status' => 'initial',
         ]);
     }
 
@@ -41,9 +41,9 @@ class MidtransRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount'                => 'required|numeric',
-            'currency'              => 'string|required',
-            'local_transaction_id'  => 'string|required',
+            'amount' => 'required|numeric',
+            'currency' => 'string|required',
+            'local_transaction_id' => 'string|required',
         ];
     }
 }

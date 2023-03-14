@@ -19,6 +19,7 @@ class AuthController extends Controller
 {
     /**
      * @return string
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function login()
@@ -27,9 +28,9 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function loginPost(Request $request)
     {
@@ -41,8 +42,8 @@ class AuthController extends Controller
         $this->validate($request, $rules);
 
         $credential = [
-            'email'     => $request->email,
-            'password'     => $request->password,
+            'email' => $request->email,
+            'password' => $request->password,
         ];
 
         if (Auth::attempt($credential, $request->remember_me)) {
@@ -66,6 +67,7 @@ class AuthController extends Controller
 
     /**
      * @return string
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function register()
@@ -74,9 +76,9 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function registerPost(Request $request)
     {
@@ -105,7 +107,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function userVerified(Request $request)
@@ -134,9 +135,9 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function sendResetToken(Request $request)
     {
@@ -170,16 +171,15 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $token
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function passwordReset(Request $request, $token)
     {
         $rules = [
-            'password'  => 'required|confirmed',
-            'password_confirmation'  => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required',
         ];
         $this->validate($request, $rules);
 
@@ -292,8 +292,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @param $providerUser
-     * @param string $provider
+     * @param  string  $provider
      * @return mixed
      */
     public function getSocialUser($providerUser, $provider = '')
@@ -311,13 +310,13 @@ class AuthController extends Controller
             $user->save();
         } else {
             $user = User::create([
-                    'email'             => $providerUser->getEmail(),
-                    'name'              => $providerUser->getName(),
-                    'user_type'         => 'user',
-                    'active_status'     => 1,
-                    'provider_user_id'  => $providerUser->getId(),
-                    'provider'          => $provider,
-                ]);
+                'email' => $providerUser->getEmail(),
+                'name' => $providerUser->getName(),
+                'user_type' => 'user',
+                'active_status' => 1,
+                'provider_user_id' => $providerUser->getId(),
+                'provider' => $provider,
+            ]);
         }
 
         return $user;

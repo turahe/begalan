@@ -114,7 +114,6 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      *
      * @return array|\Illuminate\Http\RedirectResponse
      */
@@ -133,7 +132,7 @@ class SettingsController extends Controller
         }
         //check is request comes via ajax?
         if ($request->ajax()) {
-            return ['success'=>1, 'msg'=> __a('settings_saved_msg')];
+            return ['success' => 1, 'msg' => __a('settings_saved_msg')];
         }
 
         return redirect()->back()->with('success', __a('settings_saved_msg'));

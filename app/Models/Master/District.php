@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|District newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|District newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|District query()
+ *
  * @mixin \Eloquent
+ *
  * @property int $id
  * @property int $city_id
  * @property string $name
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\Cache;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|District whereCityId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|District whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|District whereId($value)
@@ -30,6 +33,7 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|District whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|District whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|District whereUpdatedAt($value)
+ *
  * @property-read \App\Models\Master\City $city
  * @property-read string $address
  * @property-read mixed $city_name
@@ -51,17 +55,11 @@ class District extends Model
         'meta' => 'array',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class, 'city_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function villages(): HasMany
     {
         return $this->hasMany(Village::class, 'district_id');
@@ -83,9 +81,6 @@ class District extends Model
         return $this->city->province->name;
     }
 
-    /**
-     * @return string
-     */
     public function getAddressAttribute(): string
     {
         return sprintf(

@@ -20,60 +20,54 @@ class ReadTime
 {
     /**
      * Whether or not minutes/seconds should be abbreviated as min/sec.
-     *
-     * @var bool
      */
     public bool $abbreviated;
+
     /**
      * The string content to evaluate.
-     *
-     * @var string
      */
     public string $content;
+
     /**
      * The direction the language reads. Default ltr is true.
-     * @var bool
      */
     public bool $ltr;
+
     /**
      * Omit seconds from being displayed in the read time estimate.
-     * @var bool
      */
     public bool $omitSeconds;
+
     /**
      * Whether or not only the time should be displayed.
-     * @var bool
      */
     public bool $timeOnly;
+
     /**
      * An array containing all translation values.
-     *
-     * @var array
      */
     public array $translations;
+
     /**
      * The average words read per minute.
+     *
      * @var int (int)
      */
     public int $wordsPerMinute;
+
     /**
      * An array containing the read time estimate data.
-     * @var array
      */
     protected array $estimate;
+
     /**
      * The sum total number of words in the content.
-     *
-     * @var int
      */
     protected int $wordsInContent;
 
     /**
      * ReadTime constructor.
-     * @param $content
-     * @param bool $omitSeconds
-     * @param bool $abbreviated
-     * @param int $wordsPerMinute
+     *
      * @throws Exception
      */
     public function __construct($content, bool $omitSeconds = true, bool $abbreviated = false, int $wordsPerMinute = 230)
@@ -88,17 +82,11 @@ class ReadTime
         $this->wordsPerMinute = (int) $wordsPerMinute;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->get();
     }
 
-    /**
-     * @return string
-     */
     public function __invoke(): string
     {
         return $this->get();
@@ -107,8 +95,7 @@ class ReadTime
     /**
      * Abbreviate the minutes/seconds.
      *
-     * @param bool $abbreviated
-     * @return ReadTime
+     * @param  bool  $abbreviated
      */
     public function abbreviated($abbreviated = true): self
     {
@@ -119,8 +106,6 @@ class ReadTime
 
     /**
      * Return the formatted read time string.
-     *
-     * @return string
      */
     public function get(): string
     {
@@ -132,7 +117,7 @@ class ReadTime
     /**
      * Get the translation array or specific key.
      *
-     * @param  null|string $key The translation key
+     * @param  null|string  $key The translation key
      * @return mixed array if no key is passed, or string if existing key is passed
      */
     public function getTranslation($key = null): self
@@ -144,7 +129,6 @@ class ReadTime
      * Set ltr mode for the read time.
      *
      * @param bool
-     * @return ReadTime
      */
     public function ltr(bool $ltr = true): self
     {
@@ -155,9 +139,6 @@ class ReadTime
 
     /**
      * Omit seconds from being displayed in the read time result.
-     *
-     * @param bool $omitSeconds
-     * @return ReadTime
      */
     public function omitSeconds(bool $omitSeconds = true): self
     {
@@ -168,9 +149,6 @@ class ReadTime
 
     /**
      * Set the read time results to read from right to left.
-     *
-     * @param bool $rtl
-     * @return ReadTime
      */
     public function rtl(bool $rtl = true): self
     {
@@ -182,8 +160,7 @@ class ReadTime
     /**
      * Set the translation keys for the read time string.
      *
-     * @param array $translations An associative array of translation text
-     * @return ReadTime
+     * @param  array  $translations An associative array of translation text
      */
     public function setTranslation(array $translations): self
     {
@@ -200,9 +177,6 @@ class ReadTime
 
     /**
      * Determine if any text should accompany the time in the read time.
-     *
-     * @param bool $timeOnly
-     * @return ReadTime
      */
     public function timeOnly(bool $timeOnly = true): self
     {
@@ -213,8 +187,6 @@ class ReadTime
 
     /**
      * Return an array of the class data.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -233,8 +205,6 @@ class ReadTime
 
     /**
      * Return a json string of the class data.
-     *
-     * @return string
      */
     public function toJson(): string
     {
@@ -243,9 +213,6 @@ class ReadTime
 
     /**
      * Set the average words read per minute.
-     *
-     * @param int $wordsPerMinute
-     * @return ReadTime
      */
     public function wpm(int $wordsPerMinute): self
     {
@@ -256,8 +223,6 @@ class ReadTime
 
     /**
      * Calculate the reading time for minutes.
-     *
-     * @return int
      */
     protected function calculateMinutes(): int
     {
@@ -268,8 +233,6 @@ class ReadTime
 
     /**
      * Calculate the reading time for seconds.
-     *
-     * @return int
      */
     protected function calculateSeconds(): int
     {
@@ -278,9 +241,6 @@ class ReadTime
 
     /**
      * Strip html tags from content.
-     *
-     * @param  string $content
-     * @return string
      */
     protected function cleanContent(string $content): string
     {
@@ -289,8 +249,6 @@ class ReadTime
 
     /**
      * Remove any double spaces or post/prefixed spaces.
-     * @param  string $string
-     * @return string
      */
     protected function cleanReadTimeString(string $string): string
     {
@@ -323,8 +281,6 @@ class ReadTime
 
     /**
      * Return the formatted read time string based on the set properties.
-     *
-     * @return string
      */
     protected function formatReadTime(): string
     {
@@ -350,8 +306,7 @@ class ReadTime
     /**
      * Check if the given content is formatted appropriately.
      *
-     * @param  mixed $content
-     * @return bool
+     * @param  mixed  $content
      */
     protected function invalidContent($content): bool
     {
@@ -365,9 +320,9 @@ class ReadTime
     /**
      * Parse the given content so it can be output as a read time.
      *
-     * @param mixed $receivedContent String or array of content
+     * @param  mixed  $receivedContent String or array of content
+     *
      * @throws Exception
-     * @return string
      */
     protected function parseContent($receivedContent): string
     {
@@ -391,9 +346,6 @@ class ReadTime
 
     /**
      * Reverse the words in a string.
-     *
-     * @param  string $string
-     * @return string
      */
     protected function reverseWords(string $string): string
     {

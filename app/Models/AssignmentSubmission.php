@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -30,6 +29,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
  * @property-read \App\Models\User $student
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission query()
@@ -46,11 +46,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission whereTextSubmission($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AssignmentSubmission whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class AssignmentSubmission extends Model implements HasMedia
 {
     use InteractsWithMedia;
+
     /**
      * @var array
      */
@@ -63,33 +65,21 @@ class AssignmentSubmission extends Model implements HasMedia
         'evaluated_at' => 'datetime',
     ];
 
-    /**
-     * @return BelongsTo
-     */
     public function student(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function assignment(): BelongsTo
     {
         return $this->belongsTo(Content::class, 'assignment_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function instructor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'instructor_id');

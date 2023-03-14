@@ -8,8 +8,6 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
-use Illuminate\View\View;
 
 /**
  * Class HomeController.
@@ -48,7 +46,6 @@ class HomeController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function courses(Request $request)
@@ -174,9 +171,6 @@ class HomeController extends Controller
         return redirect(route('home'));
     }
 
-    /**
-     * @param $dir
-     */
     public function rrmdir($dir)
     {
         if (is_dir($dir)) {

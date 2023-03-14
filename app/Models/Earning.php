@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Course|null $course
  * @property-read \App\Models\Payment|null $payment
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Earning newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Earning newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Earning query()
@@ -37,6 +38,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Earning wherePaymentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Earning wherePaymentStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Earning whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Earning extends Model

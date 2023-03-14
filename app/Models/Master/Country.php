@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|Country newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Country newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Country query()
+ *
  * @mixin \Eloquent
+ *
  * @property int $id
  * @property string|null $capital
  * @property string|null $citizenship
@@ -33,6 +35,7 @@ use Illuminate\Support\Facades\Cache;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereCallingCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereCapital($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereCitizenship($value)
@@ -53,6 +56,7 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereSubRegionCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Master\State[] $states
  * @property-read int|null $states_count
  */
@@ -60,9 +64,6 @@ class Country extends Model
 {
     protected $table = 'tm_countries';
 
-    /**
-     * @return HasMany
-     */
     public function states(): HasMany
     {
         return $this->hasMany(State::class);

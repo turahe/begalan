@@ -10,8 +10,7 @@ trait Rateable
     /**
      * This model has many ratings.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return void
      */
     public function rate($value)
@@ -23,9 +22,6 @@ trait Rateable
         $this->ratings()->save($rating);
     }
 
-    /**
-     * @param $value
-     */
     public function rateOnce($value)
     {
         $rating = Rate::query()
@@ -67,7 +63,6 @@ trait Rateable
     }
 
     /**
-     * @param $value
      * @return mixed
      */
     public function rating($value)
@@ -108,7 +103,7 @@ trait Rateable
     }
 
     /**
-     * @param int $max
+     * @param  int  $max
      * @return float|int
      */
     public function ratingPercent($max = 5)

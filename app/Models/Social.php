@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Social newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Social newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Social query()
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Social whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Social whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Social whereUsername($value)
+ *
  * @mixin \Eloquent
  */
 class Social extends Model

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $status_context
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw query()
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Withdraw whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Withdraw extends Model

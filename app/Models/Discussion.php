@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \Illuminate\Database\Eloquent\Collection|Discussion[] $replies
  * @property-read int|null $replies_count
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Discussion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Discussion newQuery()
  * @method static \Illuminate\Database\Query\Builder|Discussion onlyTrashed()
@@ -45,31 +46,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Discussion withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Discussion withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Discussion extends Model
 {
     use SoftDeletes;
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function replies(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id')->with('user', 'user.photo_query');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');

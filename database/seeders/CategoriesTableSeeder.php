@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -12,6 +11,7 @@ class CategoriesTableSeeder extends Seeder
      * Run the database seeders.
      *
      * @return void
+     *
      * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
      * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */

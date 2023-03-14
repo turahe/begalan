@@ -30,6 +30,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read string $url
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post post()
@@ -45,6 +46,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Post extends Model implements HasMedia
@@ -53,9 +55,6 @@ class Post extends Model implements HasMedia
     use InteractsWithMedia;
     use HasSlug;
 
-    /**
-     * @return SlugOptions
-     */
     public function getSlugOptions(): SlugOptions
     {
         // TODO: Implement getSlugOptions() method.
@@ -65,7 +64,6 @@ class Post extends Model implements HasMedia
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopePublish($query)
@@ -74,7 +72,6 @@ class Post extends Model implements HasMedia
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopePost($query)
@@ -82,41 +79,26 @@ class Post extends Model implements HasMedia
         return $query->where('type', 'post')->with('media', 'author');
     }
 
-    /**
-     * @return string
-     */
     public function getPublishedTimeAttribute(): string
     {
         return $this->created_at->format(config('global.date_format').' '.config('global.time_format'));
     }
 
-    /**
-     * @return string
-     */
     public function getUrlAttribute(): string
     {
         return route('post', $this->slug);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    /**
-     * @return string
-     */
     public function getStatusContextAttribute(): string
     {
         $statusClass = '';

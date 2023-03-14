@@ -5,7 +5,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,6 +63,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $wishlist_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Withdraw[] $withdraws
  * @property-read int|null $withdraws_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
  * @method static \Illuminate\Database\Eloquent\Builder|User instructor()
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -82,8 +82,11 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereResetToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
+ *
  * @property string|null $deleted_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
  */
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
@@ -117,7 +120,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     ];
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopeActive($query)
@@ -126,7 +128,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopeInstructor($query)
@@ -134,17 +135,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return $query->where('user_type', 'instructor');
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class)->orderBy('created_at', 'desc');
     }
 
-    /**
-     * @return HasMany
-     */
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
@@ -158,49 +153,31 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return $this->belongsToMany(Review::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id');
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function instructor_discussions(): BelongsToMany
     {
         return $this->belongsToMany(Discussion::class, 'course_user', 'user_id', 'course_id', 'id', 'course_id')->with('user', 'user.photo_query')->where('discussion_id', 0);
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function wishlist(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'wishlists');
     }
 
-    /**
-     * @return HasMany
-     */
     public function earnings(): HasMany
     {
         return $this->hasMany(Earning::class, 'instructor_id')->where('payment_status', 'success');
     }
 
-    /**
-     * @return HasMany
-     */
     public function withdraws(): HasMany
     {
         return $this->hasMany(Withdraw::class)->orderBy('created_at', 'desc');
     }
 
-    /**
-     * @return HasMany
-     */
     public function purchases(): HasMany
     {
         return $this->hasMany(Payment::class)->orderBy('created_at', 'desc');
     }
 
-    /**
-     * @return HasMany
-     */
     public function my_quiz_attempts(): HasMany
     {
         return $this->hasMany(Attempt::class);
@@ -223,16 +200,13 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         return $rating;
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function enrolls(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'enrolls')->wherePivot('status', '=', 'success');
     }
 
     /**
-     * @param int $course_id
+     * @param  int  $course_id
      * @return false
      */
     public function isEnrolled($course_id = 0)
@@ -247,7 +221,6 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
     /**
-     * @param $course_id
      * @return mixed
      */
     public function isInstructorInCourse($course_id)
@@ -256,7 +229,7 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
     /**
-     * @param null $course_id
+     * @param  null  $course_id
      * @return bool
      *
      * Complete Course
@@ -273,16 +246,15 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
             return $is_completed;
         }
         $data = [
-            'user_id'               => $this->id,
-            'completed_course_id'   => $course_id,
-            'completed_at'          => Carbon::now()->toDateTimeString(),
+            'user_id' => $this->id,
+            'completed_course_id' => $course_id,
+            'completed_at' => Carbon::now()->toDateTimeString(),
         ];
 
         return Complete::create($data);
     }
 
     /**
-     * @param $course_id
      * @return Complete|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function is_completed_course($course_id)
@@ -293,8 +265,8 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
     /**
-     * @param null $key
-     * @param null $default
+     * @param  null  $key
+     * @param  null  $default
      * @return mixed|null
      */
     public function get_option($key = null, $default = null)
@@ -312,8 +284,8 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
     /**
-     * @param null $key
-     * @param string $value
+     * @param  null  $key
+     * @param  string  $value
      */
     public function update_option($key = null, $value = '')
     {
@@ -360,11 +332,11 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
         $balance = $earnings - $withdraws_sum;
 
         $data = [
-            'sales_amount'  => $sales_amount,
-            'commission'  => $commission,
-            'earnings'  => $earnings,
-            'balance'  => $balance,
-            'withdrawals'  => $withdraws_total,
+            'sales_amount' => $sales_amount,
+            'commission' => $commission,
+            'earnings' => $earnings,
+            'balance' => $balance,
+            'withdrawals' => $withdraws_total,
         ];
 
         return (object) $data;
@@ -400,7 +372,6 @@ where course_user.user_id = {$this->id} and reviews.status = 1";
     }
 
     /**
-     * @param $quiz_id
      * @return Attempt|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function get_attempt($quiz_id)

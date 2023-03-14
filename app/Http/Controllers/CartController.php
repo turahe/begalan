@@ -17,8 +17,8 @@ use Midtrans\Snap;
 class CartController extends Controller
 {
     /**
-     * @param Request $request
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function addToCart(Request $request)
@@ -35,15 +35,15 @@ class CartController extends Controller
 
         $cartData = (array) session('cart');
         $cartData[$course->id] = [
-            'hash'              => Str::random(),
-            'course_id'         => $course->id,
-            'title'             => $course->title,
-            'price'             => $course->get_price,
-            'original_price'    => $course->price,
-            'price_plan'        => $course->price_plan,
-            'course_url'        => route('course', $course->slug),
-            'thumbnail'      => media_image_uri($course->thumbnail_id)->thumbnail,
-            'price_html'      => $course->price_html(false),
+            'hash' => Str::random(),
+            'course_id' => $course->id,
+            'title' => $course->title,
+            'price' => $course->get_price,
+            'original_price' => $course->price,
+            'price_plan' => $course->price_plan,
+            'course_url' => route('course', $course->slug),
+            'thumbnail' => media_image_uri($course->thumbnail_id)->thumbnail,
+            'price_html' => $course->price_html(false),
         ];
         session(['cart' => $cartData]);
 
@@ -57,10 +57,10 @@ class CartController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      *
      * Remove From Cart
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removeCart(Request $request)
@@ -106,12 +106,12 @@ class CartController extends Controller
         $last_name = array_pop($name);
 
         $customer_details = [
-            'first_name'    => $first_name,
-            'last_name'     => $last_name,
-            'email'         => $payment->email,
-            'phone'         => $user->phone,
-            'billing_address'  => isset($user->address) ? $user->address : $user->address_2,
-//            'shipping_address' => $shipping_address
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'email' => $payment->email,
+            'phone' => $user->phone,
+            'billing_address' => isset($user->address) ? $user->address : $user->address_2,
+            //            'shipping_address' => $shipping_address
         ];
         // Fill transaction details
         $transaction = [

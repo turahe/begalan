@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Validator;
 class QuizController extends Controller
 {
     /**
-     * @param $slug
-     * @param $quiz_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function quizView($slug, $quiz_id)
@@ -41,7 +39,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function start(Request $request)
@@ -62,7 +59,7 @@ class QuizController extends Controller
                 'questions_limit' => $quiz->option('questions_limit'),
                 'status' => 'started',
                 'quiz_gradable' => $quiz->quiz_gradable,
-                'passing_percent' =>  $passing_percent,
+                'passing_percent' => $passing_percent,
             ];
 
             Attempt::create($data);
@@ -73,7 +70,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param $quiz_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function quizAttempting($quiz_id)
@@ -140,8 +136,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $quiz_id
      * @return array
      */
     public function answerSubmit(Request $request, $quiz_id)
@@ -173,15 +167,15 @@ class QuizController extends Controller
                 }
 
                 $answerData = [
-                    'quiz_id'       => $quiz_id,
-                    'question_id'   => $question_id,
-                    'user_id'       => $user->id,
-                    'attempt_id'    => $attempt->id,
-                    'answer'        => $answer,
-                    'q_type'        => $question->type,
-                    'q_score'       => $question->score,
-                    'r_score'       => $r_score,
-                    'is_correct'    => $is_correct,
+                    'quiz_id' => $quiz_id,
+                    'question_id' => $question_id,
+                    'user_id' => $user->id,
+                    'attempt_id' => $attempt->id,
+                    'answer' => $answer,
+                    'q_type' => $question->type,
+                    'q_score' => $question->score,
+                    'r_score' => $r_score,
+                    'is_correct' => $is_correct,
                 ];
                 Answer::create($answerData);
                 session()->forget('current_question');
@@ -192,8 +186,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
      * @return array
      *
      * Dashboard Tasks
@@ -224,15 +216,15 @@ class QuizController extends Controller
         $sort_order = next_curriculum_item_id($course_id);
 
         $data = [
-            'user_id'       => $user_id,
-            'course_id'     => $course_id,
-            'section_id'    => $request->section_id,
-            'title'         => clean_html($request->title),
-            'slug'          => $lesson_slug,
-            'text'          => clean_html($request->description),
-            'item_type'     => 'quiz',
-            'status'        => 1,
-            'sort_order'   => $sort_order,
+            'user_id' => $user_id,
+            'course_id' => $course_id,
+            'section_id' => $request->section_id,
+            'title' => clean_html($request->title),
+            'slug' => $lesson_slug,
+            'text' => clean_html($request->description),
+            'item_type' => 'quiz',
+            'status' => 1,
+            'sort_order' => $sort_order,
         ];
 
         $lecture = Content::create($data);
@@ -242,9 +234,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
-     * @param $item_id
      * @return array|bool[]
      */
     public function updateQuiz(Request $request, $course_id, $item_id)
@@ -269,10 +258,10 @@ class QuizController extends Controller
 
         $lesson_slug = unique_slug($request->title, 'Content', $item_id);
         $data = [
-            'title'         => clean_html($request->title),
-            'slug'          => $lesson_slug,
-            'text'          => clean_html($request->description),
-            'options'       => json_encode($request->quiz_option),
+            'title' => clean_html($request->title),
+            'slug' => $lesson_slug,
+            'text' => clean_html($request->description),
+            'options' => json_encode($request->quiz_option),
             'quiz_gradable' => $request->quiz_gradable,
         ];
 
@@ -283,9 +272,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
-     * @param $quiz_id
      * @return array
      */
     public function createQuestion(Request $request, $course_id, $quiz_id)
@@ -307,13 +293,13 @@ class QuizController extends Controller
         $sort_order = $this->next_question_sort_id($quiz_id);
 
         $questionData = [
-            'user_id'       => $user->id,
-            'quiz_id'       => $quiz_id,
-            'title'         => clean_html($request->question_title),
-            'image_id'      => $request->image_id,
-            'type'          => $request->question_type,
-            'score'         => $request->score,
-            'sort_order'   => $sort_order,
+            'user_id' => $user->id,
+            'quiz_id' => $quiz_id,
+            'title' => clean_html($request->question_title),
+            'image_id' => $request->image_id,
+            'type' => $request->question_type,
+            'score' => $request->score,
+            'sort_order' => $sort_order,
         ];
 
         $question = Question::create($questionData);
@@ -342,7 +328,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function loadQuestions(Request $request)
@@ -354,7 +339,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function editQuestion(Request $request)
@@ -366,7 +350,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function updateQuestion(Request $request)
@@ -423,7 +406,7 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      *
      * Sort Quiz Questions
      */
@@ -437,7 +420,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param $quiz_id
      * @return int
      */
     public function next_question_sort_id($quiz_id)
@@ -448,7 +430,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param $question_id
      * @return int
      */
     public function next_question_option_sort_id($question_id)
@@ -458,18 +439,12 @@ class QuizController extends Controller
         return $sort + 1;
     }
 
-    /**
-     * @param Request $request
-     */
     public function deleteQuestion(Request $request)
     {
         $question = Question::find($request->question_id);
         $question->delete_sync();
     }
 
-    /**
-     * @param Request $request
-     */
     public function deleteOption(Request $request)
     {
         QuestionOption::whereId($request->option_id)->delete();
@@ -488,7 +463,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function quizzes($course_id)
@@ -500,7 +474,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param $quiz_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function attempts($quiz_id)
@@ -512,7 +485,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param $attempt_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function attemptDetail($attempt_id)
@@ -524,8 +496,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $attempt_id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function attemptReview(Request $request, $attempt_id)
@@ -539,18 +509,18 @@ class QuizController extends Controller
         if (is_array($request->answers) && count($request->answers)) {
             foreach ($request->answers as $answer_id => $answer) {
                 $data = [
-                    'r_score'       => array_get($answer, 'review_score'),
-                    'is_correct'    => (int) array_get($answer, 'is_correct'),
+                    'r_score' => array_get($answer, 'review_score'),
+                    'is_correct' => (int) array_get($answer, 'is_correct'),
                 ];
 
                 Answer::where('id', $answer_id)->update($data);
             }
 
             $attempt_review_data = [
-                'reviewer_id'   => $user->id,
-                'status'        => 'finished',
-                'is_reviewed'   => 1,
-                'reviewed_at'   => Carbon::now()->toDateTimeString(),
+                'reviewer_id' => $user->id,
+                'status' => 'finished',
+                'is_reviewed' => 1,
+                'reviewed_at' => Carbon::now()->toDateTimeString(),
             ];
             $attempt = Attempt::find($attempt_id);
             $attempt->save_and_sync($attempt_review_data);

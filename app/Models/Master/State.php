@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|State newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|State newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|State query()
+ *
  * @mixin \Eloquent
+ *
  * @property int $id
  * @property int $country_id
  * @property string $name
@@ -27,6 +29,7 @@ use Illuminate\Support\Facades\Cache;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|State whereCallingCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereCountryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereCreatedAt($value)
@@ -39,6 +42,7 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|State whereRegionCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Master\City[] $cities
  * @property-read int|null $cities_count
  * @property-read \App\Models\Master\Country $country
@@ -58,35 +62,24 @@ class State extends Model
         'name',
         'state_code',
     ];
+
     protected $table = 'tm_states';
 
-    /**
-     * @return BelongsTo
-     */
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
 
-    /**
-     * @return HasMany
-     */
     public function cities(): HasMany
     {
         return $this->hasMany(City::class, 'state_id');
     }
 
-    /**
-     * @return HasManyThrough
-     */
     public function districts(): HasManyThrough
     {
         return $this->hasManyThrough(District::class, City::class);
     }
 
-    /**
-     * @return string
-     */
     public function getLogoPathAttribute(): string
     {
         $folder = 'indonesia-logo/';
@@ -100,9 +93,6 @@ class State extends Model
         }
     }
 
-    /**
-     * @return string
-     */
     public function getAddressAttribute(): string
     {
         return sprintf(

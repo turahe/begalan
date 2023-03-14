@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Hash;
 class DashboardController extends Controller
 {
     /**
-     * @throws \Exception
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @throws \Exception
      */
     public function index()
     {
@@ -81,14 +82,14 @@ class DashboardController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function profileSettingsPost(Request $request)
     {
         $rules = [
-            'name'      => 'required',
+            'name' => 'required',
             'job_title' => 'max:220',
         ];
         $this->validate($request, $rules);
@@ -112,9 +113,9 @@ class DashboardController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function resetPasswordPost(Request $request)
     {
@@ -122,9 +123,9 @@ class DashboardController extends Controller
             return redirect()->back()->with('error', 'This feature has been disable for demo');
         }
         $rules = [
-            'old_password'  => 'required',
-            'new_password'  => 'required|confirmed',
-            'new_password_confirmation'  => 'required',
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+            'new_password_confirmation' => 'required',
         ];
         $this->validate($request, $rules);
 
@@ -186,7 +187,6 @@ class DashboardController extends Controller
     }
 
     /**
-     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function purchaseView($id)

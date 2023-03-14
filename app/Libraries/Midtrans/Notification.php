@@ -5,17 +5,29 @@ namespace App\Libraries\Midtrans;
 class Notification
 {
     const TRANSACTION_STATUS_PENDING = 'pending';
+
     const TRANSACTION_STATUS_SUCCESS = 'success';
+
     const TRANSACTION_STATUS_SETTLEMENT = 'settlement';
+
     const TRANSACTION_STATUS_EXPIRE = 'expire';
+
     const TRANSACTION_STATUS_CAPTURE = 'capture';
+
     const TRANSACTION_STATUS_AUTHORIZE = 'authorize';
+
     const TRANSACTION_STATUS_DENY = 'deny';
+
     const TRANSACTION_STATUS_CANCEL = 'cancel';
+
     const TRANSACTION_STATUS_REFUND = 'refund';
+
     const TRANSACTION_STATUS_PARTIAL_REFUND = 'partial_refund';
+
     const TRANSACTION_STATUS_CHARGEBACK = 'chargeback';
+
     const TRANSACTION_STATUS_PARTIAL_CHARGEBACK = 'partial_chargeback';
+
     const TRANSACTION_STATUS_FAILURE = 'failure';
 
     /** @var object */
@@ -87,7 +99,7 @@ class Notification
     /**
      * get transaction status.
      *
-     * @param null|string|array $value
+     * @param  null|string|array  $value
      * @return string|bool
      */
     public function transactionStatus($value = null)
@@ -98,7 +110,7 @@ class Notification
     /**
      * Return fraud status.
      *
-     * @param null|string $value
+     * @param  null|string  $value
      * @return string|bool
      */
     public function fraud($value = null)
@@ -109,8 +121,7 @@ class Notification
     /**
      * set on transaction status callback.
      *
-     * @param string $transactionStatus
-     * @param callable $callback
+     * @param  string  $transactionStatus
      * @return self
      */
     public function onTransactionStatus($transactionStatus, callable $callback)
@@ -125,8 +136,7 @@ class Notification
     /**
      * Set on fraud status callback.
      *
-     * @param string $fraudStatus
-     * @param callable $callable
+     * @param  string  $fraudStatus
      * @return self
      */
     public function onFraudStatus($fraudStatus, callable $callable)
@@ -141,7 +151,6 @@ class Notification
     /**
      * Set on pending callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onPending(callable $callable)
@@ -152,7 +161,6 @@ class Notification
     /**
      * Set on success callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onSuccess(callable $callable)
@@ -163,7 +171,6 @@ class Notification
     /**
      * Set on settlement callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onSettlement(callable $callable)
@@ -174,7 +181,6 @@ class Notification
     /**
      * Set on expire callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onExpire(callable $callable)
@@ -185,7 +191,6 @@ class Notification
     /**
      * Set on capture callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onCapture(callable $callable)
@@ -196,7 +201,6 @@ class Notification
     /**
      * Set on authorize callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onAuthorize(callable $callable)
@@ -207,7 +211,6 @@ class Notification
     /**
      * Set on deny callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onDeny(callable $callable)
@@ -218,7 +221,6 @@ class Notification
     /**
      * Set on cancel callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onCancel(callable $callable)
@@ -229,7 +231,6 @@ class Notification
     /**
      * Set on refund callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onRefund(callable $callable)
@@ -240,7 +241,6 @@ class Notification
     /**
      * Set on partial refund callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onPartialRefund(callable $callable)
@@ -251,7 +251,6 @@ class Notification
     /**
      * Set on chargeback callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onChargeback(callable $callable)
@@ -262,7 +261,6 @@ class Notification
     /**
      * Set on partial chargeback callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onPartialChargeback(callable $callable)
@@ -273,7 +271,6 @@ class Notification
     /**
      * Set on failure callback.
      *
-     * @param callable $callable
      * @return self
      */
     public function onFailure(callable $callable)

@@ -12,7 +12,6 @@ use Intervention\Image\Facades\Image;
 class MediaController extends Controller
 {
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function loadFileManager(Request $request)
@@ -34,7 +33,6 @@ class MediaController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function store(Request $request)
@@ -89,12 +87,12 @@ class MediaController extends Controller
                     }
 
                     $uploaded_data = [
-                        'user_id'   => $user_id,
-                        'name'   => $getFilename,
-                        'slug'   => $slug,
-                        'slug_ext'   => $slug_ext,
-                        'file_size'   => $getSize,
-                        'mime_type'   => $getMimeType,
+                        'user_id' => $user_id,
+                        'name' => $getFilename,
+                        'slug' => $slug,
+                        'slug_ext' => $slug_ext,
+                        'file_size' => $getSize,
+                        'mime_type' => $getMimeType,
                     ];
 
                     if (substr($getMimeType, 0, 5) == 'video') {
@@ -115,7 +113,6 @@ class MediaController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function delete(Request $request)
@@ -175,7 +172,6 @@ class MediaController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function mediaManager(Request $request)
@@ -197,7 +193,6 @@ class MediaController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return bool[]
      */
     public function mediaManagerUpdate(Request $request)

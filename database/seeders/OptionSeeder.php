@@ -27,8 +27,8 @@ class OptionSeeder extends Seeder
         $midtrans = [
             'enable_midtrans' => true,
             'test_mode' => true,
-            'id_merchant' =>'G624028022',
-            'client_key' =>'SB-Mid-client-OhuBYYdphvdOhY1L',
+            'id_merchant' => 'G624028022',
+            'client_key' => 'SB-Mid-client-OhuBYYdphvdOhY1L',
             'server_Key' => 'SB-Mid-server-Sx1oMaKFdO1FHdTj2VihS_fI',
         ];
         $payment_gateway_bank_transfer = [
@@ -47,18 +47,18 @@ class OptionSeeder extends Seeder
         ];
         $withdraw_method = [
             'bank_transfer' => [
-                    'enable' => '1',
-                    'min_withdraw_amount' => '100',
-                    'notes' => 'Please note that it takes approximately 2 to 7 days to process your withdraw via bank transfer. Sometimes it may take longer. If you do not receive withdrawal after 7 days, please contact our customer support. Updated',
-                ],
+                'enable' => '1',
+                'min_withdraw_amount' => '100',
+                'notes' => 'Please note that it takes approximately 2 to 7 days to process your withdraw via bank transfer. Sometimes it may take longer. If you do not receive withdrawal after 7 days, please contact our customer support. Updated',
+            ],
             'echeck' => [
-                    'enable' => '1',
-                    'min_withdraw_amount' => '50',
-                ],
+                'enable' => '1',
+                'min_withdraw_amount' => '50',
+            ],
             'paypal' => [
-                    'enable' => '1',
-                    'min_withdraw_amount' => '50',
-                ],
+                'enable' => '1',
+                'min_withdraw_amount' => '50',
+            ],
         ];
 
         $cookie_alert = [
@@ -67,25 +67,25 @@ class OptionSeeder extends Seeder
         ];
         $social_login = [
             'facebook' => [
-                    'enable' => '1',
-                    'app_id' => '292155035510814',
-                    'app_secret' => 'de1a21d48afe669dda21626fdf638832',
-                ],
+                'enable' => '1',
+                'app_id' => '292155035510814',
+                'app_secret' => 'de1a21d48afe669dda21626fdf638832',
+            ],
             'google' => [
-                    'enable' => '1',
-                    'client_id' => '586033023574-3m025n2jei2eldgdqf7ic2r7rh58oj86.apps.googleusercontent.com',
-                    'client_secret' => 'Pd6fUp5FFmXUt-M0Prdc2fFy',
-                ],
+                'enable' => '1',
+                'client_id' => '586033023574-3m025n2jei2eldgdqf7ic2r7rh58oj86.apps.googleusercontent.com',
+                'client_secret' => 'Pd6fUp5FFmXUt-M0Prdc2fFy',
+            ],
             'twitter' => [
-                    'enable' => '1',
-                    'consumer_key' => 'iXy8T2reBWP42aD60rXdtUf8R',
-                    'consumer_secret' => 'SEYSr2AFVaVfH56xPZerEZxBW7gGgZOE2CT8jdoq32BbuL7Zv3',
-                ],
+                'enable' => '1',
+                'consumer_key' => 'iXy8T2reBWP42aD60rXdtUf8R',
+                'consumer_secret' => 'SEYSr2AFVaVfH56xPZerEZxBW7gGgZOE2CT8jdoq32BbuL7Zv3',
+            ],
             'linkedin' => [
-                    'enable' => '1',
-                    'client_id' => '86iampeb7c62rw',
-                    'client_secret' => 'Gyb9naxKvOR6wM8i',
-                ],
+                'enable' => '1',
+                'client_id' => '86iampeb7c62rw',
+                'client_secret' => 'Gyb9naxKvOR6wM8i',
+            ],
         ];
 
         $service = [
@@ -137,7 +137,7 @@ class OptionSeeder extends Seeder
             'google_client_secret' => 'xK8SHn-ds4GJtVSL95ExTzw3',
             'currency_position' => 'left',
             'currency_sign' => 'IDR',
-            'payment_gateway_direct-bank-transfer' =>  json_encode($payment_gateway_bank_transfer),
+            'payment_gateway_direct-bank-transfer' => json_encode($payment_gateway_bank_transfer),
             'payment_gateway_cod' => json_encode($payment_gateway_cod),
             'allowed_file_types' => 'jpeg,png,jpg,pdf,zip,doc,docx,xls,ppt,mp4',
             'is_preview' => '1',

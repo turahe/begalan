@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -17,9 +16,9 @@ class UsersTableSeeder extends Seeder
     {
         foreach ($this->defaultUsers as $user) {
             User::updateOrCreate([
-                'name'      => $user['name'],
-                'email'     => $user['email'],
-                'password'  => bcrypt('secret'),
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'password' => bcrypt('secret'),
             ])->assignRole($user['user_type']);
         }
 
@@ -33,26 +32,26 @@ class UsersTableSeeder extends Seeder
      */
     protected $defaultUsers = [
         [
-            'name'      => 'Admin',
-            'email'     => 'developer@turahe.id',
+            'name' => 'Admin',
+            'email' => 'developer@turahe.id',
             'user_type' => 'admin',
             'gender' => 'female',
         ],
         [
-            'name'      => 'Instructor',
-            'email'     => 'instructor@turahe.id',
+            'name' => 'Instructor',
+            'email' => 'instructor@turahe.id',
             'user_type' => 'instructor',
             'gender' => 'male',
         ],
         [
-            'name'      => 'Nur Wachid',
-            'email'     => 'nur.wachid@turahe.id',
+            'name' => 'Nur Wachid',
+            'email' => 'nur.wachid@turahe.id',
             'user_type' => 'instructor',
             'gender' => 'male',
         ],
         [
-            'name'      => 'Clever Student',
-            'email'     => 'student@turahe.id',
+            'name' => 'Clever Student',
+            'email' => 'student@turahe.id',
             'user_type' => 'student',
             'gender' => 'male',
         ],

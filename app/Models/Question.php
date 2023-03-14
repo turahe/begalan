@@ -27,6 +27,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\QuestionOption[] $options
  * @property-read int|null $options_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Question newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Question newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Question query()
@@ -38,12 +39,15 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereUserId($value)
+ *
  * @mixin \Eloquent
+ *
  * @property int|null $order_column
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Quiz $quiz
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Question ordered(string $direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Question whereOrderColumn($value)
@@ -65,25 +69,16 @@ class Question extends Model implements HasMedia, Sortable
         'score',
     ];
 
-    /**
-     * @return HasMany
-     */
     public function options(): HasMany
     {
         return $this->hasMany(QuestionOption::class)->orderBy('order_column', 'asc');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function quiz(): BelongsTo
     {
         return $this->belongsTo(Quiz::class, 'quiz_id');
@@ -91,8 +86,6 @@ class Question extends Model implements HasMedia, Sortable
 
     /**
      * Get image url of question.
-     *
-     * @return string
      */
     public function getImageUrlAttribute(): string
     {

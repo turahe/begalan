@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $content_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Complete newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Complete newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Complete query()
@@ -24,10 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Complete whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Complete whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Complete whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Complete extends Model
 {
     protected $dates = ['completed_at'];
-
 }

@@ -10,49 +10,22 @@ class SlugOptions
     /** @var array|callable */
     public $generateSlugFrom;
 
-    /**
-     * @var string
-     */
     public string $slugField;
 
-    /**
-     * @var bool
-     */
     public bool $generateUniqueSlugs = true;
 
-    /**
-     * @var int
-     */
     public int $maximumLength = 250;
 
-    /**
-     * @var bool
-     */
     public bool $generateSlugsOnCreate = true;
 
-    /**
-     * @var bool
-     */
     public bool $generateSlugsOnUpdate = true;
 
-    /**
-     * @var bool
-     */
     public bool $preventOverwrite = false;
 
-    /**
-     * @var string
-     */
     public string $slugSeparator = '-';
 
-    /**
-     * @var string
-     */
     public string $slugLanguage = 'en';
 
-    /**
-     * @var array
-     */
     public array $translatableLocales = [];
 
     /**
@@ -64,7 +37,6 @@ class SlugOptions
     }
 
     /**
-     * @param array $locales
      * @return static
      */
     public static function createWithLocales(array $locales): self
@@ -77,7 +49,7 @@ class SlugOptions
     }
 
     /**
-     * @param string|array|callable $fieldName
+     * @param  string|array|callable  $fieldName
      * @return SlugOptions
      */
     public function generateSlugsFrom($fieldName)
@@ -92,7 +64,6 @@ class SlugOptions
     }
 
     /**
-     * @param string $fieldName
      * @return $this
      */
     public function saveSlugsTo(string $fieldName): self
@@ -113,7 +84,6 @@ class SlugOptions
     }
 
     /**
-     * @param int $maximumLength
      * @return $this
      */
     public function slugsShouldBeNoLongerThan(int $maximumLength): self
@@ -154,7 +124,6 @@ class SlugOptions
     }
 
     /**
-     * @param string $separator
      * @return $this
      */
     public function usingSeparator(string $separator): self
@@ -165,7 +134,6 @@ class SlugOptions
     }
 
     /**
-     * @param string $language
      * @return $this
      */
     public function usingLanguage(string $language): self

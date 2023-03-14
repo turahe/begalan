@@ -179,7 +179,7 @@ return [
          * Extend This application by adding module
          */
 
-//        \App\Module\PluginServiceProvider::class,
+        //        \App\Module\PluginServiceProvider::class,
 
     ],
 

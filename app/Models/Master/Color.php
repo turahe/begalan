@@ -12,13 +12,16 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|Color newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Color newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Color query()
+ *
  * @mixin \Eloquent
+ *
  * @property int $id
  * @property string $name
  * @property string $code
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Color whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Color whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Color whereId($value)

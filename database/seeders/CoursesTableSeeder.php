@@ -13,6 +13,7 @@ class CoursesTableSeeder extends Seeder
      * Run the database seeders.
      *
      * @return void
+     *
      * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
      * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */

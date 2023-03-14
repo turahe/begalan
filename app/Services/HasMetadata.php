@@ -28,7 +28,7 @@ trait HasMetadata
     /**
      * Has meta.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return bool
      */
     public function hasMeta($key)
@@ -41,8 +41,8 @@ trait HasMetadata
     /**
      * Get meta.
      *
-     * @param  string $key
-     * @param  mixed $default
+     * @param  string  $key
+     * @param  mixed  $default
      * @return object
      */
     public function getMeta($key, $default = null)
@@ -57,7 +57,7 @@ trait HasMetadata
     /**
      * Get meta content.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return object
      */
     public function getMetaValue($key)
@@ -68,15 +68,15 @@ trait HasMetadata
     /**
      * Add meta.
      *
-     * @param string $key
-     * @param mixed $content
+     * @param  string  $key
+     * @param  mixed  $content
      * @return mixed
      */
     public function addMeta($key, $content)
     {
         if (! $this->meta()->where('name', $key)->count()) {
             return $this->meta()->create([
-                'name'   => $key,
+                'name' => $key,
                 'content' => $content,
             ]);
         }
@@ -85,8 +85,8 @@ trait HasMetadata
     /**
      * Update meta.
      *
-     * @param  string $key
-     * @param  mixed $content
+     * @param  string  $key
+     * @param  mixed  $content
      * @return object|bool
      */
     public function updateMeta($key, $content)
@@ -102,8 +102,9 @@ trait HasMetadata
 
     /**
      * Add or update meta if it already exists.
-     * @param  string $key
-     * @param  mixed $content
+     *
+     * @param  string  $key
+     * @param  mixed  $content
      * @return object|bool
      */
     public function addOrUpdateMeta($key, $content)
@@ -114,8 +115,8 @@ trait HasMetadata
     /**
      * Delete meta.
      *
-     * @param  string $key
-     * @param  mixed $content
+     * @param  string  $key
+     * @param  mixed  $content
      * @return bool
      */
     public function deleteMeta($key, $content = null)

@@ -8,7 +8,6 @@ namespace App\Http\Pipelines\QueryFilters;
 class Shop extends Filter
 {
     /**
-     * @param $builder
      * @return mixed
      */
     protected function applyFilters($builder)

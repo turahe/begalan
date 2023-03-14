@@ -37,8 +37,9 @@ class Midtrans
     /**
      * Create Snap payment page.
      *
-     * @param  array $params Payment options
+     * @param  array  $params Payment options
      * @return string Snap token.
+     *
      * @throws Exception curl error or midtrans error
      */
     public function getSnapToken($params)
@@ -49,8 +50,9 @@ class Midtrans
     /**
      * Create Snap payment page, with this version returning full API response.
      *
-     * @param  array $params Payment options
+     * @param  array  $params Payment options
      * @return object Snap response (token and redirect_url).
+     *
      * @throws Exception curl error or midtrans error
      */
     public function createTransaction($params)
@@ -61,7 +63,7 @@ class Midtrans
     /**
      * Create transaction.
      *
-     * @param mixed[] $params Transaction options
+     * @param  mixed[]  $params Transaction options
      * @return mixed
      */
     public function charge(array $params)
@@ -72,7 +74,7 @@ class Midtrans
     /**
      * charge alias, but returns redirect url attribute.
      *
-     * @param array $payloads
+     * @param  array  $payloads
      */
     public function vtweb_charge($params)
     {
@@ -82,7 +84,6 @@ class Midtrans
     /**
      * Charge alias.
      *
-     * @param array $params
      * @return mixed
      */
     public function vtdirect_charge(array $params)
@@ -93,7 +94,7 @@ class Midtrans
     /**
      * Capture pre-authorized transaction.
      *
-     * @param string $param Order ID or transaction ID, that you want to capture
+     * @param  string  $param Order ID or transaction ID, that you want to capture
      * @return mixed
      */
     public function capture(string $param)
@@ -104,8 +105,7 @@ class Midtrans
     /**
      * Retrieve transaction status.
      *
-     * @param string $id Order ID or transaction ID
-     *
+     * @param  string  $id Order ID or transaction ID
      * @return mixed[]
      */
     public function status($id)
@@ -116,8 +116,7 @@ class Midtrans
     /**
      * Approve challenge transaction.
      *
-     * @param string $id Order ID or transaction ID
-     *
+     * @param  string  $id Order ID or transaction ID
      * @return string
      */
     public function approve($id)
@@ -128,8 +127,7 @@ class Midtrans
     /**
      * Cancel transaction before it's settled.
      *
-     * @param string $id Order ID or transaction ID
-     *
+     * @param  string  $id Order ID or transaction ID
      * @return string
      */
     public function cancel($id)
@@ -140,8 +138,7 @@ class Midtrans
     /**
      * Expire transaction before it's setteled.
      *
-     * @param string $id Order ID or transaction ID
-     *
+     * @param  string  $id Order ID or transaction ID
      * @return mixed[]
      */
     public function expire($id)
@@ -154,8 +151,7 @@ class Midtrans
      * if the customer decides to cancel completed/settlement payment.
      * The same refund id cannot be reused again.
      *
-     * @param string $id Order ID or transaction ID
-     *
+     * @param  string  $id Order ID or transaction ID
      * @return mixed[]
      */
     public function refund($id)
@@ -167,8 +163,7 @@ class Midtrans
      * Deny method can be triggered to immediately deny card payment transaction
      * in which fraud_status is challenge.
      *
-     * @param string $id Order ID or transaction ID
-     *
+     * @param  string  $id Order ID or transaction ID
      * @return mixed[]
      */
     public function deny($id)
@@ -179,7 +174,7 @@ class Midtrans
     /**
      * Read data from input source.
      *
-     * @param string $input_source
+     * @param  string  $input_source
      * @return string
      */
     public function input($input_source)
@@ -190,7 +185,7 @@ class Midtrans
     /**
      * Get incoming notification (web hook).
      *
-     * @param string $input_source
+     * @param  string  $input_source
      * @return Notification
      */
     public function notification($input_source = 'php://input')

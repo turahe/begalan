@@ -104,6 +104,7 @@ use Turahe\Likeable\Traits\Likeable;
  * @property-read int|null $sections_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $students
  * @property-read int|null $students_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Course newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Course newQuery()
  * @method static \Illuminate\Database\Query\Builder|Course onlyTrashed()
@@ -147,7 +148,9 @@ use Turahe\Likeable\Traits\Likeable;
  * @method static \Illuminate\Database\Eloquent\Builder|Course whereVideoSrc($value)
  * @method static \Illuminate\Database\Query\Builder|Course withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Course withoutTrashed()
+ *
  * @mixin \Eloquent
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Rate[] $ratings
  * @property-read int|null $ratings_count
  */
@@ -159,20 +162,19 @@ class Course extends Model implements HasMedia, LikeableContract
     use Rateable;
     use Likeable;
     use HasSlug;
+
     /**
      * @var array
      */
     protected $guarded = [];
+
     /**
      * @var string[]
      */
     protected $casts = [
-        'last_updated_at'   => 'datetime',
+        'last_updated_at' => 'datetime',
     ];
 
-    /**
-     * @return SlugOptions
-     */
     public function getSlugOptions(): SlugOptions
     {
         // TODO: Implement getSlugOptions() method.
@@ -182,7 +184,6 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopePublish($query)
@@ -190,25 +191,16 @@ class Course extends Model implements HasMedia, LikeableContract
         return $query->where('status', 1)->with('media', 'author', 'category');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function instructors(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withPivot('added_at');
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'enrolls')
@@ -216,41 +208,26 @@ class Course extends Model implements HasMedia, LikeableContract
             ->withPivot('enrolled_at');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function sections(): HasMany
     {
         return $this->hasMany(Section::class)->orderBy('sort_order', 'asc');
     }
 
-    /**
-     * @return HasMany
-     */
     public function lectures(): HasMany
     {
         return $this->hasMany(Content::class)->where('item_type', 'lecture');
     }
 
-    /**
-     * @return HasMany
-     */
     public function assignments(): HasMany
     {
         return $this->hasMany(Content::class)->where('item_type', 'assignment');
     }
 
-    /**
-     * @return HasMany
-     */
     public function quizzes(): HasMany
     {
         return $this->hasMany(Content::class)->where('item_type', 'quiz');
@@ -281,9 +258,6 @@ class Course extends Model implements HasMedia, LikeableContract
             ->where('is_evaluated', '<', 1);
     }
 
-    /**
-     * @return HasMany
-     */
     public function contents(): HasMany
     {
         return $this->hasMany(Content::class);
@@ -347,7 +321,6 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param $value
      * @return int
      */
     public function getLevelAttribute($value)
@@ -356,7 +329,6 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param $value
      * @return bool
      */
     public function getPaidAttribute($value)
@@ -365,7 +337,6 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param $value
      * @return bool
      */
     public function getFreeAttribute($value)
@@ -374,7 +345,7 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param null $user
+     * @param  null  $user
      * @return int
      */
     public function completed_percent($user = null)
@@ -480,8 +451,8 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param false $originalPriceOnRight
-     * @param false $showOff
+     * @param  false  $originalPriceOnRight
+     * @param  false  $showOff
      * @return string
      */
     public function price_html($originalPriceOnRight = false, $showOff = false)
@@ -522,7 +493,7 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param bool $badge
+     * @param  bool  $badge
      * @return string
      */
     public function status_html($badge = true)
@@ -560,7 +531,7 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param null $key
+     * @param  null  $key
      * @return null|mixed
      *
      * Get Attached Video Info
@@ -587,7 +558,7 @@ class Course extends Model implements HasMedia, LikeableContract
     }
 
     /**
-     * @param null $key
+     * @param  null  $key
      * @return array|mixed
      */
     public function get_ratings($key = null)
@@ -616,24 +587,24 @@ class Course extends Model implements HasMedia, LikeableContract
         }
 
         $ratings = [
-            'rating_count'  => $ratingCount,
-            'rating_avg'    => $this->rating_value,
-            'stats'    => [
+            'rating_count' => $ratingCount,
+            'rating_avg' => $this->rating_value,
+            'stats' => [
                 5 => [
-                    'count'    => $this->five_star_count,
-                    'percent'  => number_format($five_percent),
+                    'count' => $this->five_star_count,
+                    'percent' => number_format($five_percent),
                 ],
-                4 => ['count'    => $this->four_star_count,
-                    'percent'  => number_format($four_percent),
+                4 => ['count' => $this->four_star_count,
+                    'percent' => number_format($four_percent),
                 ],
-                3 => ['count'   => $this->three_star_count,
+                3 => ['count' => $this->three_star_count,
                     'percent' => number_format($three_percent),
                 ],
-                2 => ['count'     => $this->two_star_count,
-                    'percent'   => number_format($two_percent),
+                2 => ['count' => $this->two_star_count,
+                    'percent' => number_format($two_percent),
                 ],
-                1 => ['one_count'     => $this->one_star_count,
-                    'percent'   => number_format($one_percent),
+                1 => ['one_count' => $this->one_star_count,
+                    'percent' => number_format($one_percent),
                 ],
             ],
         ];

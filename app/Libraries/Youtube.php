@@ -73,7 +73,6 @@ class Youtube extends Base
     public function youtubeRandomUri()
     {
         switch ($this->numberBetween(1, 3)) {
-
             case 2:
                 return $this->youtubeShortUri();
 

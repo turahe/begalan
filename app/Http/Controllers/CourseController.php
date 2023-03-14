@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Validator;
 class CourseController extends Controller
 {
     /**
-     * @param string $slug
      * @return string
      *
      * View Course
@@ -61,19 +60,16 @@ class CourseController extends Controller
             }
 
             return view('theme::course', compact('course', 'title', 'isEnrolled'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
-
     }
 
     /**
-     * @param $slug
-     * @param $lecture_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * View lecture in full width mode.
@@ -116,16 +112,13 @@ class CourseController extends Controller
             }
 
             return view('theme::lecture', compact('course', 'title', 'isEnrolled', 'lecture', 'isOpen'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
-
     }
 
     /**
-     * @param $slug
-     * @param $assignment_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function assignmentView($slug, $assignment_id)
@@ -143,17 +136,13 @@ class CourseController extends Controller
             }
 
             return view('theme::assignment', compact('course', 'title', 'isEnrolled', 'assignment', 'has_submission'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
-
     }
 
     /**
-     * @param Request $request
-     * @param $slug
-     * @param $assignment_id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function assignmentSubmitting(Request $request, $slug, $assignment_id)
@@ -196,7 +185,7 @@ class CourseController extends Controller
             }
 
             return redirect()->back();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
@@ -212,14 +201,14 @@ class CourseController extends Controller
             $categories = Category::parent()->with('sub_categories')->get();
 
             return view('theme::dashboard.courses.create_course', compact('title', 'categories'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param CourseStoreRequest $request
+     * @param  CourseStoreRequest  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
@@ -240,16 +229,16 @@ class CourseController extends Controller
             $category = Category::find($request->category_id);
             $data = [
                 'user_id' => $user_id,
-                'title'             => clean_html($request->title),
-                'slug'              => $slug,
+                'title' => clean_html($request->title),
+                'slug' => $slug,
                 'short_description' => clean_html($request->short_description),
-                'price_plan'        => 'free',
-                'category_id'       => $request->topic_id,
+                'price_plan' => 'free',
+                'category_id' => $request->topic_id,
                 'parent_category_id' => $category->category_id,
                 'second_category_id' => $category->id,
-                'thumbnail_id'      => $request->thumbnail_id,
-                'level'             => $request->level,
-                'last_updated_at'   => $now,
+                'thumbnail_id' => $request->thumbnail_id,
+                'level' => $request->level,
+                'last_updated_at' => $now,
             ];
 
             /**
@@ -270,14 +259,13 @@ class CourseController extends Controller
             }
 
             return redirect(route('edit_course_information', $course->id));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function information($course_id)
@@ -290,28 +278,26 @@ class CourseController extends Controller
             $categories = Category::parent()->get();
             $topics = Category::whereCategoryId($course->second_category_id)->get();
 
-            return view('theme::dashboard.courses.information', compact( 'course', 'categories', 'topics'));
-        }catch (\Exception $e){
+            return view('theme::dashboard.courses.information', compact('course', 'categories', 'topics'));
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
-
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function informationPost(Request $request, $course_id)
     {
         try {
             $rules = [
-                'title'             => 'required|max:120',
+                'title' => 'required|max:120',
                 'short_description' => 'max:220',
-                'category_id'       => 'required',
-//            'topic_id'       => 'required',
+                'category_id' => 'required',
+                //            'topic_id'       => 'required',
             ];
             $this->validate($request, $rules);
 
@@ -322,16 +308,16 @@ class CourseController extends Controller
             $category = Category::find($request->category_id);
 
             $data = [
-                'title'             => clean_html($request->title),
+                'title' => clean_html($request->title),
                 'short_description' => clean_html($request->short_description),
-                'description'       => clean_html($request->description),
-                'benefits'          => clean_html($request->benefits),
-                'requirements'      => clean_html($request->requirements),
-                'thumbnail_id'      => $request->thumbnail_id,
-                'category_id'       => $request->topic_id,
+                'description' => clean_html($request->description),
+                'benefits' => clean_html($request->benefits),
+                'requirements' => clean_html($request->requirements),
+                'thumbnail_id' => $request->thumbnail_id,
+                'category_id' => $request->topic_id,
                 'parent_category_id' => $category->category_id,
                 'second_category_id' => $category->id,
-                'level'             => $request->level,
+                'level' => $request->level,
             ];
             /**
              * save video data.
@@ -350,14 +336,13 @@ class CourseController extends Controller
             }
 
             return redirect()->back();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function curriculum($course_id)
@@ -369,14 +354,13 @@ class CourseController extends Controller
             }
 
             return view('theme::dashboard.courses.curriculum', compact('course'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function newSection($course_id)
@@ -385,17 +369,16 @@ class CourseController extends Controller
             $course = Course::find($course_id);
 
             return view('theme::dashboard.courses.new_section', compact('title', 'course'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function newSectionPost(Request $request, $course_id)
     {
@@ -413,15 +396,13 @@ class CourseController extends Controller
             );
 
             return redirect(route('edit_course_curriculum', $course_id));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $id
      * @throws \Illuminate\Validation\ValidationException
      *
      * Update the section
@@ -435,15 +416,15 @@ class CourseController extends Controller
             $this->validate($request, $rules);
 
             Section::whereId($id)->update(['section_name' => clean_html($request->section_name)]);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
      * @return array|bool[]
+     *
      * @throws \Exception
      */
     public function deleteSection(Request $request)
@@ -457,15 +438,13 @@ class CourseController extends Controller
             $course->sync_everything();
 
             return ['success' => true];
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
      * @return array
      */
     public function newLecture(Request $request, $course_id)
@@ -495,31 +474,31 @@ class CourseController extends Controller
             $sort_order = next_curriculum_item_id($course_id);
 
             $data = [
-                'user_id'       => $user_id,
-                'course_id'     => $course_id,
-                'section_id'    => $request->section_id,
-                'title'         => clean_html($request->title),
-                'slug'          => $lesson_slug,
-                'text'          => clean_html($request->description),
-                'item_type'     => 'lecture',
-                'status'        => 1,
-                'sort_order'   => $sort_order,
-                'is_preview'    => $request->is_preview,
+                'user_id' => $user_id,
+                'course_id' => $course_id,
+                'section_id' => $request->section_id,
+                'title' => clean_html($request->title),
+                'slug' => $lesson_slug,
+                'text' => clean_html($request->description),
+                'item_type' => 'lecture',
+                'status' => 1,
+                'sort_order' => $sort_order,
+                'is_preview' => $request->is_preview,
             ];
 
             $lecture = Content::create($data);
             $lecture->save_and_sync();
 
             return ['success' => true, 'item_id' => $lecture->id];
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
      * @return array
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function loadContents(Request $request)
@@ -530,16 +509,13 @@ class CourseController extends Controller
             $html = view_template_part('dashboard.courses.section-items', compact('section'));
 
             return ['success' => true, 'html' => $html];
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
-     * @param $item_id
      * @return array|bool[]
      */
     public function updateLecture(Request $request, $course_id, $item_id)
@@ -565,10 +541,10 @@ class CourseController extends Controller
 
             $lesson_slug = unique_slug($request->title, 'Content', $item_id);
             $data = [
-                'title'         => clean_html($request->title),
-                'slug'          => $lesson_slug,
-                'text'          => clean_html($request->description),
-                'is_preview'    => clean_html($request->is_preview),
+                'title' => clean_html($request->title),
+                'slug' => $lesson_slug,
+                'text' => clean_html($request->description),
+                'is_preview' => clean_html($request->is_preview),
             ];
 
             /**
@@ -596,14 +572,13 @@ class CourseController extends Controller
             }
 
             return ['success' => true];
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function editItem(Request $request)
@@ -623,14 +598,13 @@ class CourseController extends Controller
             }
 
             return ['success' => true, 'form_html' => $form_html];
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
      * @return bool[]
      */
     public function deleteItem(Request $request)
@@ -640,14 +614,13 @@ class CourseController extends Controller
             Content::destroy($item_id);
 
             return ['success' => true];
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function pricing($course_id)
@@ -659,17 +632,16 @@ class CourseController extends Controller
             }
 
             return view('theme::dashboard.courses.pricing', compact('title', 'course'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function pricingSet(Request $request, $course_id)
     {
@@ -690,24 +662,23 @@ class CourseController extends Controller
             }
 
             $data = [
-                'price_plan'        => $request->price_plan,
-                'price'             => clean_html($request->price),
-                'sale_price'        => clean_html($request->sale_price),
-                'require_login'     => $request->require_login,
-                'require_enroll'    => $request->require_enroll,
+                'price_plan' => $request->price_plan,
+                'price' => clean_html($request->price),
+                'sale_price' => clean_html($request->sale_price),
+                'require_login' => $request->require_login,
+                'require_enroll' => $request->require_enroll,
             ];
 
             $course->update($data);
 
             return back();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function drip($course_id)
@@ -719,15 +690,13 @@ class CourseController extends Controller
             }
 
             return view('theme::dashboard.courses.drip', compact('title', 'course'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function dripPost(Request $request, $course_id)
@@ -744,14 +713,13 @@ class CourseController extends Controller
             }
 
             return back()->with('success', __t('drip_preference_saved'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function publish($course_id)
@@ -763,15 +731,13 @@ class CourseController extends Controller
             }
 
             return view('theme::dashboard.courses.publish', compact('course'));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function publishPost(Request $request, $course_id)
@@ -794,7 +760,7 @@ class CourseController extends Controller
             $course->save();
 
             return back();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
@@ -802,7 +768,7 @@ class CourseController extends Controller
 
     /**
      * Course Free Enroll.
-     * @param Request $request
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function freeEnroll(Request $request)
@@ -826,7 +792,7 @@ class CourseController extends Controller
             }
 
             return redirect(route('course', $course->slug));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
@@ -851,15 +817,13 @@ class CourseController extends Controller
             }
 
             return redirect(route('single_'.$go_content->item_type, [$go_content->course->slug, $go_content->id]));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function complete(Request $request, $course_id)
@@ -869,14 +833,13 @@ class CourseController extends Controller
             $user->complete_course($course_id);
 
             return back();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $hash
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function attachmentDownload($hash)
@@ -915,14 +878,13 @@ class CourseController extends Controller
             }
 
             return $this->forceDownload($attachment->media);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param $media
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function forceDownload($media)
@@ -943,15 +905,13 @@ class CourseController extends Controller
             }
 
             return response()->download($path);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
     }
 
     /**
-     * @param Request $request
-     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function writeReview(Request $request, $id)
@@ -967,11 +927,11 @@ class CourseController extends Controller
             $user = Auth::user();
 
             $data = [
-                'user_id'       => $user->id,
-                'course_id'     => $id,
-                'review'        => clean_html($request->review),
-                'rating'        => $request->rating_value,
-                'status'        => 1,
+                'user_id' => $user->id,
+                'course_id' => $id,
+                'review' => clean_html($request->review),
+                'rating' => $request->rating_value,
+                'status' => 1,
             ];
 
             $review = has_review($user->id, $id);
@@ -981,7 +941,7 @@ class CourseController extends Controller
             $review->save_and_sync($data);
 
             return back();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
@@ -994,7 +954,7 @@ class CourseController extends Controller
     {
         try {
             return view('theme::dashboard.my_courses');
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }
@@ -1007,7 +967,7 @@ class CourseController extends Controller
     {
         try {
             return view('theme::dashboard.my_courses_reviews');
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             \Log::channel('slack')->critical($e->getMessage());
             abort(500);
         }

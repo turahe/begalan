@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Validator;
  */
 class CurriculumController extends Controller
 {
-    /**
-     * @param Request $request
-     */
     public function sort(Request $request)
     {
         //sections
@@ -32,7 +29,7 @@ class CurriculumController extends Controller
                 $item_ids = array_get($section, 'item_ids');
                 if (is_array($item_ids) && count($item_ids)) {
                     foreach ($item_ids as $ikey => $item_id) {
-                        DB::table('contents')->whereId($item_id)->update(['section_id'=> $section_id, 'sort_order' => $item_i]);
+                        DB::table('contents')->whereId($item_id)->update(['section_id' => $section_id, 'sort_order' => $item_i]);
                         $item_i++;
                     }
                 }
@@ -41,8 +38,6 @@ class CurriculumController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
      * @return array
      *
      * Save New Assignment
@@ -74,16 +69,16 @@ class CurriculumController extends Controller
         $assignment_option = json_encode($request->assignment_option);
 
         $data = [
-            'user_id'       => $user_id,
-            'course_id'     => $course_id,
-            'section_id'    => $request->section_id,
-            'title'         => clean_html($request->title),
-            'slug'          => $lesson_slug,
-            'text'          => clean_html($request->description),
-            'item_type'     => 'assignment',
-            'status'        => 1,
-            'sort_order'   => $sort_order,
-            'options'   => $assignment_option,
+            'user_id' => $user_id,
+            'course_id' => $course_id,
+            'section_id' => $request->section_id,
+            'title' => clean_html($request->title),
+            'slug' => $lesson_slug,
+            'text' => clean_html($request->description),
+            'item_type' => 'assignment',
+            'status' => 1,
+            'sort_order' => $sort_order,
+            'options' => $assignment_option,
         ];
 
         $assignment = Content::create($data);
@@ -103,9 +98,6 @@ class CurriculumController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $course_id
-     * @param $assignment_id
      * @return array|bool[]
      */
     public function updateAssignment(Request $request, $course_id, $assignment_id)
@@ -132,10 +124,10 @@ class CurriculumController extends Controller
         $assignment_option = json_encode($request->assignment_option);
 
         $data = [
-            'title'         => clean_html($request->title),
-            'slug'          => $lesson_slug,
-            'text'          => clean_html($request->description),
-            'options'       => $assignment_option,
+            'title' => clean_html($request->title),
+            'slug' => $lesson_slug,
+            'text' => clean_html($request->description),
+            'options' => $assignment_option,
         ];
 
         $item = Content::find($assignment_id);
@@ -156,7 +148,6 @@ class CurriculumController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      *
      * Delete Attachment IDS

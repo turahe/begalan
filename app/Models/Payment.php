@@ -50,6 +50,7 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $courses_count
  * @property-read string $status_context
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
@@ -88,6 +89,7 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereTotalAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Payment extends Model
@@ -103,48 +105,48 @@ class Payment extends Model
         'danamon_online', 'akulaku', ];
 
     public const EXPIRY_DURATION = 7;
+
     public const EXPIRY_UNIT = 'days';
 
     public const CHALLENGE = 'challenge';
+
     public const SUCCESS = 'success';
+
     public const SETTLEMENT = 'settlement';
+
     public const PENDING = 'pending';
+
     public const DENY = 'deny';
+
     public const EXPIRE = 'expire';
+
     public const CANCEL = 'cancel';
 
     public const PAYMENTCODE = 'PAY';
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'enrolls');
     }
 
     /**
-     * @param $cart_course
      * @return $this
      */
     public function do_enroll($cart_course)
     {
         $carbon = Carbon::now()->toDateTimeString();
         $data = [
-            'course_id'     => $cart_course['course_id'],
-            'user_id'       => $this->user_id,
-            'course_price'  => $cart_course['price'],
-            'payment_id'    => $this->id,
-            'status'        => $this->status,
-            'enrolled_at'   => $carbon,
+            'course_id' => $cart_course['course_id'],
+            'user_id' => $this->user_id,
+            'course_price' => $cart_course['price'],
+            'payment_id' => $this->id,
+            'status' => $this->status,
+            'enrolled_at' => $carbon,
         ];
         DB::table('enrolls')->insert($data);
 
@@ -194,7 +196,6 @@ class Payment extends Model
     }
 
     /**
-     * @param $data
      * @return mixed
      *
      * Create Payment, Share Earning and enroll to the course
@@ -223,7 +224,7 @@ class Payment extends Model
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return $this
      *
      * Update payment and update to enroll, related earnings.
@@ -245,10 +246,11 @@ class Payment extends Model
     }
 
     /**
+     * @return $this
+     *
      * @throws \Exception
      *
      * Delete the Payment and delete all data related this payment
-     * @return $this
      */
     public function delete_and_sync()
     {

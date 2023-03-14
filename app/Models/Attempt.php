@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read string $status_html
  * @property-read \App\Models\Content|null $quiz
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt query()
@@ -56,6 +57,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereTotalScores($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Attempt whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Attempt extends Model
@@ -65,25 +67,16 @@ class Attempt extends Model
      */
     protected $dates = ['ended_at'];
 
-    /**
-     * @return HasMany
-     */
     public function answers(): HasMany
     {
         return $this->hasMany(Answer::class)->with('question');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function quiz(): BelongsTo
     {
         return $this->belongsTo(Content::class, 'quiz_id');
@@ -125,7 +118,7 @@ class Attempt extends Model
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return $this
      */
     public function save_and_sync($data = [])

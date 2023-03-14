@@ -57,6 +57,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \App\Models\Section $section
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssignmentSubmission[] $submissions
  * @property-read int|null $submissions_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Content newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Content newQuery()
  * @method static \Illuminate\Database\Query\Builder|Content onlyTrashed()
@@ -83,6 +84,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereVideoTime($value)
  * @method static \Illuminate\Database\Query\Builder|Content withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Content withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Content extends Model implements HasMedia
@@ -91,14 +93,12 @@ class Content extends Model implements HasMedia
     use InteractsWithMedia;
     use SoftDeletes;
     use HasSlug;
+
     /**
      * @var array
      */
     protected $guarded = [];
 
-    /**
-     * @return SlugOptions
-     */
     public function getSlugOptions(): SlugOptions
     {
         // TODO: Implement getSlugOptions() method.
@@ -107,25 +107,16 @@ class Content extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class)->with('sections', 'sections.items');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
     }
 
-    /**
-     * @return HasMany
-     */
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class, 'quiz_id')
@@ -133,16 +124,13 @@ class Content extends Model implements HasMedia
             ->orderBy('sort_order', 'asc');
     }
 
-    /**
-     * @return HasMany
-     */
     public function attempts(): HasMany
     {
         return $this->hasMany(Attempt::class, 'quiz_id');
     }
 
     /**
-     * @param null $key
+     * @param  null  $key
      * @return null|mixed
      *
      * Get Attached Video Info
@@ -204,8 +192,8 @@ class Content extends Model implements HasMedia
     }
 
     /**
-     * @param null $key
-     * @param null $default
+     * @param  null  $key
+     * @param  null  $default
      * @return null|mixed
      */
     public function option($key = null, $default = null)
@@ -246,7 +234,7 @@ class Content extends Model implements HasMedia
     }
 
     /**
-     * @param int $user_id
+     * @param  int  $user_id
      * @return HasOne
      */
     public function has_submission($user_id = 0)
@@ -258,17 +246,11 @@ class Content extends Model implements HasMedia
         return $this->hasOne(AssignmentSubmission::class, 'assignment_id')->where('user_id', $user_id);
     }
 
-    /**
-     * @return HasMany
-     */
     public function submissions(): HasMany
     {
         return $this->hasMany(AssignmentSubmission::class, 'assignment_id');
     }
 
-    /**
-     * @return HasOne
-     */
     public function previous(): HasOne
     {
         return $this->hasOne(self::class, 'course_id', 'course_id')
@@ -302,7 +284,7 @@ class Content extends Model implements HasMedia
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return $this
      *
      * Save content and sync to all necessary place
@@ -394,9 +376,6 @@ class Content extends Model implements HasMedia
         return (object) $data;
     }
 
-    /**
-     * @return HasMany
-     */
     public function discussions(): HasMany
     {
         return $this->hasMany(Discussion::class)

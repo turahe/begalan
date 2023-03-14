@@ -14,9 +14,6 @@ use InvalidArgumentException;
  */
 trait HasTags
 {
-    /**
-     * @var array
-     */
     protected array $queuedTags = [];
 
     public static function bootHasTags()
@@ -36,9 +33,6 @@ trait HasTags
         });
     }
 
-    /**
-     * @return MorphToMany
-     */
     public function tags(): MorphToMany
     {
         return $this
@@ -46,9 +40,6 @@ trait HasTags
             ->ordered();
     }
 
-    /**
-     * @param $tags
-     */
     public function setTagsAttribute($tags)
     {
         if (! $this->exists) {
@@ -60,12 +51,6 @@ trait HasTags
         $this->syncTags($tags);
     }
 
-    /**
-     * @param Builder $query
-     * @param $tags
-     * @param string|null $type
-     * @return Builder
-     */
     public function scopeWithAllTags(Builder $query, $tags, string $type = null): Builder
     {
         $tags = static::convertToTags($tags, $type);
@@ -79,12 +64,6 @@ trait HasTags
         return $query;
     }
 
-    /**
-     * @param Builder $query
-     * @param $tags
-     * @param string|null $type
-     * @return Builder
-     */
     public function scopeWithAnyTags(Builder $query, $tags, string $type = null): Builder
     {
         $tags = static::convertToTags($tags, $type);
@@ -96,11 +75,6 @@ trait HasTags
         });
     }
 
-    /**
-     * @param Builder $query
-     * @param $tags
-     * @return Builder
-     */
     public function scopeWithAllTagsOfAnyType(Builder $query, $tags): Builder
     {
         $tags = static::convertToTagsOfAnyType($tags);
@@ -114,11 +88,6 @@ trait HasTags
         return $query;
     }
 
-    /**
-     * @param Builder $query
-     * @param $tags
-     * @return Builder
-     */
     public function scopeWithAnyTagsOfAnyType(Builder $query, $tags): Builder
     {
         $tags = static::convertToTagsOfAnyType($tags);
@@ -130,10 +99,6 @@ trait HasTags
         });
     }
 
-    /**
-     * @param string|null $type
-     * @return Collection
-     */
     public function tagsWithType(string $type = null): Collection
     {
         return $this->tags->filter(function (Tag $tag) use ($type) {
@@ -142,8 +107,6 @@ trait HasTags
     }
 
     /**
-     * @param $tags
-     * @param string|null $type
      * @return $this
      */
     public function attachTags($tags, string $type = null)
@@ -156,8 +119,6 @@ trait HasTags
     }
 
     /**
-     * @param $tag
-     * @param string|null $type
      * @return HasTags
      */
     public function attachTag($tag, string $type = null)
@@ -166,9 +127,7 @@ trait HasTags
     }
 
     /**
-     * @param array|\ArrayAccess $tags
-     *
-     * @param string|null $type
+     * @param  array|\ArrayAccess  $tags
      * @return $this
      */
     public function detachTags($tags, string $type = null)
@@ -185,8 +144,6 @@ trait HasTags
     }
 
     /**
-     * @param $tag
-     * @param string|null $type
      * @return HasTags
      */
     public function detachTag($tag, string $type = null)
@@ -195,8 +152,7 @@ trait HasTags
     }
 
     /**
-     * @param array|\ArrayAccess $tags
-     *
+     * @param  array|\ArrayAccess  $tags
      * @return $this
      */
     public function syncTags($tags)
@@ -209,9 +165,7 @@ trait HasTags
     }
 
     /**
-     * @param array|\ArrayAccess $tags
-     * @param string|null $type
-     *
+     * @param  array|\ArrayAccess  $tags
      * @return $this
      */
     public function syncTagsWithType($tags, string $type = null)
@@ -224,8 +178,7 @@ trait HasTags
     }
 
     /**
-     * @param $values
-     * @param null $type
+     * @param  null  $type
      * @return \Illuminate\Support\Collection
      */
     protected static function convertToTags($values, $type = null)
@@ -244,7 +197,6 @@ trait HasTags
     }
 
     /**
-     * @param $values
      * @return \Illuminate\Support\Collection
      */
     protected static function convertToTagsOfAnyType($values)
@@ -261,9 +213,7 @@ trait HasTags
     /**
      * Use in place of eloquent sync() method so that the tag type may be optionally specified.
      *
-     * @param $ids
-     * @param string|null $type
-     * @param bool $detaching
+     * @param  bool  $detaching
      */
     protected function syncTagIds($ids, string $type = null, $detaching = true)
     {

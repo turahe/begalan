@@ -5,7 +5,6 @@ namespace App\Http\Pipelines\QueryFilters;
 class Type extends Filter
 {
     /**
-     * @param $builder
      * @return mixed
      */
     protected function applyFilters($builder)

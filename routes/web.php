@@ -95,7 +95,7 @@ Route::group(['prefix' => 'gateway-ipn'], function () {
  * Users,Instructor dashboard area
  */
 
-Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified']], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     /*
@@ -185,14 +185,14 @@ Route::group(['prefix'=>'dashboard', 'middleware' => ['auth', 'verified']], func
             Route::post('preference', [\App\Http\Controllers\EarningController::class, 'withdrawPreferencePost']);
         });
 
-        Route::group(['prefix'=>'discussions'], function () {
+        Route::group(['prefix' => 'discussions'], function () {
             Route::get('/', [\App\Http\Controllers\DiscussionController::class, 'index'])->name('instructor_discussions');
             Route::get('reply/{id}', [\App\Http\Controllers\DiscussionController::class, 'reply'])->name('discussion_reply');
             Route::post('reply/{id}', [\App\Http\Controllers\DiscussionController::class, 'replyPost']);
         });
     });
 
-    Route::group(['prefix'=>'media'], function () {
+    Route::group(['prefix' => 'media'], function () {
         Route::post('upload', [\App\Http\Controllers\MediaController::class, 'store'])->name('post_media_upload');
         Route::get('load_filemanager', [\App\Http\Controllers\MediaController::class, 'loadFileManager'])->name('load_filemanager');
         Route::post('delete', [\App\Http\Controllers\MediaController::class, 'delete'])->name('delete_media');
@@ -231,6 +231,6 @@ Route::get('post/{id?}', [\App\Http\Controllers\PostController::class, 'postProx
 //
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

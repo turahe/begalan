@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class PostController.
@@ -14,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     /**
-     * @param $slug
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showPage($slug)
@@ -41,7 +37,6 @@ class PostController extends Controller
     }
 
     /**
-     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function authorPosts($id)
@@ -54,7 +49,6 @@ class PostController extends Controller
     }
 
     /**
-     * @param $slug
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function postSingle($slug)
@@ -73,7 +67,6 @@ class PostController extends Controller
     }
 
     /**
-     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function postProxy($id)

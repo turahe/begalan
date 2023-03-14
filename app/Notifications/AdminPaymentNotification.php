@@ -15,8 +15,6 @@ class AdminPaymentNotification extends Notification implements ShouldQueue
 
     /**
      * Create a new notification instance.
-     *
-     * @param $details
      */
     public function __construct($details)
     {

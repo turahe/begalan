@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|Currency newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Currency newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Currency query()
+ *
  * @mixin \Eloquent
+ *
  * @property int $id
  * @property int|null $priority
  * @property string|null $iso_code
@@ -31,6 +33,7 @@ use Illuminate\Support\Facades\Cache;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Currency whereAlternateSymbols($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Currency whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Currency whereDecimalMark($value)

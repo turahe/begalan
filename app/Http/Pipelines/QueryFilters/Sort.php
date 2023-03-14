@@ -8,7 +8,6 @@ namespace App\Http\Pipelines\QueryFilters;
 class Sort extends Filter
 {
     /**
-     * @param $builder
      * @return mixed
      */
     protected function applyFilters($builder)

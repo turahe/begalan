@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 
 class PostsTableSeeder extends Seeder
@@ -64,9 +63,6 @@ class PostsTableSeeder extends Seeder
 
     /**
      * Convert markdown to HTML.
-     *
-     * @param string $text
-     * @return string
      */
     protected function markdown(string $text): string
     {

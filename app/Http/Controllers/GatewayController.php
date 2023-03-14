@@ -22,8 +22,8 @@ class GatewayController extends Controller
 
         $courses = collect($cart->courses)->map(function ($course) {
             return [
-                'title' =>  $course['title'],
-                'price' =>  $course['price'],
+                'title' => $course['title'],
+                'price' => $course['price'],
             ];
         });
 
@@ -39,13 +39,13 @@ class GatewayController extends Controller
         $transaction_id = strtoupper($transaction_id);
 
         $payments_data = [
-            'name'                  => $user->name,
-            'email'                 => $user->email,
-            'user_id'               => $user->id,
-            'amount'                => $amount,
-            'status'                => 'pending',
-            'currency'              => $currency,
-            'local_transaction_id'  => $transaction_id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'status' => 'pending',
+            'currency' => $currency,
+            'local_transaction_id' => $transaction_id,
             'description' => $courses->implode('title', ', '),
         ];
         //Create payment and clear it from session
@@ -59,11 +59,11 @@ class GatewayController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @return array
+     *
      * @throws \Stripe\Exception\ApiErrorException
      *
      * Stripe Charge
-     * @return array
      */
     public function stripeCharge(Request $request)
     {
@@ -80,46 +80,46 @@ class GatewayController extends Controller
 
             //Charge from card
             $charge = Charge::create([
-                'amount'        => get_stripe_amount($amount), // amount in cents, again
-                'currency'      => $currency,
-                'source'        => $stripeToken,
-                'description'   => get_option('site_name')."'s course enrolment",
+                'amount' => get_stripe_amount($amount), // amount in cents, again
+                'currency' => $currency,
+                'source' => $stripeToken,
+                'description' => get_option('site_name')."'s course enrolment",
             ]);
 
             if ($charge->status == 'succeeded') {
                 //Save payment into database
                 $data = [
-                    'name'              => $user->name,
-                    'email'             => $user->email,
-                    'user_id'           => $user->id,
-                    'amount'            => $cart->total_price,
-                    'payment_method'        => 'stripe',
-                    'total_amount'      => get_stripe_amount($charge->amount, 'to_dollar'),
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'user_id' => $user->id,
+                    'amount' => $cart->total_price,
+                    'payment_method' => 'stripe',
+                    'total_amount' => get_stripe_amount($charge->amount, 'to_dollar'),
 
-                    'currency'              => $currency,
-                    'charge_id_or_token'    => $charge->id,
-                    'description'           => $charge->description,
-                    'payment_created'       => $charge->created,
+                    'currency' => $currency,
+                    'charge_id_or_token' => $charge->id,
+                    'description' => $charge->description,
+                    'payment_created' => $charge->created,
 
                     //Card Info
-                    'card_last4'        => $charge->source->last4,
-                    'card_id'           => $charge->source->id,
-                    'card_brand'        => $charge->source->brand,
-                    'card_country'      => $charge->source->US,
-                    'card_exp_month'    => $charge->source->exp_month,
-                    'card_exp_year'     => $charge->source->exp_year,
+                    'card_last4' => $charge->source->last4,
+                    'card_id' => $charge->source->id,
+                    'card_brand' => $charge->source->brand,
+                    'card_country' => $charge->source->US,
+                    'card_exp_month' => $charge->source->exp_month,
+                    'card_exp_year' => $charge->source->exp_year,
 
-                    'status'                    => 'success',
+                    'status' => 'success',
                 ];
 
                 Payment::create_and_sync($data);
                 $request->session()->forget('cart');
 
-                return ['success'=> 1, 'message_html' => $this->payment_success_html()];
+                return ['success' => 1, 'message_html' => $this->payment_success_html()];
             }
         } catch (CardException $e) {
             // The card has been declined
-            return ['success'=>0, 'msg'=> __t('payment_declined_msg'), 'response' => $e];
+            return ['success' => 0, 'msg' => __t('payment_declined_msg'), 'response' => $e];
         }
     }
 
@@ -138,7 +138,6 @@ class GatewayController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function bankPost(Request $request)
@@ -158,21 +157,21 @@ class GatewayController extends Controller
         $transaction_id = strtoupper($transaction_id);
 
         $payments_data = [
-            'name'                  => $user->name,
-            'email'                 => $user->email,
-            'user_id'               => $user->id,
-            'amount'                => $amount,
-            'payment_method'        => 'bank_transfer',
-            'status'                => 'pending',
-            'currency'              => $currency,
-            'local_transaction_id'  => $transaction_id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'payment_method' => 'bank_transfer',
+            'status' => 'pending',
+            'currency' => $currency,
+            'local_transaction_id' => $transaction_id,
 
-            'bank_swift_code'       => clean_html($request->bank_swift_code),
-            'account_number'        => clean_html($request->account_number),
-            'branch_name'           => clean_html($request->branch_name),
-            'branch_address'        => clean_html($request->branch_address),
-            'account_name'          => clean_html($request->account_name),
-            'iban'                  => clean_html($request->iban),
+            'bank_swift_code' => clean_html($request->bank_swift_code),
+            'account_number' => clean_html($request->account_number),
+            'branch_name' => clean_html($request->branch_name),
+            'branch_address' => clean_html($request->branch_address),
+            'account_name' => clean_html($request->account_name),
+            'iban' => clean_html($request->iban),
         ];
         //Create payment and clear it from session
         Payment::create_and_sync($payments_data);
@@ -245,10 +244,10 @@ class GatewayController extends Controller
         }
 
         $payments_data = [
-            'amount'                => $notification->gross_amount,
-            'payment_method'        => $notification->payment_type,
-            'status'                => $paymentStatus,
-            'currency'              => $notification->currency,
+            'amount' => $notification->gross_amount,
+            'payment_method' => $notification->payment_type,
+            'status' => $paymentStatus,
+            'currency' => $notification->currency,
             'payment_created' => $notification->transaction_time,
 
         ];
@@ -259,13 +258,12 @@ class GatewayController extends Controller
         Notification::send($user, new StudentPaymentNotification($payment));
 
         return response()->json([
-            'success'=>'Ajax request submitted successfully',
+            'success' => 'Ajax request submitted successfully',
             'data' => $payment,
         ]);
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      *
      * Redirect to PayPal for the Payment
@@ -291,14 +289,14 @@ class GatewayController extends Controller
         $transaction_id = strtoupper($transaction_id);
 
         $payments_data = [
-            'name'                  => $user->name,
-            'email'                 => $user->email,
-            'user_id'               => $user->id,
-            'amount'                => $amount,
-            'payment_method'        => 'paypal',
-            'status'                => 'initial',
-            'currency'              => $currency,
-            'local_transaction_id'  => $transaction_id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'payment_method' => 'paypal',
+            'status' => 'initial',
+            'currency' => $currency,
+            'local_transaction_id' => $transaction_id,
         ];
         //Create payment and clear it from session
         $payment = Payment::create_and_sync($payments_data);
@@ -336,7 +334,6 @@ class GatewayController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function payOffline(Request $request)
@@ -356,15 +353,15 @@ class GatewayController extends Controller
         $transaction_id = strtoupper($transaction_id);
 
         $payments_data = [
-            'name'                  => $user->name,
-            'email'                 => $user->email,
-            'user_id'               => $user->id,
-            'amount'                => $amount,
-            'payment_method'        => 'offline',
-            'status'                => 'onhold',
-            'currency'              => $currency,
-            'local_transaction_id'  => $transaction_id,
-            'payment_note'          => clean_html($request->payment_note),
+            'name' => $user->name,
+            'email' => $user->email,
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'payment_method' => 'offline',
+            'status' => 'onhold',
+            'currency' => $currency,
+            'local_transaction_id' => $transaction_id,
+            'payment_note' => clean_html($request->payment_note),
         ];
         //Create payment and clear it from session
         Payment::create_and_sync($payments_data);

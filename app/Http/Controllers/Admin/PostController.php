@@ -12,7 +12,6 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -45,7 +44,6 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
@@ -58,7 +56,6 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Post $post
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
@@ -69,7 +66,6 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Post $post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Post $post)
@@ -80,8 +76,6 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Post $post
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Post $post)
@@ -94,8 +88,8 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Post $post
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Exception
      */
     public function destroy(Post $post)

@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read District|null $district
  * @property-read State $state
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Address newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Address newQuery()
  * @method static \Illuminate\Database\Query\Builder|Address onlyTrashed()
@@ -59,6 +60,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Address whereVillageId($value)
  * @method static \Illuminate\Database\Query\Builder|Address withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Address withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Address extends Model
@@ -85,8 +87,6 @@ class Address extends Model
 
     /**
      * Return the address's user.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -95,8 +95,6 @@ class Address extends Model
 
     /**
      * Return the address's country.
-     *
-     * @return BelongsTo
      */
     public function country(): BelongsTo
     {
@@ -105,8 +103,6 @@ class Address extends Model
 
     /**
      * Return the address's state.
-     *
-     * @return BelongsTo
      */
     public function state(): BelongsTo
     {
@@ -115,7 +111,6 @@ class Address extends Model
 
     /**
      * Creat new state and set the id if the given value is not available.
-     * @param $value
      */
     public function setStateIdAttribute($value)
     {
@@ -132,7 +127,6 @@ class Address extends Model
      * and store it to database.
      *
      * @return string|string[]
-     * @return
      */
     public function toGeocodeString()
     {
@@ -156,8 +150,6 @@ class Address extends Model
 
     /**
      * Return the address's city.
-     *
-     * @return BelongsTo
      */
     public function city(): BelongsTo
     {
@@ -166,8 +158,6 @@ class Address extends Model
 
     /**
      * Return the address's district.
-     *
-     * @return BelongsTo
      */
     public function district(): BelongsTo
     {
@@ -177,9 +167,8 @@ class Address extends Model
     /**
      * Format the address toHtml.
      *
-     * @param string $separator html code
-     *
-     * @param bool $show_heading
+     * @param  string  $separator html code
+     * @param  bool  $show_heading
      * @return string
      */
     public function toHtml($separator = '<br/>', $show_heading = true)
@@ -223,7 +212,8 @@ class Address extends Model
 
     /**
      * Return a "string formatted" version of the address.
-     * @param bool $title
+     *
+     * @param  bool  $title
      * @return string
      */
     public function toString($title = false)

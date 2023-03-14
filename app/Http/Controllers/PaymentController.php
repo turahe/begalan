@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Payments\PaymentUpdateRequest;
 use App\Models\Payment;
 use App\Notifications\AdminPaymentNotification;
-use App\Notifications\StudentPaymentNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
@@ -17,8 +16,8 @@ use Illuminate\Support\Facades\Notification;
 class PaymentController extends Controller
 {
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|RedirectResponse
+     *
      *@throws \Exception
      */
     public function index(Request $request)
@@ -75,7 +74,6 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function view(int $id)
@@ -87,11 +85,11 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param $id
-     * @throws \Exception
      * @return RedirectResponse
      *
      * Delete the Payment
+     *
+     * @throws \Exception
      */
     public function delete($id)
     {
@@ -104,8 +102,6 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param PaymentUpdateRequest $request
-     * @param int $id
      * @return RedirectResponse
      *
      * Update the payment status, and it's related data

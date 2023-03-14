@@ -31,10 +31,10 @@ class ContentFactory extends Factory
             'source_vimeo' => null,
             'source_embedded' => null,
             'runtime' => [
-                    'hours' => '00',
-                    'mins' => mt_rand(6, 10),
-                    'secs' => '00',
-                ],
+                'hours' => '00',
+                'mins' => mt_rand(6, 10),
+                'secs' => '00',
+            ],
         ];
 
         return [
@@ -45,11 +45,11 @@ class ContentFactory extends Factory
             'item_type' => $this->faker->randomElement(['lecture', 'assignment', 'quiz']),
             'is_preview' => $this->faker->boolean,
             'status' => $this->faker->boolean,
-//        'sort_order' => '',
-//        'options' => '',
-//        'quiz_gradable' => '',
-//        'unlock_date' => '',
-//        'unlock_days' => '',
+            //        'sort_order' => '',
+            //        'options' => '',
+            //        'quiz_gradable' => '',
+            //        'unlock_date' => '',
+            //        'unlock_days' => '',
 
         ];
     }

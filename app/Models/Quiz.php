@@ -33,6 +33,7 @@ use Illuminate\Support\Arr;
  * @property-read mixed $url
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
  * @property-read int|null $questions_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz query()
@@ -55,8 +56,11 @@ use Illuminate\Support\Arr;
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz whereVideoSrc($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz whereVideoTime($value)
+ *
  * @mixin \Eloquent
+ *
  * @property string|null $deleted_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Quiz whereDeletedAt($value)
  */
 class Quiz extends Model
@@ -65,30 +69,25 @@ class Quiz extends Model
      * @var string
      */
     protected $table = 'contents';
+
     /**
      * @var array
      */
     protected $guarded = [];
 
-    /**
-     * @return HasMany
-     */
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class, 'quiz_id')->with('media');
     }
 
-    /**
-     * @return HasMany
-     */
     public function attempts(): HasMany
     {
         return $this->hasMany(Attempt::class, 'quiz_id');
     }
 
     /**
-     * @param null $key
-     * @param null $default
+     * @param  null  $key
+     * @param  null  $default
      * @return mixed|null
      */
     public function option($key = null, $default = null)

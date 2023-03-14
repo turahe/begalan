@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Course $course
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll query()
@@ -31,21 +32,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Enroll whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Enroll extends Model
 {
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');

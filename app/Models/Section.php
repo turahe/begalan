@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read object $drip
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $items
  * @property-read int|null $items_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Section newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Section newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Section query()
@@ -33,12 +34,15 @@ use Illuminate\Support\Facades\Auth;
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereUnlockDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereUnlockDays($value)
+ *
  * @mixin \Eloquent
+ *
  * @property string $name
  * @property int $order_column
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Section ordered(string $direction = 'asc')
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereDeletedAt($value)
@@ -51,17 +55,11 @@ class Section extends Model implements Sortable
     use SortableTrait;
     use HasFactory;
 
-    /**
-     * @return BelongsTo
-     */
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function items(): HasMany
     {
         if (Auth::check()) {

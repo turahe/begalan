@@ -29,17 +29,11 @@ trait SortableTrait
         $this->$orderColumnName = $this->getHighestOrderNumber() + 1;
     }
 
-    /**
-     * @return int
-     */
     public function getHighestOrderNumber(): int
     {
         return (int) $this->buildSortQuery()->max($this->determineOrderColumnName());
     }
 
-    /**
-     * @return int
-     */
     public function getLowestOrderNumber(): int
     {
         return (int) $this->buildSortQuery()->min($this->determineOrderColumnName());
@@ -48,8 +42,6 @@ trait SortableTrait
     /**
      * Let's be nice and provide an ordered scope.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrdered(Builder $query, string $direction = 'asc')
@@ -57,11 +49,6 @@ trait SortableTrait
         return $query->orderBy($this->determineOrderColumnName(), $direction);
     }
 
-    /**
-     * @param $ids
-     * @param int $startOrder
-     * @param string|null $primaryKeyColumn
-     */
     public static function setNewOrder($ids, int $startOrder = 1, string $primaryKeyColumn = null)
     {
         if (! is_array($ids) && ! $ids instanceof ArrayAccess) {
@@ -83,19 +70,11 @@ trait SortableTrait
         }
     }
 
-    /**
-     * @param string $primaryKeyColumn
-     * @param $ids
-     * @param int $startOrder
-     */
     public static function setNewOrderByCustomColumn(string $primaryKeyColumn, $ids, int $startOrder = 1)
     {
         self::setNewOrder($ids, $startOrder, $primaryKeyColumn);
     }
 
-    /**
-     * @return string
-     */
     public function determineOrderColumnName(): string
     {
         return isset($this->sortable['order_column_name'])
@@ -152,7 +131,6 @@ trait SortableTrait
     }
 
     /**
-     * @param Sortable $otherModel
      * @return $this
      */
     public function swapOrderWithModel(Sortable $otherModel)
@@ -170,10 +148,6 @@ trait SortableTrait
         return $this;
     }
 
-    /**
-     * @param Sortable $model
-     * @param Sortable $otherModel
-     */
     public static function swapOrder(Sortable $model, Sortable $otherModel)
     {
         $model->swapOrderWithModel($otherModel);
@@ -227,9 +201,6 @@ trait SortableTrait
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isLastInOrder(): bool
     {
         $orderColumnName = $this->determineOrderColumnName();
@@ -237,9 +208,6 @@ trait SortableTrait
         return (int) $this->$orderColumnName === $this->getHighestOrderNumber();
     }
 
-    /**
-     * @return bool
-     */
     public function isFirstInOrder(): bool
     {
         $orderColumnName = $this->determineOrderColumnName();

@@ -23,7 +23,6 @@ class DiscussionController extends Controller
     }
 
     /**
-     * @param $discussion_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function reply($discussion_id)
@@ -35,10 +34,9 @@ class DiscussionController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $discussion_id
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function replyPost(Request $request, $discussion_id)
     {
@@ -67,15 +65,15 @@ class DiscussionController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function askQuestion(Request $request)
     {
         $rules = [
-            'title'     => 'required|max:220',
-            'message'   => 'required',
+            'title' => 'required|max:220',
+            'message' => 'required',
         ];
 
         $this->validate($request, $rules);

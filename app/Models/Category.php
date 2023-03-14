@@ -33,6 +33,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read Category|null $parent_category
  * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $sub_categories
  * @property-read int|null $sub_categories_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
@@ -49,6 +50,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Category extends Model implements HasMedia, Sortable
@@ -58,6 +60,7 @@ class Category extends Model implements HasMedia, Sortable
     use SoftDeletes;
     use SortableTrait;
     use InteractsWithMedia;
+
     /**
      * @var array
      */
@@ -65,9 +68,6 @@ class Category extends Model implements HasMedia, Sortable
         'name',
     ];
 
-    /**
-     * @return SlugOptions
-     */
     public function getSlugOptions(): SlugOptions
     {
         // TODO: Implement getSlugOptions() method.
@@ -79,8 +79,6 @@ class Category extends Model implements HasMedia, Sortable
     /**
      * Generate url category by
      * call category->url.
-     *
-     * @return string
      */
     public function getUrlAttribute(): string
     {
@@ -88,7 +86,6 @@ class Category extends Model implements HasMedia, Sortable
     }
 
     /**
-     * @param $query
      * @return mixed
      */
     public function scopeParent($query)

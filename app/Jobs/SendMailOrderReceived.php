@@ -15,13 +15,11 @@ class SendMailOrderReceived implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $order;
+
     protected $user;
 
     /**
      * Create a new job instance.
-     *
-     * @param $order
-     * @param $user
      */
     public function __construct($order, $user)
     {

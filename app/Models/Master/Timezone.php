@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Cache;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Timezone newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Timezone newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Timezone query()
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\Cache;
  * @method static \Illuminate\Database\Eloquent\Builder|Timezone whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Timezone whereUtc($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Timezone whereValue($value)
+ *
  * @mixin \Eloquent
  */
 class Timezone extends Model

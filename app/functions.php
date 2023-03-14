@@ -48,9 +48,9 @@ if (! function_exists('pageJsonData')) {
 
 if (! function_exists('unique_slug')) {
     /**
-     * @param string $title
-     * @param string $model
-     * @param int $skip_id
+     * @param  string  $title
+     * @param  string  $model
+     * @param  int  $skip_id
      * @return string|string[]|null
      */
     function unique_slug($title = '', $model = 'Course', $skip_id = 0)
@@ -93,7 +93,6 @@ if (! function_exists('unique_slug')) {
 
 if (! function_exists('next_curriculum_item_id')) {
     /**
-     * @param $course_id
      * @return int
      */
     function next_curriculum_item_id($course_id)
@@ -128,8 +127,8 @@ if (! function_exists('current_disk')) {
  */
 if (! function_exists('get_option')) {
     /**
-     * @param string $key
-     * @param null $default
+     * @param  string  $key
+     * @param  null  $default
      * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\App\Modelslication|mixed
      */
     function get_option($key = '', $default = null)
@@ -149,8 +148,8 @@ if (! function_exists('get_option')) {
 }
 if (! function_exists('get_from_array')) {
     /**
-     * @param null $key
-     * @param array $arr
+     * @param  null  $key
+     * @param  array  $arr
      * @return mixed|null
      */
     function get_from_array($key = null, $arr = [])
@@ -184,8 +183,6 @@ if (! function_exists('get_from_array')) {
 
 if (! function_exists('update_option')) {
     /**
-     * @param $key
-     * @param $value
      * @return bool
      */
     function update_option($key, $value)
@@ -198,7 +195,6 @@ if (! function_exists('update_option')) {
 }
 if (! function_exists('delete_option')) {
     /**
-     * @param $key
      * @throws Exception
      */
     function delete_option($key)
@@ -239,7 +235,7 @@ if (! function_exists('delete_option')) {
  */
 if (! function_exists('__a')) {
     /**
-     * @param null $key
+     * @param  null  $key
      * @return array|\Illuminate\Contracts\Foundation\App\Modelslication|\Illuminate\Contracts\Translation\Translator|mixed|string|null
      */
     function __a($key = null)
@@ -283,7 +279,7 @@ if (! function_exists('get_theme')) {
  */
 if (! function_exists('theme')) {
     /**
-     * @param null $view
+     * @param  null  $view
      * @return string
      */
     function theme($view = null)
@@ -294,7 +290,7 @@ if (! function_exists('theme')) {
 
 if (! function_exists('theme_asset')) {
     /**
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     function theme_asset($path = '')
@@ -305,7 +301,7 @@ if (! function_exists('theme_asset')) {
 
 if (! function_exists('theme_url')) {
     /**
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     function theme_url($path = '')
@@ -324,10 +320,11 @@ if (! function_exists('theme_url')) {
 
 if (! function_exists('view_template')) {
     /**
-     * @param null $view
-     * @param array $data
-     * @param array $mergeData
+     * @param  null  $view
+     * @param  array  $data
+     * @param  array  $mergeData
      * @return string
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function view_template($view = null, $data = [], $mergeData = [])
@@ -358,10 +355,11 @@ function view_dashboard_template($view = null, $data = [], $mergeData = []){
 
 if (! function_exists('view_template_part')) {
     /**
-     * @param null $view
-     * @param array $data
-     * @param array $mergeData
+     * @param  null  $view
+     * @param  array  $data
+     * @param  array  $mergeData
      * @return string
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function view_template_part($view = null, $data = [], $mergeData = [])
@@ -371,11 +369,10 @@ if (! function_exists('view_template_part')) {
 }
 
 if (! function_exists('media_upload_form')) {
-
     /**
-     * @param string $input_name
-     * @param string $btn_text
-     * @param string $current_media_id
+     * @param  string  $input_name
+     * @param  string  $btn_text
+     * @param  string  $current_media_id
      */
     function media_upload_form($input_name = 'media_id', $btn_text = 'Upload Media', $btn_class = null, $current_media_id = '')
     {
@@ -386,8 +383,8 @@ if (! function_exists('media_upload_form')) {
         <div class="image-wrap media-btn-wrap">
             <div class="saved-media-id">
                 <?php if ($current_media_id) {
-            echo "<p class='text-info'>Uploaded ID: <strong>{$current_media_id}</strong></p>";
-        } ?>
+                    echo "<p class='text-info'>Uploaded ID: <strong>{$current_media_id}</strong></p>";
+                } ?>
             </div>
             <a href="javascript:;" class="<?php echo $btn_class; ?>" data-toggle="filemanager">
                 <?php echo $btn_text; ?>
@@ -399,7 +396,7 @@ if (! function_exists('media_upload_form')) {
 }
 
 /**
- * @param instance $course_instance
+ * @param  instance  $course_instance
  */
 function course_url($course_instance)
 {
@@ -425,8 +422,8 @@ function get_currency()
 }
 
 /**
- * @param int $amount
- * @param null $currency
+ * @param  int  $amount
+ * @param  null  $currency
  * @return string
  */
 function price_format($amount = 0, $currency = null)
@@ -451,7 +448,7 @@ function price_format($amount = 0, $currency = null)
 }
 
 /**
- * @param int $amount
+ * @param  int  $amount
  * @return int|string
  */
 function get_amount_raw($amount = 0)
@@ -501,8 +498,8 @@ if (! function_exists('get_zero_decimal_currency')) {
 
 if (! function_exists('get_stripe_amount')) {
     /**
-     * @param int $amount
-     * @param string $type
+     * @param  int  $amount
+     * @param  string  $type
      * @return float|int|mixed
      */
     function get_stripe_amount($amount = 0, $type = 'to_cents')
@@ -704,7 +701,7 @@ function get_currencies()
  */
 if (! function_exists('get_currency_symbol')) {
     /**
-     * @param string $currency
+     * @param  string  $currency
      * @return string
      */
     function get_currency_symbol($currency = '')
@@ -896,9 +893,8 @@ if (! function_exists('get_currency_symbol')) {
 
 if (! function_exists('checked')) {
     /**
-     * @param $checked
-     * @param bool $current
-     * @param bool $echo
+     * @param  bool  $current
+     * @param  bool  $echo
      * @return string
      */
     function checked($checked, $current = true, $echo = true)
@@ -915,9 +911,8 @@ if (! function_exists('checked')) {
 
 if (! function_exists('selected')) {
     /**
-     * @param $selected
-     * @param bool $current
-     * @param bool $echo
+     * @param  bool  $current
+     * @param  bool  $echo
      * @return string
      */
     function selected($selected, $current = true, $echo = true)
@@ -936,10 +931,6 @@ if (! function_exists('selected')) {
 
 if (! function_exists('__checked_selected_helper')) {
     /**
-     * @param $helper
-     * @param $current
-     * @param $echo
-     * @param $type
      * @return string
      */
     function __checked_selected_helper($helper, $current, $echo, $type)
@@ -966,7 +957,7 @@ if (! function_exists('__checked_selected_helper')) {
  *
  * @since 3.6.0
  *
- * @param string $file Path to file.
+ * @param  string  $file Path to file.
  * @return array|bool Returns array of metadata, if found.
  */
 function read_video_metadata($file)
@@ -1064,9 +1055,9 @@ function read_video_metadata($file)
      */
 
     return [
-        'metadata'  => $metadata,
-        'file_format'  => $file_format,
-        'data'  => $data,
+        'metadata' => $metadata,
+        'file_format' => $file_format,
+        'data' => $data,
     ];
 }
 
@@ -1079,7 +1070,7 @@ function read_video_metadata($file)
  *
  * @link https://github.com/JamesHeinrich/getID3/blob/master/structure.txt
  *
- * @param array $metadata The metadata returned by getID3::analyze().
+ * @param  array  $metadata The metadata returned by getID3::analyze().
  * @return bool|int A UNIX timestamp for the media's creation date if available
  *                  or a boolean FALSE if a timestamp could not be determined.
  */
@@ -1137,7 +1128,7 @@ if (! function_exists('icon_classes')) {
 }
 
 /**
- * @param int $level
+ * @param  int  $level
  * @return array|mixed
  *
  * Course levels
@@ -1161,7 +1152,7 @@ function course_levels($level = null)
 }
 
 /**
- * @param int $seconds
+ * @param  int  $seconds
  * @return string
  */
 function seconds_to_time_format($seconds = 0)
@@ -1184,7 +1175,7 @@ function seconds_to_time_format($seconds = 0)
 
 if (! function_exists('cart')) {
     /**
-     * @param int $course_id
+     * @param  int  $course_id
      * @return null|array|mixed
      */
     function cart($course_id = 0)
@@ -1202,7 +1193,7 @@ if (! function_exists('cart')) {
             'total_price' => $total_price,
             'total_original_price' => array_sum(array_column(array_values($data), 'original_price')),
             'count' => count($data),
-            'enable_charge_fees'    => false,
+            'enable_charge_fees' => false,
             'unique_code' => mt_rand(111, 999),
         ];
 
@@ -1231,9 +1222,8 @@ if (! function_exists('cart')) {
 }
 
 /**
- * @param string $type
+ * @param  string  $type
  * @return string
- *
  * @return stripe secret key or test key
  */
 function get_stripe_key($type = 'publishable')
@@ -1268,12 +1258,12 @@ function do_enroll($user_id, $course_id, $course_price, $payment_id = 0)
     $carbon = Carbon::now()->toDateTimeString();
 
     $data = [
-        'course_id'     => $course_id,
-        'user_id'       => $user_id,
-        'course_price'  => $course_price,
-        'payment_id'    => $payment_id,
-        'status'        => 'success',
-        'enrolled_at'   => $carbon,
+        'course_id' => $course_id,
+        'user_id' => $user_id,
+        'course_price' => $course_price,
+        'payment_id' => $payment_id,
+        'status' => 'success',
+        'enrolled_at' => $carbon,
     ];
 
     DB::table('enrolls')->insert($data);
@@ -1282,8 +1272,6 @@ function do_enroll($user_id, $course_id, $course_price, $payment_id = 0)
 
 if (! function_exists('complete_content')) {
     /**
-     * @param $content
-     * @param $user
      * @return false
      */
     function complete_content($content, $user)
@@ -1337,9 +1325,9 @@ if (! function_exists('complete_content')) {
 }
 
 /**
- * @param string $name
- * @param string $label
- * @param string $old_value
+ * @param  string  $name
+ * @param  string  $label
+ * @param  string  $old_value
  */
 function switch_field($name = '', $label = '', $old_value = '')
 {
@@ -1362,9 +1350,9 @@ function switch_field($name = '', $label = '', $old_value = '')
  */
 if (! function_exists('course_card')) {
     /**
-     * @param $course
-     * @param null $grid_class
+     * @param  null  $grid_class
      * @return string
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function course_card($course, $grid_class = null)
@@ -1375,7 +1363,7 @@ if (! function_exists('course_card')) {
 
 if (! function_exists('countries')) {
     /**
-     * @param null $country_id
+     * @param  null  $country_id
      * @return \App\Models\Country|\App\Models\Country[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|null
      */
     function countries($country_id = null)
@@ -1401,8 +1389,8 @@ if (! function_exists('countries')) {
 
 if (! function_exists('star_rating_field')) {
     /**
-     * @param float $current_rating
-     * @param false $echo
+     * @param  float  $current_rating
+     * @param  false  $echo
      * @return string
      */
     function star_rating_field($current_rating = 0.00, $echo = false)
@@ -1422,7 +1410,7 @@ if (! function_exists('star_rating_field')) {
 
 if (! function_exists('star_rating_generator')) {
     /**
-     * @param float $current_rating
+     * @param  float  $current_rating
      * @return string
      */
     function star_rating_generator($current_rating = 0.00)
@@ -1453,8 +1441,8 @@ if (! function_exists('star_rating_generator')) {
 
 if (! function_exists('has_review')) {
     /**
-     * @param null $user_id
-     * @param null $course_id
+     * @param  null  $user_id
+     * @param  null  $course_id
      * @return Review|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     function has_review($user_id = null, $course_id = null)
@@ -1473,9 +1461,9 @@ if (! function_exists('has_review')) {
  */
 if (! function_exists('no_data')) {
     /**
-     * @param string $title
-     * @param string $desc
-     * @param null $class
+     * @param  string  $title
+     * @param  string  $desc
+     * @param  null  $class
      * @return string
      */
     function no_data($title = '', $desc = '', $class = null)
@@ -1571,7 +1559,7 @@ if (! function_exists('withdraw_methods')) {
 
 if (! function_exists('active_withdraw_methods')) {
     /**
-     * @param null $method_key
+     * @param  null  $method_key
      * @return mixed
      */
     function active_withdraw_methods($method_key = null)
@@ -1597,7 +1585,7 @@ if (! function_exists('active_withdraw_methods')) {
  */
 if (! function_exists('question_types')) {
     /**
-     * @param null $type
+     * @param  null  $type
      * @return mixed
      */
     function question_types($type = null)
@@ -1627,9 +1615,7 @@ if (! function_exists('question_types')) {
 
 if (! function_exists('linkify')) {
     /**
-     * @param $value
-     * @param string[] $protocols
-     * @param array $attributes
+     * @param  string[]  $protocols
      * @return string|string[]|null
      */
     function linkify($value, $protocols = ['http', 'mail'], array $attributes = [])
@@ -1694,7 +1680,6 @@ if (! function_exists('linkify')) {
  */
 if (! function_exists('route_has')) {
     /**
-     * @param $route
      * @return bool
      */
     function route_has($route)
@@ -1711,7 +1696,7 @@ if (! function_exists('route_has')) {
  */
 if (function_exists('plugin_activated')) {
     /**
-     * @param null $basename
+     * @param  null  $basename
      * @return bool|null
      */
     function plugin_activated($basename = null)
@@ -1758,7 +1743,7 @@ if (! function_exists('cookie_message_html')) {
 
 if (! function_exists('clean_html')) {
     /**
-     * @param null $text
+     * @param  null  $text
      * @return string|string[]|null
      */
     function clean_html($text = null)
@@ -1777,8 +1762,8 @@ if (! function_exists('optionalGetValueOrValueIsEqual')) {
     /**
      * Return boolean if value is set, else return the value is equal as expected.
      *
-     * @param mixed $actual
-     * @param null|string|array $value
+     * @param  mixed  $actual
+     * @param  null|string|array  $value
      * @return mixed|bool
      */
     function optionalGetValueOrValueIsEqual($actual, $expected)
@@ -1854,10 +1839,8 @@ if (! isset($teachify_current_filter)) {
 }
 
 /**
- * @param $tag
- * @param $function_to_add
- * @param int $priority
- * @param int $accepted_args
+ * @param  int  $priority
+ * @param  int  $accepted_args
  * @return bool
  */
 function add_filter($tag, $function_to_add, $priority = 10, $accepted_args = 1)
@@ -1872,8 +1855,7 @@ function add_filter($tag, $function_to_add, $priority = 10, $accepted_args = 1)
 }
 
 /**
- * @param $tag
- * @param bool $function_to_check
+ * @param  bool  $function_to_check
  * @return bool|int
  */
 function has_filter($tag, $function_to_check = false)
@@ -1888,8 +1870,6 @@ function has_filter($tag, $function_to_check = false)
 }
 
 /**
- * @param $tag
- * @param $value
  * @return mixed
  */
 function apply_filters($tag, $value)
@@ -1927,8 +1907,6 @@ function apply_filters($tag, $value)
 }
 
 /**
- * @param $tag
- * @param $args
  * @return mixed
  */
 function apply_filters_ref_array($tag, $args)
@@ -1962,9 +1940,7 @@ function apply_filters_ref_array($tag, $args)
 }
 
 /**
- * @param $tag
- * @param $function_to_remove
- * @param int $priority
+ * @param  int  $priority
  * @return bool
  */
 function remove_filter($tag, $function_to_remove, $priority = 10)
@@ -1983,8 +1959,7 @@ function remove_filter($tag, $function_to_remove, $priority = 10)
 }
 
 /**
- * @param $tag
- * @param bool $priority
+ * @param  bool  $priority
  * @return bool
  */
 function remove_all_filters($tag, $priority = false)
@@ -2020,7 +1995,7 @@ function current_action()
 }
 
 /**
- * @param null $filter
+ * @param  null  $filter
  * @return bool
  */
 function doing_filter($filter = null)
@@ -2035,7 +2010,7 @@ function doing_filter($filter = null)
 }
 
 /**
- * @param null $action
+ * @param  null  $action
  * @return bool
  */
 function doing_action($action = null)
@@ -2044,10 +2019,8 @@ function doing_action($action = null)
 }
 
 /**
- * @param $tag
- * @param $function_to_add
- * @param int $priority
- * @param int $accepted_args
+ * @param  int  $priority
+ * @param  int  $accepted_args
  * @return true
  */
 function add_action($tag, $function_to_add, $priority = 10, $accepted_args = 1)
@@ -2056,8 +2029,7 @@ function add_action($tag, $function_to_add, $priority = 10, $accepted_args = 1)
 }
 
 /**
- * @param $tag
- * @param mixed ...$arg
+ * @param  mixed  ...$arg
  */
 function do_action($tag, ...$arg)
 {
@@ -2101,7 +2073,6 @@ function do_action($tag, ...$arg)
 }
 
 /**
- * @param $tag
  * @return int
  */
 function did_action($tag)
@@ -2115,10 +2086,6 @@ function did_action($tag)
     return $teachify_actions[$tag];
 }
 
-/**
- * @param $tag
- * @param $args
- */
 function do_action_ref_array($tag, $args)
 {
     global $teachify_filter, $teachify_actions, $teachify_current_filter;
@@ -2154,8 +2121,7 @@ function do_action_ref_array($tag, $args)
 }
 
 /**
- * @param $tag
- * @param bool $function_to_check
+ * @param  bool  $function_to_check
  * @return false|int
  */
 function has_action($tag, $function_to_check = false)
@@ -2164,9 +2130,7 @@ function has_action($tag, $function_to_check = false)
 }
 
 /**
- * @param $tag
- * @param $function_to_remove
- * @param int $priority
+ * @param  int  $priority
  * @return bool
  */
 function remove_action($tag, $function_to_remove, $priority = 10)
@@ -2175,8 +2139,7 @@ function remove_action($tag, $function_to_remove, $priority = 10)
 }
 
 /**
- * @param $tag
- * @param bool $priority
+ * @param  bool  $priority
  * @return true
  */
 function remove_all_actions($tag, $priority = false)
@@ -2184,9 +2147,6 @@ function remove_all_actions($tag, $priority = false)
     return remove_all_filters($tag, $priority);
 }
 
-/**
- * @param $args
- */
 function _teachify_call_all_hook($args)
 {
     global $teachify_filter;

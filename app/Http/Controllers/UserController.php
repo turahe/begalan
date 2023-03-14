@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function profile($id)
@@ -31,7 +30,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function review($id)
@@ -43,7 +41,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      */
     public function updateWishlist(Request $request)
@@ -77,9 +74,9 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function changePasswordPost(Request $request)
     {
@@ -87,9 +84,9 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'This feature has been disable for demo');
         }
         $rules = [
-            'old_password'  => 'required',
-            'new_password'  => 'required|confirmed',
-            'new_password_confirmation'  => 'required',
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+            'new_password_confirmation' => 'required',
         ];
         $this->validate($request, $rules);
 

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use App\Models\Role;
-use App\Services\Helpers\Acl;
 use Illuminate\Database\Seeder;
 
 class RolesTableSeeder extends Seeder

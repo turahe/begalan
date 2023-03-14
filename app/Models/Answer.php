@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $r_score
  * @property int|null $is_correct
  * @property-read \App\Models\Question|null $question
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Answer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Answer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Answer query()
@@ -32,14 +33,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Answer whereQuizId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Answer whereRScore($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Answer whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Answer extends Model
 {
-
-    /**
-     * @return BelongsTo
-     */
     public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class, 'question_id');

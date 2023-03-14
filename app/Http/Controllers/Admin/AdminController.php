@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \Exception
      *
      * Landing page of dashboard
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -70,7 +71,6 @@ class AdminController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      *
      * Show all courses to the admin.
@@ -153,10 +153,10 @@ class AdminController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      *
      * Withdraw requests
+     *
      * @throws \Exception
      */
     public function withdrawsRequests(Request $request)

@@ -65,9 +65,9 @@ class EarningController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Exception
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     * @throws \Exception
      */
     public function earningReport(Request $request)
     {
@@ -204,9 +204,9 @@ class EarningController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function withdrawPost(Request $request)
     {
@@ -251,7 +251,6 @@ class EarningController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function withdrawPreferencePost(Request $request)

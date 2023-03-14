@@ -27,7 +27,6 @@ class AssignmentController extends Controller
     }
 
     /**
-     * @param $course_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * View all assignments
@@ -41,7 +40,6 @@ class AssignmentController extends Controller
     }
 
     /**
-     * @param $assignment_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function submissions($assignment_id)
@@ -53,7 +51,6 @@ class AssignmentController extends Controller
     }
 
     /**
-     * @param $submission_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * All submission for the quiz
@@ -66,12 +63,11 @@ class AssignmentController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $submission_id
+     * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Illuminate\Validation\ValidationException
      *
      * Evaluating the quiz
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function evaluation(Request $request, $submission_id)
     {

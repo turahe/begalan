@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CategoriesController.
@@ -13,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class CategoriesController extends Controller
 {
     /**
-     * @param Request $request
      * @return array
      */
     public function getTopicOptions(Request $request)
@@ -29,7 +26,6 @@ class CategoriesController extends Controller
     }
 
     /**
-     * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * Show categories view
